@@ -14,7 +14,7 @@ Building
 
 * First, install these packages:
 
-      sudo apt-get install build-essential libmotif3 libmotif-dev libpng3 
+      sudo apt-get install build-essential libmotif3 libmotif-dev libpng3 x11-proto-print-dev libxmu-headers libxpm-dev libxmu-dev
 
 * Next, build with:
 
