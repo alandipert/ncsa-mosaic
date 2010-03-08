@@ -1,8 +1,0 @@
-#!/bin/sh
-
-for i in . libwww2 libhtmlw src libnut libXmx libdtm libnet
-do
-    echo "cp $i/Makefile.orig $i/Makefile"
-    cp $i/Makefile.orig $i/Makefile
-done
-
