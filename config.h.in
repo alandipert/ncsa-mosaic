@@ -1,0 +1,38 @@
+/* src/config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define to empty if the keyword does not work.  */
+#undef const
+
+#undef XMOSAIC
+#undef PRERELEASE
+
+/* Defines for system types */
+#undef ALPHA
+#undef _BSD
+#undef DGUX
+#undef NEXT
+#undef _HPUX_SOURCE
+#undef MO_IRIX5
+#undef SVR4
+#undef SOLARIS
+#undef SOLARIS23
+#undef SOLARIS24
+#undef SOLARIS24X86
+#undef SCO
+#undef SUN
+#undef CONVEX
+#undef MOTOROLA
+#undef BROKEN_MOTIF
+
+/* external software packages */
+#undef HAVE_JPEG 
+#undef HAVE_PNG
+#undef HAVE_DTM
+#undef HAVE_WAIS
+
+
+/* define to figure motif version (does anybody use 1.0?)*/
+#undef MOTIF
+#undef MOTIF1_1
+#undef MOTIF1_2
+#undef MOTIF2_0

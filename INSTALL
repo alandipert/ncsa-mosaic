@@ -1,0 +1,400 @@
+=================================
+Installation Notes: NCSA X Mosaic
+=================================
+
+=================
+Table of Contents
+=================
+Section One: Introduction
+	How our Makefile works and what we would like from you...
+Section Two: Step-by-Step
+	Four easy steps to X Mosaic.
+Section Three: The Makefile.OS
+	How the Makefiles are set up and what means what.
+Section Four: Disclaimer
+	If captured, we will disavow all knowledge...
+
+=========================
+Section One: Introduction
+=========================
+
+First you will need to edit the Makefile for your OS. The toplevel makefile
+simply calls one of the specific makefiles located in the directory
+"makefiles". Its purpose is to enable a quick way of using the correct
+makefile for people who recompile Mosaic again and again. It also facillitates
+adding a new platform. There are two ways to use the toplevel makefile: First
+you can manually specify "make <OS>" where <OS> is one of the items listed
+when you type "make help" or "make list" or you set the environment variable
+"DEV_ARCH" (developer architecture) to one of the same items. Of course, this
+assumes you have made the necessary adjustments to the makefile of your
+choice. In the near future we intend to implement autoconf (GNU) which should
+solve _everyone's_ problems.
+
+=========================
+Section Two: Step-by-Step
+=========================
+
+1) Edit "makefiles/Makefile.OS" (issue "make list" from toplevel to see
+	a list of supported OSs). See Section Three for more information.
+2) Compile any external libraries you need (from what you selected in your
+	Makefile.OS.
+3) Install Mosaic in your favorite thrid party directory.
+4) Start up Mosaic and READ THE RELEASE NOTES! There have, no doubt, been
+	tremendous strides forward!
+
+==============================
+Section Three: The Makefile.OS
+==============================
+
+What I am going to do is simply include Makefile.solaris-24 and explain each
+part. To save space, only the configurable section is included. My comments
+are noted by:
+
+:::
+SWP
+---
+Comment
+:::
+
+----------------------------Makefile.solaris-24------------------------------
+# Toplevel Makefile for NCSA Mosaic.
+
+# You shouldn't need to touch any of the Makefiles in the various
+# source subdirectories if you configure this Makefile correctly.
+
+# If you need to make serious changes to get Mosaic to compile on your
+# platform, send context diffs to mosaic-x@ncsa.uiuc.edu.
+
+# -------------------------- CUSTOMIZABLE OPTIONS ----------------------------
+
+prereleaseflags = -DPRERELEASE
+:::
+SWP
+---
+The prereleaseflags variable should not be modified as it allows us to set the
+correct version as well as dictating whether or not the comment card is
+active.
+:::
+
+RANLIB = /bin/true
+#### On non-SGI's, this should be ranlib.
+# RANLIB = ranlib
+:::
+SWP
+---
+The RANLIB variable should be set according to whether or not your system
+needs to have libraries ranlibed.
+:::
+
+#CC = cc
+#### On Sun's, this should be gcc (ANSI required).
+CC = gcc
+:::
+SWP
+---
+Set your compiler here. If you use something other than one of the two
+listed, make it so, otherwise comment one or the other out.
+:::
+
+#### Linker Flags -- Primarily for linking static on linux-elf.
+#ldflags = -static
+ldflags =
+:::
+SWP
+---
+This is where you stick anything extra for linking. This will only affect the
+final link of Mosaic (not building libraries).
+:::
+
+#### For a few files in the source, some compilers may need to be kicked
+#### in K&R mode.  E.g., on SGI's, -cckr does this.
+# knrflag = -cckr
+#### On most systems, no flag is needed.
+knrflag =
+:::
+SWP
+---
+This does exactly what the comment above says. It is used on every compile.
+:::
+
+#### Random system configuration flags.
+#### --> *** For Motif 1.2 ON ANY PLATFORM, do -DMOTIF1_2 *** <--
+#### For IBM AIX 3.2, do -D_BSD
+#### For NeXT, do -DNEXT
+#### For HP/UX, do -Aa -D_HPUX_SOURCE
+#### For Dell SVR4, do -DSVR4
+#### For Solaris, do -DSVR4 -DSOLARIS
+#### For Esix 4.0.4 and Solaris x86 2.1, do -DSVR4
+#### For Convex whatever, do -DCONVEX
+#### For SCO ODT 3.0, do -DSCO -DSVR4 -DMOTIF1_2
+#### For Motorola SVR4, do -DSVR4 -DMOTOROLA -DMOTIF1_2
+sysconfigflags = -DSOLARIS -DSVR4 -DMOTIF1_2 -DSOLARIS24
+:::
+SWP
+---
+This is used to pass in weird system flags...basically, if they aren't defined
+or defined correctly for your system to not barf on the source code, add it
+here. This is given to every compile line.
+:::
+
+#### System libraries.
+# syslibs = -lPW -lsun -lmalloc
+#### For AIX 3.2
+# syslibs = -lPW -lbsd
+#### For most other Motif platforms:
+# syslibs = -lPW
+#### For Sun's and Ultrix and HP and BSD/386:
+# syslibs =
+#### For Sun's with no DNS:
+# syslibs = -lresolv
+#### For SCO ODT:
+# syslibs = -lPW -lsocket -lmalloc
+#### For Dell SVR4:
+# syslibs = -lnsl -lsocket -lc -lucb
+#### For Solaris (2.x)  --nsl does not link correctly staticly.
+syslibs = -lnsl /usr/lib/libsocket.a /usr/ccs/lib/libgen.a
+#### For Motorola SVR4:
+# syslibs = -lnsl -lsocket -lgen
+:::
+SWP
+---
+These are any additional libraries needed (system libs only).
+:::
+
+#### X include file locations -- if your platform puts the X include
+#### files in a strange place, set this variable appropriately.  Else
+#### don't worry about it.
+#### HP X11R4 version:
+# xinc = -I/usr/include/Motif1.1 -I/usr/include/X11R4
+#### HP X11R5 version:
+# xinc = -I/usr/include/Motif1.2 -I/usr/local/X11R5/include
+#### NeXT version:
+# xinc = -I/usr/include/X11
+#### BSD/386
+# xinc = -I/usr/X11/include
+#### Solaris 2.x (Patched X11R5 and Motif libs)
+xinc = -I/usr/openwin/include -I/usr/dt/include
+:::
+SWP
+---
+This is where you specify where you have installed your X libraries. Some 
+systems have everything off of /usr/lib, some are not so lucky. If you
+are compiling and you get an error of "can't find include file XXX.h" it is
+more than likely a problem here (or if you don't have a particular lib
+installed.
+:::
+
+#### X library locations.
+# xlibs = -lXm_s -lXmu -lXt_s -lX11_s
+#### For Sun's (at least running stock X/Motif as installed on our machines):
+# xlibs = /usr/lib/libXm.a /usr/lib/libXmu.a /usr/lib/libXt.a /usr/lib/libXext.a /usr/lib/libX11.a -lm
+#### For HP-UX 8.00:
+# xlibs = -L/usr/lib/Motif1.1 -lXm -L/usr/lib/X11R4 -lXmu -lXt -lX11
+#### For HP-UX 9.01: The X11R5 libraries are here on our systems
+# xlibs = -L/usr/lib/Motif1.2 -lXm -L/usr/lib/X11R5 -L/usr/lib/X11R4 -lXmu -lXt -lX11
+#### For NeXT:
+# xlibs = -L/usr/lib/X11 -lXm -lXmu -lXt -lX11
+#### For Dell SVR4:
+# xlibs = -L/usr/X5/lib -lXm -lXmu -lXt -lXext -lX11
+#### For Solaris (2.x) (Use static to go from machine to machine)
+xlibs = -L/usr/openwin/lib -L/usr/dt/lib -R/usr/dt/lib -lXm
+xlibs += /usr/openwin/lib/libXmu.a /usr/openwin/lib/libXt.a
+xlibs += /usr/openwin/lib/libXext.a -lX11
+xlibs += /usr/lib/libm.a
+#### For SCO ODT 3.0 (I'm told that -lXtXm_s is *not* a typo :-):
+# xlibs = -lXtXm_s -lXmu -lX11_s
+#### For nearly everyone else:
+# xlibs = -lXm -lXmu -lXt -lX11
+#### For BSD/386:
+# xlibs = -L/usr/X11/lib -lXm -lXmu -lXt -lX11
+#### For Motorola SVR4:
+# xlibs = -lXm -lXmu -lXt -lXext -lX11 -lm
+:::
+SWP
+---
+This is where you specify exactly what X libraries to link in and in what
+order (Yes, it matters. List the libraries in dependent order.).
+:::
+
+#### DTM AND HDF SUPPORT; READ CAREFULLY
+
+#### If you want to compile with DTM and HDF support, you should leave
+#### the following lines uncommented and make sure you have a copy of
+#### HDF 3.3 (r1 or later) installed and ready.  You can find HDF on
+#### ftp.ncsa.uiuc.edu in /HDF.
+
+#### If you do not want to compile with DTM and HDF support, comment
+#### the following lines out.  (If you are compiling from source for
+#### the first time, you should probably not bother with HDF and DTM
+#### support.)
+
+#### dtmmachtype needs to be set to one of the following:
+####   sun, sgi, dec, ibm, next, cray, convex
+#### If your platform is not one of the above, then either do not compile
+#### with HDF/DTM support or try hacking libdtm/makefile.
+
+dtmmachtype = solaris
+dtmdirs = libdtm libnet
+dtmlibs = ../libnet/libnet.a ../libdtm/libdtm.a
+dtmflags = -DHAVE_DTM -I.. -I../libnet
+hdfdir = /hdf2/install/solaris
+hdflibs = $(hdfdir)/lib/libmfhdf.a $(hdfdir)/lib/libdf.a
+hdfflags = -DHAVE_HDF -DHDF -I$(hdfdir)/include
+:::
+SWP
+---
+This is one of those external libraries you will need to obtain if you want
+HDF support (there is no real purpose for building the dtm libs unless you
+use HDF. If you are not going to use it, comment it out.
+:::
+
+#### PNG SUPPORT
+#### For inline PNG support, the following should be defined:
+#### The libraries currently used are PNGLIB 0.81 and ZLIB 0.95
+
+pngdir = /xdev/mosaic/libpng/solaris-24
+pnglibdir = $(pngdir)/lib
+pngincludedir = $(pngdir)/include
+pnglibs = $(pnglibdir)/libpng.a $(pnglibdir)/libz.a -lm
+pngflags =  -I$(pngincludedir) -DHAVE_PNG
+:::
+SWP
+---
+This is one of those external libraries you will need to obtain if you want
+PNG support. Comment it out if you aren't going to use it.
+:::
+
+#### JPEG SUPPORT
+#### For inline JPEG support, the following should be defined:
+#### The library used is Independent JPEG Group (IJG's) 5.0a.
+
+jpegdir = /xdev/mosaic/libjpeg/solaris-24
+jpeglibs = $(jpegdir)/lib/libjpeg.a
+jpegflags = -I$(jpegdir)/include -DHAVE_JPEG
+:::
+SWP
+---
+This is one of those external libraries you will need to obtain if you want
+JPEG support. Comment it out if you aren't going to use it.
+:::
+
+#### KERBEROS SUPPORT
+####
+#### If you want Mosaic to support Kerberos authentication, set the 
+#### following flags appropriately.  You can support Kerberos V4 and/or V5,
+#### although it's most likely that your realm supports one or the other.
+#### To enable DES-encryption of HTTP messages via Kerberos key exchange, 
+#### define the KRB-ENCRYPT flag.
+
+##krb4dir   = /usr/athena
+#krb4dir   = /xdev/mosaic/libkrb4/solaris-24
+#krb4libs  = $(krb4dir)/lib/libkrb.a $(krb4dir)/lib/libdes.a
+#krb4flags = -DKRB4 -I$(krb4dir)/include
+
+##krb5dir   = /krb5
+#krb5dir   = /xdev/mosaic/libkrb5/solaris-24
+#krb5libs  = $(krb5dir)/lib/libkrb5.a $(krb5dir)/lib/libcrypto.a $(krb5dir)/util/et/libcom_err.a
+#krb5flags = -DKRB5 -I$(krb5dir)/include -I$(krb5dir)/include/krb5
+
+#Do not comment out.
+krbflags  = $(krb4flags) $(krb5flags)
+krblibs   = $(krb4libs) $(krb5libs) 
+:::
+SWP
+---
+This is one of those external libraries you will need to obtain if you want
+KERBEROS 4 or 5 (you can have both) support. If you do not want to use it,
+comment out the first two groups, but not the group that expressly tells you
+to leave it alone.
+:::
+
+#### DIRECT WAIS SUPPORT
+
+#### If you want to have Mosaic be able to communicate directly with
+#### WAIS servers, do set the following flags appropriately.  We
+#### recommend linking with CNIDR's freeWAIS 0.5 distribution; other
+#### WAIS distributions may work but we have not tested them with
+#### Mosaic.  freeWAIS 0.5 can currently (Sept.1995) be found at
+#### ftp://sunsite.unc.edu/pub/wais/servers/freeWAIS 
+
+#### If you do not wish to link to the WAIS libraries, then comment
+#### the following lines out.  Mosaic will then communicate with WAIS
+#### servers via a HTTP gateway.
+
+#### -lm is required for freeWAIS 0.5, as ceil() is used.
+
+waisroot = /xdev/mosaic/freeWAIS/solaris24
+waisflags = -DDIRECT_WAIS -I$(waisroot)/include
+waislibdir = $(waisroot)/bin
+waislibs = $(waislibdir)/inv.a $(waislibdir)/wais.a $(waislibdir)/libftw.a -lm
+:::
+SWP
+---
+This is one of those external libraries you will need to obtain if you want
+WAIS support. Comment it out if you don't want it.
+:::
+
+#### Customization flags:
+#### . If you want Mosaic to come up with monochrome colors by default,
+####   use -DMONO_DEFAULT
+#### . If you want to define the default Mosaic home page, set
+####   -DHOME_PAGE_DEFAULT=\\\"url\\\"
+#### . If you want to define the default Mosaic documentation directory
+####   (should be a URL), set -DDOCS_DIRECTORY_DEFAULT=\\\"url\\\"
+#### . Other things you can define are spelled out in src/mosaic.h.
+customflags =
+:::
+SWP
+---
+This is the section which will set up various minor things in Mosaic.
+:::
+
+# ---------------------- END OF CUSTOMIZABLE OPTIONS -------------------------
+---------------------------Makefile.solaris-24--------------------------------
+
+And that should be all you need to know about our Makefiles. Again, if you
+make modifications to it for support on your OS, please send in patches so
+we can support your platform.
+
+========================
+Section Four: Disclaimer
+========================
+
+The Makefiles provided are done so with the following intentions:
+
+	o They are used to compile the Mosaic binaries that NCSA provides.
+	o They are meant to be used as _guidelines_ for others who wish
+		to compile Mosaic for themselves.
+	o They do _not_ compile all of the necessary libraries.
+	o They _will_ require editing to work for your system. Each config-
+		urable section explains what it is and what it expects.
+	o They are _not_ guarunteed to work.
+
+Note that the file "Makefile" is now simply a mechanism for calling the
+correct Makefile. This is due in large part to the finger
+of Tom Lane who very pointedly pointed out that if it does not compile Mosaic
+for all of the platforms, it shouldn't be there! No, this is not intended as
+a slight to Tom...we simply had not thought it through.
+
+Another note...the 2.8 distribution tree will be drastically changing. Do not
+expect patches for 2.7x to work for 2.8x. We will be moving the libraries
+out of the distribution tree and into a "library" distribution along with
+pointers to completely external libs (jpeg, png, zlib, etc). Since we have 
+these libs in binary form, we will probably distribute a "binary_libs" archive
+of all the libs we build with for each platform (for those who can't get the
+lib to build or simply don't care to take the time, but still want to play
+with the source to Mosaic).
+
+The last note is for future reference. As a side project we have been playing
+with autoconf (ftp://prep.ai.mit.edu/pub/gnu). Please take into
+account that these are side projects which would certainly make life easy,
+but since these Makefiles suffice for us it is our intention to focus our
+efforts on more important features. HOWEVER, if someone out there in the
+great space wishes to perform this feat for us, we would gladly accept.
+
+Scott Powers	spowers@ncsa.uiuc.edu \        The N.C.S.A. X Mosaic
+Paul Bleisch    pbleisch@ncsa.uiuc.edu \         Development Team
+Dan Pape	dpape@ncsa.uiuc.edu     > 
+Tommy Reilly	tpreilly@ncsa.uiuc.edu /  Comments? Suggestions? Problems?
+Brian Swetland	swetland@ncsa.uiuc.edu/       mosaic-x@ncsa.uiuc.edu
+

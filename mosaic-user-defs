@@ -1,0 +1,117 @@
+# This file is part of Mosaic and is only useful if it is in
+#
+#                $HOME/.mosaic-user-defs 
+# 
+# If you want to use the functionality herein described move this file
+# to that location. -- TPR
+#
+####################################################################
+#
+# This file is used to put any user defined actions on the right
+# button menu. Each action consists of two lines. A button title line
+# and a action specification line:
+#
+#   Button Title
+#   action spec
+# 
+# There are (currently) three ways to specify an action:
+#
+#   Webster
+#   GET:http://a.site.with.webster/cgi-bin/websterquery?q=__string__
+#
+#   Search Engine
+#   POST:http://a.site.with.webster/cgi-bin/websterquery q=__string__# 
+#
+#   Fetch Selection
+#   FETCH:__string__
+#
+#   What GET does:
+#     This is for a search form that is of the GET method, clicking on the
+#     Webster button (in User pull_right menu) will send the selected text
+#     to this cgi query and Mosaic will pull up the results. 
+#
+#   What POST does:
+#     This is for a search form that is of the POST method, clicking on the
+#     "Search Engine" button (in User pull_right menu) will send the selected
+#      text to this cgi query and Mosaic will pull up the results.
+#
+#   What FETCH does:
+#     This just treats the selection like a url and fetches it.
+#
+# Here is a working example (for uiuc domain only, uncomment this if you 
+# are in the domain and ever feel like looking up words you find surfing)
+#
+# Webster
+# GET:http://www.uiuc.edu/cgi-bin/oed?__string__ 
+#
+# How you use it:
+#
+# 1) Copy this file to your home directory.
+# 2) Start up Mosaic (2.7b3 or greater).
+# 3) Select some text. (First or second button drag in Mosaic)
+# 4) Click on third button, go down to "User" sub menu and select one.
+# 5) Watch the results come flying over the net and send a message to
+#    mosaic-x@ncsa.uiuc.edu saying how awesome this feature is.
+#    We thank you for your support.
+#
+# One thing that might be useful to know if you have problems with this
+# feature is that it you need to add quotes to a selection of more than 
+# one word but you can't have quotes in a url so add %22's around __string__
+# in the spec line if the button is meant to accept selections of more than 
+# one word (see provided functions).
+#
+# Note: With Mosaic 2.8b1 you will be able to do construct these
+# user defined actions within Mosaic via a preferences dialog. 
+# This will mean you don't have to rerun Mosaic if you add a new action.
+# This file is a temporary thing and will be obsolete with 2.8b1 
+# (all though if you have this file 2.8b1 will read it and 
+# put it in preferences and then erase it).
+#
+
+Yahoo Search
+GET:http://search.yahoo.com/bin/search?p=%22__string__%22
+
+Alta Vista Search
+GET:http://www.altavista.digital.com/cgi-bin/query?pg=q&what=web&fmt=.&q=%22__string__%22
+
+eXcite by Concept using Web Docs
+POST:http://www.excite.com/search.gw searchType=Concept&search=__string__&category=default
+
+eXcite by Keywords using Web Docs
+POST:http://www.excite.com/search.gw searchType=Keyword&search=__string__&category=default
+
+eXcite by Concept using Website Reviews
+POST:http://www.excite.com/search.gw searchType=Concept&search=__string__&category=guide
+
+eXcite by Keywords using Website Reviews
+POST:http://www.excite.com/search.gw searchType=Keyword&search=__string__&category=guide
+
+eXcite by Concept using Usenet
+POST:http://www.excite.com/search.gw searchType=Concept&search=__string__&category=news
+
+eXcite by Keywords using Usenet
+POST:http://www.excite.com/search.gw searchType=Keyword&search=__string__&category=news
+
+eXcite by Concept using Usenet Classifieds
+POST:http://www.excite.com/search.gw searchType=Concept&search=__string__&category=news.class
+
+eXcite by Keywords using Usenet Classifieds
+POST:http://www.excite.com/search.gw searchType=Keyword&search=__string__&category=news.class
+
+Search Magellan
+POST:http://www.mckinley.com/iopcode.pl query=%22__string__%22
+
+Jargon File Search
+GET:http://hagbard.ncsa.uiuc.edu/cgi-bin/jargon?__string__
+
+Video Flicks -- Actor/Actress
+POST:http://www.videoflicks.com/cgi-win/SINQ.exe KEY=__string__
+
+Video Flicks -- Title
+POST:http://www.videoflicks.com/cgi-win/tinq.exe KEY=__string__
+
+Video Flicks -- Director
+POST:http://www.videoflicks.com/cgi-win/DINQ.exe KEY=__string__
+
+Goto Selection
+FETCH:__string__

@@ -1,0 +1,6 @@
+Mosaic 2.7b6
+
+	* ported to modern Linux
+	* added info tag to gopher
+	* fixed text/html; iso xxxxx bug
+	* moved all startup files into .mosaic directory

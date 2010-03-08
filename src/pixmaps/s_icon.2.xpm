@@ -1,0 +1,97 @@
+/* XPM */
+static char *s_icon2[] = {
+/* width height num_colors chars_per_pixel */
+"    32    32       13            1",
+/* colors */
+". c None",
+"# c #797169",
+"a c #595155",
+"b c #717dcb",
+"c c #28208a",
+"d c #929ed3",
+"e c #301cb2",
+"f c #6d75a2",
+"g c #9e8661",
+"h c #242449",
+"i c #28246d",
+"j c #51518e",
+"k c #4951b2",
+/* pixels */
+"................................",
+"................................",
+".........................fijd...",
+"........................aiiiid..",
+"........fjccjijcjcjcjjjkjhcfif..",
+"......ficiiiiihihhihihhiihiiif..",
+".....fcihfd.............ahhihd..",
+"....diij.................fhad...",
+"....fcj.........................",
+"....ijd......dg##jfd............",
+"....ic......#####jccj...........",
+"....ij.....a#####fcccj..........",
+"....fkf...acigggfjkeccj.........",
+".....ijd.dhicjf#ffjk#fjd........",
+".....djfffhicciceekk##af........",
+".......fjhiiicceeeee###a........",
+".........hhicccceeecj##i........",
+".........hhiiccccecccagijb......",
+".........fhiiccccccccj#ffjjd....",
+".........dhhiccccccccajd.dij....",
+"..........ahhccccccccjj...fjf...",
+"...........ahhiiicciij.....ic...",
+"............jhhhiiiij......ik...",
+".............dfhhhfd......dic...",
+"..........................acf...",
+"....faif.................jijd...",
+"...dhiiij.............dfiicf....",
+"...fiifijjiiiiiiiiiijiijcif.....",
+"...fiikhjkiicicjijjicccjf.......",
+"...dhiiii.......................",
+"....dahf........................",
+"................................"
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

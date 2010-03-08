@@ -1,0 +1,94 @@
+NCSA Mosaic Features List
+*************************
+
+This list is up to date for version 2.5 of NCSA Mosaic. 
+
+ o Support for accessing documents, images, audio, video, animations, and data
+   through World Wide Web, Gopher, WAIS, FTP, NNTP/Usenet news, telnet,
+   tn3270, and local files; and via gateways, Techinfo, TeXinfo, Archie, CSO
+   qi/ph, relational databases, and other sources. 
+ o Friendly X/Motif user interface. 
+ o Color and monochrome default X resource settings. 
+ o Multiple independent document viewing windows. 
+ o Completely interruptible network input/output, with full status indication
+   during network operations. 
+ o Support for interactive fill-out forms inside documents, to enable powerful
+   database and search engine front-ends. Fill-out forms can contain text entry
+   areas (single- or multi-line), option buttons, radio buttons, option menus,
+   scrolled lists, and image maps. Fill-out form elements are instantiated as
+   Motif widgets. 
+ o Support for standard World Wide Web authentication scheme, providing
+   security about equivalent to telnet's username/password scheme. 
+ o Customizable encryption hooks to allow external PEM or PGP encryption to
+   be used to request and receive encrypted documents. 
+ o Support for encrypted submission of forms.
+ o Support for first time encryption of all http communication.
+ o Extensive HTTP/1.0 support, including the ability to allow a remote
+   server to 
+   return URL redirections rather than documents for transparent forwarding of
+   information pointers. 
+ o Ability to pass any or all URL access methods to a proxy gateway to simulate
+   direct network connection for those behind firewalls. 
+ o Direct access to WAIS databases, including support for binary files and
+   multiformat responses. 
+ o Built-in support for recognizing and handling GIF, JPEG, TIFF, audio, AIFF,
+   DVI, MPEG, MIME, XWD, RGB, HDF, PostScript files and forking off
+   appropriate viewers. 
+ o Full customizability of recognized formats, external viewers, and file
+   extensions. 
+ o Ability to fire off arbitrary client-side shell scripts in response to
+   hyperlink 
+   activations via format/viewer customization options. 
+ o Ability to natively view data inside HDF and netCDF scientific data files,
+   with powerful hypermedia interface to explore internal structure of data
+   files. 
+ o Inlined images in formatted (HTML) text: X bitmaps and GIF images can be
+   included anywhere inside a document, and can act as hyperlink anchors. Image
+   files themselves can be located anywhere on the network. Images can act as
+   maps, so clicking on them sends coordinates of click to remote server. 
+ o Automatic dithering of inlined images on monochrome displays. 
+ o Support of GIF89 transparent background in inlined images. 
+ o Flexible inlined-image caching with customizable image cache size. 
+ o Delayed image loading mode, to avoid automatic loading of all images in
+   accessed documents for users with slow network connections. 
+ o Visited document history list per window. 
+ o Global history with previously visited locations visually distinct; global
+   history is persistent across sessions. 
+ o Hotlist/bookmark capability -- keep list of interesting documents,
+   add/remove/rename items, list is persistent across sessions.  Now stored
+   in nested HTML.
+ o Personal annotations with GUI annotation entry dialog; annotations can later
+   be edited or deleted, and hyperlinks to existing annotations are inlined
+   into subsequent accesses of an annotated document. (Any document from any
+   server via any access method can be annotated.) 
+ o Audio (voice) annotations with GUI for controlling recording process (SGI,
+   SGI, and HP only). 
+ o Transparent and automatic uncompression of compressed (.Z) and gzip'd (.z or
+   .gz) files (over FTP, HTTP0, HTTP/1.0, local files, and Gopher). 
+ o "Load to local disk" mode, for pulling down arbitrary binary files and
+    saving them to local disk without viewing them. 
+ o In-document search capability. 
+ o Fully 8-bit clean for formatted and plain text. 
+ o On-the-fly font and hyperlink style selection. 
+ o Hardcoded menu entries for popular network starting points, including the
+   NCSA Internet Resources Meta-Index. 
+ o Keyword search capability (for WAIS, Gopher, Archie, etc.). 
+ o Cut and paste formatted text into other X windows. 
+ o Ability to display arbitrarily long documents. 
+ o Save/mail/print documents in several formats, including formatted ASCII
+   text and PostScript. 
+ o Online hypertext help and FAQ list. 
+ o No config or resource file installation required; self-contained
+   executable.  
+ o Extremely customizable via compile-time definitions, X resources, and
+   standard configuration file formats (including mailcap files for
+   format/viewer customization). 
+ o Can be controlled by signals to allow use as a full-featured help or
+   information presentation subsystems by existing applications. 
+ o Integrated with NCSA Collage and NCSA DTM to broadcast documents into
+   real-time networked workgroup collaboration sessions. 
+ o It's PURIFY'D!!! 
+ o Common Client Interface (CCI) support to allow external applications
+   to communicate with Mosaic via TCP/IP.
+ o Kiosk mode
+ o Editor Hook

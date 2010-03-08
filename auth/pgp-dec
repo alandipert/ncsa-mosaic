@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Set this to the password to your secret key
+PGPPASS=mypassword
+# Set this to the location of your keyrings and config files
+PGPPATH=/usr6/rob/.pgp
+# Set this to your user name, the name on your secret key
+PGPUSER=robm@ncsa.uiuc.edu
+# Set this to the full path to the PGP binary on your system
+PGPBIN=/usr/local/bin/pgp
+
+# You shouldn't need to edit anything after this line
+
+export PGPPASS
+export PGPPATH
+
+# Make sure PGP doesn't try to make temp files in /
+cd /tmp
+
+exec $PGPBIN -f -u $PGPUSER 2>/dev/null

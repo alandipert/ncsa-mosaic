@@ -1,0 +1,19 @@
+=NCSA Mosaic=
+
+==Building==
+
+* I was able to compile and run on Ubuntu 9.10. You'll have to install these packages first:
+
+    sudo apt-get install build-essential libmotif3 libmotif-dev libpng3 
+
+* Next, build with:
+
+    make linux
+
+* Run!
+
+    src/Mosaic
+
+==Thanks==
+
+I started with this: http://seanm.ca/mosaic/ and applied the patch on the page.  I pulled a bunch of getline()'s out.  Presto.

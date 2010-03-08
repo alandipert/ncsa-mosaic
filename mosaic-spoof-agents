@@ -1,0 +1,25 @@
+#
+# Agent Spoofing -- Who will you be today?
+#
+# "I don't think [t]he[y]'ll be too keen" -- Originally from Monty Python, run
+#                                            into the ground by Tommy Reilly
+#
+# NOTE! There is a hard limit of 50 agents! Mosaic will not read anymore!
+#
+# This file should be located in your HOME directory under the filename:
+#   .mosaic-spoof-agents
+#
+# This file consists of lines that begin with a # (comment), a - (a seperator
+#  for the sub-menu off options), a + (this is special...it denotes that the
+#  agent following it [no spaces] should be the default agent to use) and
+#  anything else (considered an agent spoof line).
+#
+-  This is a seperator...as long as the first thing is a dash
+#  This is a comment line
+#
+# This is the "example" agent. If you don't like it...comment it out.
+#   if you want it to be your default, put a + infront of it.
+#
+Bond_James_Bond/007 (BMW; Z3 Roadster)  DOHC_inline_16-valve_4-cylinder
+Gandalf/White (Shadowfax; Wind)  White_Staff
+Elric/Emperor_of_Melnibone (Hellsword; StormBringer - Devourer of Souls)

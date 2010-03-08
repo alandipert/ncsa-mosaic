@@ -1,0 +1,1010 @@
+<html>
+
+<head>
+<title>X Resources for NCSA X Mosaic</title>
+</head>
+
+<body>
+
+<h1>These X Resources are Current in NCSA X Mosaic v2.7b4</h1>
+
+<hr>
+
+<p>
+<h2>These are the browser configuration resources:</h2>
+<dl>
+<dt>Mosaic*defaultFontChoice: TimesRegular<br>
+Mosaic*DefaultFontChoice: TimesRegular
+<dd>The default font you wish to use in Mosaic.<br>
+Valid Choices Are:<br>
+<ul>
+<li>TimesLarge
+<li>TimesRegular
+<li>TimesSmall
+<li>HelveticaLarge
+<li>HelveticaRegular
+<li>HelveticaSmall
+<li>CenturyLarge
+<li>CenturyRegular
+<li>CenturySmall
+<li>LucidaLarge
+<li>LucidaRegular
+<li>LucidaSmall
+</ul>
+<dt>Mosaic*kiosk: False<br>
+Mosaic*Kiosk: False
+<dd>This enables or disables "Kiosk Mode", a very simplistic set of functionality
+intended for use as a "public" Mosaic terminal.
+<dt>Mosaic*kioskNoExit: False<br>
+Mosaic*KioskNoExit: False
+<dd>This decides whether or not the Kiosk presents the user with a way to
+exit.
+<dt>Mosaic*useGlobalHistory: True<br>
+Mosaic*UseGlobalHistory: True
+<dd>Whether or not Mosaic will keep a history file.
+<dt>Mosaic*displayURLsNotTitles: False<br>
+Mosaic*DisplayURLsNotTitles: False
+<dd>If you want Mosaic to show titles in place of URLs.
+<dt>Mosaic*defaultWidth: 640<br>
+Mosaic*DefaultWidth: 640
+<dd>Default width of Mosaic.
+<dt>Mosaic*defaultHeight: 700<br>
+Mosaic*DefaultHeight: 700
+<dd>Default height of Mosaic.
+<dt>Mosaic*homeDocument: HOME_PAGE_DEFAULT<br>
+Mosaic*HomeDocument: HOME_PAGE_DEFAULT
+<dd>What document you want Mosaic to load upon starting up.
+<dt>Mosaic*confirmExit: True<br>
+Mosaic*ConfirmExit: True
+<dd>Whether or not to prompt for exiting Mosaic.
+<dt>Mosaic*sendmailCommand: /usr/lib/sendmail -t<br>
+Mosaic*SendmailCommand: /usr/lib/sendmail -t
+<dd>Where/Which "sendmail" program to use for sending mail along with any appropriate
+options.
+<dt>Mosaic*mailFilterCommand: (NULL)<br>
+Mosaic*MailFilterCommand: (NULL)
+<dd>This gives you the ability to filter the mail Mosaic sends witha filter
+program.
+<dt>Mosaic*printCommand: lpr<br>
+Mosaic*PrintCommand: lpr
+<dd>This the default print command you wish to use and any accompanying options.
+<dt>Mosaic*cciPort: 0<br>
+Mosaic*CCIPort: 0
+<dd>This is the default port for CCI to start listening on. If it is 0, Mosaic
+does not start listening at start up.
+<dt>Mosaic*maxNumCCIConnect: 0<br>
+Mosaic*MaxNumCCIConnect: 0
+<dd>This is the maximum number of simultaneous CCI connections allowed by Mosaic. If
+it is 0, there is no limit.
+<dt>Mosaic*loadLocalFile: 1<br>
+Mosaic*LoadLocalFile: 1
+<dd>This allows you to disable local file viewing via the CCI.
+<dt>Mosaic*editCommand: (NULL)<br>
+Mosaic*EditCommand: (NULL)
+<dd>This allows you to specify which editor you want to use to edit a
+specific page. If nothing is set, it tries to use what you have set the
+EDITOR environment variable. As a fallback it tries to use "vi".
+<dt>Mosaic*editCommandUseXterm: True<br>
+Mosaic*EditCommandUseXterm: True
+<dd>This lets you set whether or not you want to use a XTerm to do your editing.
+<dt>AIX -- Mosaic*xtermCommand: aixterm -v<br>
+AIX --Mosaic*XtermCommand: aixterm -v
+<dd>This is the XTerm command.
+<dt>DEFAULT -- Mosaic*xtermCommand: xterm<br>
+DEFAULT -- Mosaic*XtermCommand: xterm
+<dd>This is the XTerm command.
+<dt>Mosaic*historyFile: .mosaic-x-history<br>
+Mosaic*HistoryFile: .mosaic-x-history
+<dd>This is the name of the global history file.
+<dt>Mosaic*defaultHotlistFile: .mosaic-hotlist-default<br>
+Mosaic*DefaultHotlistFile: .mosaic-hotlist-default
+<dd>This is the name of the hotlist file.
+<dt>Mosaic*personalAnnotationDirectory: .mosaic-personal-annotations<br>
+Mosaic*PersonalAnnotationDirectory: .mosaic-personal-annotations
+<dd>This is the personal annotations directory.
+<dt>Mosaic*defaultAuthorName: (NULL)<br>
+Mosaic*DefaultAuthorName: (NULL)
+<dd>Your real name.
+<dt>Mosaic*defaultAuthorEmail: (NULL)<br>
+Mosaic*DefaultAuthorEmail: (NULL)
+<dd>The address you prefer to receive mail at.
+<dt>Mosaic*signature: (NULL)<br>
+Mosaic*Signature: (NULL)
+<dd>Your signature file (included in news and mail).
+<dt>Mosaic*annotationsOnTop: False<br>
+Mosaic*AnnotationsOnTop: False
+<dd>Where to put the annotcations...top or bottom.
+<dt>Mosaic*colorsPerInlinedImage: 50<br>
+Mosaic*ColorsPerInlinedImage: 50
+<dd>The maximum number of colors allowed for each in-line image.
+<dt>Mosaic*trackVisitedAnchors: True<br>
+Mosaic*TrackVisitedAnchors: True
+<dd>Sets whether or not to keep track of whether you have visited a particular
+anchor before.
+<dt>Mosaic*uncompressCommand: uncompress<br>
+Mosaic*UncompressCommand: uncompress
+<dd>The command for "uncompress"ing.
+<dt>Mosaic*gunzipCommand: gunzip -f -n<br>
+Mosaic*GunzipCommand: gunzip -f -n
+<dd>The command for "gunzip"ping.
+<dt>HPUX -- Mosaic*recordCommandLocation: /usr/audio/bin/srecorder<br>
+HPUX -- Mosaic*RecordCommandLocation: /usr/audio/bin/srecorder
+<dd>The command for recording audio annotations.
+<dt>SGI -- Mosaic*recordCommandLocation: /usr/sbin/recordaiff<br>
+SGI -- Mosaic*RecordCommandLocation: /usr/sbin/recordaiff
+<dd>The command for recording audio annotations.
+<dt>SUNOS -- Mosaic*recordCommandLocation: /usr/demo/SOUND/record<br>
+SUNOS -- Mosaic*RecordCommandLocation: /usr/demo/SOUND/record
+<dd>The command for recording audio annotations.
+<dt>DEFAULT -- Mosaic*recordCommandLocation: /bin/true<br>
+DEFAULT -- Mosaic*RecordCommandLocation: /bin/true
+<dd>The command for recording audio annotations.
+<dt>HPUX -- Mosaic*recordCommand: srecorder -au<br>
+HPUX -- Mosaic*RecordCommand: srecorder -au
+<dd>The record command and its parameters.
+<dt>SGI -- Mosaic*recordCommand: recordaiff -n 1 -s 8 -r 8000<br>
+SGI -- Mosaic*RecordCommand: recordaiff -n 1 -s 8 -r 8000
+<dd>The record command and its parameters.
+<dt>SUNOS -- Mosaic*recordCommand: record<br>
+SUNOS -- Mosaic*RecordCommand: record
+<dd>The record command and its parameters.
+<dt>DEFAULT -- Mosaic*recordCommand: true<br>
+DEFAULT -- Mosaic*RecordCommand: true
+<dd>The record command and its parameters.
+<dt>Mosaic*gethostbynameIsEvil: False<br>
+Mosaic*GethostbynameIsEvil: False
+<dd>When this is False, Mosaic will determine the hostname by a call to
+"gethostbyname()". When it is True, Mosaic will first look at Mosaic*fullHostname
+and if that is NULL, it will just use the numbers returned by "gethostname()", otherwise it uses Mosaic*fullHostname.
+The name refers to your local machine name.
+<dt>Mosaic*autoPlaceWindows: True<br>
+Mosaic*AutoPlaceWindows: True
+<dd>Whether or not Mosaic automatically places your Mosaic children windows.
+<dt>Mosaic*initialWindowIconic: False<br>
+Mosaic*InitialWindowIconic: False
+<dd>The same as starting Mosaic with "-iconic".
+<dt>Mosaic*tmpDirectory: (NULL)<br>
+Mosaic*TmpDirectory: (NULL)
+<dd>The directory you want to use as your temporary directory.
+<dt>Mosaic*annotationServer: (NULL)<br>
+Mosaic*AnnotationServer: (NULL)
+<dd>Your annotation server.
+<dt>Mosaic*catchPriorAndNext: True<br>
+Mosaic*CatchPriorAndNext: True
+<dd>Whether or not to use PG_UP and PG_DN.
+<dt>Mosaic*fullHostname: (NULL)<br>
+Mosaic*FullHostname: (NULL)
+<dd>The full hostname of your local machine (for use in conjunction with 
+GetHostByNameIsEvil).
+<dt>Mosaic*reverseInlinedBitmapColors: False<br>
+Mosaic*ReverseInlinedBitmapColors: False
+<dd>This will reverse the black and white for in-line XBM images.
+<dt>Mosaic*confirmDeleteAnnotation: True<br>
+Mosaic*ConfirmDeleteAnnotation: True
+<dd>Whether or not you want to be prompted for confirmation when deleting an
+annotation.
+<dt>Mosaic*tweakGopherTypes: True<br>
+Mosaic*TweakGopherTypes: True
+<dd>If on, gopher types will be determined by their filename.
+<dt>Mosaic*guiLayout: (NULL)<br>
+Mosaic*GuiLayout: (NULL)
+<dd>Allows you to re-arrange the user interface to your likeing.
+<dt>Mosaic*trackPointerMotion: True<br>
+Mosaic*TrackPointerMotion: True
+<dd>En/Disables the tracking of links, etc., in the status display.
+<dt>Mosaic*trackFullURLs: True<br>
+Mosaic*TrackFullURLs: True
+<dd>If TrackPointerMotion is turned on, this will force a full URL to be
+displayed rather than the possible relative URL.
+<dt>Mosaic*hdfMaxImageDimension: 400<br>
+Mosaic*HdfMaxImageDimension: 400
+<dd>The maximum image dimension allowed for HDF files.
+<dt>Mosaic*hdfMaxDisplayedDatasets: 15<br>
+Mosaic*HdfMaxDisplayedDatasets: 15
+<dd>The maximum number of datasets displayed at one time for HDF files.
+<dt>Mosaic*hdfMaxDisplayedAttributes: 10<br>
+Mosaic*HdfMaxDisplayedAttributes: 10
+<dd>The maximum number of sttributes displayed at one time for HDF files.
+<dt>Mosaic*hdfPowerUser: False<br>
+Mosaic*HdfPowerUser: False
+<dd>The display text is shortened up for the more experienced HDF surfer.
+<dt>Mosaic*docsDirectory: (NULL)<br>
+Mosaic*DocsDirectory: (NULL)
+<dd>The base URL for the documents accessed from the Help Menu/Buttons.
+<dt>Mosaic*documentsMenuSpecfile: /usr/local/lib/mosaic/documents.menu<br>
+Mosaic*DocumentsMenuSpecfile: /usr/local/lib/mosaic/documents.menu
+<dd>The name of a local file which contains pairs of lines consisting of
+"URL Title" and "URL". This is used to add the "Documents" pull-down menu.
+<dt>Mosaic*reloadReloadsImages: False<br>
+Mosaic*ReloadReloadsImages: False
+<dd>Whether or not to re-fetch the images when you press Reload.
+<dt>Mosaic*reloadPragmaNoCache: False<br>
+Mosaic*ReloadPragmaNoCache: False
+<dd>Whether or not to send "Pragma: no-cache" header to proxy servers.
+<dt>Mosaic*maxWaisResponses: 200<br>
+Mosaic*MaxWaisResponses: 200
+<dd>The maximum number of responses accepted from a WAIS server.
+<dt>Mosaic*delayImageLoads: False<br>
+Mosaic*DelayImageLoads: False
+<dd>Whether or not to delay image loading.
+<dt>Mosaic*enableTables: False<br>
+Mosaic*EnableTables: False
+<dd>Whether or not to use Mosaic's No-Markup tables.
+<dt>Mosaic*disableMiddleButton: False<br>
+Mosaic*DisableMiddleButton: False
+<dd>Whether or not to let the middle button represent opening a link in
+another window.
+<dt>Mosaic*useDefaultExtensionMap: True<br>
+Mosaic*UseDefaultExtensionMap: True
+<dd>Whether or not to use the extension map (mime types).
+<dt>Mosaic*globalExtensionMap: /usr/local/lib/mosaic/mime.types<br>
+Mosaic*GlobalExtensionMap: /usr/local/lib/mosaic/mime.types
+<dd>The location of your global extension map (mime types)
+<dt>Mosaic*personalExtensionMap: .mime.types<br>
+Mosaic*PersonalExtensionMap: .mime.types
+<dd>The name of your personal extension map (mime types).
+<dt>Mosaic*useDefaultTypeMap: True<br>
+Mosaic*UseDefaultTypeMap: True
+<dd>Whether or not to use your type map (mailcap) file.
+<dt>Mosaic*globalTypeMap: /usr/local/lib/mosaic/mailcap<br>
+Mosaic*GlobalTypeMap: /usr/local/lib/mosaic/mailcap
+<dd>The name and path to your global type map (mailcap) file.
+<dt>Mosaic*personalTypeMap: .mailcap<br>
+Mosaic*PersonalTypeMap: .mailcap
+<dd>The filename of your personal type map (mailcap) file.
+<dt>Mosaic*twirlingTransferIcon: True<br>
+Mosaic*TwirlingTransferIcon: True
+<dd>Whether or not you want the "Globe Animation" to animate.
+<dt>Mosaic*twirlIncrement: 4096<br>
+Mosaic*TwirlIncrement: 4096
+<dd>The number of bytes read to trigger a twirl (the next animation frame).
+<dt>Mosaic*securityIcon: True<br>
+Mosaic*securityIcon: True
+<dd>Whether or not you want the Authentication security icon to be present.
+<dt>Mosaic*imageCacheSize: 2048<br>
+Mosaic*ImageCacheSize: 2048
+<dd>The size (in kilobytes) of your internal image cache (in memory).
+<dt>Mosaic*protectMeFromMyself: False<br>
+Mosaic*ProtectMeFromMyself: False
+<dd>Are you sure you want to go to this link?
+<dt>Mosaic*printMode: plain<br>
+Mosaic*PrintMode: plain
+<dd>The default print file format mode. Can be plain, formatted, postscript, or html.
+<dt>Mosaic*mailMode: plain<br>
+Mosaic*MailMode: plain
+<dd>The default mail file format mode. Can be plain, formatted, postscript, or html.
+<dt>Mosaic*saveMode: plain<br>
+Mosaic*SaveMode: plain
+<dd>The default save file format mode. Can be plain, formatted, postscript, or html.
+<dt>Mosaic*printBanners: True<br>
+Mosaic*PrintBanners: True
+<dd>In postscript mode; Whether or not to print the banners at the top and bottom of
+each page (URL Title and Page Number on top, URL and Current Date on bottom).
+<dt>Mosaic*printFootnotes: True<br>
+Mosaic*PrintFootnotes: True
+<dd>In postscript mode; Whether or not to print the footnotes at the bottom
+of each page (Each anchor on the page gets a superscript footnote number and
+the corresponding URL is printed at the bottom as a footnote).
+<dt>Mosaic*printPaperSizeUS: True<br>
+Mosaic*PrintPaperSizeUS: True
+<dd>Whether or not to use the US standard paper size (or the European A4).
+<dt>Mosaic*useAFSKlog: False<br>
+Mosaic*UseAFSKlog: False
+<dd>Whether or not to use AFS's klog utility for generating a Kerberos ticket.
+#ifdef __sgi
+<dt>SGI -- Mosaic*debuggingMalloc: False<br>
+SGI -- Mosaic*DebuggingMalloc: False
+<dd>Whether or not to use SGI's debugging malloc call.
+<dt>Mosaic*installColormap: False<br>
+Mosaic*InstallColormap: False
+<dd>Whether or not to automatically install a colormap when you start Mosaic.
+<dt>Mosaic*splashScreen: True<br>
+Mosaic*SplashScreen: True
+<dd>Whether or not you want to have a splash screen pop-up while Mosaic is initializing.
+<dt>Mosaic*imageViewInternal: False<br>
+Mosaic*ImageViewInternal: False
+<dd>Whether or not you want to view "external" images internally.
+<dt>Mosaic*urlExpired: 30<br>
+Mosaic*UrlExpired: 30
+<dd>The days a URL has in your global history before it expires.
+<dt>Mosaic*httpTrace: False<br>
+Mosaic*HttpTrace: False
+<dd>Turn on or off HTTP tracing.
+<dt>Mosaic*www2Trace: False<br>
+Mosaic*Www2Trace: False
+<dd>Turn on or off libwww2 tracing.
+<dt>Mosaic*htmlwTrace: False<br>
+Mosaic*HtmlwTrace: False
+<dd>Turn on or off libhtmlw tracing.
+<dt>Mosaic*cciTrace: False<br>
+Mosaic*CciTrace: False
+<dd>Turn on or off CCI tracing.
+<dt>Mosaic*srcTrace: False<br>
+Mosaic*SrcTrace: False
+<dd>Turn on or off src tracing.
+<dt>Mosaic*cacheTrace: False<br>
+Mosaic*CacheTrace: False
+<dd>Turn on or off internal image cache tracing.
+<dt>Mosaic*nutTrace: False<br>
+Mosaic*NutTrace: False
+<dd>Turn on or off libnut tracing.
+<dt>Mosaic*animateBusyIcon: True<br>
+Mosaic*AnimateBusyIcon: True
+<dd>Whether or not you want the busy mouse pointer to animate.
+<dt>Mosaic*sendReferer: True<br>
+Mosaic*SendReferer: True
+<dd>Whether or not you want to send the referer field (tells where you came from).
+<dt>Mosaic*sendAgent: True<br>
+Mosaic*SendAgent: True
+<dd>Whether or not you want to send the agent field (tells what browser you are using).
+<dt>Mosaic*expandUrls: True<br>
+Mosaic*ExpandUrls: True
+<dd>Whether or not you want to have "shire.ncsa.uiuc.edu/" expanded to "http://shire.ncsa.uiuc.edu/" when you type it into the URL field.
+<dt>Mosaic*expandUrlsWithName: True<br>
+Mosaic*expandUrlsWithName: True
+<dd>Whether or not you want to have "ftp.ncsa.uiuc.edu/" expanded to "ftp://ftp.ncsa.uiuc.edu" (same for www, gopher, wais, etc).
+<dt>Mosaic*defaultProtocol: http<br>
+Mosaic*DefaultProtocol: http
+<dd>This is the default protocol to use when it cannot be determined from the name (or you have that turned off).
+<dt>Mosaic*meterForeground: #FFFF00000000<br>
+Mosaic*MeterForeground: #FFFF00000000
+<dd>The meter foreground color.
+<dt>Mosaic*meterBackground: #2F2F4F4F4F4F<br>
+Mosaic*MeterBackground: #2F2F4F4F4F4F
+<dd>The meter background color.
+<dt>Mosaic*meterFontForeground: #FFFFFFFFFFFF<br>
+Mosaic*MeterFontForeground: #FFFFFFFFFFFF
+<dd>The color of the text that is written on top of the meter.
+<dt>Mosaic*meter: True<br>
+Mosaic*Meter: True
+<dd>Whether or not to use the meter at all.
+<dt>Mosaic*backupDataFiles: False<br>
+Mosaic*BackupDataFiles: False
+<dd>Whether or not to make a backup copy of your global history and hotlist at
+start up time.
+<dt>Mosaic*iconPixBasename: default<br>
+Mosaic*IconPixBasename: default
+<dd>The complete path to the "globe" replacement animation including the base-name of the
+animation files (e.g. /path/to/globe.)
+<dt>Mosaic*iconPixCount: 0<br>
+Mosaic*IconPixCount: 0
+<dd>The number of frames in the replacement animation.
+<dt>Mosaic*acceptLanguage: (NULL)<br>
+Mosaic*AcceptLanguage: (NULL)
+<dd>The value of the header "Accept-Language: " to be sent with all GET requests.
+<dt>Mosaic*ftpTimeoutVal: 90<br>
+Mosaic*FtpTimeoutVal: 90
+<dd>The timeout value in seconds on FTP connections.
+<dt>Mosaic*ftpRedial: 10<br>
+Mosaic*FtpRedial: 10
+<dd>The number of times to retry a ftp site that files its username/password sequence.
+<dt>Mosaic*ftpRedialSleep: 3<br>
+Mosaic*FtpRedialSleep: 3
+<dd>The number of seconds to sleep inbetween retries.
+<dt>Mosaic*ftpFilenameLength: 18<br>
+Mosaic*FtpFilenameLength: 18
+<dd>The length of the filename to be displayed (the rest is "ellipsized") in
+ftp directory listings.
+<dt>Mosaic*ftpEllipsisLength: 3<br>
+Mosaic*FtpEllipsisLength: 3
+<dd>The number of ellipsis for long ftp filenames.
+<dt>Mosaic*ftpEllipsisMode: 2<br>
+Mosaic*FtpEllipsisMode: 2
+<dd>The placing of the ellipsis; 1=left, 2=center, 3=right.
+<dt>Mosaic*hdfLongName: False<br>
+Mosaic*HdfLongName: False
+<dd>Whether or not to use the complete long name in HDF files.
+<dt>Mosaic*titleIsWindowTitle: True<br>
+Mosaic*TitleIsWindowTitle: True
+<dd>Whether or not to display the title in the window title bar.
+<dt>Mosaic*proxySpecfile: /usr/local/lib/mosaic/proxy<br>
+Mosaic*ProxySpecfile: /usr/local/lib/mosaic/proxy
+<dd>The full path to the proxy list file.
+<dt>Mosaic*noproxySpecfile: /usr/local/lib/mosaic/no_proxy<br>
+Mosaic*NoproxySpecfile: /usr/local/lib/mosaic/no_proxy
+<dd>The full path to the no-proxy list file.
+<dt>Mosaic*useScreenGamma: False<br>
+Mosaic*UseScreenGamma: False
+<dd>Whether or not to use Screen Gamma with PNG image display.
+<dt>Mosaic*screenGamma: 2.2<br>
+Mosaic*ScreenGamma: 2.2
+<dd>The actual screen gamma value to use with PNG images.
+<dt>Mosaic*popupCascadeMappingDelay: 500<br>
+Mosaic*PopupCascadeMappingDelay: 500
+<dd>The delay (in micro-seconds) before popping up a sub-menu in the RBM.
+<dt>Mosaic*frameHack: False<br>
+Mosaic*FrameHack: False
+<dd>Whether or not to display a list of anchors that correspond to the
+HTML documents availble in a frames page (still shows the "&lt;NOFRAMES&gt;"
+portion of the document).
+<dt>Mosaic*newsUseThreadView: True<br>
+Mosaic*NewsUseThreadView: True
+<dd>Whether to use the thread view or the article view for news display.
+<dt>Mosaic*newsActLikePreB4: False<br>
+Mosaic*NewsActLikePreB4: False
+<dd>Forces the previous article and next article buttons to become insensitive
+when you are at the begining and/or end of the thread you are currently reading.
+<dt>Mosaic*newsShowAllGroups: False<br>
+Mosaic*NewsShowAllGroups: False
+<dd>Whether or not to show all of the groups (subscribed and unsubscribed).
+<dt>Mosaic*newsShowReadGroups: False<br>
+Mosaic*NewsShowReadGroups: False
+<dd>Whether or not to show newsgroups that are completely read (0 unread articles).
+<dt>Mosaic*newsShowAllArticles: False<br>
+Mosaic*NewsShowAllArticles: False
+<dd>Whether or not to show all articles (read and unread).
+<dt>Mosaic*newsUseBackgroundFlush: True<br>
+Mosaic*NewsUseBackgroundFlush: True
+<dd>Whether or not you want to have Mosaic write out your newsrc file on a regular
+basis (every X seconds).
+<dt>Mosaic*newsBackgroundFlushTime: 300<br>
+Mosaic*NewsBackgroundFlushTime: 300
+<dd>The number of seconds between each flush of the newsrc file.
+<dt>Mosaic*useLongTextNames: Fales<br>
+Mosaic*UseLongTextNames: Fales
+<dd>Whether or not to use the abbreviated text names for the text toolbar.
+<dt>Mosaic*toolbarLayout: BACK,FORWARD,RELOAD,HOME,OPEN,SAVE,CLONE,CLOSE,FIND,PRINT,GROUPS,INDEX,PREVIOUS_THREAD,PREVIOUS_ARTICLE,NEXT_ARTICLE,NEXT_THREAD,POST,FOLLOW_UP,PUT,MKDIR<br>
+Mosaic*ToolbarLayout: BACK,FORWARD,RELOAD,HOME,OPEN,SAVE,CLONE,CLOSE,FIND,PRINT,GROUPS,INDEX,PREVIOUS_THREAD,PREVIOUS_ARTICLE,NEXT_ARTICLE,NEXT_THREAD,POST,FOLLOW_UP,PUT,MKDIR
+<dd>What buttons you want on the toolbar. Valid choices are:<br>
+<ul>
+<li>BACK
+<li>FORWARD
+<li>RELOAD
+<li>HOME
+<li>OPEN
+<li>SAVE
+<li>NEW
+<li>CLONE
+<li>CLOSE
+<li>ADD_TO_HOTLIST
+<li>FIND
+<li>PRINT
+<li>GROUPS
+<li>INDEX
+<li>PREVIOUS_THREAD
+<li>PREVIOUS_ARTICLE
+<li>NEXT_ARTICLE
+<li>NEXT_THREAD
+<li>POST
+<li>FOLLOW_UP
+<li>PUT
+<li>MKDIR
+</ul>
+</dl>
+</p>
+
+<hr>
+
+<p>
+<h2>The next list is of command line parameters:</h2>
+<dl>
+<dt>-fn -- Mosaic*fontList
+<dd>Specify the font for all fonts in Mosaic.
+<dt>-ft -- Mosaic*XmText*fontList
+<dd>Specify the font for text.
+<dt>-fm -- Mosaic*menubar*fontList
+<dd>Specify the menubar font.
+<dt>-home -- Mosaic*homeDocument
+<dd>Specify the home document to load for "home".
+<dt>-ngh -- Mosaic*useGlobalHistory
+<dd>Turns off global history usage.
+<dt>-mono
+<dd>Tells Mosaic you are using a monochrome screen.
+<dt>-color
+<dd>Tells Mosaic you are using a color screen.
+<dt>-ghbnie -- Mosaic*gethostbynameIsEvil
+<dd>Tells Mosaic to not use gethostbyname().
+<dt>-iconic -- Mosaic*initialWindowIconic
+<dd>Tells Mosaic to start up in iconic mode.
+<dt>-i -- Mosaic*initialWindowIconic
+<dd>Tells Mosaic to start up in iconic mode.
+<dt>-nd
+<dd>Tells Mosaic to not load any "default" resources.
+<dt>-tmpdir -- Mosaic*tmpDirectory
+<dd>Specify your temporary directory.
+<dt>-dil -- Mosaic*delayImageLoads
+<dd>Tells Mosaic to delay image loading.
+<dt>-ics -- Mosaic*imageCacheSize
+<dd>Specify the internal memory image cache size (in Kilobytes).
+<dt>-protect -- Mosaic*protectMeFromMyself
+<dd>Are you sure you want to go that URL?
+<dt>-kraut -- Mosaic*mailFilterCommand
+<dd>Use the "kraut" (you must have this installed) mail filter.
+<dt>SGI -- -dm -- Mosaic*debuggingMalloc
+<dd>On SGI...use debugging malloc instead of just malloc.
+<dt>-kiosk -- Mosaic*kiosk
+<dd>Start Mosaic in kiosk mode.
+<dt>-kioskNoExit -- Mosaic*kioskNoExit
+<dd>Start Mosaic in kiosk mode with no way to exit.
+<dt>-cciPort -- Mosaic*cciPort
+<dd>The cciPort to listen on.
+<dt>-maxNumCCIConnect -- Mosaic*maxNumCCIConnect
+<dd>The maximum number of CCI clients that can be attached at once.
+<dt>-install
+<dd>Automatically install a private colormap for Mosaic.
+</dl>
+</p>
+
+<hr>
+
+<p>
+<h2>The next list is of resources pertaining to color displays:</h2>
+<dl>
+<dt>Mosaic*XmLabel*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmLabelGadget*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmScale*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmBulletinBoard*labelFontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*optionmenu.XmLabelGadget*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmPushButton*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmPushButtonGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmToggleButton*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmToggleButtonGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*optionmenu*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmIconGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmBulletinBoard*buttonFontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*menubar*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmPushButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmLabelGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmPushButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmCascadeButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmCascadeButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmCascadeButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmCascadeButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmToggleButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*pulldownmenu*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmList*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmText.fontList
+<dd>-*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmTextField.fontList
+<dd>-*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*optionmenu*marginHeight
+<dd>0
+<dt>Mosaic*optionmenu*marginTop
+<dd>5
+<dt>Mosaic*optionmenu*marginBottom
+<dd>5
+<dt>Mosaic*optionmenu*marginWidth
+<dd>5
+<dt>Mosaic*pulldownmenu*XmPushButton*marginHeight
+<dd>1
+<dt>Mosaic*pulldownmenu*XmPushButton*marginWidth
+<dd>1
+<dt>Mosaic*pulldownmenu*XmPushButton*marginLeft
+<dd>3
+<dt>Mosaic*pulldownmenu*XmPushButton*marginRight
+<dd>3
+<dt>Mosaic*XmList*listMarginWidth
+<dd>3
+<dt>Mosaic*menubar*marginHeight
+<dd>1
+<dt>Mosaic*menubar.marginHeight
+<dd>0
+<dt>Mosaic*menubar*marginLeft
+<dd>1
+<dt>Mosaic*menubar.spacing
+<dd>7
+<dt>Mosaic*XmMenuShell*marginLeft
+<dd>3
+<dt>Mosaic*XmMenuShell*marginRight
+<dd>4
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*spacing
+<dd>2
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*marginHeight
+<dd>0
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*indicatorSize
+<dd>12
+<dt>Mosaic*XmMenuShell*XmLabelGadget*marginHeight
+<dd>4
+<dt>Mosaic*XmToggleButtonGadget*spacing
+<dd>4
+<dt>Mosaic*XmToggleButton*spacing
+<dd>4
+<dt>Mosaic*XmScrolledWindow*spacing
+<dd>0
+<dt>Mosaic*XmScrollBar*width
+<dd>18
+<dt>Mosaic*XmScrollBar*height
+<dd>18
+<dt>Mosaic*Hbar*height
+<dd>22
+<dt>Mosaic*Vbar*width
+<dd>22
+<dt>Mosaic*XmScale*scaleHeight
+<dd>20
+<dt>Mosaic*XmText*marginHeight
+<dd>4
+<dt>Mosaic*fsb*XmText*width
+<dd>420
+<dt>Mosaic*fsb*XmTextField*width
+<dd>420
+<dt>Mosaic*fillOnSelect
+<dd>True
+<dt>Mosaic*visibleWhenOff
+<dd>True
+<dt>Mosaic*XmText*highlightThickness
+<dd>0
+<dt>Mosaic*XmTextField*highlightThickness
+<dd>0
+<dt>Mosaic*XmPushButton*highlightThickness
+<dd>0
+<dt>Mosaic*XmScrollBar*highlightThickness
+<dd>0
+<dt>Mosaic*highlightThickness
+<dd>0
+<dt>Mosaic*keyboardFocusPolicy
+<dd>pointer
+<dt>Mosaic*TitleFont
+<dd>-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Font
+<dd>-adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*ItalicFont
+<dd>-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*BoldFont
+<dd>-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*FixedFont
+<dd>-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header1Font
+<dd>-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header2Font
+<dd>-adobe-times-bold-r-normal-*-18-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header3Font
+<dd>-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header4Font
+<dd>-adobe-times-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header5Font
+<dd>-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header6Font
+<dd>-adobe-times-bold-r-normal-*-10-*-*-*-*-*-iso8859-1
+<dt>Mosaic*AddressFont
+<dd>-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*PlainFont
+<dd>-adobe-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*ListingFont
+<dd>-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-iso8859-1
+<dt>Mosaic*SupSubFont
+<dd>-adobe-times-medium-r-normal-*-10-*-*-*-*-*-iso8859-1
+<dt>Mosaic*MeterFont
+<dd>-*-fixed-*-*-*-*-14-*-*-*-*-*-*
+<dt>Mosaic*AnchorUnderlines
+<dd>1
+<dt>Mosaic*VisitedAnchorUnderlines
+<dd>1
+<dt>Mosaic*DashedVisitedAnchorUnderlines
+<dd>True
+<dt>Mosaic*VerticalScrollOnRight
+<dd>True
+<dt>SGI -- Mosaic*Foreground
+<dd>#000000000000
+<dt>SGI -- Mosaic*XmScrollBar*Foreground
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*Background
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*XmList*Background
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*XmText*Background
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*TroughColor
+<dd>#545454545454
+<dt>SGI -- Mosaic*XmSelectionBox*Background
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*XmMessageBox*Background
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*XmLabel*Foreground
+<dd>#1d1d15155b5b
+<dt>SGI -- Mosaic*XmToggleButton*Foreground
+<dd>#1d1d15155b5b
+<dt>SGI -- Mosaic*XmPushButton*Foreground
+<dd>#5b5b00000000
+<dt>SGI -- Mosaic*logo*Foreground
+<dd>#1d1d15155b5b
+<dt>SGI -- Mosaic*searchindex_button*Foreground
+<dd>#1d1d15155b5b
+<dt>SGI -- Mosaic*XmTextField*Background
+<dd>#8c8c8c8c8c8c
+<dt>SGI -- Mosaic*SelectColor
+<dd>#ffffffff0000
+<dt>SGI -- Mosaic*HighlightColor
+<dd>#afafafafafaf
+<dt>SGI -- Mosaic*TopShadowColor
+<dd>#dfdfdfdfdfdf
+<dt>SGI -- Mosaic*XmList*TopShadowColor
+<dd>#dfdfdfdfdfdf
+<dt>SGI -- Mosaic*XmText*TopShadowColor
+<dd>#dfdfdfdfdfdf
+<dt>SGI -- Mosaic*XmSelectionBox*TopShadowColor
+<dd>#dfdfdfdfdfdf
+<dt>SGI -- Mosaic*XmMessageBox*TopShadowColor
+<dd>#dfdfdfdfdfdf
+<dt>SGI -- Mosaic*visitedAnchorColor
+<dd>#272705055b5b
+<dt>SGI -- Mosaic*anchorColor
+<dd>#00000000b0b0
+<dt>SGI -- Mosaic*activeAnchorFG
+<dd>#ffff00000000
+<dt>SGI -- Mosaic*activeAnchorBG
+<dd>#afafafafafaf
+<dt>DEFAULT -- Mosaic*Foreground
+<dd>#000000000000
+<dt>DEFAULT -- Mosaic*XmScrollBar*Foreground
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmLabel*Foreground
+<dd>#1d1d15155b5b
+<dt>DEFAULT -- Mosaic*XmToggleButton*Foreground
+<dd>#1d1d15155b5b
+<dt>DEFAULT -- Mosaic*XmPushButton*Foreground
+<dd>#5b5b00000000
+<dt>DEFAULT -- Mosaic*logo*Foreground
+<dd>#1d1d15155b5b
+<dt>DEFAULT -- Mosaic*searchindex_button*Foreground
+<dd>#1d1d15155b5b
+<dt>DEFAULT -- Mosaic*Background
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmList*Background
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmText*Background
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmSelectionBox*Background
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmMessageBox*Background
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*XmTextField*Background
+<dd>#9c9c9c9c9c9c
+<dt>DEFAULT -- Mosaic*TopShadowColor
+<dd>#e7e7e7e7e7e7
+<dt>DEFAULT -- Mosaic*XmList*TopShadowColor
+<dd>#e7e7e7e7e7e7
+<dt>DEFAULT -- Mosaic*XmText*TopShadowColor
+<dd>#e7e7e7e7e7e7
+<dt>DEFAULT -- Mosaic*XmSelectionBox*TopShadowColor
+<dd>#e7e7e7e7e7e7
+<dt>DEFAULT -- Mosaic*XmMessageBox*TopShadowColor
+<dd>#e7e7e7e7e7e7
+<dt>DEFAULT -- Mosaic*TroughColor
+<dd>#646464646464
+<dt>DEFAULT -- Mosaic*SelectColor
+<dd>#ffffffff0000
+<dt>DEFAULT -- Mosaic*HighlightColor
+<dd>#bfbfbfbfbfbf
+<dt>DEFAULT -- Mosaic*visitedAnchorColor
+<dd>#3f3f0f0f7b7b
+<dt>DEFAULT -- Mosaic*anchorColor
+<dd>#00000000b0b0
+<dt>DEFAULT -- Mosaic*activeAnchorFG
+<dd>#ffff00000000
+<dt>DEFAULT -- Mosaic*activeAnchorBG
+<dd>#bfbfbfbfbfbf
+<dt>Mosaic*dragInitiatorProtocolStyle
+<dd>XmDRAG_NONE
+<dt>Mosaic*dragReceiverProtocolStyle
+<dd>XmDRAG_NONE
+</dl>
+</p>
+
+<hr>
+
+<p>
+<h2>The next list deals with resources pertaining to monochrome displays:</h2>
+<dl>
+<dt>Mosaic*XmLabel*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmLabelGadget*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmScale*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmBulletinBoard*labelFontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*optionmenu.XmLabelGadget*fontList
+<dd>-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*XmPushButton*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmPushButtonGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmToggleButton*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmToggleButtonGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*optionmenu*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmIconGadget*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmBulletinBoard*buttonFontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*menubar*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmPushButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmLabelGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmPushButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmCascadeButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmCascadeButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmCascadeButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmCascadeButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmToggleButton*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*pulldownmenu*fontList
+<dd>-*-helvetica-bold-o-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmList*fontList
+<dd>-*-helvetica-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmText.fontList
+<dd>-*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*XmTextField.fontList
+<dd>-*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
+<dt>Mosaic*optionmenu*marginHeight
+<dd>0
+<dt>Mosaic*optionmenu*marginTop
+<dd>5
+<dt>Mosaic*optionmenu*marginBottom
+<dd>5
+<dt>Mosaic*optionmenu*marginWidth
+<dd>5
+<dt>Mosaic*pulldownmenu*XmPushButton*marginHeight
+<dd>1
+<dt>Mosaic*pulldownmenu*XmPushButton*marginWidth
+<dd>1
+<dt>Mosaic*pulldownmenu*XmPushButton*marginLeft
+<dd>3
+<dt>Mosaic*pulldownmenu*XmPushButton*marginRight
+<dd>3
+<dt>Mosaic*XmList*listMarginWidth
+<dd>3
+<dt>Mosaic*menubar*marginHeight
+<dd>1
+<dt>Mosaic*menubar.marginHeight
+<dd>0
+<dt>Mosaic*menubar*marginLeft
+<dd>1
+<dt>Mosaic*menubar.spacing
+<dd>7
+<dt>Mosaic*XmMenuShell*marginLeft
+<dd>3
+<dt>Mosaic*XmMenuShell*marginRight
+<dd>4
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*spacing
+<dd>2
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*marginHeight
+<dd>0
+<dt>Mosaic*XmMenuShell*XmToggleButtonGadget*indicatorSize
+<dd>12
+<dt>Mosaic*XmMenuShell*XmLabelGadget*marginHeight
+<dd>4
+<dt>Mosaic*XmToggleButtonGadget*spacing
+<dd>4
+<dt>Mosaic*XmToggleButton*spacing
+<dd>4
+<dt>Mosaic*XmScrolledWindow*spacing
+<dd>0
+<dt>Mosaic*XmScrollBar*width
+<dd>18
+<dt>Mosaic*XmScrollBar*height
+<dd>18
+<dt>Mosaic*Hbar*height
+<dd>22
+<dt>Mosaic*Vbar*width
+<dd>22
+<dt>Mosaic*XmScale*scaleHeight
+<dd>20
+<dt>Mosaic*XmText*marginHeight
+<dd>4
+<dt>Mosaic*fsb*XmText*width
+<dd>420
+<dt>Mosaic*fsb*XmTextField*width
+<dd>420
+<dt>Mosaic*fillOnSelect
+<dd>True
+<dt>Mosaic*visibleWhenOff
+<dd>True
+<dt>Mosaic*XmText*highlightThickness
+<dd>0
+<dt>Mosaic*XmTextField*highlightThickness
+<dd>0
+<dt>Mosaic*XmPushButton*highlightThickness
+<dd>0
+<dt>Mosaic*XmScrollBar*highlightThickness
+<dd>0
+<dt>Mosaic*highlightThickness
+<dd>0
+<dt>Mosaic*keyboardFocusPolicy
+<dd>pointer
+<dt>Mosaic*TitleFont
+<dd>-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Font
+<dd>-adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*ItalicFont
+<dd>-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*BoldFont
+<dd>-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*FixedFont
+<dd>-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header1Font
+<dd>-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header2Font
+<dd>-adobe-times-bold-r-normal-*-18-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header3Font
+<dd>-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header4Font
+<dd>-adobe-times-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header5Font
+<dd>-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1
+<dt>Mosaic*Header6Font
+<dd>-adobe-times-bold-r-normal-*-10-*-*-*-*-*-iso8859-1
+<dt>Mosaic*AddressFont
+<dd>-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1
+<dt>Mosaic*PlainFont
+<dd>-adobe-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+<dt>Mosaic*ListingFont
+<dd>-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-iso8859-1
+<dt>Mosaic*SupSubFont
+<dd>-adobe-courier-medium-r-normal-*-10-*-*-*-*-*-iso8859-1
+<dt>Mosaic*MeterFont
+<dd>-*-fixed-*-*-*-*-14-*-*-*-*-*-*
+<dt>Mosaic*Foreground
+<dd>black
+<dt>Mosaic*Background
+<dd>white
+<dt>Mosaic*TopShadowColor
+<dd>black
+<dt>Mosaic*BottomShadowColor
+<dd>black
+<dt>Mosaic*anchorColor
+<dd>black
+<dt>Mosaic*visitedAnchorColor
+<dd>black
+<dt>Mosaic*activeAnchorFG
+<dd>black
+<dt>Mosaic*activeAnchorBG
+<dd>white
+<dt>Mosaic*TroughColor
+<dd>black
+<dt>Mosaic*SelectColor
+<dd>black
+<dt>Mosaic*AnchorUnderlines
+<dd>1
+<dt>Mosaic*VisitedAnchorUnderlines
+<dd>1
+<dt>Mosaic*DashedVisitedAnchorUnderlines
+<dd>True
+<dt>Mosaic*VerticalScrollOnRight
+<dd>True
+<dt>Mosaic*dragInitiatorProtocolStyle
+<dd>XmDRAG_NONE
+<dt>Mosaic*dragReceiverProtocolStyle
+<dd>XmDRAG_NONE
+</dl>
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,609 @@
+<HTML>
+<HEAD>
+<I>NCSA Mosaic for the X Window System</I><HR>
+
+<TITLE>NCSA Mosaic X Resources</TITLE>
+<owner_name="Mitch Kutzko, mitch@ncsa.uiuc.edu">
+<LINK REV="made" HREF="mailto:webmaster@ncsa.uiuc.edu">
+</HEAD>
+
+<BODY>
+
+<H1>NCSA Mosaic X Resources</H1>
+
+The class name for Mosaic for X is <I>Mosaic.</I> If you are unfamiliar
+with X resources, here is a bit of information on <A
+HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/d2-setting-resources.html">how
+to set X resources.</A> <P>
+
+Note that for each of the resources listed below, the class name is the
+same as the resource name except that the first character is capitalized.
+<P>
+
+<H2>Functional Resources</H2>
+
+<DL>
+<DT> <b><A NAME="annotationsOnTop">annotationsOnTop</A></b>: <i>Boolean</i>
+<DD> Flag to indicate whether inlined document annotation hyperlinks
+     are prepended to the document (if true) or postpended (if false).
+     Default is false.
+
+<DT> <b>annotationServer</b>: <i>string</i>
+<dd> Used for <A HREF="http://www.ncsa.uiuc.edu/SDG/Software/XMosaic/Annotations/overview.html">group annotation support</a>.  This resource is the URL of your
+CGI annotation server.
+
+<DT> <b>autoPlaceWindows</b>: <i>Boolean</i>
+<DD> If set to false, new Document
+   View windows will not be automatically positioned by the
+   program itself (but it's still up to your window manager just how
+   they're placed).  Default is true.
+
+
+<DT> <b><A NAME="catchPriorAndNext">catchPriorAndNext</A></b>: <i>Boolean</i> 
+<DD> This resource controls whether use of the keys Prior and Next
+     (Page Up and Page Down on most keyboards) are explicitly caught
+     in the <A NAME=18 HREF="help-on-docview-window.html">Document
+     View</A> window and passed to the vertical scrollbar or whether
+     the normal Motif scrolled window mechanism is relied upon to do
+     that automatically.  Default is false, since that's how things
+     are supposed to work, but if you find that Page Up/Page Down
+     aren't doing their jobs for you, set this resource to true.
+        (See also <A NAME=19
+        HREF="docview-viewing-area.html#hotkeys">information on
+        hotkeys</A>.)
+
+<DT> <b><A NAME="cciPort">cciPort</A></b>: <i>integer</i>
+<DD> This resource sets the port which Mosaic listens to for <A HREF="CCI/cci-spec.html">CCI</A> instructions.
+
+<DT> <B>confirmDeleteAnnotation</B>: <I>Boolean</I>
+<DD> If false, deleting annotations will not be confirmed via a
+     confirmation dialog box.  Default is true. 
+
+<DT> <b>confirmExit</b>: <i>Boolean</i>
+<DD> Whether NCSA Mosaic will pop up a dialog box to confirm 
+        exiting the program
+     when the 'Exit Program' menu option is chosen.  Default is true.
+
+<DT> <b>defaultAuthorName</b>: <i>string</i>
+<DD> String to use as your fullname (e.g., John Q. Public).  Your fullname
+     is normally stored in the system password file, and Mosaic will extract
+     it from that if this resource is NULL; else the value of this resource
+     will be used.  Default is NULL.
+
+<DT> <b>defaultHeight</b>: <i>integer</i>
+<DD> Default height in pixels for a Document View window.  Default is 680.
+
+<DT> <b><A NAME="hotlist-file">defaultHotlistFile</A></b>: <i>string</i>
+<DD> Name of file to store the 
+     <A NAME=6 HREF="help-on-hotlist-view.html">default hotlist</A> 
+     (or list of bookmarks).  
+     Default is ".mosaic-hotlist-default"; the value
+     of the environment variable $HOME will be prepended to this string.
+
+<DT> <b>defaultWidth</b>: <i>integer</i>
+<DD> Default width in pixels for a Document View window.  Default is 620.
+<a name="dil">
+<DT> <B>delayImageLoads</B>: <I>Boolean</I> </a>
+<DD> Delayed image loading is for users with slow network connections.  If
+     true, Mosaic substitutes a small icon for inlined-images, plus an arrow
+     icon for inlined-images which also act as hyperlinks.  
+     <I>Clicking</I> on an icon tells Mosaic to load that inlined-image, while
+     <I>clicking</I> on the arrow is equivalent to following the associated
+     hyperlink.  Selecting <I>Load Images in Current</I> from Mosaic's
+     <CODE>Options</CODE> menu loads and displays all of the inlined-images in
+     the current document.  Delayed image loading can also be selected with
+     the '-dil' command-line flag, or on a per-window basis from Mosaic's
+     <CODE>Options</CODE> menu.  Default is false.
+
+<DT> <b>displayURLsNotTitles</b>: <i>Boolean</i>
+<DD> If true, URL's will be displayed everywhere document titles are 
+     usually displayed.  Default is false.
+
+<DT> <B>DocsDirectory</B>: <I>string</I> 
+<DD> Can be used to override the location of the help documents.  Default is
+     NULL. 
+
+<DT> <B>documentsMenuSpecfile</B>: <I>string</I> 
+<DD> Name of file which holds an optional "Documents Menu Specfile," to allow
+     sites to add their own <CODE>Documents</CODE> menu to Mosaic's menu bar.
+     For more information, see <A HREF="faq-documents-menu.html"> information
+     on creating a configurable <CODE>Documents</CODE> menu.</A>  Default is 
+     "/usr/local/lib/mosaic/documents.menu"
+
+<DT> <B>editCommand</B>: <I>string</I>
+<DD> Name of the editor to load when using the <I>File-Edit Source</I> option.
+     This editor is loaded in an xterm, specified by the 
+     <code>xtermCommand</code> resource.  Default is vi.
+
+<DT> <B>editCommandUseXterm</B>: <I>Boolean</I>
+<DD> This resource specifies that a user's editor requires an xterm before it
+     can be executed.  Default is true.
+
+<DT> <b>fancySelections</b>: <i>Boolean</i>
+<DD> If true, cut and paste from the Document View window will be done
+     with fancy selections enabled in the HTML widget, which will result
+     in underlined headers, bulleted lists, and so on.  If false, normal
+     selection behavior will be used.  Default is false.  (Note that this
+     can be changed, per window, on the fly.)
+
+<DT> <B>fullHostname</B>: <I>string</I>
+<DD> This resource allows explicit setting of the fully qualified hostname
+     for machines that crash on a call to <CODE>gethostbyname().</CODE>
+     The <CODE>fullHostname</CODE> resource should only be used if
+     necessary, in conjunction with <CODE>gethostbynameIsEvil</CODE>.
+
+<DT> <b><A NAME="ghbnie">gethostbynameIsEvil</A></b>: <i>Boolean</i>
+<DD> If you are running on a Sun set up such that, when it tries to find
+        out it's own full hostname via gethostbyname(), it coredumps,
+        then you should set this resource to true.  Default is false.
+
+<DT> <B>globalExtensionMap</B>: <I>string</I> 
+<DD> Can be set to the location of the system-wide <A
+     HREF="extension-map.html">extension map</A> config file of your choice.  
+     Default is "/usr/local/lib/mosaic/mime.types"
+
+<DT> <b>globalHistoryFile</b>: <i>string</i>
+<DD> Name of file to store the global history of all documents visited
+     from session to session.  Default is ".mosaic-global-history"; the value
+     of the environment variable $HOME will be prepended to this string.
+<DT> <B>globalTypeMap</B>: <I>string</I> 
+<DD> Can be set to the location of the system-wide <A
+     HREF="mailcap.html">mailcap</A> (type map config) file of your choice.
+     Default is "/usr/local/lib/mosaic/mailcap"
+
+<DT> <b>gunzipCommand</b>: <i>string</i>
+<DD> Command Mosaic uses to uncompress gzip'd files (files with an
+     extension of '.z').  Default is "gunzip -n -f", which requires version
+     1.2.4 of <I>gzip</I>.  (Gunzip can be obtained from <A NAME=13
+     HREF="ftp://boole.stanford.edu/pub/">boole.stanford.edu/pub/</A>.)
+
+<DT> <B>hdfMaxImageDimension</B>: <I>integer</I>
+<DD> 
+  Maximum height and/or width of an <A
+  HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
+  HDF</A> inlined image in pixels.  Default is 400.
+
+<DT> <B>hdfMaxDisplayedDatasets</B>: <I>integer</I>
+<DD> 
+  Maximum number of displayed datasets while browsing <A
+  HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
+  HDF</A> files. Default is 15. If more than the maximum exist in an HDF
+  file, Mosaic will display the HDF file in "brief mode."
+
+<DT> <B>hdfMaxDisplayedAttributes</B>: <I>integer</I>
+<DD> 
+  Maximum number of displayed attributes while browsing <A
+  HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
+  HDF</A> files.  Default is 10. If more than the max exist in an HDF file,
+  Mosaic will display the HDF file in "brief mode."
+
+<DT> <B>hdfPowerUser</B>: <I>Boolean</I>
+<DD> If true, most of the supporting text in an HDF file will be removed.
+     Default is false. 
+
+<DT> <b>homeDocument</b>: <i>string</i>
+<DD> Document to access on program startup.  Default is 
+     "http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/NCSAMosaicHome.html".  
+     See also
+     <A NAME=7 HREF="specifying-home.html">information on specifying your
+     home document</A>.
+<a name="ics">
+<DT> <B>imageCacheSize</B>: <I>integer</I> </a>
+<DD> Used to set the size of the inlined-image cache in kilobytes.  The '-ics'
+     command-line flag can also be used.  Default is 2048.
+<UL>
+<LI> All of the images in a given document will be (temporarily) cached
+     while on that page regardless of the value of imageCacheSize.
+<LI> Cache flushes <i>least recently viewed</i>.
+</UL>
+
+<DT> <b>initialWindowIconic</b>: <i>Boolean</i>
+<DD> If set to true, the first Document View window opened (when the
+        program starts) will be iconified.  Default is false.
+
+<DT> <b>kiosk</b>: <i>Boolean</i>
+<DD> If set, this removes the menubar and all control bar options except
+     <i>back, forward, home, and close</i>. Default is false.
+
+<DT> <b>kioskNoExit</b>: <i>Boolean</i>
+<DD> If <code>kiosk</code> is true, and this resource is true, then this
+     removes the close button.  When true, the user has no way to exit
+     Mosaic (without a window manager or a keyboard).  Default is false.
+
+<DT> <B>maxNumCCIConnect</B>: <I>integer</I>
+<DD> Controls the maximum number of cci clients communicating with the browser.
+     Default is no limit.
+
+<DT> <B>maxWaisResponses</B>: <I>integer</I> 
+<DD> Controls maximum number of matches Mosaic gets from a WAIS server.
+     Default is 200. 
+
+<DT> <b><A NAME="personalAnnotationDirectory">personalAnnotationDirectory</A></b>: 
+        <i>string</i>
+<DD> Name of directory in which to store personal annotations (as well
+     as the log file of all personal annotations currently in existence).
+     Default is ".mosaic-personal-annotations"; the value
+     of the environment variable $HOME will be prepended to this string.
+        (If the directory so named does not exist, it will be created;
+        however, intermediate directories, if any are named, 
+        will not be created.)
+
+<DT> <B>personalExtensionMap</B>: <I>string</I> 
+<DD> Can be  set to the location of the personal <A
+     HREF="extension-map.html">extension map</A> config file of
+     your choice -- the value of the environment variable HOME is prepended to
+     this.  Default is ".mime.types"
+
+
+<DT> <B>personalTypeMap</B>: <I>string</I> 
+<DD> Can be set to the location of the personal <A
+     HREF="mailcap.html">mailcap</A> file of your choice -- the value of the
+     environment variable <CODE>HOME</CODE> is prepended to this.  Default is
+     ".mailcap"
+
+<DT> <b>printCommand</b>: <i>string</i>
+<DD> Name of command used (by default) for the 'Print' menu option.
+     This command is expected to accept a single argument -- the name
+     of the file to print.  Default is "lpr".  (Note that this can be
+     changed on the fly via the 'Print' option's dialog box.)
+
+<DT> <b><A NAME="recordCommandLocation">recordCommandLocation</A></b>: <i>string</i>
+<DD> Location (full path name) of the command used to record audio
+        annotations (on Sun, SGI, and HP platforms).  Default is
+        "/usr/sbin/recordaiff" on SGI, "/usr/demo/SOUND/record" on
+        Sun, and "/usr/audio/bin/srecorder" on HP.  If the named
+        command does not exist when Mosaic is started, audio
+        annotations will be disabled (the menu entry will be made
+        insensitive).
+<DT> <b><A NAME="recordCommand">recordCommand</A></b>: <i>string</i>
+<DD> Command used to record audio annotations -- this is the full
+        command, using the command named in recordCommandLocation as
+        the first word.  Default is "recordaiff -n 1 -s 8 -r 8000" on
+        SGI, "record" on Sun, "srecorder -au" on HP.  The command thus
+        named is expected to accept a single additional argument</b>: the
+        filename of the new audio file; the command is also expected
+        to correctly terminate recording when sent a SIGINT.
+
+<DT> <B>reloadPragmaNoCache</B>: <I>Boolean</I>
+<DD> If true, Mosaic will send additional header info to notify a proxy
+     not to use cache.  This only works with caching proxy servers.  
+     Default is false.
+
+<DT> <B>reloadReloadsImages</B>: <I>Boolean</I> 
+<DD> If true, the <I>Reload</I> option will clear out cached image data for 
+     the current document before reloading the document, thus causing the
+     images to be reloaded also.  This is most useful for HTML authors using
+     Mosaic to view their work.  Default is false.
+
+<A NAME="sendmail">
+<DT> <B>sendmailCommand</B>: <I>string</I> </A> 
+<DD> Points to the <CODE>sendmail</CODE> binary.  The assumption is made that
+     this program accepts command-line arguments specifying addresses to which
+     messages should be mailed, and accepts other headers and message text from
+     stdin. Default is "/usr/lib/sendmail"
+
+<A NAME="signature">
+<DT> <B>signature</B>: <I>string</I> </A>
+<DD> Points to the signature file used when posting articles to newsgroups.  This
+     file will be included whenever you post or followup.  Default is no signature.
+
+<DT> <B>simpleInterface</B>: <I>Boolean</I> 
+<DD> Allows Mosaic's menu bar and bottom button configuration to be
+     considerably pared down (default is false).
+
+<DT> <b><A NAME="tmpDirectory">tmpDirectory</A></b>: <i>string</i> 
+<DD> Name of directory in which to store temporary files generated by
+        Mosaic.  This directory should have plenty of space, ideally
+        at least 10 or 20 megabytes, in case you happen to pull down a
+        very large data file.  Setting this resource is equivalent to
+        using the command-line flag <A
+        HREF="command-line-flags.html#tmpdir">-tmpdir</A> or setting
+        the environment variable <code>TMPDIR</code>.
+
+<DT> <B>trackFullURLs</B>: <I>Boolean</I> 
+<DD> If set to false, enables prototypical smart display of "where you're
+     going" during mouse tracking, including format divination.  Default is
+     true. 
+
+<DT> <B>trackPointerMotion</B>: <I>Boolean</I>
+<DD> If set to false, the mouse pointer will not be tracked so that URLs
+     are visible on the lower status line.  Default is true.
+
+<a name="trackvisited">
+<DT> <b>trackVisitedAnchors</b>: <i>Boolean</i></a>
+<DD> If true, visited anchors (anchors pointing to documents that have
+        previously been viewed) will be displayed with a different style
+        than anchors that have not yet been visited.  Default is true.
+        (On slow machines, changing this resource to false may
+        substantially improve Mosaic's performance.)
+
+<DT> <B>tweakGopherTypes</B>: <I>Boolean</I>
+<DD> When false, Mosaic will interpret Gopher documents strictly by the
+     Gopher typing system.  When true, Mosaic will use its own mechanism
+     to determine the file types of Gopher documents.  Default is true.
+
+<DT> <B>twirlIncrement</B>: <I>integer</I> 
+<DD> Indicates how many bytes (minimum) are transferred between updates 
+     of the twirling transfer icon for normal (FTP, Gopher, HTTP) transfers.
+     Default is 4096.
+
+<DT> <b>twirlingTransferIcon</b>: <I>Boolean</I> 
+<DD> Can be set to false to turn off the twirling NCSA logo during document
+     transfers.  <I>Clicking</I> the icon will still interrupt a transfer.
+     Default is true.
+
+<DT> <b>uncompressCommand</b>: <i>string</i>
+<DD> Command to use to uncompress compressed files (files with an
+        extension of '.Z').  Default is "uncompress"
+
+<DT> <B>useDefaultExtensionMap</B>: <I>Boolean</I> 
+<DD> Can be set to false to keep Mosaic from having any default <A
+     HREF="extension-map.html">file-extension-to-MIME-type mappings</A>.  <I>
+     We strongly recommend that this resource be left true;</I> simply
+     overridden as necessary.  Default is true.
+
+<DT> <B>useDefaultTypeMap</B>: <I>Boolean</I> 
+<DD> Can be set to false to keep Mosaic from having any default <A 
+     HREF="mailcap.html">MIME-type-to-external-viewer mappings</A>.  <I>We
+     strongly recommend that this resource be left true</I>; simply overridden
+     as necessary. Default is true. 
+
+<DT> <b>useGlobalHistory</b>: <i>Boolean</i>
+<DD> If true, a global history of everywhere you visit is automatically 
+     stored.  (This history is used to 
+     shade anchors different colors based on whether you've visited the 
+     corresponding documents or not, if resource trackVisitedAnchors
+        is set to true)  Default is true.
+
+
+<DT> <b>xtermCommand</b>: <i>string</i>
+<DD> Name of command used to start a terminal window for a telnet
+     session.  Default is "xterm" on most platforms; "aixterm -v" on IBM
+     AIX 3.x systems.
+
+</DL>
+
+<H2>Visual Resources</H2>
+
+The following resources actually belong to the <A NAME=22
+HREF="htmlwidget.html">HTML widget</A> used in the Document View window, so <A
+NAME="widget-resources-note">you should specify them</A> in your
+<CODE>.Xdefaults</CODE> file as follows:
+
+<XMP>
+        Mosaic*anchorColor: cyan
+</XMP>
+
+<DL>
+<DT> <b>Background</b>: <i>color</i>
+<DD> Color for main background.  Default is grey.
+<DT> <b>Foreground</b>: <i>color</i>
+<DD> Color for normal text.  Default is black. 
+<DT> <b>anchorColor</b>: <i>color</i>
+<DD> Color to shade anchors whose corresponding documents haven't been previously visited.  Default is blue3.
+<DT> <b>visitedAnchorColor</b>: <i>color</i>
+<DD> Color to shade anchors whose corresponding documents have been previously visited.  Default is violetred4.
+<DT> <b>activeAnchorFG</b>: <i>color</i>
+<DD> Color to shade anchors that are in the process of being activated.  Default is red.
+<DT> <b>activeAnchorBG</b>: <i>color</i>
+<DD> Color to shade the background of anchors that are in the 
+     process of being activated.  Default is grey80 (the same 
+     color as the application's background).
+<DT> <b>anchorUnderlines</b>: <i>integer</i>
+<DD> This can be one of {0, 1, 2, 3}, and indicates the number
+     of lines to draw underneath unvisited anchors.  Default is 1.
+<DT> <b>visitedAnchorUnderlines</b>: <i>integer</i>
+<DD> This can be one of {0, 1, 2, 3}, and indicates the number
+     of lines to draw underneath visited anchors.  Default is 1.
+<DT> <b>dashedAnchorUnderlines</b>: <i>Boolean</i>
+<DD> If true, lines drawn under unvisited anchors will be dashed.
+     Default is false.
+<DT> <b>dashedVisitedAnchorUnderlines</b>: <i>Boolean</i>
+<DD> If true, lines drawn under visited anchors will be dashed.
+     Default is true.
+
+<DT> <b>colorsPerInlinedImage</b>: <i>integer</i>
+<DD> Number of unique colors to allocate per
+         <A NAME=10 HREF="inlined-images.html">inlined-image</A>;
+        default is 50.  Note that this has no bearing on images that
+        are displayed externally to NCSA Mosaic, e.g. GIF images passed
+        to an external viewer.
+<DT> <b>percentVerticalSpace</b>: <i>integer</i>
+<DD> The height of vertical space between paragraphs, between headers
+        and paragraphs, etc., expressed as a percentage of the normal
+        line height.  Default is 90.
+
+<DT> <B>reverseInlinedBitmapColors</B>: <I>Boolean</I>
+<DD> If true, reverses foreground and background colors in inlined XBM
+bitmaps.  Default is false.
+
+<DT> <B>verticalScrollOnRight</B>: <I>Boolean</I>
+<DD> If false, the Document View window will place its scroll bar on the 
+     left side.  Default is true.
+
+</DL>
+
+<a name="font">
+<H2>Font Resources</H2></a>
+
+Font resources are also resources that belong to the HTML widget, so
+the <A NAME=8 HREF="#widget-resources-note">above note</A> applies
+here too.  Note that fonts can be changed dynamically from the 
+<b>Options</b> menu</A>.
+
+<DL>
+<DT> <b>defaultFontChoice</b>: <i>string</i>
+<DD> Sets the default font choice for X.  <i>string</i> is a string similar
+     to any of the font choices in the Options-Font menu.  For example.
+     <LISTING>Mosaic*defaultFontChoice: New Century Large</LISTING>
+<DT> <b>font</b>: <i>font</i>
+<DD> Font used in normal formatted text.  
+     Default is "-adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>italicFont</b>: <i>font</i>
+<DD> Font used in italic formatted text.  
+     Default is "-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>boldFont</b>: <i>font</i>
+<DD> Font used in bold formatted text.  
+     Default is "-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>fixedFont</b>: <i>font</i>
+<DD> Font used in fixed (typewriter style) formatted text.  
+     Default is "-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>header1Font</b>: <i>font</i>
+<DD> Font used in level 1 headers.  
+     Default is "-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1".
+<DT> <b>header2Font</b>: <i>font</i>
+<DD> Font used in level 2 headers.  
+     Default is "-adobe-times-bold-r-normal-*-18-*-*-*-*-*-iso8859-1".
+<DT> <b>header3Font</b>: <i>font</i>
+<DD> Font used in level 3 headers.  
+     Default is "-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>header4Font</b>: <i>font</i>
+<DD> Font used in level 4 headers.  
+     Default is "-adobe-times-bold-r-normal-*-14-*-*-*-*-*-iso8859-1".
+<DT> <b>header5Font</b>: <i>font</i>
+<DD> Font used in level 5 headers.  
+     Default is "-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1".
+<DT> <b>header6Font</b>: <i>font</i>
+<DD> Font used in level 6 headers.  
+     Default is "-adobe-times-bold-r-normal-*-10-*-*-*-*-*-iso8859-1".
+<DT> <b>addressFont</b>: <i>font</i>
+<DD> Font used in addresses.  
+     Default is "-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1".
+<DT> <b>plainFont</b>: <i>font</i>
+<DD> Font used in plaintext regions or preformatted documents.  
+     Default is "-adobe-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1".
+<DT> <b>listingFont</b>: <i>font</i>
+<DD> Font used in listing regions.  Default is "-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-iso8859-1".
+<DT> <b>fixedboldFont</b>: <I>font</I>
+<DD> Font used for bold in fixed (typewriter style) formatted text
+<DT> <b>fixeditalicFont</b>: <I>font</I>
+<DD> Font used for italic in fixed (typewriter style) formatted text
+<DT> <b>plainboldFont</b>: <I>font</I>
+<DD> Font used for bold in plaintext regions or preformatted documents
+<DT> <b>plainitalicFont</b>: <I>font</I>
+<DD> Font used for italic in plaintext regions or preformatted documents
+
+<DT> <b>supsubFont</b>: <I>font</I>
+<DD> Font used for superscript and subscript fonts.
+
+</DL>
+
+<H2>Proxy Gateway Resources</H2>
+
+Support for Proxy Gateways is still considered experimental.
+The following resources are assumed to be pointers to <A
+HREF="http://www.w3.org/hypertext/WWW/Daemon/User/Proxies/Proxies.html">
+Proxy Gateways</A>, for example:
+
+<XMP>
+    Mosaic*httpProxy: http://www.cern.ch:911/
+</XMP>
+
+Here are more <A
+HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/proxy-gateways.html">
+details on Proxy Gateway Support in NCSA Mosaic for X.</A>
+
+<DL>
+
+<DT> <B>ftpProxy</B>: <I>String</I>
+<DD> Proxy for ftp URLs.
+
+<DT> <B>gopherProxy</B>: <I>String</I>
+<DD> Proxy for gopher URLs.
+
+<DT> <B>httpProxy</B>: <I>String</I>
+<DD> Proxy for http URLs.
+
+<DT> <B>newsProxy</B>: <I>String</I>
+<DD> Proxy for news URLs.
+
+<DT> <B>waisProxy</B>: <I>String</I>
+<DD> Proxy for wais URLs.
+
+<DT> <B>ProxyGateway:</B> <I>String</I>
+<DD> Proxy to be used for all access methods.
+
+</DL>
+
+<H2>PGP/PEM Encryption Resources</H2>
+
+PGP/PEM encryption is still considered an experimental feature of NCSA
+Mosaic.  Here is <A
+HREF="http://hoohoo.ncsa.uiuc.edu/docs/PEMPGP.html">more information on
+PGP/PEM encryption with NCSA Mosaic.</a>
+
+<DL>
+<DT> <B>pemEncrypt</B>: <I>string</I>
+<DD> The executable Mosaic will run to perform PEM encryption.
+
+<DT> <B>pemDecrypt</B>: <I>string</I>
+<DD> The executable Mosaic will run to perform PEM decryption.
+
+<DT> <B>pemEntity</B>: <I>string</I>
+<DD> The user's PEM entity name, which should be the same as the key name
+     given to server maintainers.
+
+<DT> <B>pgpEncrypt</B>: <I>string</I>
+<DD> The executable Mosaic will run to perform PGP encryption.
+
+<DT> <B>pgpDecrypt</B>: <I>string</I>
+<DD> The executable Mosaic will run to perform PGP decryption.
+
+<DT> <B>pgpEntity</B>: <I>string</I>
+<DD> The user's PGP entity name, which should be the same as the key name
+     given to server maintainers.
+
+</DL>
+
+<H2>Obsolete Resources</H2>
+
+The following resources once did something, but not anymore. <P>
+
+<DL>
+<DT> <b>binaryTransferMode</b>: <i>Boolean</i>
+<DD> Removed in version 2.0, use <I>Load to Local Disk</I> from
+     <CODE>Options</CODE> menu if necessary.
+
+<DT> <b>mailCommand</b>: <i>string</i>
+<DD> Replaced in version 2.0 with <A HREF="#sendmail">sendmailCommand</A>
+     resource. 
+
+<DT> <b><A NAME="warpPointerForIndex">warpPointerForIndex</A></b>:
+<i>Boolean</i>
+<DD> Removed in version 2.0.  This is a much-requested feature, and will
+    be re-worked eventually.
+
+<DT> <b>windowPerDocument</b>: <i>Boolean</i>
+<DD> Removed in version 2.0.  New windows can be created by
+     <I>clicking</I> on hyperlinks with the middle mouse button rather than
+     the left one.
+
+</DL>
+
+
+<EM>The following notices were important for users upgrading from a 1.x
+version of Mosaic to a 2.x version:</EM>
+
+<UL>
+<LI> The class name has been changed from <i>XMosaic</i> to <i>Mosaic</i>.
+     Existing Mosaic 1.2 X resources and application defaults files should be
+     modified accordingly. 
+<LI> Information on <A HREF="faq-broken.html#11">the removal of version 1.2
+     multimedia X resources.</A>
+</UL>
+
+
+<A HREF="mosaic-docs.html"><IMG SRC="up.xbm"> Back to top level Documentation
+Index</A> 
+<P>
+
+Last Modified: 9 July 1995 <BR>
+<ADDRESS>
+<A HREF="http://www.ncsa.uiuc.edu/General/NCSAHome.html">
+National Center for Supercomputing Applications</A>
+</ADDRESS>
+<ADDRESS><A HREF="mailto:webmaster@ncsa.uiuc.edu">webmaster@ncsa.uiuc.edu</A></ADDRESS>
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,35 @@
+#
+# Image delay-loading - selection by URL substring
+#
+# This file should be located in your HOME directory under the filename:
+#   .mosaic-imageselect-sites
+#
+# This file consists of lines that begin with a # (comment), blank lines,
+# or lines that start with "delay" or "kill."
+#
+# What this file does for you is to allow you select by URL substring 
+# which sites you want "delay of image loading" or "image killing" on. 
+# 
+# For a substring you pick "delay" for, all the images on any site with 
+# the specified substring will be replaced with a little icon telling 
+# you that there is an image there, but it won't be displayed, or even 
+# retrieved. You could click on that little icon and get the image if 
+# you later desire. 
+# 
+# For a substring you pick "kill" for, all the images 
+# on any site with the specified substring will be replaced by a little 
+# 8x8 pixel transparent image - you won't even see the "delayed-image" icon.
+# 
+# This can be handy for getting rid of the graphics on any page which 
+# you know you won't ever want to see or even load the graphics for...
+#
+# These are some examples. You probably want to change these, as they 
+# will probably do either too much or too little... 
+
+kill ~smith
+delay .com
+kill www.imternet-index-with-lots-of-annoying-advertisements.com
+kill www.site-with-indecent-use-of-gigantic-imagemaps.com
+delay http://
+
+

@@ -1,0 +1,6 @@
+This is version 2.3r2 of NCSA DTM.
+
+See Makefile for build instructions; e.g.
+	make sgi
+	make sun
+

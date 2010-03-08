@@ -1,0 +1,120 @@
+NCSA Mosaic for the X Window System Version 2.6
+===============================================
+
+Welcome to NCSA Mosaic for the X Window System 2.6!
+
+This README details installation steps.
+
+More complete information and documentation on NCSA Mosaic is
+available online, via NCSA Mosaic.
+
+
+Binaries
+--------
+
+NCSA Mosaic is known to compile on the following platforms:
+
+  SGI (IRIX 4.0.x and 5.x) 
+  IBM (AIX 3.2.4)
+  Sun (SunOS 4.1.3, 5.3, and 5.4 (Solaris))
+  DECstation 5000-200 (Ultrix 4.x)
+  DEC Alpha (OSF/1 1.3 and 3.0)
+  Hewlett Packard (HP/UX 7.x, 8.x, 9.x)
+  Pentium (Linux 1.1.94)
+
+Binaries for these platforms (and possibly others) are available on
+ftp.ncsa.uiuc.edu in /Mosaic/Unix/binaries/
+
+If you have to make nontrivial changes to NCSA Mosaic to get it to
+compile on a particular platform, please send a set of context diffs
+(e.g., 'diff -c oldfile newfile') to mosaic-x@ncsa.uiuc.edu.
+
+
+Installation Instructions
+-------------------------
+
+Simply examine the toplevel Makefile, change the appropriate
+customizable options, and type 'make'.  
+
+The final result is a single independent executable, src/Mosaic.
+
+(The Makefile.[sun,dec,ibm,alpha,etc.] files are the Makefiles we use
+locally for compilation on various platforms; they will almost
+certainly NOT WORK for you without modification.  We recommend you
+start with the stock Makefile and make modifications as necessary to
+avoid confusion.)
+
+There is one tricky thing:
+
+-- You have the option of compiling in support for NCSA HDF, a
+   platform-independent hierarchical scientific data format, and NCSA
+   DTM, a network-based message-passing protocol useful for exchanging
+   scientific data between applications.  If you compile one of them
+   in, you should compile both of them in.  
+
+   If you don't already know what HDF and DTM are and want to compile
+   Mosaic quickly, forget about them for the time being -- you can
+   always recompile later.
+
+   The DTM library is in subdirectory libdtm.  The HDF library must be
+   obtained separately from ftp.ncsa.uiuc.edu in /HDF; get version
+   4.0b1 or later.  Set the various options in the Makefile to point
+   to all the right places, and you should be set.
+
+   NOTE: Nothing less than 4.0b1 will work.
+
+After You Have Compiled
+-----------------------
+
+If you do not normally run Motif on your system (e.g., if you run Sun
+OpenWindows instead), then you may get a whole bunch of run-time
+errors about translations when you start Mosaic.
+
+If this happens, copy the file XKeysymDB (included in this directory)
+to /usr/lib/X11.  (If you compile Mosaic yourself, you may need to
+place this file elsewhere, depending on your X configuration.)  See
+the FAQ list online for more information.
+
+
+X Defaults
+----------
+
+NCSA Mosaic includes sets of fallback X resources that provide
+reasonable screen display properties for three configurations: color,
+monochrome, and color SGI.  (Color SGI has its own configuration since
+SGI systems commonly use a gamma correction factor of 1.7, which makes
+their screens brighter than usual.)
+
+If you compile NCSA Mosaic out of the box, or if you download a binary
+from ftp.ncsa.uiuc.edu, the default resources will be for a color
+display (or, if you compile on an SGI, the default will be for color
+SGI).  See the Makefile for information on how to have monochrome
+resources by default.  On the command line, the flags '-mono' and
+'-color' allow you to switch resource configurations at runtime.
+
+For your convenience, three corresponding X app-defaults files are
+included in this distribution: app-defaults.color,
+app-defaults.color-sgi, and app-defaults.mono.
+
+
+Bug Reports and Comments
+------------------------
+
+Bug reports and other comments can be sent to mosaic-x@ncsa.uiuc.edu.
+
+If you find NCSA Mosaic useful or particularly interesting, please
+also send us a note -- continued development of this project partially
+depends on user feedback and support.
+
+
+--
+=============================================================================
+Scott Powers    spowers@ncsa.uiuc.edu \        The N.C.S.A. X Mosaic
+Kristin Buxton  kbuxton@uiuc.edu       \         Development Team
+Dan Pape        dpape@ncsa.uiuc.edu     > 
+Tommy Reilly    tpreilly@uiuc.edu      /  Comments? Suggestions? Problems?
+Brian Swetland  swetland@uiuc.edu     /       mosaic-x@ncsa.uiuc.edu
+=============================================================================
+
+Software Development Group
+National Center for Supercomputing Applications

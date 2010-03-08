@@ -1,0 +1,39 @@
+!
+!		OSF Keysyms
+!
+osfBackSpace			:1004FF08
+osfInsert			:1004FF63
+osfDelete			:1004FFFF
+osfCopy				:1004FF02
+osfCut				:1004FF03
+osfPaste			:1004FF04
+
+osfAddMode			:1004FF31
+osfPrimaryPaste			:1004FF32
+osfQuickPaste			:1004FF33
+
+osfPageUp			:1004FF41
+osfPageDown			:1004FF42
+
+osfEndLine			:1004FF57
+osfBeginLine			:1004FF58
+
+osfActivate			:1004FF44
+
+osfMenuBar			:1004FF45
+
+osfClear			:1004FF0B
+osfCancel			:1004FF69
+osfHelp				:1004FF6A
+osfMenu				:1004FF67
+osfSelect			:1004FF60
+osfUndo				:1004FF65
+
+osfLeft				:1004FF51
+osfUp				:1004FF52
+osfRight			:1004FF53
+osfDown				:1004FF54
+
+!             DEC specific keysyms
+!
+DRemove				:1000FF00
