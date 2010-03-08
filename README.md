@@ -1,6 +1,8 @@
 NCSA Mosaic
 ===========
 
+![GitHub viewed with Mosaic](http://github.com/downloads/alandipert/ncsa-mosaic/github.png "GitHub with Mosaic")
+
 This is NCSA Mosaic 2.7, one of the first graphical web browsers.
 If you're on Ubuntu or something like it, your time machine is fueled
 up and ready to go.  Follow the instructions below to build and run.
