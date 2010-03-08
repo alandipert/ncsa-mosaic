@@ -12,12 +12,12 @@ Building
 
 * First, install these packages:
 
-    sudo apt-get install build-essential libmotif3 libmotif-dev libpng3 
+      sudo apt-get install build-essential libmotif3 libmotif-dev libpng3 
 
 * Next, build with:
 
-    make linux
+      make linux
 
 * Run!
 
-    src/Mosaic
+      src/Mosaic
