@@ -115,9 +115,9 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
         if(ret != 8)
             return 0;
         
-        ret = png_check_sig(buf, 8);
+        ret = png_sig_cmp(buf, 0, 8);
         
-        if(!ret)
+        if(ret)
             return(0);
     }
 
@@ -131,14 +131,15 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
     if(!png_ptr)
         return 0;
 
-    info_ptr = (png_info *)malloc(sizeof(png_info));
+    /* initialize the structures */
+    info_ptr = png_create_info_struct(png_ptr);
     if(!info_ptr) {
         /*free(png_ptr);*/
         return 0;
     }
 
         /* Establish the setjmp return context for png_error to use. */
-    if (setjmp(png_ptr->jmpbuf)) {
+    if (setjmp(png_jmpbuf(png_ptr))) {
         
 #ifndef DISABLE_TRACE
         if (srcTrace) {
@@ -165,8 +166,6 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
     png_set_message_fn(png_ptr,png_get_msg_ptr(png_ptr),NULL,NULL); 
 #endif
 
-        /* initialize the structures */
-    png_info_init(info_ptr);
     /*png_read_init(png_ptr);*/
     
         /* set up the input control */
