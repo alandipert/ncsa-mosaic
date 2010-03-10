@@ -1407,6 +1407,14 @@ ParseMarkType(str)
 	{
 		type = M_CENTER;
 	}
+	else if (caseless_equal(str, MT_SCRIPT))
+	{
+		type = M_COMMENT;
+	}
+	else if (caseless_equal(str, MT_STYLE))
+	{
+		type = M_COMMENT;
+	}
 	else
 	{
 #ifndef DISABLE_TRACE
