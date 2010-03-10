@@ -440,6 +440,8 @@ struct delay_rec {
 #define M_MAP		58 /* swp - client side ismap */
 #define M_AREA		59 /* swp - client side ismap */
 #define M_CENTER	60
+#define M_SCRIPT        61
+#define M_STYLE         62
 
 /* syntax of Mark types */
 #define	MT_TITLE	"title"
@@ -501,6 +503,10 @@ struct delay_rec {
 #define MT_MAP		"map" /* swp - client side ismap */
 #define MT_AREA		"area" /* swp - client side ismap */
 #define MT_CENTER	"center"
+
+/* tags from THE FUTURE! we will ignore their contents. */
+#define MT_SCRIPT       "script"
+#define MT_STYLE        "style"
 
 /* anchor tags */
 #define	AT_NAME		"name"

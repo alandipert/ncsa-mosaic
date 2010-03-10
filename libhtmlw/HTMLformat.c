@@ -3504,7 +3504,7 @@ int *x, *y;
 	 * Let OPTION through so we can hit the OPTIONs.
 	 * Let TEXTAREA through so we can hit the TEXTAREAs.
 	 */
-	if ((Ignore)&&(!InDocHead)&&(type != M_TITLE)&&(type != M_NONE)&&
+	if ((Ignore)&&(!InDocHead)&&(type != M_TITLE)&&(type != M_NONE)&&(type != M_COMMENT)&&
 		(type != M_SELECT)&&(type != M_OPTION)&&
 		(type != M_TEXTAREA)&&(type != M_DOC_HEAD))
 	{
@@ -4830,6 +4830,9 @@ int *x, *y;
 		if (tableSupportEnabled) {
 			TablePlace(hw, mptr, x, y, Width);
 		}
+		break;
+	case M_COMMENT:
+		Ignore = !mark->is_end;
 		break;
 	default:
 		break;
