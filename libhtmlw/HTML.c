@@ -741,13 +741,13 @@ XGCValues values;
 	hw->html.bgclip_SAVE=None;
 
 	if (NoBodyImages(hw)) {
-		return;
+		return 0;
 	}
 
 /* ??? Why is this here? */
 	hw->html.view->core.background_pixel = hw->html.background_SAVE ;
 
-	return;
+	return 0;
 }
 
 int NoBodyImages(Widget w) {
@@ -770,7 +770,7 @@ unsigned long valuemask;
 XGCValues values;
 
 	if (!bgname || !*bgname || !(hw->html.drawGC)) {
-		return;
+		return 0;
 	}
 
 	if (hw->html.delay_images==True || currently_delaying_images==1) {
@@ -814,7 +814,7 @@ XGCValues values;
 		}
 	}
 
-	return;
+	return 0;
 }
 
 
@@ -832,7 +832,7 @@ hw_do_color(Widget w, char *att, char *cname)
     int i;
 
     if (!att || !*att || !cname || !*cname) {
-        return;
+        return -1;
     }
 
     cmap = hw->core.colormap;
@@ -847,14 +847,14 @@ hw_do_color(Widget w, char *att, char *cname)
     if(!allocated){
         if(*val=='#') val++;
         if (!*val) {
-            return;
+            return -1;
         }
 
         if (strlen(val)>=6) {
 	    /* Must be valid hex */
 	    for (i=0; i<6; i++) {
 		if (!strchr("0123456789AaBbCcDdEeFf",val[i])) {
-		    return;
+		    return -1;
 		}
 	    }
 
@@ -875,10 +875,10 @@ hw_do_color(Widget w, char *att, char *cname)
             col.flags = DoRed | DoGreen | DoBlue;
             
             if (!XAllocColor(XtDisplay(w),cmap,&col)) {
-                return;
+                return -1;
             }
         } else {
-            return;
+            return -1;
         }
         
     }
@@ -910,7 +910,7 @@ hw_do_color(Widget w, char *att, char *cname)
         hw->html.activeAnchor_fg = col.pixel;
     }
     
-    return;
+    return -1;
 }
 
 void
