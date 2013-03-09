@@ -96,9 +96,9 @@ PUBLIC HTChildAnchor * HTAnchor_findChild
 #endif
     return NULL;
   }
-  if (kids = parent->children) {  /* parent has children : search them */
+  if ((kids = parent->children)) {  /* parent has children : search them */
     if (tag && *tag) {		/* TBL */
-	while (child = HTList_nextObject (kids)) {
+	while ((child = HTList_nextObject (kids))) {
 	    if (equivalent(child->tag, tag)) { /* Case sensitive 920226 */
 #ifndef DISABLE_TRACE
 		if (www2Trace) fprintf (stderr,
@@ -115,7 +115,7 @@ PUBLIC HTChildAnchor * HTAnchor_findChild
   child = HTChildAnchor_new ();
 #ifndef DISABLE_TRACE
   if (www2Trace) fprintf(stderr, "new Anchor %p named `%s' is child of %p\n",
-       (void*)child, (int)tag ? tag : (WWW_CONST char *)"" , (void*)parent); /* int for apollo */
+       (void*)child, tag == NULL ? tag : (WWW_CONST char *)"" , (void*)parent); /* int for apollo */
 #endif
   HTList_addObject (parent->children, child);
   child->parent = parent;
@@ -201,7 +201,7 @@ HTAnchor * HTAnchor_findAddress
 
     /* Search list for anchor */
     grownups = adults;
-    while (foundAnchor = HTList_nextObject (grownups)) {
+    while ((foundAnchor = HTList_nextObject (grownups))) {
        if (equivalent(foundAnchor->address, address)) {
 #ifndef DISABLE_TRACE
 	if (www2Trace) fprintf(stderr, "Anchor %p with address `%s' already exists.\n",

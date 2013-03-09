@@ -2,6 +2,8 @@
 **		=============================
 **
 */
+#include <unistd.h>
+
 #include "../config.h"
 /* Connection: Keep-Alive support -bjs */
 #include "HTMIME.h"
@@ -24,6 +26,7 @@ PUBLIC float HTMaxLength = 1e10;	/* No effective limit */
 #include "SGML.h"
 #include "HTML.h"
 #include "HTMLGen.h"
+#include "HTTCP.h"
 
 /* From gui-documents.c. */
 extern int loading_inlined_images;

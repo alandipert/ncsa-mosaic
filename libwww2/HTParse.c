@@ -238,7 +238,7 @@ char * HTParse(aName, relatedName, wanted)
                   {
 #ifndef DISABLE_TRACE
                     if (www2Trace)
-                      fprintf (stderr, "[Parse] Copying '%s' to '%s', %d bytes\n", 
+                      fprintf (stderr, "[Parse] Copying '%s' to '%s', %zu bytes\n", 
                                p+1, p, strlen (p+1));
 #endif
 /*

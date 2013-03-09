@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -63,4 +63,4 @@
    the source whenever something changed. */
 
 
-
+mo_status mo_post_mailto_win (char *to_address, char *subject);

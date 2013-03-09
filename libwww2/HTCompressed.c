@@ -21,6 +21,9 @@
 
 #include "../libnut/system.h"
 
+#include "../src/mosaic.h"
+#include "../src/mo-www.h"
+
 #ifndef DISABLE_TRACE
 extern int www2Trace;
 #endif

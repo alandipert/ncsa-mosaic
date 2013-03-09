@@ -1,3 +1,4 @@
+int compact_string(char *main_string, char *ellipsis_string, int num_chars, int mode, int eLength);
 char *getFileName(char *file_src);
 char *strcasechr(char *src, char srch);
 char *strrcasechr(char *src, char srch);

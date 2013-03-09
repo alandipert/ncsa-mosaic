@@ -15,10 +15,8 @@
 #include "tcp.h"		/* for TOUPPER */
 #include <ctype.h> 		/* for toupper - should be in tcp.h */
 
-extern void mo_gui_notify_progress (char *);
-extern int mo_gui_check_icon (int);
-extern void mo_gui_clear_icon (void);
-extern void mo_gui_update_meter(int,char *);
+#include "../src/mosaic.h"
+#include "../src/gui.h"
 
 PUBLIC void HTAlert ARGS1(WWW_CONST char *, Msg)
 {

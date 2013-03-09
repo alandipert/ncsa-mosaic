@@ -10,12 +10,15 @@
  */
 #include "../config.h"
 #include "HTAccess.h"
+#include "HTAlert.h"
 #include "HTUtils.h"
 #include "tcp.h"
 #include "HTML.h"
 #include "HTParse.h"
 #include "HTFormat.h"
 #include "../libnut/str-tools.h"
+#include "../src/mosaic.h"
+#include "../src/mailto.h"
 #ifndef DISABLE_TRACE
 extern int www2Trace;
 #endif
