@@ -2706,7 +2706,7 @@ int extra;
 
 	if ((*mptr)->is_end) {
 		/* end of table */
-		return;
+		return 0;
 		}
 
 	extra = 10;
@@ -2715,7 +2715,7 @@ int extra;
 	SetElement(hw, E_TABLE, currentFont, *x, *y, (char *) mptr, NULL, NULL, IMAGE_DEFAULT_BORDER); 
 	if (!Current->table_data) {
 		/* no table */
-		return;
+		return 0;
 		}
 	Current->alignment = ALIGN_MIDDLE;
 	Current->width = Current->table_data->width;

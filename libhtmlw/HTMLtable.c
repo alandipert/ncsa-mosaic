@@ -1078,11 +1078,11 @@ int baseLine;
 int yy;
 
 	if (field->type == F_NONE) { /* nothing to display in field */
-		return;
+		return -1;
 		}
 
 	if (field->type != F_TEXT) { /* routine only does text at this time */
-		return;
+		return -1;
 		}
 
 	/* adjust for aesthetic surounding space */
