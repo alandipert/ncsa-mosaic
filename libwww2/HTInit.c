@@ -17,6 +17,8 @@
 extern int www2Trace;
 #endif
 
+int HTLoadTypesConfigFile(char *);
+
 /* Reread config files. */
 PUBLIC void HTReInit NOARGS
 {
@@ -220,7 +222,7 @@ static char *Cleanse(char *s) /* no leading or trailing space, all lower case */
     return(news);
 }
 
-static ProcessMailcapEntry(FILE *fp, struct MailcapEntry *mc)
+static int ProcessMailcapEntry(FILE *fp, struct MailcapEntry *mc)
 {
     int rawentryalloc = 2000, len;
     char *rawentry, *s, *t, *LineBuf;
@@ -294,7 +296,7 @@ static ProcessMailcapEntry(FILE *fp, struct MailcapEntry *mc)
 }
 
 
-static ProcessMailcapFile(char *file)
+static int ProcessMailcapFile(char *file)
 {
     struct MailcapEntry mc;
     FILE *fp;
@@ -534,6 +536,7 @@ static void getword(char *word, char *line, char stop, char stop2)
 int HTLoadExtensionsConfigFile (char *fn)
 {
   char l[MAX_STRING_LEN],w[MAX_STRING_LEN],*ct,*ptr;
+  size_t len = MAX_STRING_LEN;
   FILE *f;
   int x, count = 0;
 
@@ -553,7 +556,7 @@ int HTLoadExtensionsConfigFile (char *fn)
       return -1;
     }
 
-  while(!(getline(l,MAX_STRING_LEN,f))) 
+  while(!(getline((char**)&l,&len,f))) 
     {
       /* always get rid of leading white space for "line" -- SWP */
       for (ptr=l; *ptr && isspace(*ptr); ptr++);

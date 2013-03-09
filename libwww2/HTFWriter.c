@@ -9,6 +9,7 @@
 */
 #include "../config.h"
 #include <string.h>
+#include <unistd.h>
 
 #include "HTFWriter.h"
 
@@ -18,6 +19,12 @@
 #include "HText.h"
 #include "tcp.h"
 #include "HTCompressed.h"
+
+#include "../libhtmlw/HTML.h"
+
+#include "../src/mosaic.h"
+#include "../src/gui-dialogs.h"
+#include "../src/img.h"
 
 extern char *currentURL;
 
@@ -245,7 +252,7 @@ PRIVATE void HTFWriter_free ARGS1(HTStream *, me)
 
 			buf=(char *)calloc((strlen(currentURL)+strlen(me->fnam)+5),sizeof(char));
 			sprintf(buf,"%s\n%s",me->fnam,currentURL);
-			ImageResolve(NULL,buf,0);
+			ImageResolve(NULL,buf,0,NULL,NULL);
 
 			free(buf);
 

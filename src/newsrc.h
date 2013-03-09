@@ -95,7 +95,9 @@ newsgroup_t *addgroup (char *, long, long, int);
 newsgroup_t *firstgroup ();
 newsgroup_t *nextgroup (newsgroup_t *);
 void news_refreshprefs (void);
-
+void setminmax(newsgroup_t *ng,long min, long max);
+void rereadseq(newsgroup_t *ng);
+int newsrc_init(char *newshost);
 int newsrc_kill (void);
 
 #endif

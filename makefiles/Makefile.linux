@@ -225,7 +225,9 @@ customflags =
 
 # ---------------------- END OF CUSTOMIZABLE OPTIONS -------------------------
 
-CFLAGS = -g $(sysconfigflags) $(prereleaseflags)
+# Disable certain warnings as we don't care for them
+CWARNINGS = -Wno-parentheses -Wno-switch-enum
+CFLAGS = -g $(sysconfigflags) $(prereleaseflags) $(CWARNINGS)
 
 # Don't worry about these -- for development purposes only.
 PURIFY = purify

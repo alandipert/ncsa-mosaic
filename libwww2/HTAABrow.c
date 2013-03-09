@@ -734,13 +734,13 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 
 	if (!(result = (char*)malloc(300)))
 	    outofmem(__FILE__, "compose_auth_string");
-	
+
 	nonce = HTAssocList_lookup(setup->scheme_specifics[scheme], "nonce");
-	if (!nonce) 
+	if (!nonce)
 	    return "";
-	
+
 	opaque = HTAssocList_lookup(setup->scheme_specifics[scheme], "opaque");
-	if (!opaque) 
+	if (!opaque)
 	    return "";
 
 	if (!(A1 = (unsigned char*)malloc(strlen(realm->username) + 
@@ -753,22 +753,22 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 
 	    /* make A1 */
 	*A1 = (unsigned char)0;
-	strcat(A1, realm->username);
-	strcat(A1, ":");
-	strcat(A1, realm->realmname);
-	strcat(A1, ":");
-	strcat(A1, realm->password);
-	strcat(A1, "\0");
+	strcat((char*)A1, realm->username);
+	strcat((char*)A1, ":");
+	strcat((char*)A1, realm->realmname);
+	strcat((char*)A1, ":");
+	strcat((char*)A1, realm->password);
+	strcat((char*)A1, "\0");
 
 	    /* make A2 */
 	*A2 = (unsigned char)0;
 	if (do_post)
-	    strcat(A2, "POST");
+	    strcat((char*)A2, "POST");
 	else
-	    strcat(A2, "GET");
-	strcat(A2, ":");
-	strcat(A2, current_docname);
-	strcat(A2, "\0");
+	    strcat((char*)A2, "GET");
+	strcat((char*)A2, ":");
+	strcat((char*)A2, current_docname);
+	strcat((char*)A2, "\0");
 
 	if (!(md5_cleartext = (unsigned char*)malloc(100 + 1)))
 	    outofmem(__FILE__, "compose_auth_string");	
@@ -783,8 +783,8 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 	if (!(digest2 = (unsigned char*)malloc(16)))
 	    outofmem(__FILE__, "compose_auth_string");	
 	
-	MD5Mem(A1, strlen(A1), digest1);
-	MD5Mem(A2, strlen(A2), digest2);
+	MD5Mem(A1, strlen((char*)A1), digest1);
+	MD5Mem(A2, strlen((char*)A2), digest2);
 
 	MD5Convert_to_Hex(digest1, hex1);
 	MD5Convert_to_Hex(digest2, hex2);
@@ -792,13 +792,13 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 	    /* make md5_cleartext */
 
 	*md5_cleartext = (unsigned char)0;
-	strcat(md5_cleartext, hex1);
-	strcat(md5_cleartext, ":");
-	strcat(md5_cleartext, nonce);
-	strcat(md5_cleartext, ":");
-	strcat(md5_cleartext, hex2);
+	strcat((char*)md5_cleartext, (char*)hex1);
+	strcat((char*)md5_cleartext, ":");
+	strcat((char*)md5_cleartext, (char*)nonce);
+	strcat((char*)md5_cleartext, ":");
+	strcat((char*)md5_cleartext, (char*)hex2);
 
-	MD5Mem(md5_cleartext, strlen(md5_cleartext), digest1);
+	MD5Mem(md5_cleartext, strlen((char*)md5_cleartext), digest1);
 	MD5Convert_to_Hex(digest1, md5_ciphertext);
 
 	*result = (char)0;
@@ -811,12 +811,12 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 	strcat(result, "\", uri=\"");
 	strcat(result, current_docname);
 	strcat(result, "\", response=\"");
-	strcat(result, md5_ciphertext);
+	strcat(result, (char*)md5_ciphertext);
 	strcat(result, "\", opaque=\"");
 	strcat(result, opaque);
 	strcat(result, "\"");
 
-	/* since all we need from here on out is the result, 
+	/* since all we need from here on out is the result,
 	     get rid of all the rest */
 	free(A1);
 	free(A2);

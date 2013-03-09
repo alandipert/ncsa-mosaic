@@ -28,7 +28,7 @@ extern char * HTPromptPassword PARAMS((WWW_CONST char * Msg));
 **              The input is a list of parameters for printf.
 */
 extern void HTAlert PARAMS((WWW_CONST char * Msg));
-
+extern void HTDoneWithIcon NOPARAMS;
 
 /*      Display a progress message for information (and diagnostics) only
 **
@@ -36,6 +36,7 @@ extern void HTAlert PARAMS((WWW_CONST char * Msg));
 **              The input is a list of parameters for printf.
 */
 extern void HTProgress PARAMS((WWW_CONST char * Msg));
+extern void HTMeter PARAMS((WWW_CONST int, WWW_CONST char *));
 extern int HTCheckActiveIcon PARAMS((int twirl));
 extern void HTClearActiveIcon NOPARAMS;
 

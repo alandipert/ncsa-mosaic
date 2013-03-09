@@ -66,8 +66,11 @@
 #ifndef __IMG_H__
 #define __IMG_H__
 
+#include "../libhtmlw/HTML.h"
+
 mo_status mo_free_image_data (void *);
 mo_status mo_register_image_resolution_function (mo_window *);
+ImageInfo *ImageResolve (Widget w, char *src, int noload, char *wid, char *hei);
 
 #endif
 

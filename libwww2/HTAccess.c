@@ -41,7 +41,11 @@
 #include "HText.h"	/* See bugs above */
 #include "HTAlert.h"
 
+#include "../src/mosaic.h"
+#include "../src/gui.h"
+#include "../src/mo-www.h"
 #include "../src/proxy.h"
+#include "../src/proxy-dialogs.h"
 
 #ifndef DISABLE_TRACE
 extern int www2Trace;

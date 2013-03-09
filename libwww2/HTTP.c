@@ -4,6 +4,9 @@
 #include "../config.h"
 #include "HTTP.h"
 
+#include "../src/mosaic.h"
+#include "../src/mo-www.h"
+
 #define HTTP_VERSION	"HTTP/1.0"
 
 #define INIT_LINE_SIZE		1024	/* Start with line buffer this big */

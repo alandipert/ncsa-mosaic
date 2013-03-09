@@ -47,7 +47,7 @@
 #include "HTUtils.h"		/* Coding convention macros */
 #include "tcp.h"
 
-
+#include "HTAlert.h"
 #include "HTParse.h"
 #include "HTFormat.h"
 #include "HTFile.h"
