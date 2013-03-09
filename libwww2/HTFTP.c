@@ -43,10 +43,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+
 #include "HTFTP.h"	/* Implemented here */
 #include "../libnut/str-tools.h"
 #define LINE_LENGTH 1024
 
+#include "HTAlert.h"
 #include "HTParse.h"
 #include "HTUtils.h"
 #include "tcp.h"
@@ -56,6 +59,10 @@
 #include "HTChunk.h"
 #include "HTSort.h"
 #include "HText.h"
+
+#include "../src/mosaic.h"
+#include "../src/gui.h"
+#include "../src/gui-dialogs.h"
 
 #ifndef MAXHOSTNAMELEN
 #define MAXHOSTNAMELEN 64           /* Arbitrary limit */
@@ -124,6 +131,8 @@ extern int ftpRedialSleep;
 extern int ftpFilenameLength;
 extern int ftpEllipsisLength;
 extern int ftpEllipsisMode;
+
+void CLOSE_CONTROL(int);
 
 /*SWP -- 9.27.95 -- Directory parsing*/
 #define NEW_PARSE
@@ -1042,7 +1051,7 @@ PRIVATE int get_listen_socket()
   sin->sin_addr.s_addr = INADDR_ANY; /* Any peer address */
   {
     int status;
-    int address_length = sizeof(soc_address);
+    socklen_t address_length = sizeof(soc_address);
 #ifdef SOCKS
     status = Rgetsockname(control,
 #else
@@ -1878,7 +1887,7 @@ skipDir:
   {
     struct sockaddr_in soc_address;
 
-    int	soc_addrlen = sizeof(soc_address);
+    socklen_t soc_addrlen = sizeof(soc_address);
 #ifdef SOCKS
     status = Raccept(master_socket,
 #else
@@ -2271,7 +2280,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
  extern int twirl_increment;
  int next_twirl = twirl_increment, intr = 0;
  struct sockaddr_in soc_address;
- int soc_addrlen = sizeof (soc_address);
+ socklen_t soc_addrlen = sizeof (soc_address);
  struct stat sbuf;
  
         HTProgress ("FTP send in progress.");
@@ -2501,7 +2510,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 } /* End of HTFTPSend */
 
 
-CLOSE_CONTROL(s)
+void CLOSE_CONTROL(s)
 int s;
 {
 	NETCLOSE(s);

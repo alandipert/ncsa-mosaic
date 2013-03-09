@@ -23,6 +23,8 @@
 
 #include <stdio.h>
 #include <sys/param.h>
+#include <unistd.h>
+
 #include "HText.h"
 #include "HTUtils.h"
 
@@ -36,7 +38,9 @@
 #include "HTFWriter.h"
 #include "HTInit.h"
 #include "HTSort.h"
+
 #include "../libnut/system.h"
+#include "../libnut/str-tools.h"
 
 typedef struct _HTSuffix {
 	char *		suffix;
@@ -729,7 +733,7 @@ PUBLIC BOOL HTEditable ARGS1 (WWW_CONST char *,filename)
 #ifdef NO_GROUPS
     return NO;		/* Safe answer till we find the correct algorithm */
 #else
-    int 	groups[NGROUPS];	
+    gid_t 	groups[NGROUPS];	
     uid_t	myUid;
     int		ngroups;			/* The number of groups  */
     struct stat	fileStatus;
@@ -1165,8 +1169,8 @@ forget_multi:
                     if(strcmp(dataptr,".") == 0) continue;
  
 /* If its .. *and* the current directory is / dont show anything, otherwise
-/* print out a nice Parent Directory entry.
-/* */
+ * print out a nice Parent Directory entry.
+ * */
 
                     if(strcmp(dataptr,"..") == 0)
                         {
@@ -1227,8 +1231,8 @@ forget_multi:
                         }
                     else
                         {
-                        sprintf(buffer,"%s (%d bytes)", 
-                            dataptr, statbuf.st_size);
+                        sprintf(buffer,"%s (%ld bytes)", 
+                            dataptr, (long)statbuf.st_size);
               
                         format = HTFileFormat(dataptr, &pencoding, 
                                      WWW_SOURCE, &cmpr);

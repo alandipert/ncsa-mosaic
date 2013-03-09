@@ -47,6 +47,7 @@
 #include "tcp.h"	/* NETREAD() etc.	*/
 #include "HTAAUtil.h"	/* Implemented here	*/
 #include "HTAssoc.h"	/* Assoc list		*/
+#include "HTTCP.h"
 
 #ifndef DISABLE_TRACE
 extern int www2Trace;

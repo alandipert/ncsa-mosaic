@@ -27,9 +27,13 @@ char *mo_tmpnam(char *url);
 
 
 #include "HTNews.h"
+
 #include "../src/mosaic.h"
 #include "../src/newsrc.h"
 #include "../src/prefs.h"
+#include "../src/img.h"
+
+#include "../libnut/str-tools.h"
 
 #define NEWS_PORT 119		/* See rfc977 */
 #define APPEND			/* Use append methods */
@@ -51,6 +55,8 @@ char *mo_tmpnam(char *url);
 #include "HTML.h"
 #include "HTParse.h"
 #include "HTFormat.h"
+#include "HTAlert.h"
+#include "HTTCP.h"
 
 #ifndef DISABLE_TRACE
 extern int www2Trace;
@@ -1021,8 +1027,10 @@ int NNTPgetarthdrs(char *art,char **ref, char **grp, char **subj, char **from)
 	    } /* if end of line */
 	} /* Loop over characters */
     } /* If good response */
+
+    return 0;
 }
- 
+
 int NNTPpost(char *from, char *subj, char *ref, char *groups, char *msg)
 {
     char buf[1024];
@@ -1073,6 +1081,8 @@ int NNTPpost(char *from, char *subj, char *ref, char *groups, char *msg)
 	HTProgress("Article was posted successfully.");
 
     HTDoneWithIcon ();
+
+    return 0;
 }
 
 
@@ -1626,7 +1636,7 @@ PRIVATE void read_article ARGS1 (char *, artID)
 		case 1:
 		  uudecodeline(fp,NULL);
 		  sprintf(line,"%s\n%s",filename,filename);
-		  ImageResolve(NULL,line,0);
+		  ImageResolve(NULL,line,0,NULL,NULL);
 		  PUTS("<BR><IMG SRC=\"");
 		  PUTS(filename);
 		  PUTS("\"><BR>");
@@ -1634,7 +1644,7 @@ PRIVATE void read_article ARGS1 (char *, artID)
 		case 2:
 		  base64line(fp,NULL);
 		  sprintf(line,"%s\n%s",filename,filename);
-		  ImageResolve(NULL,line,0);
+		  ImageResolve(NULL,line,0,NULL,NULL);
 		  PUTS("<BR><IMG SRC=\"");
 		  PUTS(filename);
 		  PUTS("\"><BR>");
@@ -1645,15 +1655,15 @@ PRIVATE void read_article ARGS1 (char *, artID)
             }
             linenum++;
             if(linecount && !(linenum%lineinc)) {
-	      HTMeter((linenum*100)/(linecount),NULL);            
+	      HTMeter((linenum*100)/(linecount),NULL);
             }
             switch(decode) {
-            case 1:                        
+            case 1:
 	      /* uuencoded */
 	      if(uudecodeline(fp,line)){
 		decode=6;
 		sprintf(line,"%s\n%s",filename,filename);
-		ImageResolve(NULL,line,0);
+		ImageResolve(NULL,line,0,NULL,NULL);
 		PUTS("<BR><IMG SRC=\"");
 		PUTS(filename);
                     PUTS("\"><BR>");
@@ -1666,13 +1676,13 @@ PRIVATE void read_article ARGS1 (char *, artID)
 	      if(base64line(fp,line)){
 		decode=6;
 		sprintf(line,"%s\n%s",filename,filename);
-		ImageResolve(NULL,line,0);
+		ImageResolve(NULL,line,0,NULL,NULL);
 		PUTS("<BR><IMG SRC=\"");
 		PUTS(filename);
 		PUTS("\"><BR>");
 	      }
 	      p = line;
-	      continue;                       
+	      continue;
             case 3:
 	      /* is mime, looking for encoding... */
 	      if(match(line,"CONTENT-TRANSFER-ENCODING: BASE64")){
@@ -1953,7 +1963,7 @@ PRIVATE void read_list NOARGS
       	      if (n->attribs&naSUBSCRIBED && 
 		  (newsShowAllGroups || n->unread>0 
 		   || newsShowReadGroups)) {
-		sprintf(line,"%s % 7d S <A HREF=\"news:%s\">%s</A> \n",
+		sprintf(line,"%s % 7ld S <A HREF=\"news:%s\">%s</A> \n",
 			(lastg==1)?"<b>&gt;&gt;&gt;</b>":"   ",
 			n->unread, n->name, elgroup);
 		PUTS (line);
@@ -2015,7 +2025,7 @@ PRIVATE void read_list NOARGS
       else if (nn == n && !mark)
 	lastg = 1;
       if (newsShowAllGroups  || n->unread>0 || newsShowReadGroups) {
-	sprintf(line,"%s % 7d %s <A HREF=\"news:%s\">%s</A> \n",
+	sprintf(line,"%s % 7ld %s <A HREF=\"news:%s\">%s</A> \n",
 		(lastg==1)? "<b>&gt;&gt;&gt;</b>":"   ",
 		n->unread, n->attribs&naSUBSCRIBED?"S":"U", 
 		n->name, elgroup);

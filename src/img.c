@@ -52,13 +52,13 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 #include "../config.h"
+#include "../libhtmlw/HTML.h"
 #include "mosaic.h"
 #include "gui.h"
 #include "img.h"
 #include "mo-www.h"
 #include "globalhist.h"
 #include "picread.h"
-#include "libhtmlw/HTML.h"
 #include "cci.h"
 extern int cci_event;
 

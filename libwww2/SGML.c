@@ -13,6 +13,7 @@
 
 #include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 #include "HTUtils.h"
 #include "HTChunk.h"
 #include "../libnut/str-tools.h"
