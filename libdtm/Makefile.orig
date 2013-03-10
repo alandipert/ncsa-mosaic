@@ -49,23 +49,23 @@ dtm_	::
 	@echo Either set up the ARCH environment or specify a machine type
 	@echo "		ex: make sun"
 
-solaris		: 
+solaris		:
 	make internal "CC=$(CC)" "CFLAGS = -DSUN -DSOLARIS" \
 				  "OBJECTS = $(OBJ) convert.o mdd.o"  \
 				  "ARCHIVE = ar rv"  \
 				  "RANLIB_CMD = /bin/true libdtm.a"
 
-solarisx86	: 
+solarisx86	:
 	make internal "CC=$(CC)" "CFLAGS = -DSUN -DSOLARIS" \
 				  "OBJECTS = $(OBJ) convert.o mdd.o"  \
 				  "ARCHIVE = ar rv"  \
 				  "RANLIB_CMD = /bin/true libdtm.a"
 
-alpha		: 
+alpha		:
 	make internal "CFLAGS = -DOSF1 -target $(TARGET_ARCH:-%=%)" \
 				  "OBJECTS = $(OBJ) convert.o mdd.o"  \
 				  "ARCHIVE = ar rv"  \
-				  "RANLIB_CMD = ranlib libdtm.a" 
+				  "RANLIB_CMD = ranlib libdtm.a"
 
 linux		:
 	make internal "CFLAGS = -DLINUX" \
@@ -74,7 +74,7 @@ linux		:
 				  "RANLIB_CMD = ranlib libdtm.a"
 
 sun4	: sun
-sun		: 
+sun		:
 	make internal "CFLAGS = -DSUN -target $(TARGET_ARCH:-%=%)" \
 				  "OBJECTS = $(OBJ) convert.o mdd.o"  \
 				  "ARCHIVE = ar rv"  \
@@ -84,7 +84,7 @@ sun		:
 				  "OBJECTS = $(OBJ_SPEC) convert$(ARCH).o mdd$(ARCH).o" \
 				  "ARCHIVE = ar rv" \
 				  "RANLIB_CMD = ranlib libdtm$(ARCH).a"
-next		: 
+next		:
 	make internal "CFLAGS = -DNEXT " \
 				  "OBJECTS = $(OBJ) convert.o mdd.o"  \
 				  "ARCHIVE = ar rv"  \
@@ -105,19 +105,19 @@ indy: $(OBJ) convert.o
 				  "ARCHIVE = ar rv" \
 				  "RANLIB_CMD = "
 
-cray	: 
+cray	:
 	make internal "CFLAGS = -DCRAY" "CFT = cft77" \
 		"OBJECTS = $(OBJ) craycvt.o crayrtns.o" \
 		"ARCHIVE = bld q"  \
 		"RANLIB_CMD = "
 	make libdtmf77.a "CFLAGS = -DCRAY" "CFT = cft77" \
 		"OBJECTS = $(OBJ) craycvt.o crayrtns.o sdsF.o" \
-		"ARCHIVE = bld q" 
-convex	: 
+		"ARCHIVE = bld q"
+convex	:
 	make internal "CFLAGS = -DCONVEX -fi" \
 		"OBJECTS = $(OBJ) mdd.o convert.o" "ARCHIVE = ar rv" \
 		"RANLIB_CMD = ranlib libdtm.a"
-ibm		: 
+ibm		:
 	make internal "CFLAGS = -DRS6000" "OBJECTS = $(OBJ) mdd.o convert.o" \
 			"ARCHIVE = ar rv" \
 			"RANLIB_CMD = ranlib libdtm.a"
@@ -125,11 +125,11 @@ hp		:
 	make internal "CFLAGS = -Aa -D_HPUX_SOURCE" "OBJECTS = $(OBJ) mdd.o convert.o" \
 			"ARCHIVE = ar rv" \
 			"RANLIB_CMD = "
-dec		: 
+dec		:
 	make internal "CFLAGS = -DDEC" "OBJECTS = $(OBJ) mdd.o deccvt.o" \
 		"ARCHIVE = ar rv" \
 		"RANLIB_CMD = ar ts libdtm.a"
-vax		: 
+vax		:
 	make internal "CFLAGS = -DVAX" "OBJECTS = $(OBJ) mdd.o vaxcvt.o" \
 		"ARCHIVE = ar rv" \
 		"RANLIB_CMD = "
@@ -160,12 +160,12 @@ clean::
 
 install::
 	-mv $(DIR)/lib/libdtm.a $(DIR)/lib/libdtm.bak
-	cp *.a $(DIR)/lib 
+	cp *.a $(DIR)/lib
 	-ranlib $(DIR)/lib/libdtm.a
 	-rm -f $(DIR)/include/dtm.h $(DIR)/include/sds.h
 	-rm -f $(DIR)/include/ris.h $(DIR)/include/db.h
 	-rm -f $(DIR)/include/mdd.h $(DIR)/include/sdl.h
 	-rm -f $(DIR)/include/debug.h $(DIR)/include/arch.h
-	cp dtm.h debug.h sds.h ris.h db.h mdd.h sdl.h arch.h $(DIR)/include	
+	cp dtm.h debug.h sds.h ris.h db.h mdd.h sdl.h arch.h $(DIR)/include
 
-include $(DEPENDS) 
+include $(DEPENDS)

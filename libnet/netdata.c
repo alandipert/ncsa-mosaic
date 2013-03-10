@@ -4,9 +4,9 @@
  * Permission is granted to copy and distribute source with out fee.
  * Commercialization of this product requires prior licensing
  * from the National Center for Supercomputing Applications of the
- * University of Illinois.  Commercialization includes the integration of this 
- * code in part or whole into a product for resale.  Free distribution of 
- * unmodified source and use of NCSA software is not considered 
+ * University of Illinois.  Commercialization includes the integration of this
+ * code in part or whole into a product for resale.  Free distribution of
+ * unmodified source and use of NCSA software is not considered
  * commercialization.
  *
  */
@@ -47,7 +47,7 @@ Data *DataNew()
 
 		d->expandX = d->expandY = 1.0;
 	  }
-	
+
 	return(d);
 }
 
@@ -55,9 +55,9 @@ void DataDestroy(d)
 Data *d;
 {
 	(void)ListDeleteEntry(dataList,d);
-	if (d->label) 
+	if (d->label)
 		FREE(d->label);
-	if (d->data) 
+	if (d->data)
 		FREE(d->data);
 	FREE(d);
 }
@@ -109,7 +109,7 @@ Data *d;
 
 	d = (Data *) ListHead(dataList);
 	while (d) {
-		if ((d->label)&&((!strcmp(s,d->label)) && (d->dot == dot) 
+		if ((d->label)&&((!strcmp(s,d->label)) && (d->dot == dot)
 				&& (d->dost == dost))) {
 			return(d);
 			}

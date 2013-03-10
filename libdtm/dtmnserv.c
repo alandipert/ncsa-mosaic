@@ -53,7 +53,7 @@
  *
  * Revision 1.19  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
 
 #endif
 */
@@ -76,7 +76,7 @@
 #endif
 
 #if !defined _ARCH_MACOS & !defined NEXT
-# ifdef	CONVEX 
+# ifdef	CONVEX
 #  include <sys/malloc.h>
 # else
 #  include <malloc.h>
@@ -96,7 +96,7 @@ static void del_nlist DTM_PROTO(( DTMPORT *pp, int count ));
 static void add_nlist DTM_PROTO(( DTMPORT *pp, int count ));
 
 
-/*	
+/*
 	Function to initialise self's reference name from environment
 	variable passed by nameserver.
 
@@ -105,7 +105,7 @@ static void add_nlist DTM_PROTO(( DTMPORT *pp, int count ));
 
 	Notes	:	Environment variable	- DTM_REFNAME
 */
- 
+
 #ifdef DTM_PROTOTYPES
 static int init_refname(char *refname,int len )
 #else
@@ -163,11 +163,11 @@ void dtm_display_buf( outp, portname )
 	DBGINT( "dtm_display_buf: Logical port %s\n", portname );
 	while ( outp != NULL );
 	{
-		DBGINT( "dtm_display_buf: Nethostid = %x\n", 
+		DBGINT( "dtm_display_buf: Nethostid = %x\n",
 			ntohl( outp -> sockaddr.sin_addr.s_addr) );
-		DBGINT( "dtm_display_buf: Portid = %d\n", 
+		DBGINT( "dtm_display_buf: Portid = %d\n",
 			ntohs( outp -> sockaddr.sin_port) );
-		outp = outp->next;	
+		outp = outp->next;
 	}
 }
 
@@ -182,7 +182,7 @@ Outport *   dtm_new_out_port(Port *port )
 Outport *   dtm_new_out_port( port )
 	Port	* port;
 #endif
-{	
+{
 	Outport	* p;
 
 	if ( (p = (Outport *) malloc( sizeof( Outport ))) == NULL ) {
@@ -226,8 +226,8 @@ static void del_nlist( pp, count )
 		outpLast = NULL;
 		for ( outp = pp->out ; outp != NULL ; outp = outpNext ) {
 			outpNext = outp->next;
-			if ((outp->sockaddr.sin_port == port.portid ) && 
-				(outp-> sockaddr.sin_addr.s_addr == port.nethostid)) { 
+			if ((outp->sockaddr.sin_port == port.portid ) &&
+				(outp-> sockaddr.sin_addr.s_addr == port.nethostid)) {
 					if ( outpLast==NULL ) pp->out = outp->next;
 						else outpLast->next = outp->next;
 					free( outp );
@@ -276,9 +276,9 @@ int dtm_check_server( pp, fWait )
 	int		addcount;
 
 	/* If it is not a logical port is is not listed with the server */
-		
+
 	if ( !pp->fLogical ) return DTM_OK;
-	
+
 	/* Check for new or first routing list */
 
 	fWait = fWait && (pp->out == NULL);
@@ -301,11 +301,11 @@ int dtm_check_server( pp, fWait )
 
 		/* Ack the route message */
 #if 0
-		CHECK_ERR( dtm_nsend_ackroute( portname )); 
+		CHECK_ERR( dtm_nsend_ackroute( portname ));
 #endif
 
 		/* Process the routing message */
-			
+
 		{
 			char * msg_type = strtok( mbuf, SEP );
 			if (!strcmp( msg_type, MROUTEID)) {
@@ -318,7 +318,7 @@ int dtm_check_server( pp, fWait )
 				return addcount;
 			} else if ( !strcmp( msg_type, MDISCARD ) ) {
 				pp->fDiscard = atoi( strtok( NULL, SEP));
-			} 
+			}
 		}
 	}
 	return 0;

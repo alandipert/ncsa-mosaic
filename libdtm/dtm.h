@@ -21,7 +21,7 @@
 
 /*************************************************************************
 **
-**  dtm.h - 
+**  dtm.h -
 **
 *************************************************************************/
 
@@ -40,7 +40,7 @@
  *
  * Revision 1.32  92/05/06  16:40:17  jefft
  * Modified prototype on DTMaddInput
- * 
+ *
  * Revision 1.31  1992/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
  *
@@ -50,7 +50,7 @@
  *
  * Revision 1.29  92/03/20  21:14:40  jplevyak
  * Add DTMgetPortAddr and remove DTMgetPortName
- * 
+ *
  * Revision 1.28  1992/03/13  18:20:31  jefft
  * dtm.h depended on TRUE being defined before it was included.  This word
  * TRUE was changed to 1 and FALSE to 0
@@ -63,23 +63,23 @@
  *
  * Revision 1.25  92/02/18  14:02:36  jplevyak
  * Added prototype for DTMaddInPortSocket.
- * 
+ *
  * Revision 1.24  92/01/30  19:28:24  jplevyak
  * add prototypes
- * 
+ *
  * Revision 1.23  1992/01/02  16:31:56  dweber
  * Reorganized the DTM class and MSG class
  *
  * Revision 1.22  91/12/13  22:34:48  jefft
  * Removed DTMtitle and DTMtype constants.  Added dtm_(sg)et_address macros.
  * Added MSG(sg)etString macros.
- * 
+ *
  * Revision 1.21  91/12/13  15:37:55  dweber
  * Fixed DTMHL bugs and re-ordered some macros for clarification
- * 
+ *
  * Revision 1.20  91/12/12  22:55:27  jefft
  * Add numbers to the comments beside the DTM errors
- * 
+ *
  * Revision 1.19  1991/12/10  22:15:56  jefft
  * fixed DTMgetAddress macro (it was calling dtm_set_char).
  *
@@ -96,7 +96,7 @@
  * Revision 1.15  91/10/11  20:23:31  jplevyak
  * Added prototype for DTMcheckRoute,
  * Changed DTMSYNC, DTMNOSYNC to DTM_SYNC, DTM_ASYNC.
- * 
+ *
  * Revision 1.14  1991/10/10  14:23:43  jplevyak
  * All prototypes are now included and tested.
  *
@@ -105,10 +105,10 @@
  *
  * Revision 1.12  91/09/18  15:27:54  jplevyak
  * Added extern definition for DTMinit()
- * 
+ *
  * Revision 1.11  91/09/13  17:36:05  sreedhar
  * DTMSYNC, DTMNOSYNC added
- * 
+ *
  * Revision 1.10  1991/09/13  15:31:45  jefft
  * fixed DTMHL macro, it should not have taken an arguement.
  *
@@ -136,7 +136,7 @@
  *
  * Revision 1.1  90/11/08  16:31:19  jefft
  * Initial revision
- * 
+ *
 */
 
 
@@ -153,7 +153,7 @@
 #define	DTM_PROTOTYPES
 #define	DTM_PROTO(x)	x
 #else
-#define	DTM_PROTO(x)	()	
+#define	DTM_PROTO(x)	()
 #endif
 
 /* DTM constants */
@@ -220,7 +220,7 @@ typedef enum  {
 	NOTE: the strings that describe the errors in DTMerr
 		are located in fatal.c.  Any changes to this list
 		must be accompanied by a corresponding change there.
-*/	
+*/
 #define		DTMERROR	-1
 #define		DTM_OK		DTMNOERR
 
@@ -282,21 +282,21 @@ extern int	DTMreadDataset	DTM_PROTO(( int p, VOIDPTR ds, int size, DTMTYPE type)
 extern int	DTMwriteDataset	DTM_PROTO(( int p, VOIDPTR ds, int size, DTMTYPE type));
 extern int	DTMendRead		DTM_PROTO(( int port ));
 extern int	DTMendWrite		DTM_PROTO(( int port ));
-extern int	DTMreadMsg		DTM_PROTO(( int p, char *hdr, int hdrsize, 
+extern int	DTMreadMsg		DTM_PROTO(( int p, char *hdr, int hdrsize,
 								VOIDPTR data, int datasize, int datatype ));
 extern int	DTMdestroyPort	DTM_PROTO(( int port));
 extern char	*DTMerrmsg();
 extern int	DTMgetPortAddr	DTM_PROTO(( int port, char * addr, int length ));
 extern int  DTMgetReturnPortName    DTM_PROTO(( int port, char *** addrs,
 										int * n_addrs));
-extern int  DTMselectRead	DTM_PROTO(( Dtm_set *dtmset, int dtmnum, 
+extern int  DTMselectRead	DTM_PROTO(( Dtm_set *dtmset, int dtmnum,
 								Sock_set *sockset, int socknum, int period ));
-extern void	DTMsetGroup		DTM_PROTO(( char * header, DTMCMD cmd, char * parent, 
+extern void	DTMsetGroup		DTM_PROTO(( char * header, DTMCMD cmd, char * parent,
 								char * self ));
-extern int	DTMgetGroup		DTM_PROTO(( char * header, DTMCMD cmd, char * parent, 
+extern int	DTMgetGroup		DTM_PROTO(( char * header, DTMCMD cmd, char * parent,
 								char * self ));
 extern int	DTMsendRoute 	DTM_PROTO(( int fd, char * sendto_addr, int addcount,
-								char **add_addresses, int delcount, 
+								char **add_addresses, int delcount,
 								char **del_addresses ));
 extern int	DTMcheckRoute	DTM_PROTO(( int port ));
 	/*	Not implemented Yet	*/

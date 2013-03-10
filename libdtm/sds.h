@@ -41,7 +41,7 @@
  *
  * Revision 1.8  92/04/30  20:27:37  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.7  1992/03/16  21:03:18  creiman
  * Changed SDSsetMinMax prototype to use floats. NOT related to the change in
  * sds.c for SDSgetMinMax. This is getting confusing...
@@ -55,10 +55,10 @@
  *
  * Revision 1.4  92/01/24  19:13:51  dweber
  * Added header lenght macros
- * 
+ *
  * Revision 1.3  91/09/10  15:07:10  jefft
  * cleaned-up message class macros.
- * 
+ *
  * Revision 1.2  1991/06/11  15:22:52  sreedhar
  * disclaimer added
  *
@@ -97,7 +97,7 @@ extern "C" {
 #endif
 
 extern void SDSsetDimensions    DTM_PROTO(( char* h, int rank, int *dims ));
-extern int SDSgetDimensions     DTM_PROTO(( char* h, int * rank, int* dims, 
+extern int SDSgetDimensions     DTM_PROTO(( char* h, int * rank, int* dims,
 									int len ));
 extern int SDSgetRank           DTM_PROTO(( char* h, int * rank ));
 extern int SDSnumElements       DTM_PROTO(( int rank, int *dims ));

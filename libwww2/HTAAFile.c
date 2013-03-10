@@ -129,7 +129,7 @@ PRIVATE int read_item ARGS4(FILE *,	fp,
 **		READ A FIELD FROM A PASSWORD, GROUP
 **		OR ACCESS CONTROL LIST FILE
 **		i.e. an item terminated by colon,
-**		end-of-line, or end-of-file. 
+**		end-of-line, or end-of-file.
 ** ON ENTRY:
 **	fp		is the file to read the characters from
 **	contents	is the character array to put the characters

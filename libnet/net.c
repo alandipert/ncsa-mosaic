@@ -4,9 +4,9 @@
  * Permission is granted to copy and distribute source with out fee.
  * Commercialization of this product requires prior licensing
  * from the National Center for Supercomputing Applications of the
- * University of Illinois.  Commercialization includes the integration of this 
- * code in part or whole into a product for resale.  Free distribution of 
- * unmodified source and use of NCSA software is not considered 
+ * University of Illinois.  Commercialization includes the integration of this
+ * code in part or whole into a product for resale.  Free distribution of
+ * unmodified source and use of NCSA software is not considered
  * commercialization.
  *
  */
@@ -62,8 +62,8 @@ static char rcs_id[] = "$Id: net.c,v 1.4 1995/10/15 18:48:57 spowers Exp $";
  * most case.
  *
  *
- *  mods: 
- * 2/22/93 (ddt)  print out message if user has loaded unsupported 
+ *  mods:
+ * 2/22/93 (ddt)  print out message if user has loaded unsupported
  *		 dimensional array
 */
 
@@ -261,7 +261,7 @@ SQueue *sq;
 	while(sq) {
 		if (sq->netPort == netPort) {
 			ListDeleteEntry(sendQueue,sq);
-			if (sq->failCB) 
+			if (sq->failCB)
 				sq->failCB(sq->data,sq->failCBData);
 			FREE(sq->header);
 			FREE(sq);
@@ -278,7 +278,7 @@ static int NetUserListAdd(name)
 char *name;
 {
 char *p;
-	
+
 	if ((!name) || (!strlen(name)))
 		return(-1);
 	p = (char *) ListHead(userList);
@@ -341,7 +341,7 @@ void DEFUN(NetSetUserID,(user), char *user)
 	else if (!user && userID)
 		userID = NULL;
 }
-		
+
 
 static DOCB *NetSearchByName(name,list)
 char *name;
@@ -357,7 +357,7 @@ DOCB *docb;
 		docb = (DOCB *) ListNext(list);
 		}
 	return((DOCB *) 0);
-	
+
 }
 
 
@@ -372,11 +372,11 @@ caddr_t changeData;
 void (*destroy)();	/* Data object destroyed callback */
 caddr_t destroyData;
 {
-	DOCB *docb; 
+	DOCB *docb;
 	char	itsNew;
 
 	/*Yeah this is huge,repetitive and could easily be condensed, but it
-	  wasn't when I started, and I don't feel like changing it now 
+	  wasn't when I started, and I don't feel like changing it now
 	  condensed on Feb 93 by gbourhis */
 #define REGISTERMODULE(list)						\
  do {									\
@@ -455,13 +455,13 @@ caddr_t destroyData;
 		};
 
 
-	
+
 	return(1);
 }
 
 
 
-static int DimensionsEqual(dim1,rank1,dim2,rank2) 
+static int DimensionsEqual(dim1,rank1,dim2,rank2)
 int *dim1,rank1,*dim2,rank2;
 {
 register int x;
@@ -475,7 +475,7 @@ register int x;
 }
 
 
-static void CopyDimensions(dim1,rank1,dim2,rank2) 
+static void CopyDimensions(dim1,rank1,dim2,rank2)
 /* copies dim2 to dim1 */
 int *dim1,*rank1;
 int *dim2,rank2;
@@ -653,7 +653,7 @@ int numPortNames;
         else if (dtmFlowControl == DTM_SYNC) {
                 printf("Just made an SYNC out netPort=%x port %x (%s)\n",
                                 n,n->port,n->portName);
-                }       
+                }
         else {
                 printf("********Just made an *UNKOWN* out port %s (%d)\n",
                                 n->portName,n->port);
@@ -676,7 +676,7 @@ char *outPortAddr;
 	return(NetInternalCreateOutPort(outPortAddr,TRUE));
 }
 
-static void NetChangeOutPort(address,oldOut) 
+static void NetChangeOutPort(address,oldOut)
 char *address;
 NetPort *oldOut;
 {
@@ -781,8 +781,8 @@ int	num;
 	strcpy(d->label,title);
 	d->dot = DOT_SDL;
 	SDLgetPrimitive(header,&(d->dost));
-	
-	if ((num = DTMreadDataset(n->port, primbuff, 
+
+	if ((num = DTMreadDataset(n->port, primbuff,
 		MAX_SDL_VERTICES, DTM_TRIPLET)) == DTMERROR){
 			ErrMesg("Error reading DTM SDL");
 			NetReject(n->port,header);
@@ -800,7 +800,7 @@ int	num;
 	d->entity = ENT_Network;
 
 	return(d);
-#endif	
+#endif
 }
 
 static Com *NetReadCOM(n,header)
@@ -882,7 +882,7 @@ int	size;
 			d->dost = DOST_Double;
 			elementSize = sizeof(double);
 			break;
-		default: 
+		default:
 			d->dost = DOST_Char;
 			elementSize = 1;
 			printf(
@@ -892,8 +892,8 @@ int	size;
 	VDATAgetNumRecords(header,&(d->dim[1]));
 	d->rank = 2;
 	VDATAgetPathLength(header,&(d->pathLength));
-	if (!(d->magicPath = (VdataPathElement **) 
-				MALLOC(sizeof(VdataPathElement *) 
+	if (!(d->magicPath = (VdataPathElement **)
+				MALLOC(sizeof(VdataPathElement *)
 					* d->pathLength))){
 		ErrMesg("Out of Memory reading VDATA path\n");
         	DTMendRead(n->port);
@@ -937,7 +937,7 @@ int	size;
 			}
 	DTMendRead(n->port);
 	return(d);
-	
+
 #endif
 }
 
@@ -972,7 +972,7 @@ int	stat;
 		return(0);
 		}
 
-	for(x = 0, size = 1; x < rank; x++) 
+	for(x = 0, size = 1; x < rank; x++)
 		size *= dims[x];
 
         ANIMgetID(header,id,DTM_STRING_SIZE);
@@ -1003,7 +1003,7 @@ int	stat;
 		case DTM_DOUBLE:
 			dostType = DOST_Double;
 			break;
-		default: 
+		default:
 			dostType = DOST_Char;
 			printf(
 			"SDS of unknown type just received casting to char\n");
@@ -1261,7 +1261,7 @@ char	id[DTM_STRING_SIZE];
 			}
 		}
 
-	if (DTMreadDataset(n->port,d->data,xdim*ydim,DTM_CHAR) == 
+	if (DTMreadDataset(n->port,d->data,xdim*ydim,DTM_CHAR) ==
 	    DTMERROR) {
 		ErrMesg("Error reading RIS dataset");
 		NetReject(n->port,header);
@@ -1339,7 +1339,7 @@ static	char title[DTM_STRING_SIZE];
 		DTMendRead(n->port);
 		return(0);
 		}
-		
+
 	t.textString[t.dim] = '\0';
 #ifdef DEBUG
 	printf("NetReadText(): *t.textString = %c dim = %d\n",
@@ -1490,7 +1490,7 @@ List *list;
 char *portName;
 {
 NetPort *netPort;
-	
+
 	netPort = (NetPort *) ListHead(list);
 	while (netPort) {
 		if (!strcmp(portName,netPort->portName)) {
@@ -1541,7 +1541,7 @@ char buff[256];
 #endif
 			return(0);
 			}
-		
+
 		sprintf(buff,
 			"Just established a connection with\n%s (%s)\n",
 			s.id,s.inPort);
@@ -1585,7 +1585,7 @@ char buff[256];
 			}
 		else {
 			/***** this assumes only one out port **********/
-			ListDeleteEntry(netOutList,ListHead(netOutList)); 
+			ListDeleteEntry(netOutList,ListHead(netOutList));
 			}
                 break;
 
@@ -1640,7 +1640,7 @@ char buff[256];
 		}
 	strcpy(s.inPort,s.netPort->portName);
 	return(&s);
-	
+
 } /* NetReadDTM() */
 
 
@@ -1712,7 +1712,7 @@ int runType;
 	ANIMgetID(header,id,80);
 	a.id = id;
 	ANIMgetFrame(header,&(a.frameNumber));
-	if (-1 == ANIMgetFunc(header,(&func))) 
+	if (-1 == ANIMgetFunc(header,(&func)))
 		a.func = AF_NO_FUNC;
 	else {
 		switch(func) {
@@ -1727,7 +1727,7 @@ int runType;
 				break;
 		    };
 		}
-	if (-1 == ANIMgetRunType(header,(&runType))) 
+	if (-1 == ANIMgetRunType(header,(&runType)))
 		a.runType= ART_NONE;
 	else {
 		switch (runType) {
@@ -1742,7 +1742,7 @@ int runType;
 				break;
 		    };
 		}
-		
+
 	a.data = 0;
 	return(&a);
 #endif
@@ -1822,7 +1822,7 @@ static Col col;
 	col.title = title;
 	col.id = UserID;
 	col.func = "DOODLE";
-	if (sendDiscrete) 
+	if (sendDiscrete)
 		col.selType = COL_DOODLE_DISC;
 	else
 		col.selType = COL_DOODLE_CONT;
@@ -1831,7 +1831,7 @@ static Col col;
 	return(&col);
 #endif
 }
-	
+
 static void NetCallDestroyCallback(list,d)
 List list;
 Data *d;
@@ -1894,7 +1894,7 @@ static AnimMesg a;
 	a.func = AF_NO_FUNC;
 	a.runType = ART_NONE;
 	a.data = d;
-	
+
 	/* distribute data */
 	if (!DataInList(d)) {
 		DataAddEntry(d);
@@ -2016,7 +2016,7 @@ char *ExceptModuleName;
 	else {
 		d = *dSend;
 	      }
-	
+
 	/* distribute data */
 	if (!DataInList(d)) {
 		DataAddEntry(d);
@@ -2052,7 +2052,7 @@ register char *p;
 		if (!(docb = (DOCB *) ListNext(PALList)))
 			return(0); /* none to distribute to */
 		}
-	
+
 	/* get data field make a new one if doesn't exist */
 	if (!(d = DataSearchByLabelAndDOT(title,DOT_Palette8))) {
 		if (!(d = DataNew())) {
@@ -2099,7 +2099,7 @@ register char *p;
 	return(1);
 #endif
 } /* NetPALDistribute() */
-	
+
 #undef CALLCB
 #define CALLCB(List, CallB, CallData, ClientData)			\
  do {									\
@@ -2204,7 +2204,7 @@ int 	i;
 
 	else if (PALcompareClass(header)) {
 		if (!(docb = (DOCB *) ListHead(PALList))) {
-			NetReject(n->port,header); 
+			NetReject(n->port,header);
 			return(0);
 			}
 		if (d = NetReadPal(n,header)) {
@@ -2216,12 +2216,12 @@ int 	i;
 				CALLCB(PALList, changeCB, d, changeData);
 				}
 			}
-		
+
 		}/* PAL */
 
 	else if (RIScompareClass(header)) {
 		if (!(docb = (DOCB *) ListHead(RIS8List))) {
-			NetReject(n->port,header); 
+			NetReject(n->port,header);
 			return(0);
 			}
 		if (d = NetReadRIS8(n,header)) {
@@ -2233,11 +2233,11 @@ int 	i;
 				CALLCB(RIS8List, changeCB, d, changeData);
 				}
 			}
-		
+
 		}/* RIS */
 	else if (TXTcompareClass(header)) {
 		if (!(docb = (DOCB *) ListHead(TXTList))) {
-			NetReject(n->port,header); 
+			NetReject(n->port,header);
 			return(0);
 			}
 		if (t = NetReadText(n,header)) {
@@ -2254,7 +2254,7 @@ int 	i;
 		} /*SRV*/
 	else if (COLcompareClass(header)) {
 		if (!(docb = (DOCB *) ListHead(COLList))) {
-			NetReject(n->port,header); 
+			NetReject(n->port,header);
 			return(0);
 			}
 		if (c = NetReadCOL(n,header)) {
@@ -2298,7 +2298,7 @@ int 	i;
 			}
 		}
 	else {
-		NetReject(n->port,header); 
+		NetReject(n->port,header);
 		}
 
 	return(d);
@@ -2311,7 +2311,7 @@ List netPortList;
 int port;
 {
 NetPort *netPort;
-	
+
 	netPort = (NetPort *) ListHead(netPortList);
 	while (netPort) {
 		if (netPort->port == port) {
@@ -2368,7 +2368,7 @@ NetPort *n;
 
 /*	printf("NetClientPollAndRead(): I've been called\n");*/
 #endif
-	n = (NetPort *) ListHead(netInList); 
+	n = (NetPort *) ListHead(netInList);
 	while (n) {
 		while (DTMavailRead(n->port)) {
 #ifdef DEBUG
@@ -2432,9 +2432,9 @@ int status;
 #ifdef USE_WRITEMSG
 		if (DTMERROR == DTMwriteMsg(netPort->port,
 				header,strlen(header)+1,
-				data,num,type)) 
+				data,num,type))
 #else
-		status = DTMbeginWrite(netPort->port,header,strlen(header)+1);  
+		status = DTMbeginWrite(netPort->port,header,strlen(header)+1);
 #ifdef DEBUG
         printf("NetSend():sent header \"%s\" to %s\n",header,netPort->portName);
 #endif
@@ -2489,7 +2489,7 @@ long	num AND
 DTMTYPE type AND
 void 	(*cb) PARAMS((GenericPtr data, caddr_t cbData)) AND
 caddr_t	cbData AND
-void 	(*failCB) PARAMS((GenericPtr data, caddr_t failCBData)) AND 
+void 	(*failCB) PARAMS((GenericPtr data, caddr_t failCBData)) AND
 caddr_t	failCBData AND
 int	doQueue)     /* TRUE -> Save and resend; FALSE -> let client resend*/
 
@@ -2502,7 +2502,7 @@ int status;
 #ifdef DEBUG
 			printf("no out port: discarding %s\n",header);
 #endif
-			if (failCB) 
+			if (failCB)
 				failCB(data,failCBData);
 			return(-1);
 			}
@@ -2547,7 +2547,7 @@ int status;
 #endif
 			}
 		else {
-			if (cb) 
+			if (cb)
 				cb(data,cbData);
 			}
 		return(0);
@@ -2588,13 +2588,13 @@ int status;
 		}
 	    else {
                 /* couldn't send now and no queuing, so call failCB()*/
-		if (failCB) 
+		if (failCB)
 			failCB(data,failCBData);
 		}
 		return(0);
 	    }
 	else if (status == 1) {
-		if (cb) 
+		if (cb)
 			cb(data,cbData);
 		return(1);
 		}
@@ -2604,7 +2604,7 @@ int status;
 		return(-1);
 		}
 	return(-1);
-		
+
 } /* NetClientSendMessage() */
 
 
@@ -2630,7 +2630,7 @@ time_t t;
 				port->portName,
 				sq->netPort,
 				sq->netPort->portName);
-		fprintf(stderr,"*"); 
+		fprintf(stderr,"*");
 		}
 #endif
 	while (sq) {
@@ -2807,7 +2807,7 @@ register long i;
 			NetMakeCOLFromDoodle(title,a,length+1,sendDiscrete),
 			moduleName);
 		}
-		
+
 
 	status = NetClientSendMessage(netPort,header,a,(length + 1),
 			COL_TRIPLET, NetFreeDataCB, 0,0,0,doQueue);
@@ -3367,7 +3367,7 @@ DEFUN(_NetSendRaster8,(netPort,d,shouldCopy,
 		else
 			NetRISDistribute(&d, moduleName);
 
-	
+
 	if (shouldCopy) {
 		int buffSize = d->dim[0] * d->dim[1] * sizeof(char);
 		register int x;
@@ -3432,7 +3432,7 @@ int status;
 	ANIMsetClass(header);
 	ANIMsetTitle(header,title);
 	ANIMsetID(header,userID);
-	
+
 	switch (command) {
 	    case AF_STOP:
 			ANIMsetFunc(header,ANIM_FUNC_STOP);
@@ -3475,7 +3475,7 @@ NetPort *netPort;
 Data    *d;
 int shouldCopy;     /* should this data be copied before returning? */
 		    /* if not, charData and palette8 must not be freed or */
-		    /* changed until data is sent */ 
+		    /* changed until data is sent */
 int distributeInternally; /* boolean */
 char *moduleName; /* Send internally to all DOCB except this one */
                   /* in most cases this would be the calling module's name*/
@@ -3542,10 +3542,10 @@ char	*nodeName;
 char	*field;
 int	numRecords;
 int	numElements;
-int	type;	
+int	type;
 char	*vdata;
 int	shouldCopy; /* copy Vdata before returning in case of delayed send */
-int	distributeInternally; 
+int	distributeInternally;
 char	*moduleName; /* distribute Internally to all except */
 {
 #if 0
@@ -3612,7 +3612,7 @@ int size;
 					numRecords * numElements,
 					dtmType,0,0,0,0,1);
 		}
-	
+
 	return(status);
 #endif
 }
@@ -3654,7 +3654,7 @@ Data *nextD;
 					      moduleName,FALSE);
 			break;
 		case DOT_Image:
-			if ( (nextD) 
+			if ( (nextD)
 			    && (nextD->dot == DOT_Palette8)
 			    && !nextD->associated )
 				nextD->associated = d->label;
@@ -3690,7 +3690,7 @@ Data *nextD;
 #endif
 			status = -1;
 			break;
-		
+
 		};
 	    d = nextD;
 	    }
@@ -3711,9 +3711,9 @@ char header[DTM_MAX_HEADER];
 	COMsetID(header,userID);
 	COMsetDomain(header,domain);
 	COMsetMesg(header,message);
-	
+
 	return(NetClientSendMessage(netPort,header,0,0,0,cb,0,failCB,0,1));
-	
+
 }
 
 #if 0				/* not used */
@@ -3786,7 +3786,7 @@ time_t	now;
 	ecbd->cbData = cbData;
 	ecbd->failCB = failCB;
 	ecbd->failCBData = failCBData;
-	
+
 
 	EXECsetClass(header);
 	EXECsetID(header,userID);
@@ -3879,7 +3879,7 @@ caddr_t failCBData;
 {
 char header[DTM_MAX_HEADER];
 char tmp[DTM_STRING_SIZE];
-	
+
 	MSGsetClass(header);
 	COLsetID(header, userID);
 	strncpy(tmp, message, DTM_STRING_SIZE - 1);

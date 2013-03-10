@@ -72,9 +72,9 @@ extern char pre_title[80];
 
 extern mo_window *current_win;
 mo_status mo_post_mailto_form_win (char *to_address, char *subject);
-mo_status mo_send_mailto_message (char *text, char *to, char *subj, 
+mo_status mo_send_mailto_message (char *text, char *to, char *subj,
 				  char *content_type, char *url);
-void do_mailto_post(mo_window *win, char *to, char *from, char *subject, 
+void do_mailto_post(mo_window *win, char *to, char *from, char *subject,
 		    char *body);
 
 /* ----------------------- mo_post_mailto_window ------------------------ */
@@ -91,7 +91,7 @@ static XmxCallback (include_fsb_cb)
 
   XtUnmanageChild (win->mail_fsb_win);
   fname = (char *)malloc (128 * sizeof (char));
-  
+
   XmStringGetLtoR (((XmFileSelectionBoxCallbackStruct *)call_data)->value,
                    XmSTRING_DEFAULT_CHARSET,
                    &fname);
@@ -119,8 +119,8 @@ static XmxCallback (include_fsb_cb)
         sprintf(final+strlen(final),"\nOpen Error:\n");
         sprintf(final+strlen(final),"   %s\n",buf);
 
-	XmxMakeErrorDialog (win->mailto_win, 
-                          final, 
+	XmxMakeErrorDialog (win->mailto_win,
+                          final,
                           "Open Error");
 	XtManageChild (Xmx_w);
 
@@ -130,14 +130,14 @@ static XmxCallback (include_fsb_cb)
 	}
       return;
     }
-  
+
   while (1)
     {
       long pos;
       status = fgets (line, MO_LINE_LENGTH, fp);
       if (!status || !(*line))
 	break;
-      
+
       XmTextInsert (win->mailto_text,
                     pos = XmTextGetInsertionPosition (win->mailto_text),
                     line);
@@ -154,24 +154,24 @@ static XmxCallback (mailto_win_cb)
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
   char *msg, *subj, *to;
   long pos;
-  
-  
+
+
   switch (XmxExtractToken ((int)client_data))
     {
     case 0:  /* send */
       XtUnmanageChild (win->mailto_win);
-      
+
       msg = XmxTextGetString (win->mailto_text);
       if (!msg)
         return;
       if (msg[0] == '\0')
         return;
 
-      
+
       to = XmxTextGetString (win->mailto_tofield);
       subj = XmxTextGetString (win->mailto_subfield);
 
-      mo_send_mailto_message (msg, to, subj, "text/plain", 
+      mo_send_mailto_message (msg, to, subj, "text/plain",
 			      win->current_node->url);
       free (msg);
       free (to);
@@ -179,16 +179,16 @@ static XmxCallback (mailto_win_cb)
 
       break;
     case 1:   /* dismiss */
-      XtUnmanageChild (win->mailto_win); 
+      XtUnmanageChild (win->mailto_win);
       /* Do nothing. */
       break;
     case 2:   /* help */
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("help-on-mailto.html"),
          NULL, NULL);
       break;
-      
+
     case 3:    /* insert file */
 	if (!win->mail_fsb_win) {
 	    win->mail_fsb_win = XmxMakeFileSBDialog
@@ -199,7 +199,7 @@ static XmxCallback (mailto_win_cb)
 	} else {
 	    XmFileSelectionDoSearch (win->mail_fsb_win, NULL);
 	}
-	
+
 	XmxManageRemanage (win->mail_fsb_win);
 	break;
     case 4:
@@ -222,12 +222,12 @@ static XmxCallback (mailto_form_win_cb)
 {
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
   char *subj, *to, *namestr;
-  
+
   switch (XmxExtractToken ((int)client_data))
     {
     case 0:  /* send */
       XtUnmanageChild (win->mailto_form_win);
-      
+
       to = XmxTextGetString (win->mailto_form_tofield);
       subj = XmxTextGetString (win->mailto_form_subfield);
       namestr = XmxTextGetString(win->mailto_form_fromfield);
@@ -244,7 +244,7 @@ static XmxCallback (mailto_form_win_cb)
 
       break;
     case 1:   /* dismiss */
-      XtUnmanageChild (win->mailto_form_win); 
+      XtUnmanageChild (win->mailto_form_win);
       /* Do nothing. */
       if (win->post_data) {
 	free (win->post_data);
@@ -254,7 +254,7 @@ static XmxCallback (mailto_form_win_cb)
       break;
     case 2:   /* help */
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("help-on-mailto-form.html"),
          NULL, NULL);
       break;
@@ -289,21 +289,21 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
       Widget dialog_sep, buttons_form;
       Widget mailto_form;
       Widget tolabel, sublabel, fromlabel;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->mailto_win = XmxMakeFormDialog 
+      win->mailto_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Mail To Author");
       dialog_frame = XmxMakeFrame (win->mailto_win, XmxShadowOut);
-      
+
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       mailto_form = XmxMakeForm (dialog_frame);
-      
+
       XmxSetArg (XmNscrolledWindowMarginWidth, 10);
       XmxSetArg (XmNscrolledWindowMarginHeight, 10);
       XmxSetArg (XmNcursorPositionVisible, True);
@@ -314,7 +314,7 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
       /* XmxSetArg (XmNwordWrap, True); */
       /* XmxSetArg (XmNscrollHorizontal, False); */
       win->mailto_text = XmxMakeScrolledText (mailto_form);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (mailto_form);
 
       /* create from, to, and subject widgets */
@@ -331,7 +331,7 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
       /* constraints for FROM */
       XmxSetOffsets(fromlabel, 14, 10, 10, 10);
       XmxSetConstraints
-	(fromlabel, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM, 
+	(fromlabel, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
 	 XmATTACH_NONE, NULL, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_fromfield, 10, 10, 10, 10);
       XmxSetConstraints
@@ -345,18 +345,18 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
 	 win->mailto_fromfield, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_tofield, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->mailto_tofield, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET, 
+	(win->mailto_tofield, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET,
 	 XmATTACH_FORM, win->mailto_fromfield, NULL, tolabel, NULL);
 
       /* constraints for SUBJECT */
       XmxSetOffsets(sublabel, 14, 10, 10, 10);
       XmxSetConstraints
-	(sublabel, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, 
+	(sublabel, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
 	 XmATTACH_NONE, win->mailto_tofield, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_subfield, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->mailto_subfield, XmATTACH_WIDGET, XmATTACH_NONE, 
-	 XmATTACH_WIDGET, XmATTACH_FORM, win->mailto_tofield, NULL, 
+	(win->mailto_subfield, XmATTACH_WIDGET, XmATTACH_NONE,
+	 XmATTACH_WIDGET, XmATTACH_FORM, win->mailto_tofield, NULL,
 	 sublabel, NULL);
 
       /* create buttons */
@@ -367,17 +367,17 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
 
       XmxSetOffsets (XtParent (win->mailto_text), 3, 0, 3, 3);
       XmxSetConstraints
-        (XtParent (win->mailto_text), XmATTACH_WIDGET, XmATTACH_WIDGET, 
+        (XtParent (win->mailto_text), XmATTACH_WIDGET, XmATTACH_WIDGET,
          XmATTACH_FORM, XmATTACH_FORM,
          win->mailto_subfield, dialog_sep, NULL, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
 	 XmATTACH_FORM, NULL, NULL, NULL, NULL);
     }
 
@@ -385,7 +385,7 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
 
   sprintf(namestr, "%s <%s>", get_pref_string(eDEFAULT_AUTHOR_NAME),
           get_pref_string(eDEFAULT_AUTHOR_EMAIL));
-  
+
   XmxTextSetString (win->mailto_fromfield, namestr);
   XmxTextSetString (win->mailto_tofield, to_address);
   if (!subject || !*subject) {
@@ -399,7 +399,7 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
   }
 
   XmxTextSetString (win->mailto_text, "");
-  
+
       /* tack signature on the end if it exists - code from Martin Hamilton */
   if (get_pref_string(eSIGNATURE)) {
       XmxTextSetString (win->mailto_text, "\n\n");
@@ -416,10 +416,10 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
       } else {
           XmxTextSetString (win->mailto_text, "");
       }
-      
+
   }
   XmTextSetInsertionPosition (win->mailto_text, 0);
-      
+
   XmxManageRemanage (win->mailto_win);
 
   return mo_succeed;
@@ -507,21 +507,21 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
       Widget dialog_sep, buttons_form;
       Widget mailto_form_form;
       Widget tolabel, sublabel, fromlabel;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->mailto_form_win = XmxMakeFormDialog 
+      win->mailto_form_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Mail Form Results To Author");
       dialog_frame = XmxMakeFrame (win->mailto_form_win, XmxShadowOut);
-      
+
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       mailto_form_form = XmxMakeForm (dialog_frame);
-      
+
       XmxSetArg (XmNscrolledWindowMarginWidth, 10);
       XmxSetArg (XmNscrolledWindowMarginHeight, 10);
       XmxSetArg (XmNcursorPositionVisible, True);
@@ -532,7 +532,7 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
       XmxSetArg (XmNwordWrap, True);
       XmxSetArg (XmNscrollHorizontal, False);
       win->mailto_form_text = XmxMakeScrolledText (mailto_form_form);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (mailto_form_form);
 
       /* create from, to, and subject widgets */
@@ -551,7 +551,7 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
       /* constraints for FROM */
       XmxSetOffsets(fromlabel, 14, 10, 10, 10);
       XmxSetConstraints
-	(fromlabel, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM, 
+	(fromlabel, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
 	 XmATTACH_NONE, NULL, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_form_fromfield, 10, 10, 10, 10);
       XmxSetConstraints
@@ -565,18 +565,18 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
 	 win->mailto_form_fromfield, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_form_tofield, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->mailto_form_tofield, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET, 
+	(win->mailto_form_tofield, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET,
 	 XmATTACH_FORM, win->mailto_form_fromfield, NULL, tolabel, NULL);
 
       /* constraints for SUBJECT */
       XmxSetOffsets(sublabel, 14, 10, 10, 10);
       XmxSetConstraints
-	(sublabel, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, 
+	(sublabel, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
 	 XmATTACH_NONE, win->mailto_form_tofield, NULL, NULL, NULL);
       XmxSetOffsets(win->mailto_form_subfield, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->mailto_form_subfield, XmATTACH_WIDGET, XmATTACH_NONE, 
-	 XmATTACH_WIDGET, XmATTACH_FORM, win->mailto_form_tofield, NULL, 
+	(win->mailto_form_subfield, XmATTACH_WIDGET, XmATTACH_NONE,
+	 XmATTACH_WIDGET, XmATTACH_FORM, win->mailto_form_tofield, NULL,
 	 sublabel, NULL);
 
       /* create buttons */
@@ -587,17 +587,17 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
 
       XmxSetOffsets (XtParent (win->mailto_form_text), 3, 0, 3, 3);
       XmxSetConstraints
-        (XtParent (win->mailto_form_text), XmATTACH_WIDGET, XmATTACH_WIDGET, 
+        (XtParent (win->mailto_form_text), XmATTACH_WIDGET, XmATTACH_WIDGET,
          XmATTACH_FORM, XmATTACH_FORM,
          win->mailto_form_subfield, dialog_sep, NULL, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
 	 XmATTACH_FORM, NULL, NULL, NULL, NULL);
     }
 
@@ -605,7 +605,7 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
 
   sprintf(namestr, "%s <%s>", get_pref_string(eDEFAULT_AUTHOR_NAME),
           get_pref_string(eDEFAULT_AUTHOR_EMAIL));
-  
+
   XmxTextSetString (win->mailto_form_fromfield, namestr);
   XmxTextSetString (win->mailto_form_tofield, to_address);
   if (subject != NULL)
@@ -650,7 +650,7 @@ void do_mailto_post(mo_window *win, char *to, char *from, char *subject, char *b
 		}
 #endif
 
-		mo_send_mailto_message(buf, to, subject, post_content_type, 
+		mo_send_mailto_message(buf, to, subject, post_content_type,
 				       win->current_node->url);
 
 		if (buf) {
@@ -664,7 +664,7 @@ void do_mailto_post(mo_window *win, char *to, char *from, char *subject, char *b
 		}
 #endif
 
-		mo_send_mailto_message(body, to, subject, post_content_type, 
+		mo_send_mailto_message(body, to, subject, post_content_type,
 				       win->current_node->url);
 	}
 
@@ -678,7 +678,7 @@ void do_mailto_post(mo_window *win, char *to, char *from, char *subject, char *b
 
 static FILE *_fp = NULL;
 
-FILE *mo_start_sending_mailto_message (char *to, char *subj, 
+FILE *mo_start_sending_mailto_message (char *to, char *subj,
                                      char *content_type, char *url)
 {
   char cmd[2048];
@@ -686,10 +686,10 @@ FILE *mo_start_sending_mailto_message (char *to, char *subj,
 
   if (!to)
     return NULL;
-  
+
   if (get_pref_string(eMAIL_FILTER_COMMAND))
     {
-      sprintf (cmd, "%s | %s", get_pref_string(eMAIL_FILTER_COMMAND), 
+      sprintf (cmd, "%s | %s", get_pref_string(eMAIL_FILTER_COMMAND),
                get_pref_string(eSENDMAIL_COMMAND));
     }
   else
@@ -704,15 +704,15 @@ FILE *mo_start_sending_mailto_message (char *to, char *subj,
   fprintf (_fp, "Subject: %s\n", subj);
   fprintf (_fp, "Content-Type: %s\n", content_type);
   fprintf (_fp, "Mime-Version: 1.0\n");
-  fprintf (_fp, "X-Mailer: NCSA Mosaic %s on %s\n", 
+  fprintf (_fp, "X-Mailer: NCSA Mosaic %s on %s\n",
            MO_VERSION_STRING, MO_MACHINE_TYPE);
   if (url)
     fprintf (_fp, "X-URL: %s\n", url);
 
   fprintf (_fp, "\n");
-  
+
   /* Stick in BASE tag as appropriate. */
-  if (url && content_type && 
+  if (url && content_type &&
       strcmp (content_type, "text/x-html") == 0)
     fprintf (_fp, "<base href=\"%s\">\n", url);
 
@@ -731,7 +731,7 @@ mo_status mo_finish_sending_mailto_message (void)
 
 /* ------------------------------------------------------------------------ */
 
-mo_status mo_send_mailto_message (char *text, char *to, char *subj, 
+mo_status mo_send_mailto_message (char *text, char *to, char *subj,
                                 char *content_type, char *url)
 {
   FILE *fp;
@@ -739,7 +739,7 @@ mo_status mo_send_mailto_message (char *text, char *to, char *subj,
   fp = mo_start_sending_mailto_message (to, subj, content_type, url);
   if (!fp)
     return mo_fail;
-  
+
   fputs (text, fp);
 
   mo_finish_sending_mailto_message ();

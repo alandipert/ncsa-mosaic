@@ -7,7 +7,7 @@
 ** History
 **
 **         Nov 1990  Written in Objective-C for the NeXT browser (TBL)
-**	24-Oct-1991 (JFG), written in C, browser-independant 
+**	24-Oct-1991 (JFG), written in C, browser-independant
 **	21-Nov-1991 (JFG), first complete version
 **
 **	(c) Copyright CERN 1991 - See Copyright.html
@@ -40,7 +40,7 @@ PRIVATE HTList **adult_table=0;  /* Point to table of lists of all parents */
 PRIVATE HTParentAnchor * HTParentAnchor_new
   NOARGS
 {
-  HTParentAnchor *newAnchor = 
+  HTParentAnchor *newAnchor =
     (HTParentAnchor *) calloc (1, sizeof (HTParentAnchor));  /* zero-filled */
   newAnchor->parent = newAnchor;
   return newAnchor;
@@ -168,7 +168,7 @@ HTAnchor * HTAnchor_findAddress
 
   /* If the address represents a sub-anchor, we recursively load its parent,
      then we create a child anchor within that document. */
-  if (tag && *tag) 
+  if (tag && *tag)
     {
       char *docAddress = HTParse(address, "", PARSE_ACCESS | PARSE_HOST |
                                  PARSE_PATH | PARSE_PUNCTUATION);
@@ -179,8 +179,8 @@ HTAnchor * HTAnchor_findAddress
       free (tag);
       return (HTAnchor *) foundAnchor;
     }
-  
-  else { /* If the address has no anchor tag, 
+
+  else { /* If the address has no anchor tag,
 	    check whether we have this node */
     int hash;
     WWW_CONST char *p;
@@ -189,7 +189,7 @@ HTAnchor * HTAnchor_findAddress
     HTParentAnchor * foundAnchor;
 
     free (tag);
-    
+
     /* Select list from hash table */
     for(p=address, hash=0; *p; p++)
     	hash = (hash * 3 + (*(unsigned char*)p))
@@ -210,7 +210,7 @@ HTAnchor * HTAnchor_findAddress
 	return (HTAnchor *) foundAnchor;
       }
     }
-    
+
     /* Node not found : create new anchor */
     foundAnchor = HTParentAnchor_new ();
 #ifndef DISABLE_TRACE

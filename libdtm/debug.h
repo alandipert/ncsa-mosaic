@@ -40,7 +40,7 @@
  *
  * Revision 1.8  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.7  1991/11/15  19:42:34  jplevyak
  * Removed dependancy on dtmint.h
  *
@@ -52,10 +52,10 @@
  *
  * Revision 1.4  91/09/26  20:13:12  jplevyak
  * Changed to allow setting of debug flags at run time.
- * 
+ *
  * Revision 1.3  91/08/15  19:10:25  sreedhar
  * Changes for logical portname version
- * 
+ *
  * Revision 1.2  1991/06/11  15:22:30  sreedhar
  * disclaimer added
  *
@@ -65,7 +65,7 @@
 */
 
 #ifndef DEBUG_INC
-#define	DEBUG_INC	
+#define	DEBUG_INC
 
 #define	DBGFLOW(s)		if (uDTMdbg & DTM_DBG_MSG) fprintf(stderr, s)
 

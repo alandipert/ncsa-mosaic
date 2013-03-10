@@ -1,16 +1,16 @@
 /*                                                    Utitlity macros for the W3 code library
                                   MACROS FOR GENERAL USE
-                                             
+
    Generates: HTUtils.h
-   
+
    See also: the system dependent file "tcp.h"
-   
+
  */
 
 #ifndef DEBUG
 #define DEBUG   /* Noone ever turns this off as trace is too important */
 #endif          /* Keeep option for really small memory applications tho */
-                
+
 #ifndef HTUTILS_H
 #define HTUTILS_H
 
@@ -154,8 +154,8 @@ Macros for declarations
                 t a; u b; v c; w d; x e; y f; z g; s h; r i;
 #define ARGS10(t,a,u,b,v,c,w,d,x,e,y,f,z,g,s,h,r,i,q,j) (a,b,c,d,e,f,g,h,i,j) \
                 t a; u b; v c; w d; x e; y f; z g; s h; r i; q j;
-                
-        
+
+
 #endif /* __STDC__ (ANSI) */
 
 #ifndef NULL
@@ -248,7 +248,7 @@ Upper- and Lowercase macros
    The problem here is that toupper(x) is not defined officially unless isupper(x) is.
    These macros are CERTAINLY needed on #if defined(pyr) || define(mips) or BDSI
    platforms. For safefy, we make them mandatory.
-   
+
  */
 #include <ctype.h>
 

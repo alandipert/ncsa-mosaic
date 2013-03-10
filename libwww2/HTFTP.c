@@ -109,9 +109,9 @@ struct _HTStream {
       /* ... */
 };
 
-/* 
+/*
 ** Info for cached connection;  right now we only keep one around for a while
-*/  
+*/
 extern XtAppContext app_context;
 extern int ftp_timeout_val;
 extern int securityType;
@@ -201,12 +201,12 @@ PRIVATE char next_data_char NOARGS
 {
   int status;
   interrupted_in_next_data_char = 0;
-  if (data_read_pointer >= data_write_pointer) 
+  if (data_read_pointer >= data_write_pointer)
     {
       status = NETREAD(data_soc, data_buffer, DATA_BUFFER_SIZE);
       if (status == HT_INTERRUPTED)
         interrupted_in_next_data_char = 1;
-      if (status <= 0) 
+      if (status <= 0)
         return (char)-1;
       data_write_pointer = data_buffer + status;
       data_read_pointer = data_buffer;
@@ -264,19 +264,19 @@ int bytes;
 #endif
       return -99;
     }
-  
-  if (cmd) 
+
+  if (cmd)
     {
 #ifndef DISABLE_TRACE
-      if (www2Trace) 
+      if (www2Trace)
         fprintf(stderr, "  Tx: %s", cmd);
 #endif
-      
+
       status = NETWRITE(control, cmd, (int)strlen(cmd));
-      if (status<0) 
+      if (status<0)
         {
 #ifndef DISABLE_TRACE
-          if (www2Trace) fprintf(stderr, 
+          if (www2Trace) fprintf(stderr,
                              "FTP: Error %d sending command: closing socket %d\n",
                              status, control);
 #endif
@@ -285,12 +285,12 @@ int bytes;
           return status;
 	}
     }
-  
+
   /* Patch to be generally compatible with RFC 959 servers  -spok@cs.cmu.edu  */
   /* Multiline responses start with a number and a hyphen;
      end with same number and a space.  When it ends, the number must
      be flush left. */
-  do 
+  do
     {
       char *p = response_text;
       /* If nonzero, it's set to initial code of multiline response */
@@ -299,7 +299,7 @@ int bytes;
           int foo;
           /* This is set to 0 at the start of HTGetCharacter. */
           extern int interrupted_in_htgetcharacter;
-          
+
           foo = (*p++ = HTGetCharacter ());
           if (interrupted_in_htgetcharacter)
             {
@@ -311,20 +311,20 @@ int bytes;
               control = -1;
               return HT_INTERRUPTED;
             }
-          
-          if (foo == LF || 
+
+          if (foo == LF ||
        /* if (((*p++=NEXT_CHAR) == '\n') || */
-              (p == &response_text[LINE_LENGTH])) 
+              (p == &response_text[LINE_LENGTH]))
             {
               *p++=0;                 /* Terminate the string */
 #ifndef DISABLE_TRACE
-              if (www2Trace) 
+              if (www2Trace)
                 fprintf(stderr, "    Rx: %s", response_text);
 #endif
 	      if (!strncmp(response_text,"150",3)) {
                   if((ptr=strrchr(response_text,'(')) && *ptr){
                       bytes = atoi((ptr+1));
-		  } else {   
+		  } else {
                       bytes=0;
                   }
 		if (bytes==0) {
@@ -344,7 +344,7 @@ int bytes;
               sscanf(response_text, "%d%c", &result, &continuation);
 
 		if ((response_text[0] == '2') || (response_text[0] == '5')) {
-				
+
 			if (continuation == '-') {
 				char *p;
 
@@ -361,25 +361,25 @@ int bytes;
 			}
 		}
 
-				
-              if (continuation == '-' && !multiline_response) 
+
+              if (continuation == '-' && !multiline_response)
                 {
                   multiline_response = result;
                 }
               else if (multiline_response && continuation == ' ' &&
                        multiline_response == result &&
-                       isdigit(response_text[0])) 
+                       isdigit(response_text[0]))
                 {
                   /* End of response (number must be flush on left) */
                   multiline_response = 0;
                 }
               break;
             } /* if end of line */
-          
-          if (*(p-1) < 0) 
+
+          if (*(p-1) < 0)
             {
 #ifndef DISABLE_TRACE
-              if (www2Trace) 
+              if (www2Trace)
                 fprintf(stderr, "Error on rx: closing socket %d\n",
                         control);
 #endif
@@ -392,19 +392,19 @@ int bytes;
               return -1;	/* End of file on response */
             }
         } /* Loop over characters */
-    } 
+    }
   while (multiline_response);
 
   if (messageStarted)
 	  HText_appendText(HT, "</PRE><HR>\n");
 
-  
+
 #ifdef OLD
-  do 
+  do
     {
       char *p = response_text;
-      for(;;) 
-        {  
+      for(;;)
+        {
           int foo;
           /* This is set to 0 at the start of HTGetCharacter. */
           extern int interrupted_in_htgetcharacter;
@@ -421,15 +421,15 @@ int bytes;
               return HT_INTERRUPTED;
             }
 
-          if (foo == LF || 
-              p == &response_text[LINE_LENGTH]) 
+          if (foo == LF ||
+              p == &response_text[LINE_LENGTH])
             {
               char continuation;
               int rv;
 
               *p++=0;			/* Terminate the string */
 #ifndef DISABLE_TRACE
-              if (www2Trace) 
+              if (www2Trace)
                 fprintf(stderr, "    Rx: %s", response_text);
 #endif
               /* Clear out result ahead of time to see if we couldn't
@@ -439,7 +439,7 @@ int bytes;
               /* Try just continuing if we couldn't pull out
                  a value for result and the response_text starts with
                  whitespace. */
-              if (rv < 2 && result == -1 && 
+              if (rv < 2 && result == -1 &&
                   (*response_text == ' ' || *response_text == '\t'))
                 {
                   /* Dunno what to do here -- the code isn't really
@@ -447,23 +447,23 @@ int bytes;
                      with whitespace.  Testcase is
                      reports.adm.cs.cmu.edu. */
                 }
-              else if (continuation_response == -1) 
+              else if (continuation_response == -1)
                 {
                   if (continuation == '-')  /* start continuation */
                     continuation_response = result;
-                } 
-              else 
+                }
+              else
                 { 	/* continuing */
                   if (continuation_response == result && continuation == ' ')
                     continuation_response = -1;	/* ended */
-                }	
-              break;	    
+                }
+              break;
             } /* if end of line */
-          
-          if (*(p-1) == EOF) 
+
+          if (*(p-1) == EOF)
             {
 #ifndef DISABLE_TRACE
-              if (www2Trace) 
+              if (www2Trace)
                 fprintf(stderr, "Error on rx: closing socket %d\n",
                         control);
 #endif
@@ -473,15 +473,15 @@ int bytes;
               return -1;	/* End of file on response */
             }
         } /* Loop over characters */
-        
-    } 
+
+    }
   while (continuation_response != -1);
 #endif
-  
-  if (result == 421) 
+
+  if (result == 421)
     {
 #ifndef DISABLE_TRACE
-      if(www2Trace) 
+      if(www2Trace)
         fprintf(stderr, "FTP: They close so we close socket %d\n",
                 control);
 #endif
@@ -519,21 +519,21 @@ int bytes;
 PRIVATE int get_connection ARGS1 (char *,arg)
 {
   int status, con;
-  
+
   static char host[BUFSIZ];
   static char username[BUFSIZ];
   static char password[BUFSIZ];
-  char dummy[MAXHOSTNAMELEN+32];  
+  char dummy[MAXHOSTNAMELEN+32];
 
 int redial=0;
 
-  if (!arg) 
+  if (!arg)
     return -1;		/* Bad if no name sepcified	*/
-  if (!*arg) 
+  if (!*arg)
     return -1;		/* Bad if name had zero length	*/
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "FTP: Looking for %s\n", arg);
 #endif
 
@@ -559,7 +559,7 @@ int redial=0;
         *p2=0;                            /* terminate */
         p1 = p2+1;                        /* point to host */
         pw = strchr(un, ':');
-        if (pw) 
+        if (pw)
           {
             *pw++ = 0;
 /*
@@ -582,15 +582,15 @@ int redial=0;
 	}
     }
     /*no username*/
-    else { 
+    else {
 	if (strcmp(username,"anonymous")) { /*last one was not anon*/
 		*username='\0';
 		*password='\0';
 	}
     }
 
-    /* copy hostname into dummy URL, since username:password@ 
-       might have been part of original */ 
+    /* copy hostname into dummy URL, since username:password@
+       might have been part of original */
     sprintf(dummy, "ftp://%s", p1);
 
 #ifndef DISABLE_TRACE
@@ -672,7 +672,7 @@ redialFTP:
 #endif
 
   status = HTDoConnect (dummy, "FTP", IPPORT_FTP, &con);
-  
+
   if (status < 0)
     {
 #ifndef DISABLE_TRACE
@@ -682,7 +682,7 @@ redialFTP:
             fprintf (stderr,
                      "FTP: Interrupted on connect\n");
           else
-            fprintf(stderr, 
+            fprintf(stderr,
                     "FTP: Unable to connect to remote host for `%s'.\n",
                     arg);
         }
@@ -695,15 +695,15 @@ redialFTP:
           con = -1;
         }
 /*
-      if (username) 
+      if (username)
         free(username);
 */
       HTProgress ("Unable to connect to remote host.");
       return status;			/* Bad return */
     }
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "FTP connected, assigning control socket %d\n", con);
 #endif
   control = con;			/* Current control connection */
@@ -712,7 +712,7 @@ redialFTP:
 
   /* Initialise buffering for contron connection */
   HTInitInput (con);
-  
+
 
   /* Now we log in; Look up username, prompt for pw. */
   {
@@ -733,10 +733,10 @@ redialFTP:
         control = -1;
         return HT_INTERRUPTED;
       }
-    if (status == 2) 
+    if (status == 2)
       {		/* Send username */
         char * command;
-        if (*username) 
+        if (*username)
           {
             command = (char*)malloc(10+strlen(username)+2+1);
             sprintf(command, "USER %s%c%c", username, CR, LF);
@@ -759,8 +759,8 @@ redialFTP:
         		return HT_INTERRUPTED;
 		}
 	    }
-          } 
-        else 
+          }
+        else
           {
             command = (char*)malloc(25);
             sprintf(command, "USER anonymous%c%c", CR, LF);
@@ -785,20 +785,20 @@ redialFTP:
             return HT_INTERRUPTED;
           }
       }
-    if (status == 3) 
+    if (status == 3)
       {		/* Send password */
         char * command;
-        if (*password) 
+        if (*password)
           {
             command = (char*)malloc(10+strlen(password)+2+1);
             sprintf(command, "PASS %s%c%c", password, CR, LF);
-          } 
-        else 
+          }
+        else
           {
             char * user = getenv("USER");
             extern char *machine_with_domain;
             char *host = machine_with_domain;
-            if (!user) 
+            if (!user)
               user = "WWWuser";
             /* If not fully qualified, suppress it as ftp.uu.net
                prefers a blank to a bad name */
@@ -829,12 +829,12 @@ redialFTP:
             return HT_INTERRUPTED;
           }
       }
-    
-    if (status == 3) 
+
+    if (status == 3)
       {
         char temp[80];
 /*
-    	if (username) 
+    	if (username)
 		free(username);
 */
         sprintf (temp, "ACCT noaccount%c%c", CR, LF);
@@ -855,7 +855,7 @@ redialFTP:
             return HT_INTERRUPTED;
           }
       }
-    if (status != 2) 
+    if (status != 2)
       {
 	if (status==HT_INTERRUPTED) {
 #ifndef DISABLE_TRACE
@@ -914,7 +914,7 @@ redialFTP:
 
 			/*if we're tracing, explain it all*/
 #ifndef DISABLE_TRACE
-			if (www2Trace) 
+			if (www2Trace)
 				fprintf(stderr, "FTP: Login fail: %s", response_text);
 #endif
 /*
@@ -952,7 +952,7 @@ redialFTP:
 	}
         HTProgress("Login failed");
 #ifndef DISABLE_TRACE
-        if (www2Trace) 
+        if (www2Trace)
           fprintf(stderr, "FTP: Login fail: %s", response_text);
 #endif
 
@@ -970,7 +970,7 @@ redialFTP:
         return -1;		/* Bad return */
       }
 #ifndef DISABLE_TRACE
-    if (www2Trace) 
+    if (www2Trace)
       fprintf(stderr, "FTP: Logged in.\n");
 #endif
 
@@ -983,7 +983,7 @@ redialFTP:
 	securityType=HTAA_NONE;
     }
   }
-  
+
   return con;			/* Good return */
 } /* Scope of con */
 
@@ -1000,7 +1000,7 @@ PRIVATE void close_master_socket()
 #endif
 {
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "FTP: Closing master socket %d\n", master_socket);
 #endif
   NETCLOSE(master_socket);
@@ -1033,18 +1033,18 @@ PRIVATE int get_listen_socket()
   struct sockaddr_in soc_address;	/* Binary network address */
   struct sockaddr_in *sin = &soc_address;
   int new_socket;			/* Will be master_socket */
-  
+
   /* Create internet socket */
   new_socket = socket (AF_INET, SOCK_STREAM, IPPROTO_TCP);
-  
+
   if (new_socket < 0)
     return -1;
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "FTP: Opened master socket number %d\n", new_socket);
 #endif
-    
+
   /* Search for a free port. */
   sin->sin_family = AF_INET;	    /* Family = internet, host order  */
   sin->sin_addr.s_addr = INADDR_ANY; /* Any peer address */
@@ -1058,7 +1058,7 @@ PRIVATE int get_listen_socket()
 #endif
                          (struct sockaddr *)&soc_address,
 			 &address_length);
-    if (status<0) 
+    if (status<0)
       return -1;
 
 #ifndef DISABLE_TRACE
@@ -1081,9 +1081,9 @@ PRIVATE int get_listen_socket()
 #else
               sizeof(soc_address));
 #endif
-      if (status<0) 
+      if (status<0)
         return -1;
-      
+
       address_length = sizeof(soc_address);
 #ifdef SOCKS
     status = Rgetsockname(new_socket,
@@ -1092,10 +1092,10 @@ PRIVATE int get_listen_socket()
 #endif
                            (struct sockaddr*)&soc_address,
                            &address_length);
-    if (status<0) 
+    if (status<0)
       return -1;
   }
-  
+
 #ifndef DISABLE_TRACE
   if(www2Trace) {
 	fprintf(stderr, "FTP: bound to port %d on %s\n",
@@ -1104,11 +1104,11 @@ PRIVATE int get_listen_socket()
   }
 #endif
 
-  if (master_socket >= 0) 
+  if (master_socket >= 0)
     close_master_socket ();
-  
+
   master_socket = new_socket;
-  
+
   /* Now we must find out who we are to tell the other guy */
   (void)HTHostName(); 	/* Make address valid - doesn't work*/
   sprintf(port_command, "PORT %d,%d,%d,%d,%d,%d%c%c",
@@ -1119,12 +1119,12 @@ PRIVATE int get_listen_socket()
           (int)*((unsigned char *)(&sin->sin_port)+0),
           (int)*((unsigned char *)(&sin->sin_port)+1),
           CR, LF);
-  
+
   /* Inform TCP that we will accept connections */
 #ifdef SOCKS
-  if (Rlisten (master_socket, 1) < 0) 
+  if (Rlisten (master_socket, 1) < 0)
 #else
-  if (listen (master_socket, 1) < 0) 
+  if (listen (master_socket, 1) < 0)
 #endif
     {
       close_master_socket ();
@@ -1270,7 +1270,7 @@ char szTime[32];
 #if 0
       ret=sscanf(buffer,"%c%*9s%*d %*s %*s %s", &itemtype, itemsize);
 
-      if (ret != 2) 
+      if (ret != 2)
         continue;
 #endif
       /* Retain whole string -- we don't use it at the moment, but we will. */
@@ -1317,10 +1317,10 @@ char szTime[32];
 	/* Due to the various time stamp formats, its "safer" to retrieve the        */
 	/* filename by taking it from the right side of the string, we do that here. */
 	ptr = strrchr(buffer,' ');
-      
-	if(ptr == NULL) 
+
+	if(ptr == NULL)
 		continue;
-      
+
 	strcpy(itemname,ptr+1);
 
 	if (!strcmp(itemname,".") || !strcmp(itemname,"..")) {
@@ -1348,18 +1348,18 @@ char szTime[32];
 
       HText_appendText (HT, "<DD>");
       /* Spit out the anchor refrence, and continue on... */
-      
+
       HText_appendText (HT, "<A HREF=\"");
       /* Assuming it's a relative reference... */
       if (itemname[0] != '/')
         {
           HText_appendText (HT, filename);
-          if (filename[strlen(filename)-1] != '/') 
+          if (filename[strlen(filename)-1] != '/')
             HText_appendText (HT, "/");
         }
       HText_appendText (HT, itemname);
       HText_appendText (HT, "\">");
-      
+
       /* There are 3 "types", directory, link and file.  If its a directory we     */
       /* just spit out the name with a directory icon.  If its a link, we go       */
       /* retrieve the proper name (i.e. the input looks like bob -> ../../../bob   */
@@ -1378,7 +1378,7 @@ char szTime[32];
             HText_appendText(HT, "\"> ");
             break;
           }
-          
+
         case 'l':
           {
             ptr = strrchr(buffer,' ');
@@ -1387,28 +1387,28 @@ char szTime[32];
                 *ptr = '\0';
                 ptr = strrchr(buffer,' ');
               }
-            
+
             if(ptr != NULL)
               {
                 *ptr = '\0';
                 ptr = strrchr(buffer,' ');
               }
-            
+
             if(ptr != NULL) strcpy(itemname,ptr+1);
 
 	    if (compact_string(itemname,ellipsis_string,ftpFilenameLength,ftpEllipsisMode,ftpEllipsisLength)) {
 		strcpy(itemname,ellipsis_string);
 	    }
           }
-          
+
         case '-':
           {
-            
-            /* If this is a link type, and the bytes are small, 
+
+            /* If this is a link type, and the bytes are small,
                its probably a directory so lets not show the byte
                count */
-#if 0            
-            if(itemtype == 'l' && atoi(itemsize) < 128) 
+#if 0
+            if(itemtype == 'l' && atoi(itemsize) < 128)
               {
                 sprintf(buffer,"%s",itemname);
               }
@@ -1419,7 +1419,7 @@ char szTime[32];
 #endif
 
 #if 0
-            if(itemtype == 'l') 
+            if(itemtype == 'l')
               {
 #endif
 		if (compact_string(itemname,ellipsis_string,ftpFilenameLength,ftpEllipsisMode,ftpEllipsisLength)) {
@@ -1456,7 +1456,7 @@ char szTime[32];
                   }
                 else
                   {
-                    HText_appendText(HT, HTgeticonname(format, "text")); 
+                    HText_appendText(HT, HTgeticonname(format, "text"));
                   }
 
                 HText_appendText(HT, "\"> ");
@@ -1464,7 +1464,7 @@ char szTime[32];
             else
               {
                 HText_appendText(HT, "<IMG SRC=\"");
-                HText_appendText(HT, HTgeticonname(format, "application")); 
+                HText_appendText(HT, HTgeticonname(format, "application"));
                 HText_appendText(HT, "\"> ");
               }
 
@@ -1474,7 +1474,7 @@ char szTime[32];
           default:
             {
               HText_appendText(HT, "<IMG SRC=\"");
-              HText_appendText(HT, HTgeticonname(NULL, "unknown")); 
+              HText_appendText(HT, HTgeticonname(NULL, "unknown"));
               HText_appendText(HT, "\"> ");
               break;
             }
@@ -1496,7 +1496,7 @@ char szTime[32];
 		t=time(0);
 		ptr=localtime(&t);
 		sprintf(szYear,"%d",1900+ptr->tm_year);
-		sprintf(szDate, "%*s%9s %s %s %s %2.2s, %s", nSpaces, " ", itemsize, szFileInfo, szTime, szMonth, szDay, szYear); 
+		sprintf(szDate, "%*s%9s %s %s %s %2.2s, %s", nSpaces, " ", itemsize, szFileInfo, szTime, szMonth, szDay, szYear);
 	}
 	else if (nTime == 0) {
 		sprintf(szDate, "%*s%9s %s %s %s %2.2s, %s", nSpaces, " ", itemsize, szFileInfo, "     ", szMonth, szDay, szYear);
@@ -1514,7 +1514,7 @@ char szTime[32];
 
 	free (full_ftp_name);
     }
-  
+
   HText_appendText (HT, "</DL>\n");
 #ifdef NEW_PARSE
   HText_appendText (HT, "</PRE>\n");
@@ -1560,15 +1560,15 @@ ARGS4 (
 	}
 	HT = HText_new ();
 	HText_beginAppend (HT);
-  
-  for (retry = 0; retry < 2; retry++) 
+
+  for (retry = 0; retry < 2; retry++)
     {
 #ifndef DISABLE_TRACE
       if (www2Trace)
         fprintf (stderr, "FTP: TRYING in HTFTPLoad, attempt %d\n", retry);
 #endif
       status = get_connection(name);
-      if (status < 0) 
+      if (status < 0)
         {
           CLOSE_CONTROL (control);
           control = -1;
@@ -1578,7 +1578,7 @@ ARGS4 (
 #endif
           return status;
         }
-      
+
       status = get_listen_socket();
       if (status < 0)
         {
@@ -1594,7 +1594,7 @@ ARGS4 (
              somehow in the middle of it, which we currently can't. */
           return status;
         }
-      
+
       /* Inform the server of the port number we will listen on */
       {
         status = response (port_command);
@@ -1613,9 +1613,9 @@ ARGS4 (
             close_master_socket ();
             return HT_INTERRUPTED;
           }
-        if (status !=2) 
+        if (status !=2)
           {		/* Could have timed out */
-            if (status < 0) 
+            if (status < 0)
               {
                 CLOSE_CONTROL (control);
                 control = -1;
@@ -1650,21 +1650,21 @@ ARGS4 (
 #endif
       return status;	/* Failed with this code */
     }
-  
-  /* Ask for the file: */    
+
+  /* Ask for the file: */
   {
     char *filename = HTParse(name, "", PARSE_PATH + PARSE_PUNCTUATION);
     char *fname, *ptr;
     char command[LINE_LENGTH+1];
     HTAtom *encoding;
 
-    if (!(*filename)) 
+    if (!(*filename))
       StrAllocCopy(filename, "/");
     format = HTFileFormat (filename, &encoding, WWW_PLAINTEXT, &compressed);
-    
+
     sprintf(command, "TYPE %s%c%c", "I", CR, LF);
     status = response (command);
-    if (status != 2) 
+    if (status != 2)
       {
         if (status == HT_INTERRUPTED)
           HTProgress ("Connection interrupted.");
@@ -1845,7 +1845,7 @@ skipDir:
 
     free(filename);
     free(fname);
-    if (status != 1) 
+    if (status != 1)
       {
         CLOSE_CONTROL (control);
         control = -1;
@@ -1856,7 +1856,7 @@ skipDir:
         return HT_NOT_LOADED; /* Action not started */
       }
   }
-  
+
   /* Wait for the connection */
   {
     struct sockaddr_in soc_address;
@@ -1891,7 +1891,7 @@ skipDir:
     data_soc = status;
   }
 
-  if (isDirectory) 
+  if (isDirectory)
     {
       int s = read_directory (anchor, name, format_out, sink);
 
@@ -1909,28 +1909,28 @@ skipDir:
 #endif
       /* HT_INTERRUPTED should fall right through. */
       return s;
-    } 
-  else 
+    }
+  else
     {
       /* We reproduce ParseSocket below because of socket/child process
          problem. */
       HTStream * stream;
-      HTStreamClass targetClass;    
+      HTStreamClass targetClass;
       int rv;
-      
+
       stream = HTStreamStack(format,
                              format_out,
                              compressed,
                              sink, anchor);
-      
-      if (!stream) 
+
+      if (!stream)
         {
           char buffer[1024];	/* @@@@@@@@ */
           sprintf(buffer, "Sorry, can't convert from %s to %s.",
                   HTAtom_name(format), HTAtom_name(format_out));
           HTProgress (buffer);
 #ifndef DISABLE_TRACE
-          if (www2Trace) 
+          if (www2Trace)
             fprintf(stderr, "FTP: %s\n", buffer);
 #endif
 #ifdef SWP_HACK
@@ -1938,7 +1938,7 @@ skipDir:
 #endif
           return HT_NOT_LOADED;
         }
-      
+
       targetClass = *(stream->isa);	/* Copy pointers to procedures */
       ftpKludge=1;
       rv = HTCopy(data_soc, stream, 0);
@@ -1979,7 +1979,7 @@ skipDir:
 
          Testcase for problems (10/30/93): uxc.cso.uiuc.edu,
          AnswerGarden COPYRIGHT in X11R5 contrib clients.
-         
+
          Of course, we may already be triggering hostile actions
          by allowing client-side interrupts as follows... */
       if (rv != HT_INTERRUPTED)
@@ -2014,7 +2014,7 @@ skipDir:
               return HT_NOT_LOADED;
             }
         }
-      
+
       close_master_socket ();
 
       if (rv != HT_INTERRUPTED)
@@ -2036,7 +2036,7 @@ skipDir:
 
 
 /* HTFTPMkDir  Request that a directory be created on the FTP site.
-** Expects:    *name is a pointer to a string that consists of the FTP URL with 
+** Expects:    *name is a pointer to a string that consists of the FTP URL with
 **                   the remote directory name.
 ** Returns     0 if successful, nonzero on error
 */
@@ -2151,7 +2151,7 @@ PUBLIC int HTFTPRemove ARGS1 ( char *, name )
    control = -1;
    return -1;
  }
- 
+
  /* *fname is the full path to the file, *filename is just the filename */
  for (method =0; method < 2; method++ ) {
    switch (method) {
@@ -2256,15 +2256,15 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
  struct sockaddr_in soc_address;
  socklen_t soc_addrlen = sizeof (soc_address);
  struct stat sbuf;
- 
+
         HTProgress ("FTP send in progress.");
 
 	if (fTimerStarted) {
 	  XtRemoveTimeOut (timer);
 	  fTimerStarted = 0;
 	}
-	
-	/* The local filename is in the url, so pull it out 
+
+	/* The local filename is in the url, so pull it out
 		 i.e. ftp://warez.yomama.com/pub/31337&/u/warezboy/Mosaic0.1a.tar.gz
 		 means to send /u/warezboy/Mosaic0.1a.tar.gz to warez.yomama.com/pub/31337
 	*/
@@ -2272,7 +2272,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	  close_master_socket ();
 	  CLOSE_CONTROL (control);
 	  control = -1;
-	  return -1;		
+	  return -1;
 	}
 
 	*fname = '\0';	      /* Make the url normal */
@@ -2284,10 +2284,10 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	  close_master_socket ();
 	  CLOSE_CONTROL (control);
 	  control = -1;
-	  return -1;		
+	  return -1;
 	}
-	
-	/* *fname is the full path and filename, *filename is just the filename */	
+
+	/* *fname is the full path and filename, *filename is just the filename */
 	/* get size information */
 	if( stat (fname, &sbuf) < 0) {
 	  CLOSE_CONTROL (control);
@@ -2295,7 +2295,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	  close_master_socket ();
 	  return -1;
 	}
-		
+
 	bTotal = sbuf.st_size;
 #ifndef DISABLE_TRACE
 	if(www2Trace)
@@ -2317,7 +2317,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	  close_master_socket ();
 	  return status;
 	}
-	
+
 	status = response (port_command);
 	if (status == HT_INTERRUPTED) {
      	  HTProgress ("Connection interrupted.");
@@ -2336,26 +2336,26 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	  }
 	  return -3;
 	}
-	
+
 	/* Logged in, set up the port, now let's send the sucka */
 
 	/* Set the type to image */
 	sprintf (command, "TYPE %s%c%c", "I", CR, LF);
-	status = response (command);	
+	status = response (command);
 	if (status != 2) {
 		close_master_socket ();
 		CLOSE_CONTROL (control);
 		control = -1;
-		if (status == HT_INTERRUPTED) 
+		if (status == HT_INTERRUPTED)
 			HTProgress ("Connection interrupted.");
-		return (status == HT_INTERRUPTED)?-2:-1;	
+		return (status == HT_INTERRUPTED)?-2:-1;
 	}
-	
+
 	/* Move to correct directory */
 	path = HTParse (name, "", PARSE_PATH+PARSE_PUNCTUATION);
 	if (!(*path))
 		StrAllocCopy (path, "/");
-		
+
 	sprintf (command, "CWD %s%c%c", path, CR, LF);
 	status = response (command);
 
@@ -2363,9 +2363,9 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 		close_master_socket ();
 		CLOSE_CONTROL (control);
 		control = -1;
-		if (status == HT_INTERRUPTED) 
+		if (status == HT_INTERRUPTED)
 			HTProgress ("Connection interrupted.");
-		return (status == HT_INTERRUPTED)?-2:-1;	
+		return (status == HT_INTERRUPTED)?-2:-1;
 	}
 
 	/* Send it */
@@ -2378,7 +2378,7 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 		close_master_socket ();
 		return -2;
 	}
-	
+
 	if (status != 1) { /* Does not seem to understand the STOR command */
 		HTProgress ("FTP host does not understand STOR command.");
 		CLOSE_CONTROL (control);
@@ -2386,9 +2386,9 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 		close_master_socket ();
 		return -3;
 	}
-	
+
 	/* Ready to send the data now, server is primed and ready... here we go, go go */
-	
+
 #ifdef SOCKS
 	status = Raccept (master_socket, (struct sockaddr *)&soc_address, &soc_addrlen);
 #else
@@ -2409,46 +2409,46 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 	if( (f = fopen( fname, "r")) == NULL) {
 	  CLOSE_CONTROL (control);
 	  control = -1;
-	  close_master_socket ();	  
+	  close_master_socket ();
 	  return -1;
 	}
-		
+
 	HTMeter (0,NULL);
 	bDone = 0;
 	bLeft = bTotal;
 	mo_busy ();
 	for (;;) {
-	 
+
 	  if (bDone > next_twirl) {
 	    intr = HTCheckActiveIcon(1);
     	    next_twirl += twirl_increment;
 	  } else {
 	    intr = HTCheckActiveIcon(0);
-	  }	
+	  }
 	  if (intr) {
 	    HTProgress ("Data transfer interrupted");
 	    HTMeter (100,NULL);
 	    break;
 	  }
-		
+
 	  if (bLeft < OUTBUFSIZE) { /* Handle last block */
-	    if ((chunk = fread (outBuf, 1, bLeft, f)) == 0) 
-	      break;	
+	    if ((chunk = fread (outBuf, 1, bLeft, f)) == 0)
+	      break;
 	    NETWRITE (data_soc, outBuf, chunk);
 	    bLeft -= chunk;
 	    bDone += chunk;
 	  } else if (bLeft <= 0) {  /* Exit */
-	    break;		
+	    break;
 	  } else {		    /* Handle a block of the data */
-	    if ( (chunk = fread (outBuf, 1, OUTBUFSIZE, f)) == 0) 
+	    if ( (chunk = fread (outBuf, 1, OUTBUFSIZE, f)) == 0)
 	      break;
 	    NETWRITE (data_soc, outBuf, chunk);
 	    bLeft -= chunk;
 	    bDone += chunk;
 	  }
 	  HTMeter ((bDone*100)/bTotal, NULL);
-	}	
-	
+	}
+
 	mo_not_busy ();
 	/* Done, now clean up */
 	fclose (f);
@@ -2472,15 +2472,15 @@ PUBLIC int HTFTPSend ARGS1 ( char *, name ) {
 #endif
 	  return intr?-2:-1;
 	}
-	
+
 	timer = XtAppAddTimeOut(app_context, ftp_timeout_val*1000, close_it_up, NULL);
 	fTimerStarted = 1;
-	
+
 #ifndef DISABLE_TRACE
 	if(www2Trace)
 	  fprintf (stderr, "HTFTPSend: File sent, returning OK\n");
 #endif
-	return 0;      
+	return 0;
 } /* End of HTFTPSend */
 
 
@@ -2620,7 +2620,7 @@ static char *tmpbuf=NULL;
 
 
 int ParseDate(char *szBuffer, char *szFileInfo, char *szMonth, char *szDay, char *szYear, char *szTime) {
-	
+
 char *szPtr,*szEndPtr;
 int nCount;
 char *tmpbuf=(char *)calloc(BUFSIZ,sizeof(char));
@@ -2727,7 +2727,7 @@ char *tmpbuf=(char *)calloc(BUFSIZ,sizeof(char));
 							szPtr++;
 						}
 
-						if (szPtr) {  
+						if (szPtr) {
 							szPtr = strchr(szPtr, ' ');
 							while (szPtr && (*szPtr == ' '))  {
 								szPtr++;
@@ -2769,14 +2769,14 @@ char *tmpbuf=(char *)calloc(BUFSIZ,sizeof(char));
 					else {
 						strcpy(szMonth, " ");
 					}
-					break;	
+					break;
 
 				case 2:
 					szEndPtr = strchr(szPtr, ' ');
 					if (szEndPtr) {
 						strncpy(szDay, szPtr, szEndPtr - szPtr);
 						szDay[szEndPtr - szPtr] = '\0';
-						szPtr = szEndPtr+1;  
+						szPtr = szEndPtr+1;
 						while (szPtr && (*szPtr == ' '))  {
 								szPtr++;
 						}
@@ -2791,7 +2791,7 @@ char *tmpbuf=(char *)calloc(BUFSIZ,sizeof(char));
 					if (szEndPtr) {
 						strncpy(szYear, szPtr, szEndPtr - szPtr);
 						szYear[szEndPtr - szPtr] = '\0';
-						szPtr = szEndPtr+1;  
+						szPtr = szEndPtr+1;
 					}
 					else if (szEndPtr) {
 						strcpy(szYear, " ");
@@ -2816,7 +2816,7 @@ char *tmpbuf=(char *)calloc(BUFSIZ,sizeof(char));
 
 		strncpy(szTime, szPtr, 5);
 		szTime[5] = '\0';
-	
+
 		free(tmpbuf);
 		return(1);  /* ie the info is month, day, time */
 	}

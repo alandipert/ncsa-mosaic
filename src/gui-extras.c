@@ -75,7 +75,7 @@ static XmxCallback (links_win_cb)
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
   int *posns, pcount;
   char *text,*fnam,*url;
-  
+
   switch (XmxExtractToken ((int)client_data)){
   case 0: /* GOTO */
       if(XmListGetSelectedPos(win->links_list, &posns, &pcount)){
@@ -94,7 +94,7 @@ static XmxCallback (links_win_cb)
       return;
   case 3:
       if(XmListGetSelectedPos(win->links_list, &posns, &pcount)){
-          
+
           if(pcount && XmStringGetLtoR(win->links_items[posns[0]-1],
                                        XmSTRING_DEFAULT_CHARSET,
                                        &text)){
@@ -109,18 +109,18 @@ static XmxCallback (links_win_cb)
               XtFree(text);
           }
           XtFree((char *)posns);
-       
+
       }
 
       mo_gui_done_with_icon();
 
-      return;        
+      return;
   case 1: /* DISMISS */
       XtUnmanageChild (win->links_win);
       break;
   case 2: /* HELP */
       mo_open_another_window
-          (win, 
+          (win,
            mo_assemble_help_url ("help-on-links.html"),
              NULL, NULL);
       break;
@@ -134,7 +134,7 @@ static void links_list_cb(Widget w, XtPointer client, XtPointer call)
   mo_window *win = (mo_window *) client;
   char *text;
   XmListCallbackStruct *cs = (XmListCallbackStruct *) call;
-  
+
   if(XmStringGetLtoR(win->links_items[cs->item_position-1],
                      XmSTRING_DEFAULT_CHARSET,
                      &text)){
@@ -144,7 +144,7 @@ static void links_list_cb(Widget w, XtPointer client, XtPointer call)
   }
 
 /* Don't unmanage the list. */
-  
+
   return;
 }
 
@@ -153,31 +153,31 @@ mo_status mo_post_links_window(mo_window *win)
   Widget dialog_frame;
   Widget dialog_sep, buttons_form;
   Widget links_form, list, scroller, label;
-    
+
   if (!win->links_win)
     {
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
 
       Xmx_n = 0;
-      win->links_win = XmxMakeFormDialog 
+      win->links_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Document Links" );
       dialog_frame = XmxMakeFrame (win->links_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       links_form = XmxMakeForm (dialog_frame);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (links_form);
-      
+
       buttons_form = XmxMakeFormAndFourButtons
-          (links_form, links_win_cb, 
-           "Goto URL" , "Save" , 
-	   "Dismiss" , "Help..." , 
+          (links_form, links_win_cb,
+           "Goto URL" , "Save" ,
+	   "Dismiss" , "Help..." ,
            0, 3, 1, 2);
 
       label = XtVaCreateManagedWidget("Document Links & Images ..." ,
@@ -189,7 +189,7 @@ mo_status mo_post_links_window(mo_window *win)
                                       XmNtopAttachment, XmATTACH_FORM,
                                       XmNtopOffset, 2,
                                       NULL);
-      
+
       scroller = XtVaCreateWidget("scroller",
                                   xmScrolledWindowWidgetClass,
                                   links_form,
@@ -207,8 +207,8 @@ mo_status mo_post_links_window(mo_window *win)
                                   XmNleftOffset, 8,
                                   XmNrightOffset, 8,
                                   NULL);
-      
-      list = XtVaCreateManagedWidget("list", xmListWidgetClass, 
+
+      list = XtVaCreateManagedWidget("list", xmListWidgetClass,
                                      scroller,
                                      XmNvisibleItemCount, 10,
                                      XmNresizable, False,
@@ -217,28 +217,28 @@ mo_status mo_post_links_window(mo_window *win)
                                      NULL);
 
       XtAddCallback(list, XmNdefaultActionCallback, links_list_cb, (XtPointer) win);
-      
+
       win->links_list = list;
       win->links_items = NULL;
       win->links_count = 0;
-      
+
       XtManageChild(scroller);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, 
+      XmxSetConstraints
+        (dialog_sep,
 	 XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
 
-      XmxSetConstraints 
-        (buttons_form, 
+      XmxSetConstraints
+        (buttons_form,
 	 XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
 
     XmxManageRemanage (win->links_win);
     mo_update_links_window(win);
-    
+
     return mo_succeed;
 }
 
@@ -252,7 +252,7 @@ mo_status mo_update_links_window(mo_window *win)
     imgs = HTMLGetImageSrcs(win->scrolled_win,&icount);
 
     count = icount + hcount;
-    
+
     if(!count){
         XtVaSetValues(win->links_list,
                       XmNitemCount, 0,
@@ -288,14 +288,14 @@ mo_status mo_update_links_window(mo_window *win)
                       XmNitemCount, count,
                       NULL);
     }
-    
+
     if(win->links_count) {
-        XtFree((char *)(win->links_items));    
+        XtFree((char *)(win->links_items));
     }
 
     win->links_count = count;
     win->links_items = xmstr;
-    
+
     return mo_succeed;
 }
 
@@ -342,7 +342,7 @@ struct {
     {"help","0http://www.ncsa.uiuc.edu/SDG/Software/mosaic-x/"},
 /* places & organizations */
     {"acm","0http://www.acm.uiuc.edu/"},
-    {"ncsa","0http://www.ncsa.uiuc.edu/"},    
+    {"ncsa","0http://www.ncsa.uiuc.edu/"},
     {"sdg","0http://sdg.ncsa.uiuc.edu/"},
     {"uiuc","0http://www.uiuc.edu/"},
 /* for fun */
@@ -354,7 +354,7 @@ struct {
      "<TITLE>Are you lost?</TITLE><H1>Surely you jest?</H1>"},
     {NULL,NULL}
 };
-    
+
 /* assorted FUN things */
 char *mo_special_urls(char *url)
 {
@@ -363,7 +363,7 @@ char *mo_special_urls(char *url)
     if(!url) return NULL;
 
     if(strncmp(url,"about:",6)) return NULL;
-    
+
     for(i=0;abouts[i].name;i++) {
         if(!strncmp(&url[6],abouts[i].name,strlen(abouts[i].name))) {
             if(abouts[i].expand[0]=='0')

@@ -48,7 +48,7 @@
  *
  * Revision 1.3  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.2  1991/06/11  15:21:13  sreedhar
  * disclaimer added
  *

@@ -93,11 +93,11 @@ void ThirdButtonMenu(w, client_data, event, ctd)
       if(hw == NULL)
 	return;
 
-      eptr = LocateElement(hw, BuEvent->x, BuEvent->y, 
+      eptr = LocateElement(hw, BuEvent->x, BuEvent->y,
 			   &epos);
 
       if(!popup)
-	{ 
+	{
 	  /* before we build the popup see if the user has a .mosiac/user-defs
 	     file and if so use it to build a user menu */
 	  popup_items[3].sub_items = popup_build_user_defs();
@@ -108,7 +108,7 @@ void ThirdButtonMenu(w, client_data, event, ctd)
 	  if(popup_items[3].sub_items == NULL)
 	    popup_items[3].types = 0;
 
-	  popup = _PopupMenuBuilder((Widget) w, XmMENU_POPUP, 
+	  popup = _PopupMenuBuilder((Widget) w, XmMENU_POPUP,
 				    "popup", 0, popup_items);
 	}
 
@@ -116,7 +116,7 @@ void ThirdButtonMenu(w, client_data, event, ctd)
 
       if(eptr)
 	{
-	  type = eptr->type; 
+	  type = eptr->type;
 	  if((type == E_IMAGE) && (eptr->anchorHRef))
 	    { /* turn on anchor and off text */
 	      type |= E_ANCHOR;
@@ -128,13 +128,13 @@ void ThirdButtonMenu(w, client_data, event, ctd)
 	}
       else
 	type = E_HRULE; /* pick a good normal little element */
-  
-      for(i = 0; popup_items[i].class != LastItem; i++) 
+
+      for(i = 0; popup_items[i].class != LastItem; i++)
 	{
 	  if(popup_items[i]._w) /* anything is possible in Mosaic */
 	    {
 	      int good = True;
-	      
+
 	      /* take care of session menu */
 	      if(popup_items[i].acst.act_code == -2)
 		XtVaSetValues(popup_items[i]._w, XmNsubMenuId,
@@ -145,12 +145,12 @@ void ThirdButtonMenu(w, client_data, event, ctd)
 		good = good && (popup_items[i].types & type);
 	      else
 		good = good && (popup_items[i].types == type);
-	      
+
 	      if(popup_items[i].modes_method == LOOSE)
 		good = good && (popup_items[i].modes & mode);
 	      else
 		good = good && (popup_items[i].modes == mode);
-	      
+
 	      if(good)
 		{
 		  if(popup_items[i].class == Separator)
@@ -182,7 +182,7 @@ void ThirdButtonMenu(w, client_data, event, ctd)
 			  break;
 			}
 		    }
-		  XtManageChild(popup_items[i]._w); 
+		  XtManageChild(popup_items[i]._w);
 		}
 	      else
 		XtUnmanageChild(popup_items[i]._w);
@@ -192,7 +192,7 @@ void ThirdButtonMenu(w, client_data, event, ctd)
       /* set all the widgets eptr data */
       _set_eptr_field(popup_items, eptr);
 
-      /* motif puts the menu in a boring place lets fix it */      
+      /* motif puts the menu in a boring place lets fix it */
       /*   BuEvent->x_root -= 40; */ /* middle of buttons */
       BuEvent->y_root -= del; /* first active button or first specialty
 				      item if we're over element that has em */
@@ -209,14 +209,14 @@ PopupItem *popup_build_user_defs()
   FILE *fp;
   int num, i;
 
-  if ((num=get_home(&str))!=0) 
+  if ((num=get_home(&str))!=0)
     {
       return NULL;
     }
-	
+
   file = malloc(sizeof(char) * (strlen(str)+strlen("/.mosaic/user-defs")+1)); // SAM
   sprintf(file, "%s/.mosaic/user-defs", str); // SAM
-  
+
   free(str);
 
   if(!file_exists(file))
@@ -245,7 +245,7 @@ PopupItem *popup_build_user_defs()
 
   if(items)
     return items;
-  else 
+  else
     return NULL;
 }
 
@@ -267,9 +267,9 @@ void mo_make_popup(Widget view)
 {
   have_popup = True; /* this will cause it to be created later */
   popup = NULL;
-  
+
   XtInsertEventHandler(view, ButtonPressMask, False,
-                       (XtEventHandler)ThirdButtonMenu, NULL, 
+                       (XtEventHandler)ThirdButtonMenu, NULL,
                        XtListHead);
 }
 
@@ -304,7 +304,7 @@ void mo_popup_set_something(char *what, int to, PopupItem *items)
     XtSetSensitive(w, to);
 }
 
-Widget _PopupMenuBuilder(Widget parent, int type, char *title, 
+Widget _PopupMenuBuilder(Widget parent, int type, char *title,
 				char mnem, PopupItem *items)
 {
   Widget menu, cascade;
@@ -316,14 +316,14 @@ Widget _PopupMenuBuilder(Widget parent, int type, char *title,
       menu =  XmCreatePopupMenu(parent, title, NULL, 0);
     }
   else if(type == XmMENU_PULLDOWN)
-    { 
+    {
       menu = XmCreatePulldownMenu(parent, title, NULL, 0);
       str = XmStringCreateLtoR(title, XmSTRING_DEFAULT_CHARSET);
       mapping_del = get_pref_int(ePOPUPCASCADEMAPPINGDELAY);
       cascade = XtVaCreateManagedWidget(title, xmCascadeButtonGadgetClass,
 					parent, XmNsubMenuId, menu,
 					XmNlabelString, str,
-					XmNmnemonic, mnem, 
+					XmNmnemonic, mnem,
 					XmNmappingDelay, mapping_del, NULL);
       XmStringFree(str);
     }
@@ -336,54 +336,54 @@ Widget _PopupMenuBuilder(Widget parent, int type, char *title,
 	{
 	case PushButton:
 	  {
-	    items[i]._w = XtVaCreateManagedWidget(items[i].label, 
-						  xmPushButtonGadgetClass, 
+	    items[i]._w = XtVaCreateManagedWidget(items[i].label,
+						  xmPushButtonGadgetClass,
 						  menu, NULL);
 	    if(items[i].mnemonic)
 	      XtVaSetValues(items[i]._w, XmNmnemonic, items[i].mnemonic,
 			    NULL);
 	    if(items[i].accel)
 	      {
-		XtVaSetValues(items[i]._w, 
-			      XmNaccelerator , items[i].accel, 
+		XtVaSetValues(items[i]._w,
+			      XmNaccelerator , items[i].accel,
 			      NULL);
 	      }
 	    if(items[i].accel_text)
 	      {
 		str = XmStringCreateLtoR(items[i].accel_text, XmSTRING_DEFAULT_CHARSET);
-		XtVaSetValues(items[i]._w, 
+		XtVaSetValues(items[i]._w,
 			      XmNacceleratorText, str,
 			      NULL);
 		XmStringFree(str);
 	      }
 	    if(items[i].cbfp)
-	      XtAddCallback(items[i]._w, XmNactivateCallback, 
+	      XtAddCallback(items[i]._w, XmNactivateCallback,
 			    items[i].cbfp, &(items[i].acst));
-	    
+
 
 	    XtSetSensitive(items[i]._w, items[i].startup);
 
 	    if(items[i].acst.str && items[i].acst.act_code==69)
 	      {
-		XtAddCallback(items[i]._w, 
-			      XmNarmCallback, rbm_ballonify, 
+		XtAddCallback(items[i]._w,
+			      XmNarmCallback, rbm_ballonify,
 			      items[i].acst.str);
-		XtAddCallback(items[i]._w, 
+		XtAddCallback(items[i]._w,
 			      XmNdisarmCallback, rbm_ballonify, NULL);
 	      }
 	  }
 	  break;
 	case Separator:
 	  {
-	    items[i]._w = XtVaCreateManagedWidget(items[i].label, 
-						  xmSeparatorGadgetClass, 
+	    items[i]._w = XtVaCreateManagedWidget(items[i].label,
+						  xmSeparatorGadgetClass,
 						  menu, NULL);
 	  }
 	  break;
 	case ToggleButton:
 	  {
-	    items[i]._w = XtVaCreateManagedWidget(items[i].label, 
-						  xmToggleButtonGadgetClass, 
+	    items[i]._w = XtVaCreateManagedWidget(items[i].label,
+						  xmToggleButtonGadgetClass,
 						  menu, NULL);
 	  }
 	  break;
@@ -391,26 +391,26 @@ Widget _PopupMenuBuilder(Widget parent, int type, char *title,
 	  {
 	    if(items[i].sub_items && (items[i].acst.act_code != -2))
 	      items[i]._w = _PopupMenuBuilder(menu, XmMENU_PULLDOWN,
-					      items[i].label, 
+					      items[i].label,
 					      items[i].mnemonic,
 					      items[i].sub_items);
 	    else
 	      {
 		int mapping_del;
-		
+
 		if(get_pref_boolean(eSESSION_HISTORY_ON_RBM))
 		  {
 		    mapping_del = get_pref_int(ePOPUPCASCADEMAPPINGDELAY);
-		    items[i]._w = XtVaCreateManagedWidget("Session History", 
+		    items[i]._w = XtVaCreateManagedWidget("Session History",
 					       xmCascadeButtonGadgetClass,
-					       	  menu, XmNsubMenuId, 
+					       	  menu, XmNsubMenuId,
 					current_win->session_menu,
 					XmNmappingDelay, mapping_del, NULL);
 		  }
 	      }
 	  }
 	}
-      
+
     }
   return type == XmMENU_POPUP ? menu : cascade;
 }
@@ -459,7 +459,7 @@ int which;
 				return;
 			}
 
-			xurl=mo_url_canonicalize(eptr->anchorHRef, 
+			xurl=mo_url_canonicalize(eptr->anchorHRef,
 						strdup(current_win->current_node->url));
 			do_meta=2;
 			mo_load_window_text(current_win, xurl, NULL);
@@ -483,7 +483,7 @@ void image_cb(Widget w, XtPointer client_data, XtPointer call_data)
   act_struct *acst = (act_struct *) client_data;
   char *src, *xurl;
   struct ele_rec *eptr;
-  int which,tmp; 
+  int which,tmp;
 
   eptr = acst->eptr;
   which = acst->act_code;
@@ -499,7 +499,7 @@ void image_cb(Widget w, XtPointer client_data, XtPointer call_data)
     {
     case I_Save:
       {
-	/* FIXME: this should be 
+	/* FIXME: this should be
 	   fsb(eptr->edata); */
 	fsb(eptr->pic_data->src);
       }
@@ -536,11 +536,11 @@ void fsb(char *src)
   XmString str,fbfn;
   char *fname, *tmpstr, fBuf[1024];
   static char *last_src=NULL;
-  
+
   if ( !dialog ) {
       last_src=strdup(src);
-      dialog = XmCreateFileSelectionDialog (current_win->view, 
-					    "Save Image File", 
+      dialog = XmCreateFileSelectionDialog (current_win->view,
+					    "Save Image File",
 					    NULL, 0 );
       XtAddCallback(dialog,
 		    XmNcancelCallback,
@@ -553,7 +553,7 @@ void fsb(char *src)
 
       XtSetSensitive(XmFileSelectionBoxGetChild(dialog, XmDIALOG_HELP_BUTTON),
 		     False);
-      
+
       XtVaSetValues(dialog,
 		    XmNfileTypeMask, XmFILE_REGULAR,
 		    NULL);
@@ -582,11 +582,11 @@ void fsb(char *src)
   XtVaGetValues(dialog,
 		XmNdirSpec, &str,
 		NULL);
-  
+
   XmStringGetLtoR(str,XmSTRING_DEFAULT_CHARSET,&fname);
   XmStringFree(str);
 
-  if (fname) 
+  if (fname)
     {
       if(src && *src)
 	sprintf(fBuf,"%s%s",fname,getFileName(src));
@@ -594,15 +594,15 @@ void fsb(char *src)
 	sprintf(fBuf,"%s",fname);
 
       str=XmStringCreateLtoR(fBuf,XmSTRING_DEFAULT_CHARSET);
-      
+
       XtVaSetValues(dialog,
 		    XmNdirSpec, str,
 		    NULL);
-      
+
       XmStringFree(str);
       free(fname);
     }
-  
+
   XtManageChild ( dialog );
 }
 
@@ -610,16 +610,16 @@ void fsb(char *src)
 void fsb_OKCallback (
     Widget w, XtPointer client_data, XtPointer call_data)
 {
-  XmFileSelectionBoxCallbackStruct *cbs = 
+  XmFileSelectionBoxCallbackStruct *cbs =
     (XmFileSelectionBoxCallbackStruct *) call_data;
   char *filename, *url = (char *) client_data, efilename[MO_LINE_LENGTH];
-  
+
   /* Remove the widget from the screen, and kill it.  */
 
   XtUnmanageChild ( w );
-  
+
   /* Retrieve the character string from the compound string format.  */
-  
+
   XmStringGetLtoR ( cbs->value, XmSTRING_DEFAULT_CHARSET, &filename );
 
   /* Expand any ~ */
@@ -647,7 +647,7 @@ void fsb_OKCallback (
   mo_gui_notify_progress("Image has been downloaded and saved.");
 
 }
-                
+
 void fsb_CancelCallback (
     Widget    w,
     XtPointer clientData,
@@ -671,7 +671,7 @@ void hot_cb(Widget w, XtPointer client_data, XtPointer call_data)
     char *xurl;
     int i;
     mo_hot_item *hn = (mo_hot_item *) acst->str;
-    
+
     switch(acst->act_code) {
     case 1: /* add item */
         mo_add_item_to_hotlist (acst->str, mo_t_url,
@@ -687,13 +687,13 @@ void hot_cb(Widget w, XtPointer client_data, XtPointer call_data)
             mo_add_item_to_hotlist (acst->str, mo_t_list, xurl, NULL, 0,
 				    get_pref_boolean(eADD_RBM_ADDS_RBM));
         }
-        
+
         break;
 
     default: /* goto link */
         if(acst->str) {
             xurl=mo_url_prepend_protocol(acst->str);
-            mo_load_window_text (current_win, xurl, NULL); 
+            mo_load_window_text (current_win, xurl, NULL);
         }
         break;
     }
@@ -705,15 +705,15 @@ void mo_destroy_hot_menu(PopupItem *pmenu)
     for(i=0;pmenu[i].class != LastItem;i++) {
         if((pmenu[i].class != Separator) &&
            (pmenu[i].acst.act_code != 1) &&
-	   (pmenu[i].acst.act_code != 2)) 
+	   (pmenu[i].acst.act_code != 2))
             free(pmenu[i].label);
-        
+
         if(pmenu[i].class == CascadeButton)
             mo_destroy_hot_menu(pmenu[i].sub_items);
     }
     free(pmenu);
 }
-        
+
 PopupItem *mo_assemble_hot_menu(mo_hotlist *list)
 {
     mo_hot_item *item;
@@ -743,7 +743,7 @@ PopupItem *mo_assemble_hot_menu(mo_hotlist *list)
         pmenu[i].label = strdup(str);
 	if(item->type == mo_t_url){
 	  pmenu[i].acst.str = item->hot.url;
-	  pmenu[i].acst.act_code = 69; /* identifies this as a hotlist 
+	  pmenu[i].acst.act_code = 69; /* identifies this as a hotlist
 					  button so we can ballon it */
         }
         pmenu[i].cbfp = hot_cb;
@@ -766,7 +766,7 @@ PopupItem *mo_assemble_hot_menu(mo_hotlist *list)
     pmenu[i].sub_items = NULL;
     pmenu[i].label = strdup("Sep");
     i++;
-    
+
     pmenu[i].class = PushButton;
     pmenu[i].label = "Add current URL...";
     pmenu[i].types = 0;
@@ -796,7 +796,7 @@ PopupItem *mo_assemble_hot_menu(mo_hotlist *list)
     pmenu[i].startup=1;
     pmenu[i].sub_items = NULL;
     i++;
-    
+
     pmenu[i].class = LastItem;
     return pmenu;
 }
@@ -807,9 +807,9 @@ void mo_init_hotlist_menu(mo_hotlist *list)
 {
   /* this doesn't check the first button but that is okay because
      the first two buttons are always back and forward */
-  while(popup_items[hot_button].acst.act_code != -1) 
+  while(popup_items[hot_button].acst.act_code != -1)
     hot_button++;
-  
+
   popup_items[hot_button].sub_items = mo_assemble_hot_menu(list);
   /*  popup_items[hot_button].class = CascadeButton; not necassary */
 }
@@ -817,9 +817,9 @@ void mo_init_hotlist_menu(mo_hotlist *list)
 void mo_reinit_hotlist_menu(mo_hotlist *list)
 {
     short pos;
-    
+
     if(!popup) return;
-    
+
     mo_destroy_hot_menu(popup_items[hot_button].sub_items);
 
     popup_items[hot_button].sub_items = mo_assemble_hot_menu(list);
@@ -827,15 +827,15 @@ void mo_reinit_hotlist_menu(mo_hotlist *list)
 /*
     XtVaGetValues(popup_items[hot_button]._w,XmNpositionIndex, &pos, NULL);
 */
-    
+
     XtDestroyWidget(popup);
-    
-    popup = _PopupMenuBuilder(current_win->view, XmMENU_POPUP, 
+
+    popup = _PopupMenuBuilder(current_win->view, XmMENU_POPUP,
 			      "popup", 0, popup_items);
-    
+
     /*    popup_items[hot_button]._w =
 	  _PopupMenuBuilder(popup, XmMENU_PULLDOWN,
-	  popup_items[hot_button].label, 
+	  popup_items[hot_button].label,
 	  popup_items[hot_button].mnemonic,
 	  popup_items[hot_button].sub_items);*/
 
@@ -886,7 +886,7 @@ char **user_defs_get_entries(FILE *fp, int *num)
 	      else
 		{
 		  entries[i]=strdup(&(str[index]));
-		  entries[i]=my_chop(entries[i]); 
+		  entries[i]=my_chop(entries[i]);
 		  i++;
 		}
 	    }
@@ -910,7 +910,7 @@ PopupItem *build_user_defs_items(char **entries, int num)
 
   if(!items || !entries || num<=0)
     return NULL;
-  
+
   for(i=0;i<num;i++)
     {
       items[i].class = PushButton;
@@ -937,11 +937,11 @@ PopupItem *build_user_defs_items(char **entries, int num)
   return items;
 }
 
-void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type, 
+void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
 	       XtPointer value, unsigned long *length, int *format)
 {
-  char *pt, *end = NULL, *bptr, 
-    *select = (char *) value, 
+  char *pt, *end = NULL, *bptr,
+    *select = (char *) value,
     *str = (char *) client_data,
     *nselect, *begin;
   char mode;
@@ -956,7 +956,7 @@ void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
 
   /* do this cause select is not null terminated sometimes */
   pt = my_strndup(select, *length);
-  
+
   if(pt)
     {
       select = pt;
@@ -1018,7 +1018,7 @@ void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
 	  if(pt && *pt)
 	    pt = strchr(pt, '_');
 	}
-    } 
+    }
 
   if(pt && *pt && end && nselect)
     {
@@ -1026,12 +1026,12 @@ void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
       if(srcTrace)
 	fprintf(stderr, "Popup getting %s from user menu.\n", pt);
 #endif
-      
+
       if(mode=='P')
 	{
 	  char *ptr;
-	  
-	  ptr = strrchr(bptr, ' '); /* This shouldn't fail because bptr is 
+
+	  ptr = strrchr(bptr, ' '); /* This shouldn't fail because bptr is
 				       chopped */
 	  ptr[0]='\0'; /* make bptr not have name value pair */
 	  ptr++; /* get back to a real string */
@@ -1042,7 +1042,7 @@ void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
 	  pt= malloc(sizeof(char) * (strlen(end)+strlen(nselect)+strlen(ptr)+1));
 	  sprintf(pt,"%s%s%s", ptr, nselect, end);
 
-	  mo_post_access_document (current_win, bptr, 
+	  mo_post_access_document (current_win, bptr,
 				   "application/x-www-form-urlencoded",
 				   pt);
 	  free(pt);
@@ -1052,7 +1052,7 @@ void select_cb(Widget w, XtPointer client_data, Atom *sel, Atom *type,
 	  pt[0] = '\0';
 	  pt= malloc(sizeof(char) * (strlen(end)+strlen(bptr)+strlen(nselect)+1));
 	  sprintf(pt,"%s%s%s", bptr, nselect, end);
-	  mo_load_window_text(current_win, pt, NULL);      
+	  mo_load_window_text(current_win, pt, NULL);
 	  free(pt);
 	}
       else if(mode=='F')
@@ -1069,11 +1069,11 @@ void user_defs_cb(Widget w, XtPointer client_data, XtPointer call_data)
   act_struct *acst = (act_struct *) client_data; /* acst->str is the url */
   XmPushButtonCallbackStruct *cbs = (XmPushButtonCallbackStruct *) call_data;
   char *str = acst->str;
-  
+
   if(!str)
     return;
 
-  XtGetSelectionValue(current_win->scrolled_win, XA_PRIMARY, XA_STRING, 
+  XtGetSelectionValue(current_win->scrolled_win, XA_PRIMARY, XA_STRING,
 		      select_cb, str, cbs->event->xbutton.time);
 }
 
@@ -1089,12 +1089,12 @@ void copy_link_cb(Widget w, XtPointer client_data, XtPointer call_data)
 
   url = mo_url_canonicalize(acst->eptr->anchorHRef, strdup(current_win->current_node->url));
 
-  if(XtOwnSelection((Widget) current_win->scrolled_win, XA_PRIMARY, 
+  if(XtOwnSelection((Widget) current_win->scrolled_win, XA_PRIMARY,
 		    cbs->event->xbutton.time, convert_selection,
-		    NULL, NULL) == False) 
+		    NULL, NULL) == False)
     {
       fprintf(stderr, "Mosaic: Error: Could not copy selection, try again.\n");
-      if (url) 
+      if (url)
 	{
 	  free(url);
 	}
@@ -1102,12 +1102,12 @@ void copy_link_cb(Widget w, XtPointer client_data, XtPointer call_data)
   else
     {
       int i;
-      
+
       for(i=0;popup_items[i].class!=LastItem; i++)
 	{
 	  if(!strcmp(popup_items[i].label, COPY_URL_LABEL) && url)
 	    {
-	      char *copy_str = malloc((strlen(url) + 
+	      char *copy_str = malloc((strlen(url) +
 			 strlen("URL:   has been copied  ")) * sizeof(char));
 	      if(popup_items[i].acst.str)
 		free(popup_items[i].acst.str);
@@ -1129,7 +1129,7 @@ void copy_link_cb(Widget w, XtPointer client_data, XtPointer call_data)
 }
 
 static Boolean convert_selection(Widget w, Atom *sel, Atom *tar, Atom *typ_ret,
-				 XtPointer *val_ret, unsigned long *val_len, 
+				 XtPointer *val_ret, unsigned long *val_len,
 				 int *format)
 {
   char *url;
@@ -1138,7 +1138,7 @@ static Boolean convert_selection(Widget w, Atom *sel, Atom *tar, Atom *typ_ret,
   if(*tar == XA_STRING)
     {
 #ifndef DISABLE_TRACE
-      if (srcTrace) 
+      if (srcTrace)
 	{
 	  fprintf (stderr, "Pasting text selection.\n");
 	}
@@ -1174,24 +1174,24 @@ void mo_add_to_rbm_history(mo_window *win, char *url, char *title)
   if(!get_pref_boolean(eSESSION_HISTORY_ON_RBM))
     return;
   else if(!win->session_menu)
-    win->session_menu = XmCreatePulldownMenu(win->view, "session_menu", 
+    win->session_menu = XmCreatePulldownMenu(win->view, "session_menu",
 					     NULL, 0);
 
   compact_string(title, label, 31, 3, 3);
 
   if(win->num_session_items < max)
     {
-      win->session_items[win->num_session_items] = 
-	XtVaCreateManagedWidget(label, xmPushButtonGadgetClass, 
+      win->session_items[win->num_session_items] =
+	XtVaCreateManagedWidget(label, xmPushButtonGadgetClass,
 				win->session_menu,NULL);
 
-      XtAddCallback(win->session_items[win->num_session_items], 
+      XtAddCallback(win->session_items[win->num_session_items],
 		    XmNactivateCallback, session_cb, url);
-      XtAddCallback(win->session_items[win->num_session_items], 
+      XtAddCallback(win->session_items[win->num_session_items],
 		    XmNarmCallback, rbm_ballonify, url);
-      XtAddCallback(win->session_items[win->num_session_items], 
+      XtAddCallback(win->session_items[win->num_session_items],
 		    XmNdisarmCallback, rbm_ballonify, " ");
-      win->num_session_items++;	
+      win->num_session_items++;
     }
   else if (win && win->session_items)
     {
@@ -1201,14 +1201,14 @@ void mo_add_to_rbm_history(mo_window *win, char *url, char *title)
       for(i=0;i<max-1;i++)
 	win->session_items[i] = win->session_items[i+1];
 
-      win->session_items[max-1] = 
+      win->session_items[max-1] =
 	XtVaCreateManagedWidget(label, xmPushButtonGadgetClass,
 				win->session_menu, NULL);
-      XtAddCallback(win->session_items[max-1], 
+      XtAddCallback(win->session_items[max-1],
 		    XmNactivateCallback, session_cb, url);
-      XtAddCallback(win->session_items[max-1], 
+      XtAddCallback(win->session_items[max-1],
 		    XmNarmCallback, rbm_ballonify, url);
-      XtAddCallback(win->session_items[max-1], 
+      XtAddCallback(win->session_items[max-1],
 		    XmNdisarmCallback, rbm_ballonify, " ");
     }
 }
@@ -1217,7 +1217,7 @@ void session_cb(Widget w, XtPointer client_data, XtPointer call_data)
 {
   char *xurl = (char *) client_data;
 
-  mo_load_window_text (current_win, xurl, NULL); 
+  mo_load_window_text (current_win, xurl, NULL);
 }
 
 

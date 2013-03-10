@@ -144,7 +144,7 @@ typedef struct _HTMLPart
 	Pixmap			bgmap_SAVE;
 	Pixmap			bgclip_SAVE;
         int                     bg_height;
-        int                     bg_width; 
+        int                     bg_width;
 
         Pixel                   foreground_SAVE;
 	Pixel			anchor_fg_SAVE;
@@ -152,9 +152,9 @@ typedef struct _HTMLPart
 	Pixel			activeAnchor_fg_SAVE;
 	Pixel			activeAnchor_bg_SAVE;
 	Pixel			top_color_SAVE;
-	Pixel			bottom_color_SAVE;    
+	Pixel			bottom_color_SAVE;
         Pixel                   background_SAVE;
-    
+
 	int			num_anchor_underlines;
 	int			num_visitedAnchor_underlines;
 	Boolean			dashed_anchor_lines;
@@ -191,7 +191,7 @@ typedef struct _HTMLPart
         XtPointer		previously_visited_test;
         XtPointer		resolveImage;
         XtPointer		resolveDelayedImage;
-        
+
         XtPointer               pointer_motion_callback;
 
 	/* PRIVATE */

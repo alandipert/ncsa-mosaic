@@ -38,7 +38,7 @@ c Plugging DTM in...
 c
 c Revision 1.3  91/06/13  21:23:57  jefft
 c added type of function to prevent returning of a float
-c 
+c
 c Revision 1.2  1991/06/11  15:21:54  sreedhar
 c disclaimer added
 c

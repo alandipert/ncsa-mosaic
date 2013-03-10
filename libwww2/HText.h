@@ -1,12 +1,12 @@
 /*                                                           Rich Hypertext object for libWWW
                                   RICH HYPERTEXT OBJECT
-                                             
+
  */
 
 /*
 
    This is the C interface to the Objective-C (or whatever) HyperText class.
-   
+
  */
 #ifndef HTEXT_H
 #define HTEXT_H

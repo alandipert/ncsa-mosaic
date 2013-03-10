@@ -159,7 +159,7 @@ PRIVATE char * vms_name(WWW_CONST char * nn, WWW_CONST char * fn)
 /*	We try converting the filename into Files-11 syntax. That is, we assume
 **	first that the file is, like us, on a VMS node. We try remote
 **	(or local) DECnet access. Files-11, VMS, VAX and DECnet
-**	are trademarks of Digital Equipment Corporation. 
+**	are trademarks of Digital Equipment Corporation.
 **	The node is assumed to be local if the hostname WITHOUT DOMAIN
 **	matches the local one. @@@
 */
@@ -266,7 +266,7 @@ PUBLIC char * HTLocalName ARGS1(WWW_CONST char *,name)
 
   HTUnEscape(path);	/* Interpret % signs */
 
-  if (0==strcmp(access, "file")) 
+  if (0==strcmp(access, "file"))
     {
       free(access);
       if (!host || !*host || (0==my_strcasecmp(host, HTHostName())) ||
@@ -275,7 +275,7 @@ PUBLIC char * HTLocalName ARGS1(WWW_CONST char *,name)
           if (host)
             free(host);
 #ifndef DISABLE_TRACE
-          if (www2Trace) 
+          if (www2Trace)
             fprintf(stderr, "Node `%s' means path `%s'\n", name, path);
 #endif
           return(path);
@@ -288,7 +288,7 @@ PUBLIC char * HTLocalName ARGS1(WWW_CONST char *,name)
           return NULL;
         }
     }
-  
+
   /* not file */
   if (host)
     free (host);
@@ -425,55 +425,55 @@ PUBLIC HTFormat HTFileFormat ARGS4 (
               lf = strlen (filename);
 #ifndef DISABLE_TRACE
               if (www2Trace)
-                fprintf (stderr, 
+                fprintf (stderr,
                          "[HTFileFormat] Got hit on .gz; filename '%s'\n",
                          filename);
 #endif
               goto ok_ready;
             }
-        }      
-    }      
-  
+        }
+    }
+
  ok_ready:
-  if (!HTSuffixes) 
+  if (!HTSuffixes)
     HTFileInit();
 
   *pencoding = NULL;
 
   n = HTList_count(HTSuffixes);
 
-  for(i=0; i<n; i++) 
+  for(i=0; i<n; i++)
     {
       int ls;
       suff = HTList_objectAt(HTSuffixes, i);
       ls = strlen(suff->suffix);
-      if ((ls <= lf) && 0==my_strcasecmp(suff->suffix, filename + lf - ls)) 
+      if ((ls <= lf) && 0==my_strcasecmp(suff->suffix, filename + lf - ls))
         {
           int j;
           *pencoding = suff->encoding;
-          if (suff->rep) 
+          if (suff->rep)
             goto done;
-          
-          for(j=0; j<n; j++) 
+
+          for(j=0; j<n; j++)
             {  /* Got encoding, need representation */
               int ls2;
               suff = HTList_objectAt(HTSuffixes, j);
               ls2 = strlen(suff->suffix);
-              if ((ls <= lf) && 
-                  0==my_strncasecmp(suff->suffix, filename + lf - ls -ls2, ls2)) 
-                if (suff->rep) 
+              if ((ls <= lf) &&
+                  0==my_strncasecmp(suff->suffix, filename + lf - ls -ls2, ls2))
+                if (suff->rep)
                   goto done;
 	    }
         }
     }
-  
+
   suff = strchr(filename, '.') ? 	/* Unknown suffix */
     ( unknown_suffix.rep ? &unknown_suffix : &no_suffix)
       : &no_suffix;
-  
+
   /* For now, assuming default is 8bit text/plain.
      We also want default 8bit text/html for http connections. */
-  
+
   /* set default encoding unless found with suffix already */
   if (!*pencoding) *pencoding = suff->encoding ? suff->encoding
     : HTAtom_for("8bit");
@@ -541,7 +541,7 @@ char *HTDescribeURL (char *url)
         }
     }
  got_subtype:
-  
+
   access = HTParse (url, "", PARSE_ACCESS);
   if (strcmp (access, "http") == 0)
     {
@@ -578,7 +578,7 @@ char *HTDescribeURL (char *url)
     if (host[i] == ':')
       host[i] = '\0';
 #endif
-  
+
   if (st)
     {
       /* Uppercase type, to start sentence. */
@@ -588,15 +588,15 @@ char *HTDescribeURL (char *url)
         st = &(st[2]);
 #ifndef DISABLE_TRACE
       if (www2Trace)
-        fprintf (stderr, 
+        fprintf (stderr,
                  "DESCRIBE: in if (st); pasting together %s %s %s %s %s\n",
-                 t, 
-                 (strcmp (t, "Application") == 0 ? " data" : ""), 
+                 t,
+                 (strcmp (t, "Application") == 0 ? " data" : ""),
                  st, host, access);
 #endif
-      sprintf (line, "%s%s, type %s, on host %s, via %s.", 
-               t, 
-               (strcmp (t, "Application") == 0 ? " data" : ""), 
+      sprintf (line, "%s%s, type %s, on host %s, via %s.",
+               t,
+               (strcmp (t, "Application") == 0 ? " data" : ""),
                st, host, access);
 #ifndef DISABLE_TRACE
       if (www2Trace)
@@ -682,12 +682,12 @@ PUBLIC BOOL HTEditable ARGS1 (WWW_CONST char *,filename)
 #ifdef NO_GROUPS
     return NO;		/* Safe answer till we find the correct algorithm */
 #else
-    gid_t 	groups[NGROUPS];	
+    gid_t 	groups[NGROUPS];
     uid_t	myUid;
     int		ngroups;			/* The number of groups  */
     struct stat	fileStatus;
     int		i;
-        
+
     if (stat(filename, &fileStatus))		/* Get details of filename */
     	return NO;				/* Can't even access file! */
 
@@ -698,7 +698,7 @@ PUBLIC BOOL HTEditable ARGS1 (WWW_CONST char *,filename)
 #ifndef DISABLE_TRACE
     if (www2Trace) {
         int i;
-	fprintf(stderr, 
+	fprintf(stderr,
 	    "File mode is 0%o, uid=%d, gid=%d. My uid=%d, %d groups (",
     	    (unsigned int) fileStatus.st_mode, fileStatus.st_uid,
 	    fileStatus.st_gid,
@@ -707,10 +707,10 @@ PUBLIC BOOL HTEditable ARGS1 (WWW_CONST char *,filename)
 	fprintf(stderr, ")\n");
     }
 #endif
-    
+
     if (fileStatus.st_mode & 0002)		/* I can write anyway? */
     	return YES;
-	
+
     if ((fileStatus.st_mode & 0200)		/* I can write my own file? */
      && (fileStatus.st_uid == myUid))
     	return YES;
@@ -752,7 +752,7 @@ PUBLIC void HTDirEntry ARGS3(HTStructured *, target,
     PUTS(entry);
     PUTS("</A>");
 }
- 
+
 /*      Output parent directory entry
 **
 **    This gives the TITLE and H1 header, and also a link
@@ -776,8 +776,8 @@ PUBLIC void HTDirTitles ARGS2(HTStructured *, target,
       START(HTML_TITLE);
       PUTS(*printable ? printable : "Welcome ");
       PUTS(" directory");
-      END(HTML_TITLE);    
-    
+      END(HTML_TITLE);
+
       START(HTML_H1);
       PUTS(*printable ? printable : "Welcome");
       END(HTML_H1);
@@ -881,7 +881,7 @@ PUBLIC int HTLoadFile ARGS4 (
 	    fd = open(ultrixname, O_RDONLY, 0);
 	    if (fd<0) {
 #ifndef DISABLE_TRACE
-		if (www2Trace) fprintf(stderr, 
+		if (www2Trace) fprintf(stderr,
 				   "HTFile: Can't open as %s\n", ultrixname);
 #endif
 	    }
@@ -1036,7 +1036,7 @@ forget_multi:
 		struct stat statbuf;
 		STRUCT_DIRENT * dp;
 		DIR *dfp;
- 
+
                 int cmpr;
                 int count;
 
@@ -1119,7 +1119,7 @@ forget_multi:
 /* We dont want to see . */
 
                     if(strcmp(dataptr,".") == 0) continue;
- 
+
 /* If its .. *and* the current directory is / dont show anything, otherwise
  * print out a nice Parent Directory entry.
  * */
@@ -1150,18 +1150,18 @@ forget_multi:
                             continue;
                             }
                         }
-                      
+
 /* Get the filesize information from a stat, if we cant stat it, we probably */
 /* cant read it either, so ignore it. */
 
                     sprintf(filepath,"%s/%s",localname, dataptr);
 
                     if(stat(filepath, &statbuf) == -1) continue;
-     
+
                     HText_appendText(HT,"<DD><A HREF=\"");
                     HText_appendText (HT, localname);
 
-                    if(localname[strlen(localname)-1] != '/') 
+                    if(localname[strlen(localname)-1] != '/')
                         {
                         HText_appendText (HT, "/");
                         }
@@ -1183,10 +1183,10 @@ forget_multi:
                         }
                     else
                         {
-                        sprintf(buffer,"%s (%ld bytes)", 
+                        sprintf(buffer,"%s (%ld bytes)",
                             dataptr, (long)statbuf.st_size);
-              
-                        format = HTFileFormat(dataptr, &pencoding, 
+
+                        format = HTFileFormat(dataptr, &pencoding,
                                      WWW_SOURCE, &cmpr);
 
 /* If its executable then call it application, else it might as well be text */
@@ -1195,15 +1195,15 @@ forget_multi:
                             {
                             HText_appendText(HT, "<IMG SRC=\"");
                             if((statbuf.st_mode & S_IXUSR) ||
-                               (statbuf.st_mode & S_IXGRP) || 
+                               (statbuf.st_mode & S_IXGRP) ||
                                (statbuf.st_mode & S_IXOTH))
                                 {
-                                HText_appendText(HT, 
+                                HText_appendText(HT,
                                     HTgeticonname(format, "application"));
                                 }
                             else
                                 {
-                                HText_appendText(HT, 
+                                HText_appendText(HT,
                                     HTgeticonname(format, "text"));
                                 }
                             HText_appendText(HT, "\"> ");
@@ -1229,9 +1229,9 @@ forget_multi:
             free(localname);
             return HT_LOADED;
 	    } /* end if localname is directory */
-	
+
 	} /* end if file stat worked */
-	
+
 /* End of directory reading section
 */
 #endif
@@ -1259,7 +1259,7 @@ This is closed elsewhere...SWP
 		return HT_LOADED;
 	    }  /* If succesfull open */
 	}    /* scope of fp */
-    }  /* local unix file system */    
+    }  /* local unix file system */
 #endif
 #endif
 

@@ -61,7 +61,7 @@
 /* ----------------------- _XmxMenuAddEntryToRecord ----------------------- */
 
 /* Create a new MenuEntry and add it to the head of a MenuRecord list. */
-private void 
+private void
 _XmxMenuAddEntryToRecord (XmxMenuRecord *rec, Widget w, int token)
 {
   XmxMenuEntry *_ent;
@@ -138,7 +138,7 @@ XmxRSetSensitive (XmxMenuRecord *rec, int token, int state)
   /* XtSetSensitive propagates down Widget hierarchy. */
   if (_entry)
     XtSetSensitive (_entry->w, (state == XmxSensitive) ? True : False);
-  
+
   return;
 }
 
@@ -153,9 +153,9 @@ XmxRSetToggleState (XmxMenuRecord *rec, int token, int state)
   assert (state == XmxSet || state == XmxUnset);
   _entry = _XmxMenuGetEntryFromRecord (rec, XmxExtractToken (token));
   if (_entry)
-    XmToggleButtonGadgetSetState 
+    XmToggleButtonGadgetSetState
       (_entry->w, (state == XmxSet) ? True : False, False);
-  
+
   return;
 }
 
@@ -344,8 +344,8 @@ XmxRMakeToggleMenu (Widget parent, int behavior, XtCallbackProc cb,
 
 /* Possible deficiency: will not be able to grey out a submenu
    (cascade button). */
-private void 
-_XmxRCreateMenubar (Widget menu, XmxMenubarStruct *menulist, 
+private void
+_XmxRCreateMenubar (Widget menu, XmxMenubarStruct *menulist,
                     XmxMenuRecord *rec)
 {
   int _i;
@@ -396,16 +396,16 @@ _XmxRCreateMenubar (Widget menu, XmxMenubarStruct *menulist,
 
               XtAddCallback
                 (_buttons[_i - _separators], XmNvalueChangedCallback,
-                 menulist[_i].func, 
+                 menulist[_i].func,
                  (XtPointer)_XmxMakeClientData (menulist[_i].data));
 
               /* Add thie button to the menu record. */
-              _XmxMenuAddEntryToRecord 
+              _XmxMenuAddEntryToRecord
                 (rec, _buttons[_i - _separators], menulist[_i].data);
             }
           else /* regular button */
             {
-              XmString xmstr = 
+              XmString xmstr =
                 XmStringCreateLtoR
                   (menulist[_i].namestr, XmSTRING_DEFAULT_CHARSET);
               XmxSetArg (XmNlabelString, (XtArgVal)xmstr);
@@ -413,13 +413,13 @@ _XmxRCreateMenubar (Widget menu, XmxMenubarStruct *menulist,
                 ("pushbutton", xmPushButtonGadgetClass,
                  menu, Xmx_wargs, Xmx_n);
               XmStringFree (xmstr);
-              XtAddCallback 
+              XtAddCallback
                 (_buttons[_i - _separators], XmNactivateCallback,
-                 menulist[_i].func, 
+                 menulist[_i].func,
                  (XtPointer)_XmxMakeClientData (menulist[_i].data));
 
               /* Add thie button to the menu record. */
-              _XmxMenuAddEntryToRecord 
+              _XmxMenuAddEntryToRecord
                 (rec, _buttons[_i - _separators], menulist[_i].data);
             }
         }

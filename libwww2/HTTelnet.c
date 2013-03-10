@@ -163,14 +163,14 @@ PRIVATE int remote_session ARGS2(char *, access, char *, host)
 
   if (!access || !host)
     {
-      application_user_feedback 
+      application_user_feedback
         ("Cannot open remote session, because\nURL is malformed.\0");
       return HT_NO_DATA;
     }
 
   login_protocol =
     strcmp(access, "rlogin") == 0 ? rlogin :
-      strcmp(access, "tn3270") == 0 ? tn3270 : 
+      strcmp(access, "tn3270") == 0 ? tn3270 :
         telnet;
 
   /* Make sure we won't overrun the size of command with a huge host string */
@@ -178,21 +178,21 @@ PRIVATE int remote_session ARGS2(char *, access, char *, host)
     {
 	host[200] = '\0';
     }
-  
+
   user = host;
   hostname = strchr(host, '@');
   port = strchr(host, ':');
-  
-  if (hostname) 
+
+  if (hostname)
     {
       *hostname++ = 0;	/* Split */
-    } 
-  else 
+    }
+  else
     {
       hostname = host;
       user = 0;		/* No user specified */
     }
-  if (port) 
+  if (port)
     {
       *port++ = 0;	/* Split */
       portnum = atoi(port);
@@ -204,9 +204,9 @@ PRIVATE int remote_session ARGS2(char *, access, char *, host)
    */
   make_system_secure(user);
   make_system_secure(hostname);
-  
+
   xterm_str = global_xterm_str;
-  
+
   if (login_protocol == rlogin)
     {
       /* For rlogin, we should use -l user. */
@@ -241,12 +241,12 @@ PRIVATE int remote_session ARGS2(char *, access, char *, host)
               hostname);
 	}
     }
-  
+
 #ifndef DISABLE_TRACE
   if (www2Trace) fprintf(stderr, "HTaccess: Command is: %s\n", command);
 #endif
   run_a_command(command);
-  
+
   /* No need for application feedback if we're rlogging directly
      in... */
   if (user && login_protocol != rlogin)
@@ -258,7 +258,7 @@ PRIVATE int remote_session ARGS2(char *, access, char *, host)
       sprintf (str, "When you are connected, log in as '%s'.", user);
       application_user_feedback (str);
     }
-  
+
   return HT_NO_DATA;		/* Ok - it was done but no data */
 }
 
@@ -286,21 +286,21 @@ ARGS4
 )
 {
     char * access;
-    
+
     char * host;
     int status;
-    
-    if (sink) 
+
+    if (sink)
       {
         HTAlert("Can't output a live session -- it has to be interactive");
 	return HT_NO_ACCESS;
       }
     access =  HTParse(addr, "file:", PARSE_ACCESS);
-    
+
     host = HTParse(addr, "", PARSE_HOST);
     status = remote_session(access, host);
 
-    free(host);	
+    free(host);
     free(access);
     return status;
 }

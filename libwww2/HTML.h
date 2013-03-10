@@ -33,7 +33,7 @@ Record error message as a hypertext object
    The error message should be marked as an error so that it can be
    reloaded later. This implementation just throws up an error message
    and leaves the document unloaded.
-   
+
  */
 /* On entry,
 **      sink    is a stream to the output device if any

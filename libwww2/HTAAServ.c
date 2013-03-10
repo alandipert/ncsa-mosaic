@@ -119,7 +119,7 @@ PUBLIC char *HTAA_statusMessage NOARGS
 
     /* Success */
       case HTAA_OK:
-	return "AA: Access should be ok but something went wrong"; 
+	return "AA: Access should be ok but something went wrong";
 	break;
 
     /* Others */
@@ -176,7 +176,7 @@ PRIVATE char *status_name ARGS1(HTAAFailReasonType, reason)
     } /* switch */
 }
 
-    
+
 
 
 
@@ -272,7 +272,7 @@ PRIVATE HTAAFailReasonType check_authorization ARGS4(WWW_CONST char *,  pathname
 				"host", HTClientHost);
 		    else fprintf(stderr, "%s %s %s %s\n",
 				 "HTAA_checkAuthorization: request from",
-				 HTClientHost, 
+				 HTClientHost,
 				 "accepted by only mask match (no ACL, only",
 				 "Protect rule, and only mask enabled)");
 		}
@@ -338,7 +338,7 @@ PRIVATE HTAAFailReasonType check_authorization ARGS4(WWW_CONST char *,  pathname
 				? htaa_user->username : "NOT-AUTHENTICATED"));
 #endif
 	}
-	/* 
+	/*
 	** Check mask group
 	*/
 	if (prot->mask_group) {
@@ -358,7 +358,7 @@ PRIVATE HTAAFailReasonType check_authorization ARGS4(WWW_CONST char *,  pathname
 #ifndef DISABLE_TRACE
 	    else if (www2Trace) fprintf(stderr, "%s %s %s %s %s\n",
 				   "HTAA_checkAuthorization: request from",
-				   HTClientHost, 
+				   HTClientHost,
 				   "accepted by just mask group match",
 				   "(no ACL, only Protect rule, and only",
 				   "mask enabled)");
@@ -436,7 +436,7 @@ PUBLIC int HTAA_checkAuthorization ARGS4(WWW_CONST char *,	url,
     char *local_copy = NULL;
     HTAAMethod method = HTAAMethod_enum(method_name);
     HTAAScheme scheme = HTAAScheme_enum(scheme_name);
-    
+
     /*
     ** Translate into absolute pathname, and
     ** check for "protect" and "defprot" rules.
@@ -453,7 +453,7 @@ PUBLIC int HTAA_checkAuthorization ARGS4(WWW_CONST char *,	url,
 	char *localname = HTLocalName(pathname);
 	free(pathname);
 	pathname = localname;
-    }	    
+    }
     FREE(local_copy);
 
     HTAAFailReason = check_authorization(pathname, method,
@@ -621,7 +621,7 @@ PUBLIC char *HTAA_composeAuthHeaders NOARGS
 #endif
 	} /* scheme valid for requested document */
     } /* for every scheme */
-    
+
     return result;
 }
 

@@ -10,7 +10,7 @@
 #ifdef ELLIPSIS_TEST
 void usage_statement(void);
 #endif
-int compact_string(char *main_string, char *ellipsis_string, 
+int compact_string(char *main_string, char *ellipsis_string,
 		    int num_chars, int mode, int eLength);
 
 #ifdef ELLIPSIS_TEST
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-int compact_string(char *main_string, char *ellipsis_string, 
+int compact_string(char *main_string, char *ellipsis_string,
 		    int num_chars, int mode, int eLength) {
 
     int string_len;
@@ -71,7 +71,7 @@ int compact_string(char *main_string, char *ellipsis_string,
     switch(mode) {
 
     case 1: {
-	
+
 	puff = num_chars - eLength;
 	feem = string_len - puff;
 
@@ -130,9 +130,9 @@ int compact_string(char *main_string, char *ellipsis_string,
 	break;
 
     }
-	
+
     case 3: {
-	
+
 	puff = num_chars - eLength;
 	feem = string_len - puff;
 
@@ -151,9 +151,9 @@ int compact_string(char *main_string, char *ellipsis_string,
 	}
 
 	break;
-	
+
     }
-	
+
     default: {
 #ifdef ELLIPSIS_TEST
 	usage_statement();
@@ -162,7 +162,7 @@ int compact_string(char *main_string, char *ellipsis_string,
 	return(-1);
 #endif
     }
-	
+
     }
 
     ellipsis_string[num_chars]='\0';

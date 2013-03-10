@@ -1,31 +1,31 @@
 /*                          BROWSER SIDE ACCESS AUTHORIZATION MODULE
-                                             
+
    This module is the browser side interface to Access Authorization (AA) package.  It
    contains code only for browser.
-   
+
    Important to know about memory allocation:
-   
+
    Routines in this module use dynamic allocation, but free automatically all the memory
    reserved by them.
-   
+
    Therefore the caller never has to (and never should) free() any object returned by
    these functions.
-   
+
    Therefore also all the strings returned by this package are only valid until the next
    call to the same function is made. This approach is selected, because of the nature of
    access authorization: no string returned by the package needs to be valid longer than
    until the next call.
-   
+
    This also makes it easy to plug the AA package in: you don't have to ponder whether to
    free()something here or is it done somewhere else (because it is always done somewhere
    else).
-   
+
    The strings that the package needs to store are copied so the original strings given as
    parameters to AA functions may be freed or modified with no side effects.
-   
+
    Also note:The AA package does not free() anything else than what it has itself
    allocated.
-   
+
  */
 
 #ifndef HTAABROW_H
@@ -48,19 +48,19 @@ Routines for Browser Side Recording of AA Info
    Most of the browser-side AA is done by the following two functions (which are called
    from file HTTP.c so the browsers using libwww only need to be linked with the new
    library and not be changed at all):
-   
+
       HTAA_composeAuth() composes the Authorization: line contents, if the AA package
       thinks that the given document is protected. Otherwise this function returns NULL.
       This function also calls the functions HTPrompt(),HTPromptPassword() and HTConfirm()
       to get the username, password and some confirmation from the user.
-      
+
       HTAA_shouldRetryWithAuth() determines whether to retry the request with AA or with a
       new AA (in case username or password was misspelled).
 
       HTAA_TryWithAuth() sets up everything for an automatic first try with authentication.
 
       HTAA_ClearAuth() clears the currently allocated authentication record.
-      
+
  */
 
 /* PUBLIC                                               HTAA_composeAuth()
@@ -156,19 +156,19 @@ PUBLIC void HTAA_ClearAuth NOPARAMS;
 #ifdef PEM_AUTH
 /*
  * PUBLIC                                               HTAA_makecommand()
- * 
+ *
  *              ENCRYPT AN HTTP REQUEST, AND ENCAPSULATE IT IN
  *              A NEW HTTP PEM AUTHORIZED REQUEST
- * 
+ *
  * ON ENTRY:
  *      command         the HTTP request
- * 
+ *
  * ON EXIT:
  *      returns         the new HTTP request with PEM
- * 
- * Do not free this string. This function *requires* that the 
+ *
+ * Do not free this string. This function *requires* that the
  * HTAA_composeAuth function has been called prior to it.
- * 
+ *
  */
 PUBLIC char *HTAA_makecommand PARAMS((char * command, char **body, int *bl));
 #endif /* PEM_AUTH */

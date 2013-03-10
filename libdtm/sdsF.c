@@ -44,7 +44,7 @@
  *
  * Revision 1.5  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
 
 #endif
 

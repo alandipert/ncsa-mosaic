@@ -47,14 +47,14 @@
  *
  * Revision 1.7  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
 
 #endif
 */
 /*
 
 	Purpose	: Functions to initialise name server address, fd and to
-		  to return it. 
+		  to return it.
 */
 
 #include <stdlib.h>
@@ -74,10 +74,10 @@
 
 static	struct	sockaddr_in	nsaddr ;	/* name server's address */
 static	int	nssockfd = -1 ;			/* name server's socket */
-static	char	nameserver[ MAX132 ] ;		
-				/* 
+static	char	nameserver[ MAX132 ] ;
+				/*
 					   name server address -
-					   dotted decimal: port number 
+					   dotted decimal: port number
 				*/
 
 /*
@@ -87,10 +87,10 @@ static	char	nameserver[ MAX132 ] ;
 	Return	values	:	DTMERROR on error.
 						DTM_OK  on success.
 	Notes		:
-				Environment variable format : 
-				
+				Environment variable format :
+
 				DTM_NAMESERVER=nethostid:portid
-			
+
 				e.g. DTM_NAMESERVER=141.142.221.66:9900
 */
 #ifdef DTM_PROTOTYPES
@@ -107,10 +107,10 @@ int dtm_ninit()
 		DTMERR( "dtm_ninit: Env not setup" );
 		return DTMERROR ;
 	}
-	
+
 	/*	Initialise name server's address, used in send() */
 
-	strncpy( nameserver, p, MAX132 ); 
+	strncpy( nameserver, p, MAX132 );
 
 	DBGINT( "dtm_ninit: Nameserver is %s\n", nameserver );
 
@@ -126,11 +126,11 @@ int dtm_ninit()
 
 		*portstr++ = '\0';
 
-		nsaddr.sin_addr.s_addr = inet_addr( p ) ; 
+		nsaddr.sin_addr.s_addr = inet_addr( p ) ;
 		nsaddr.sin_port = (unsigned short)atol( portstr ) ;
 
 		DBGMSG1("dtm_ninit: Nethostid = %x\n", ntohl( nsaddr.sin_addr.s_addr) );
-		DBGMSG1("dtm_ninit: Portid = %d\n", ntohs( nsaddr.sin_port) ); 
+		DBGMSG1("dtm_ninit: Portid = %d\n", ntohs( nsaddr.sin_port) );
 	}
 
 	/*	Acquire socket to be used for sending to name server  */

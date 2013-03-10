@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Sep 20 11:05:19 CDT 1995
  * Modified: All the time.
  * Author: Dan Pape
@@ -144,7 +144,7 @@ Boolean preferences_armegeddon(void) {
 
        /* free preferences structure */
     free(thePrefsStructP);
-    
+
     return(successful);
 
 }
@@ -159,14 +159,14 @@ Boolean preferences_armegeddon(void) {
  ***************************************************************************/
 
 /****************************************************************************
-   Function: create_prefs_filename(char *fname) 
+   Function: create_prefs_filename(char *fname)
    Desc:     Generates a full path name for the preferences file
  ***************************************************************************/
 static Boolean create_prefs_filename(char *fname) {
 
     char *home_ptr, home[256];
     struct passwd *pwdent;
-    
+
         /*
          * Try the HOME environment variable, then the password file, and
          *   finally give up.
@@ -182,17 +182,17 @@ static Boolean create_prefs_filename(char *fname) {
     else {
         strcpy(home,home_ptr);
     }
-    
+
     sprintf(fname,"%s/%s",home,PREFERENCES_FILENAME);
-    
+
     return(1);
-    
+
 }
 
 
 /****************************************************************************
    Function: read_preferences_file(prefsStructP inPrefsStruct)
-   Desc:     Read the prefs file into the incoming prefs struct.          
+   Desc:     Read the prefs file into the incoming prefs struct.
  ***************************************************************************/
 Boolean read_preferences_file(prefsStructP inPrefsStruct) {
 
@@ -205,8 +205,8 @@ Boolean read_preferences_file(prefsStructP inPrefsStruct) {
         inPrefsStruct = thePrefsStructP;
 
 #if PREFS_FILE_IO
-    
-    /* look for the file */    
+
+    /* look for the file */
     if(!create_prefs_filename(prefs_file_pathname)) {
         fprintf(stderr, "Error: Can't generate pathname for preferences file\n");
         return 0;
@@ -220,28 +220,28 @@ Boolean read_preferences_file(prefsStructP inPrefsStruct) {
             return 0;
         }
 
-    
+
     /* open it and read all the stuff from the file into the prefs struct */
     if(!(fp=fopen(prefs_file_pathname, "r"))) {
 
         fprintf(stderr, "Error: Can't open preferences file for reading\n");
         return 0;
     }
-    
+
     /* but first, check the version number of the prefs file */
 
     fclose(fp);
 
 #endif
-    
+
     return successful;
 }
 
 
 /****************************************************************************
    Function: revert_preferences_file(prefsStructP inPrefsStruct)
-   Desc:     Reverts the incoming prefs struct to the one last saved to 
-                 disk. 
+   Desc:     Reverts the incoming prefs struct to the one last saved to
+                 disk.
  ***************************************************************************/
 static Boolean revert_preferences_file(prefsStructP inPrefsStruct) {
 
@@ -251,7 +251,7 @@ static Boolean revert_preferences_file(prefsStructP inPrefsStruct) {
 
 /****************************************************************************
    Function: write_pref_string(FILE *fp, long pref_id, char *string)
-   Desc:     
+   Desc:
  ***************************************************************************/
 static Boolean write_pref_string(FILE *fp, long pref_id, char *string) {
 
@@ -269,12 +269,12 @@ static Boolean write_pref_string(FILE *fp, long pref_id, char *string) {
     return 1;
 
 #endif
-    
+
 }
 
 /****************************************************************************
    Function: write_pref_int(FILE *fp, long pref_id, char *string)
-   Desc:     
+   Desc:
  ***************************************************************************/
 static Boolean write_pref_int(FILE *fp, long pref_id, char *string) {
 
@@ -287,14 +287,14 @@ static Boolean write_pref_int(FILE *fp, long pref_id, char *string) {
     fprintf(fp, "%s: %d\n", string, narf);
 
     return 1;
-    
+
 #endif
-    
+
 }
 
 /****************************************************************************
    Function: write_pref_boolean(FILE *fp, long pref_id, char *string)
-   Desc:     
+   Desc:
  ***************************************************************************/
 static Boolean write_pref_boolean(FILE *fp, long pref_id, char *string) {
 
@@ -310,14 +310,14 @@ static Boolean write_pref_boolean(FILE *fp, long pref_id, char *string) {
         fprintf(fp, "%s: False\n", string);
 
     return 1;
-    
+
 #endif
-    
+
 }
 
 /****************************************************************************
    Function: write_pref_float(FILE *fp, long pref_id, char *string)
-   Desc:     
+   Desc:
  ***************************************************************************/
 static Boolean write_pref_float(FILE *fp, long pref_id, char *string) {
 
@@ -330,9 +330,9 @@ static Boolean write_pref_float(FILE *fp, long pref_id, char *string) {
     fprintf(fp, "%s: %f\n", string, narf);
 
     return 1;
-    
+
 #endif
-    
+
 }
 
 
@@ -351,9 +351,9 @@ static Boolean write_preferences_file(prefsStructP inPrefsStruct) {
 
     Boolean successful = 1;
     FILE *fp;
-    
-    
-    if(!(fp=fopen(prefs_file_pathname, "w"))) {   
+
+
+    if(!(fp=fopen(prefs_file_pathname, "w"))) {
         fprintf(stderr, "Error: Can't open preferences file for writing\n");
         return 0;
     }
@@ -368,7 +368,7 @@ static Boolean write_preferences_file(prefsStructP inPrefsStruct) {
     fprintf(fp, "# Warning - this is NOT a user editable file!!!\n");
     fprintf(fp, "# If a character is out of place...it will be very bad.\n\n");
 
-  
+
 /* access all the fields in the prefs structure, and write them out */
 
     write_pref_boolean(fp, eTRACK_VISITED_ANCHORS, "TRACK_VISITED_ANCHORS");
@@ -520,15 +520,15 @@ static Boolean write_preferences_file(prefsStructP inPrefsStruct) {
 
     write_pref_boolean(fp, eFOCUS_FOLLOWS_MOUSE, "FOCUS_FOLLOWS_MOUSE");
     write_pref_boolean(fp, eSESSION_HISTORY_ON_RBM, "SESSION_HISTORY_ON_RBM");
-    write_pref_int(fp, eNUMBER_OF_ITEMS_IN_RBM_HISTORY, 
+    write_pref_int(fp, eNUMBER_OF_ITEMS_IN_RBM_HISTORY,
 		   "NUMBER_OF_ITEMS_IN_RBM_HISTORY");
 
     write_pref_boolean (fp, eUSESHORTNEWSRC, "USESHORTNEWSRC");
     fclose(fp);
     return successful;
-    
+
 #endif
-    
+
 }
 
 
@@ -948,7 +948,7 @@ void *get_pref(long pref_id) {
         case eUSETHREADVIEW:
 	    return (void *)&(thePrefsStructP->RdataP->newsConfigView);
 	    break;
-      
+
         case eSHOWREADGROUPS:
 	  return (void *)&(thePrefsStructP->RdataP->newsShowReadGroups);
 	  break;
@@ -960,7 +960,7 @@ void *get_pref(long pref_id) {
         case eSHOWALLGROUPS:
 	  return (void *)&(thePrefsStructP->RdataP->newsShowAllGroups);
           break;
-  
+
         case eSHOWALLARTICLES:
 	  return (void *)&(thePrefsStructP->RdataP->newsShowAllArticles);
           break;
@@ -1108,7 +1108,7 @@ int val=value;
 
 /****************************************************************************
    Function: set_pref(long pref_id, void *incoming)
-   Desc:     set the single preference variable denoted by pref_id, to 
+   Desc:     set the single preference variable denoted by pref_id, to
                  whatever incoming points to.
  ***************************************************************************/
 void set_pref(long pref_id, void *incoming) {
@@ -1612,13 +1612,13 @@ void set_pref(long pref_id, void *incoming) {
         case ePOPUPCASCADEMAPPINGDELAY:
             thePrefsStructP->RdataP->popupCascadeMappingDelay =
                 *((int *)incoming);
-            
+
 	    break;
 
         case eUSETHREADVIEW:
 	    thePrefsStructP->RdataP->newsConfigView = *((int *)incoming);
 	    break;
-      
+
         case eSHOWREADGROUPS:
 	  thePrefsStructP->RdataP->newsShowReadGroups = *((int *)incoming);
 	  break;
@@ -1630,7 +1630,7 @@ void set_pref(long pref_id, void *incoming) {
         case eSHOWALLGROUPS:
 	  thePrefsStructP->RdataP->newsShowAllGroups = *((int *)incoming);
           break;
-  
+
         case eSHOWALLARTICLES:
 	  thePrefsStructP->RdataP->newsShowAllArticles = *((int *)incoming);
           break;
@@ -1693,7 +1693,7 @@ void set_pref(long pref_id, void *incoming) {
         case eSESSION_HISTORY_ON_RBM:
             thePrefsStructP->RdataP->sessionHistoryOnRBM =
                 *((Boolean *)incoming);
-            break;  
+            break;
         case eNUMBER_OF_ITEMS_IN_RBM_HISTORY:
 	    thePrefsStructP->RdataP->numberOfItemsInRBMHistory = *((int *)incoming);
 	    break;

@@ -43,7 +43,7 @@ PUBLIC int strncasecomp ARGS3(WWW_CONST char*,a, WWW_CONST char *,b, int,n)
 {
 	WWW_CONST char *p =a;
 	WWW_CONST char *q =b;
-	
+
 	for(p=a, q=b;; p++, q++) {
 	    int diff;
 	    if (p == a+n) return 0;	/*   Match up to n characters */
@@ -111,7 +111,7 @@ PUBLIC char * HTNextField ARGS1(char **, pstr)
 {
     char * p = *pstr;
     char * start;			/* start of field */
-    
+
     while(*p && WHITE(*p)) p++;		/* Strip white space */
     if (!*p) {
 	*pstr = p;

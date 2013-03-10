@@ -337,7 +337,7 @@ static XtResource resources[] =
 	{	WbNtitleText,
 		WbCTitleText, XtRString, sizeof (char *),
 		XtOffset (HTMLWidget, html.title),
-		XtRString, (char *) NULL	
+		XtRString, (char *) NULL
 },
 
 /*
@@ -593,21 +593,21 @@ static XtResource resources[] =
         },
 /* end amb */
         {       WbNpreviouslyVisitedTestFunction,
-                WbCPreviouslyVisitedTestFunction, XtRPointer, 
+                WbCPreviouslyVisitedTestFunction, XtRPointer,
                 sizeof (XtPointer),
                 XtOffset (HTMLWidget, html.previously_visited_test),
                 XtRImmediate, (caddr_t) NULL
         },
-                  
+
         {       WbNresolveImageFunction,
-                WbCResolveImageFunction, XtRPointer, 
+                WbCResolveImageFunction, XtRPointer,
                 sizeof (XtPointer),
                 XtOffset (HTMLWidget, html.resolveImage),
                 XtRImmediate, (caddr_t) NULL
         },
-                  
+
         {       WbNresolveDelayedImage,
-                WbCResolveDelayedImage, XtRPointer, 
+                WbCResolveDelayedImage, XtRPointer,
                 sizeof (XtPointer),
                 XtOffset (HTMLWidget, html.resolveDelayedImage),
                 XtRImmediate, (caddr_t) NULL
@@ -615,12 +615,12 @@ static XtResource resources[] =
 
         {
                 WbNpointerMotionCallback,
-                WbCPointerMotionCallback, XtRPointer, 
+                WbCPointerMotionCallback, XtRPointer,
                 sizeof (XtPointer),
                 XtOffset (HTMLWidget, html.pointer_motion_callback),
                 XtRImmediate, (caddr_t) NULL
         },
-                    
+
 };
 
 
@@ -674,12 +674,12 @@ HTMLClassRec htmlClassRec = {
    },
 
    {		/* constraint_class fields */
-      NULL,					/* resource list        */   
-      0,					/* num resources        */   
-      0,					/* constraint size      */   
-      NULL,					/* init proc            */   
-      NULL,					/* destroy proc         */   
-      NULL,					/* set values proc      */   
+      NULL,					/* resource list        */
+      0,					/* num resources        */
+      0,					/* constraint size      */
+      NULL,					/* init proc            */
+      NULL,					/* destroy proc         */
+      NULL,					/* set values proc      */
       NULL,                                     /* extension            */
    },
 
@@ -691,13 +691,13 @@ HTMLClassRec htmlClassRec = {
       NULL,					/* syn_cont_resources     */
       0,					/* num_syn_cont_resources */
       XmInheritParentProcess,                   /* parent_process         */
-      NULL,					/* extension 	          */    
+      NULL,					/* extension 	          */
    },
 #endif /* MOTIF */
 
-   {		/* html_class fields */     
+   {		/* html_class fields */
       0						/* none			  */
-   }	
+   }
 };
 
 
@@ -710,7 +710,7 @@ extern int hacked_y;
 WidgetClass htmlWidgetClass = (WidgetClass)&htmlClassRec;
 
 static Cursor in_anchor_cursor = (Cursor)NULL;
-static char *mailToKludgeSubject = NULL; 
+static char *mailToKludgeSubject = NULL;
 static char *mailToKludgeURL = NULL;
 
 char *cattrs[]={"text","bgcolor","alink","vlink","link",NULL};
@@ -836,7 +836,7 @@ hw_do_color(Widget w, char *att, char *cname)
     }
 
     cmap = hw->core.colormap;
-    
+
     val=cname;
     if (*val!='#') {
         if (XAllocNamedColor(XtDisplay(w),cmap,cname,&col,&ecol)) {
@@ -868,22 +868,22 @@ hw_do_color(Widget w, char *att, char *cname)
             t[0]=val[4];
             t[1]=val[5];
             sscanf(t,"%x",&b);
-            
+
             col.red = ((unsigned) r) << 8;
             col.green = ((unsigned) g) << 8;
             col.blue = ((unsigned) b) << 8;
             col.flags = DoRed | DoGreen | DoBlue;
-            
+
             if (!XAllocColor(XtDisplay(w),cmap,&col)) {
                 return -1;
             }
         } else {
             return -1;
         }
-        
+
     }
 
-    
+
     if (!my_strcasecmp(att,"text")) {
         hw->manager.foreground = col.pixel;
     }
@@ -891,11 +891,11 @@ hw_do_color(Widget w, char *att, char *cname)
             /* calculate shadow colors */
         calc = XmGetColorCalculation();
         calc(&col, &fg, &sel, &ts, &bs);
-        if (XAllocColor(XtDisplay(w),cmap,&ts)) 
+        if (XAllocColor(XtDisplay(w),cmap,&ts))
             hw->manager.top_shadow_color = ts.pixel;
-        if (XAllocColor(XtDisplay(w),cmap,&bs)) 
+        if (XAllocColor(XtDisplay(w),cmap,&bs))
             hw->manager.bottom_shadow_color = bs.pixel;
-        
+
         hw->core.background_pixel = col.pixel;
         hw->html.view->core.background_pixel = col.pixel ;
         hw->html.activeAnchor_bg = col.pixel;
@@ -909,7 +909,7 @@ hw_do_color(Widget w, char *att, char *cname)
     if (!my_strcasecmp(att,"alink")) {
         hw->html.activeAnchor_fg = col.pixel;
     }
-    
+
     return -1;
 }
 
@@ -951,7 +951,7 @@ XGCValues values;
 #define MAX_Y_EXP_DIFF 10 /*pixels between exposes to make one expose area*/
 
 /*
- * Process an expose event in the View (or drawing area).  This 
+ * Process an expose event in the View (or drawing area).  This
  * Can be a regular expose event, or perhaps a GraphicsExpose Event.
  */
 static void
@@ -1100,7 +1100,7 @@ goto single_expose;
 				x1 = nx + nwidth;
 				changed=1;
 			}
-		
+
 			if (y1 < (ny + nheight)) {
 				y1 = ny + nheight;
 				changed=1;
@@ -1190,7 +1190,7 @@ ScrollWidgets(hw)
 			     ((y+wptr->height)>0 &&
 			      (y+wptr->height)<=hw->html.view_height)) &&
 			    ((x>0 &&
-			      x<=hw->html.view_width) || 
+			      x<=hw->html.view_width) ||
 			     ((x+wptr->width)>0 &&
 			      (x+wptr->width)<=hw->html.view_width))) {
 				wptr->seeable=1;
@@ -1271,7 +1271,7 @@ ScrollToPos(w, hw, value)
 		if (value > hw->html.scroll_y)
 		{
 			int dy;
-	    
+
 			dy = value - hw->html.scroll_y;
 			if (dy > hw->html.view_height)
 			{
@@ -1314,7 +1314,7 @@ ScrollToPos(w, hw, value)
 		else if (value < hw->html.scroll_y)
 		{
 			int dy;
-	    
+
 			dy = hw->html.scroll_y - value;
 			if (dy > hw->html.view_height)
 			{
@@ -1347,7 +1347,7 @@ ScrollToPos(w, hw, value)
 				ViewRedisplay(hw,
 					      0, 0,
 					      hw->html.view_width, dy);
-				
+
 			}
 		}
 	}
@@ -1364,7 +1364,7 @@ ScrollToPos(w, hw, value)
 		if (value > hw->html.scroll_x)
 		{
 			int dx;
-	    
+
 			dx = value - hw->html.scroll_x;
 			if (dx > hw->html.view_width)
 			{
@@ -1407,7 +1407,7 @@ ScrollToPos(w, hw, value)
 		else if (value < hw->html.scroll_x)
 		{
 			int dx;
-	    
+
 			dx = hw->html.scroll_x - value;
 			if (dx > hw->html.view_width)
 			{
@@ -1484,7 +1484,7 @@ ScrollMove(w, client_data, call_data)
 		currentLength = hw->html.view_height;
 		value = hw->html.scroll_y + scrollDir * currentLength;
 	}
-	else 
+	else
 	{
 		totalLength = hw->html.doc_width;
 		currentLength = hw->html.view_width;
@@ -1493,7 +1493,7 @@ ScrollMove(w, client_data, call_data)
 
 	if (value > (int)totalLength) value = totalLength;
 	if (value < 0) value = 0;
-  
+
 	setScrollBar(w, value, totalLength, currentLength);
 	ScrollToPos(w, hw, value);
 #endif
@@ -1508,14 +1508,14 @@ JumpMove(w, client_data, call_data)
 	caddr_t call_data;
 {
 	HTMLWidget hw = (HTMLWidget)client_data;
-	int value = (int)(*(float *)call_data * 
-			(w == hw->html.vbar ?  
-			hw->html.doc_height : 
+	int value = (int)(*(float *)call_data *
+			(w == hw->html.vbar ?
+			hw->html.doc_height :
 			hw->html.doc_width));
 	ScrollToPos(w, hw, value);
 }
 #endif
-  
+
 
 /*
  * Create the horizontal and vertical scroll bars.
@@ -1544,10 +1544,10 @@ CreateScrollbars(
 		XtSetArg(arg[argcnt], XxNwidth, 10); argcnt++;
 		XtSetArg(arg[argcnt], XxNheight, 10); argcnt++;
 		hw->html.view = XtCreateWidget("View",
-#ifdef MOTIF		
+#ifdef MOTIF
 			xmDrawingAreaWidgetClass,
 #else
-			drawingAreaWidgetClass, 
+			drawingAreaWidgetClass,
 #endif
 			(Widget)hw, arg, argcnt);
 		XtManageChild(hw->html.view);
@@ -1728,7 +1728,7 @@ ConfigScrollBars(
 	 */
 #ifdef MOTIF
        	vx = hw->manager.shadow_thickness;
-	vy = hw->manager.shadow_thickness; 
+	vy = hw->manager.shadow_thickness;
 #else
 	vx = vy = 0;
 #endif
@@ -1741,7 +1741,7 @@ ConfigScrollBars(
 	  vy += HbarHeight(hw);
 	}
 	XtMoveWidget(hw->html.view, vx, vy);
-	XtResizeWidget(hw->html.view, hw->html.view_width, 
+	XtResizeWidget(hw->html.view, hw->html.view_width,
 		       hw->html.view_height,
 		       hw->html.view->core.border_width);
 	/*
@@ -1757,7 +1757,7 @@ ConfigScrollBars(
 		 * the viewing area
 		 */
 		XtResizeWidget(hw->html.vbar, hw->html.vbar->core.width,
-		    hw->html.view_height + (2 * 
+		    hw->html.view_height + (2 *
 #ifdef MOTIF
 					    hw->manager.shadow_thickness
 #else
@@ -1779,16 +1779,16 @@ ConfigScrollBars(
 		{
 #ifndef DISABLE_TRACE
 			if (htmlwTrace) {
-				fprintf (stderr, "view_height %d, doc_height %d\n", 
+				fprintf (stderr, "view_height %d, doc_height %d\n",
 					 hw->html.view_height, hw->html.doc_height);
 			}
 #endif
 #ifdef NOT_RIGHT
                         /* Eric -- your previous equation wasn't doing it.
                            This isn't either... */
-			ss = 
+			ss =
                           (int)((float)hw->html.view_height *
-                                ((float)hw->html.view_height / 
+                                ((float)hw->html.view_height /
                                  (float)(hw->html.doc_height - (int)hw->html.view_height)));
 			if (ss > hw->html.view_height)
 			{
@@ -1855,14 +1855,14 @@ ConfigScrollBars(
 		XtSetArg(arg[argcnt], XmNvalue, hw->html.scroll_y); argcnt++;
 		XtSetArg(arg[argcnt], XmNsliderSize, ss); argcnt++;
                 XtSetArg(arg[argcnt], XmNincrement, DEFAULT_INCREMENT); argcnt++;
-                XtSetArg(arg[argcnt], XmNpageIncrement, 
-                         hw->html.view_height > DEFAULT_INCREMENT ? 
+                XtSetArg(arg[argcnt], XmNpageIncrement,
+                         hw->html.view_height > DEFAULT_INCREMENT ?
                            hw->html.view_height - DEFAULT_INCREMENT : 1); argcnt++;
 		XtSetValues(hw->html.vbar, arg, argcnt);
 #else
-		setScrollBar(hw->html.vbar, 
+		setScrollBar(hw->html.vbar,
 			     hw->html.scroll_y,
-			     hw->html.doc_height, 
+			     hw->html.doc_height,
 			     hw->html.view_height);
 #endif /* MOTIF */
 
@@ -1970,14 +1970,14 @@ ConfigScrollBars(
 		XtSetArg(arg[argcnt], XmNvalue, hw->html.scroll_x); argcnt++;
 		XtSetArg(arg[argcnt], XmNsliderSize, ss); argcnt++;
                 XtSetArg(arg[argcnt], XmNincrement, DEFAULT_INCREMENT); argcnt++;
-                XtSetArg(arg[argcnt], XmNpageIncrement, 
-                         hw->html.view_width > DEFAULT_INCREMENT ? 
+                XtSetArg(arg[argcnt], XmNpageIncrement,
+                         hw->html.view_width > DEFAULT_INCREMENT ?
                          hw->html.view_width - DEFAULT_INCREMENT : 1); argcnt++;
 		XtSetValues(hw->html.hbar, arg, argcnt);
 #else
-		setScrollBar(hw->html.hbar, 	
+		setScrollBar(hw->html.hbar,
 			     hw->html.scroll_x,
-			     hw->html.doc_width, 
+			     hw->html.doc_width,
 			     hw->html.view_width);
 #endif /* MOTIF */
 	}
@@ -2026,7 +2026,7 @@ ReformatWindow(
 	if (hw->core.width <= swidth)
 	{
 		hw->core.width = swidth + 10;
-	} 
+	}
 	new_width = hw->core.width - swidth - (2 * st);
 	temp = FormatAll(hw, &new_width);
 
@@ -2216,19 +2216,19 @@ Initialize(
 	if (new->core.width == 0)
 	{
 		new->core.width = new->html.margin_width << 1 ;
-	} 
+	}
 	if (new->core.width == 0)
 	{
 		new->core.width = 10 ;
-	} 
+	}
 	if (new->core.height == 0)
 	{
 		new->core.height = new->html.margin_height << 1 ;
-	} 
+	}
 	if (new->core.height == 0)
 	{
 		new->core.height = 10 ;
-	} 
+	}
 
 	/*
 	 *	Make sure the underline numbers are within bounds.
@@ -2236,22 +2236,22 @@ Initialize(
 	if (new->html.num_anchor_underlines < 0)
 	{
 		new->html.num_anchor_underlines = 0;
-	} 
+	}
 	if (new->html.num_anchor_underlines > MAX_UNDERLINES)
 	{
 		new->html.num_anchor_underlines = MAX_UNDERLINES;
-	} 
+	}
 	if (new->html.num_visitedAnchor_underlines < 0)
 	{
 		new->html.num_visitedAnchor_underlines = 0;
-	} 
+	}
 	if (new->html.num_visitedAnchor_underlines > MAX_UNDERLINES)
 	{
 		new->html.num_visitedAnchor_underlines = MAX_UNDERLINES;
-	} 
+	}
 
 	/*
-	 * Parse the raw text with the HTML parser.  And set the formatted 
+	 * Parse the raw text with the HTML parser.  And set the formatted
 	 * element list to NULL.
 	 */
 	new->html.html_objects = HTMLParse(NULL, request->html.raw_text,new);
@@ -2463,7 +2463,7 @@ ViewClearAndRefresh(
 #endif
 {
     int r,b;
-    
+
 	/*
 	 * Only refresh if we have a window already.
 	 * (if we have a GC we have a window)
@@ -2482,7 +2482,7 @@ ViewClearAndRefresh(
                 hw->manager.top_shadow_color ? 0 : 1;
             hw->manager.bottom_shadow_color =
                 hw->manager.bottom_shadow_color ? 0 : 1;
-            
+
             XtVaSetValues(hw->html.view,
                           XmNbackground, hw->core.background_pixel,
                           XmNtopShadowColor, r,
@@ -2494,7 +2494,7 @@ ViewClearAndRefresh(
                           XmNtopShadowColor, r,
                           XmNbottomShadowColor, b,
                           NULL);
-            
+
             XClearArea(XtDisplay(hw), XtWindow(hw->html.view),
 			0, 0, 0, 0, False);
 		ViewRedisplay(hw, 0, 0,
@@ -2612,7 +2612,7 @@ Resize(
 	if (hw->core.width <= swidth)
 	{
 		hw->core.width = swidth + 10 ;
-	} 
+	}
 
 	if (hw->html.use_vbar == True)
 	{
@@ -3989,7 +3989,7 @@ TrackMotion(w, event, params, num_params)
           }
 
 	eptr = LocateElement(hw, x, y, &epos);
-        
+
         /* We're hitting a new anchor if eptr exists and
            eptr != cached tracked element and anchorHRef != NULL. */
 	if (eptr != NULL && eptr != hw->html.cached_tracked_ele &&
@@ -4002,7 +4002,7 @@ TrackMotion(w, event, params, num_params)
           }
         /* We're leaving an anchor if eptr exists and
            a cached ele exists and we're not entering a new anchor. */
-        else if (eptr != NULL && hw->html.cached_tracked_ele != NULL && 
+        else if (eptr != NULL && hw->html.cached_tracked_ele != NULL &&
                  eptr->anchorHRef == NULL)
           {
             LEAVING_ANCHOR (hw);
@@ -4014,13 +4014,13 @@ TrackMotion(w, event, params, num_params)
 
 
 
-/* We're adding a subject attribute to the anchor tag 
+/* We're adding a subject attribute to the anchor tag
    of course this subject attribute is dependent on that the HREF attribute
    is set to a mailto URL.  I think this is a kludge.  libwww is not set up
-   for this, so to minimize modifications, this routine exists for 
+   for this, so to minimize modifications, this routine exists for
    libwww:HTSendMaitlTo() to call to get the subject for the mailto URL.
    The static globals mailToKludgeSubject, etc are set in HTMLInput when
-   an anchor is clicked.  
+   an anchor is clicked.
 */
 GetMailtoKludgeInfo(url,subject)
 char **url;
@@ -4051,7 +4051,7 @@ _HTMLInput(
 	String *params,		/* unused */
 	Cardinal *num_params)	/* unused */
 #endif
-{   
+{
 	HTMLWidget hw = (HTMLWidget)XtParent(w);
 	struct ele_rec *eptr;
 	WbAnchorCallbackData cbdata;
@@ -4353,16 +4353,16 @@ _HTMLpwdInput(
      char *keySymString;
      char *star = "*";
      int length, passwdLength, i, insertPos, maxLength;
-     Boolean stringInPlace; 
-     
+     Boolean stringInPlace;
+
      if (event->type == KeyPress)
 	 {
 	 HTMLWidget hw = (HTMLWidget)XtParent(w);
 	 WidgetInfo *wptr;
 
-	 if (XtClass((Widget)hw) != htmlWidgetClass) 
+	 if (XtClass((Widget)hw) != htmlWidgetClass)
 	     return;   /* it was not for us */
- 
+
 	/*
 	 * find the structure for this widget
 	 */
@@ -4378,7 +4378,7 @@ _HTMLpwdInput(
 
 	 passwdLength = wptr->password ? strlen(wptr->password) : 0;
 
-	 length = XLookupString((XKeyEvent *)event, 
+	 length = XLookupString((XKeyEvent *)event,
 				buffer, 50, &ks, NULL);
 	 keySymString = XKeysymToString(ks);
 	 XtVaGetValues(w,
@@ -4404,7 +4404,7 @@ _HTMLpwdInput(
 
 	 if ((!strcmp("BackSpace",keySymString))
 	     || (!strcmp("Backspace",keySymString))
-	     || (!strcmp("Delete",keySymString)) ) 
+	     || (!strcmp("Delete",keySymString)) )
 	     {
 	     insertPos --;
 
@@ -4421,7 +4421,7 @@ _HTMLpwdInput(
 		 }
 #endif
 
-		 XtCallActionProc(w, 
+		 XtCallActionProc(w,
 				  insertPos>-1 ? "delete-previous-character" :
 				  "delete-next-character",
 				  event, NULL,0);
@@ -4440,15 +4440,15 @@ _HTMLpwdInput(
 		 if (passwdLength < maxLength)
 		     {
 		     char *pwd = wptr->password =
-			 (char *)realloc(wptr->password, 
+			 (char *)realloc(wptr->password,
 				 sizeof(char)*(passwdLength+2));
 		     for (i=passwdLength+1; i>insertPos; i--)
 			 pwd[i] = pwd[i-1];
-		     
+
 		     pwd[insertPos] = buffer[0];
 		     }
 		 }
-	     else 
+	     else
 		 {
 		 if (wptr->password == NULL)
 		     wptr->password = (char *)malloc(sizeof(char)*2);
@@ -4508,19 +4508,19 @@ SetValues(
 	if (request->html.num_anchor_underlines < 0)
 	{
 		new->html.num_anchor_underlines = 0;
-	} 
+	}
 	if (request->html.num_anchor_underlines > MAX_UNDERLINES)
 	{
 		new->html.num_anchor_underlines = MAX_UNDERLINES;
-	} 
+	}
 	if (request->html.num_visitedAnchor_underlines < 0)
 	{
 		new->html.num_visitedAnchor_underlines = 0;
-	} 
+	}
 	if (request->html.num_visitedAnchor_underlines > MAX_UNDERLINES)
 	{
 		new->html.num_visitedAnchor_underlines = MAX_UNDERLINES;
-	} 
+	}
 
 	/*reformatted = 0;*/
 	if ((request->html.raw_text != current->html.raw_text)||
@@ -4778,7 +4778,7 @@ ConvertSelection(w, selection, target, type, value, length, format)
 		bcopy((char*)std_targets, (char*)targetP,
 			sizeof(Atom)*std_length);
 */
-		memcpy((char*)targetP, (char*)std_targets, 
+		memcpy((char*)targetP, (char*)std_targets,
 			sizeof(Atom)*std_length);
 		XtFree((char*)std_targets);
 		*type = XA_ATOM;
@@ -5209,7 +5209,7 @@ HTMLGotoId(Widget w, int element_id, int correction)
 #else
 	ScrollToPos(hw->html.vbar, hw, newy);
 	ScrollToPos(hw->html.hbar, hw, 0);
-	setScrollBar(hw->html.vbar, newy, 
+	setScrollBar(hw->html.vbar, newy,
 		     hw->html.doc_height,
 		     hw->html.view_height);
 #endif
@@ -6104,7 +6104,7 @@ HTMLSetText(Widget w, char *text, char *header_text, char *footer_text, int elem
 	InitBody((Widget)hw);
 
         /* restore default colors as required */
-    
+
         if(hw->manager.foreground != hw->html.foreground_SAVE) {
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->manager.foreground,1,0);
@@ -6115,12 +6115,12 @@ HTMLSetText(Widget w, char *text, char *header_text, char *footer_text, int elem
                         &hw->html.anchor_fg,1,0);
             hw->html.anchor_fg = hw->html.anchor_fg_SAVE;
         }
-        if(hw->html.visitedAnchor_fg != hw->html.visitedAnchor_fg_SAVE){    
+        if(hw->html.visitedAnchor_fg != hw->html.visitedAnchor_fg_SAVE){
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->html.visitedAnchor_fg,1,0);
             hw->html.visitedAnchor_fg = hw->html.visitedAnchor_fg_SAVE;
         }
-        if(hw->html.activeAnchor_fg != hw->html.activeAnchor_fg_SAVE){    
+        if(hw->html.activeAnchor_fg != hw->html.activeAnchor_fg_SAVE){
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->html.activeAnchor_fg,1,0);
             hw->html.activeAnchor_fg = hw->html.activeAnchor_fg_SAVE;
@@ -6129,13 +6129,13 @@ HTMLSetText(Widget w, char *text, char *header_text, char *footer_text, int elem
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->manager.top_shadow_color,1,0);
             hw->manager.top_shadow_color = hw->html.top_color_SAVE;
-        }            
+        }
         if(hw->html.bottom_color_SAVE != hw->manager.bottom_shadow_color){
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->manager.bottom_shadow_color,1,0);
             hw->manager.bottom_shadow_color = hw->html.bottom_color_SAVE;
-        }            
-        if(hw->core.background_pixel != hw->html.background_SAVE){    
+        }
+        if(hw->core.background_pixel != hw->html.background_SAVE){
             XFreeColors(XtDisplay(hw),hw->core.colormap,
                         &hw->core.background_pixel,1,0);
             hw->html.activeAnchor_bg = hw->html.activeAnchor_bg_SAVE;
@@ -6277,7 +6277,7 @@ HTMLSetText(Widget w, char *text, char *header_text, char *footer_text, int elem
 	/*
 	 * Display the new text
 	 */
-       	ViewClearAndRefresh(hw); 
+       	ViewClearAndRefresh(hw);
 
 	/*
 	 * Clear any previous selection
@@ -6897,7 +6897,7 @@ HTMLSearchText (Widget w, char *pattern, ElementRef *m_start, ElementRef *m_end,
 }
 
 /* the following is a hack to make the html widget not acknowledge
-any button events while it is busy so that the rbm will not grab the 
+any button events while it is busy so that the rbm will not grab the
 server. Hopefully this will be removed when the application is re-written
 to pay more attention to the event loop - TPR 2/9/96 */
 
@@ -6913,8 +6913,8 @@ void HTMLSetAppInsensitive(Widget hw)
   height = hw->core.height;
 
 /* ???? Should this be cast to a HTMLWidget and XtWindow changed to html.view*/
-  sens_win = XCreateWindow(XtDisplay((Widget) hw), XtWindow(hw), x, 
-			   y, width, height, 0,CopyFromParent, InputOnly, 
+  sens_win = XCreateWindow(XtDisplay((Widget) hw), XtWindow(hw), x,
+			   y, width, height, 0,CopyFromParent, InputOnly,
 			   CopyFromParent, 0, NULL);
   XMapRaised(XtDisplay((Widget) hw), sens_win);
 }
@@ -6931,7 +6931,7 @@ void HTMLSetAppSensitive(Widget hw)
  *
  * Fixed up and rewritten by SWP...
  */
-void HTMLDrawBackgroundImage(Widget wid, int x, int y, int width, 
+void HTMLDrawBackgroundImage(Widget wid, int x, int y, int width,
 			     int height) {
 
 int	w_whole=0, h_whole=0,
@@ -6966,7 +6966,7 @@ HTMLWidget hw = (HTMLWidget) wid;
 	 * Figure out the height of the area to draw.
 	 * If there is a height offset, index the number of height tiles.
 	 */
-	w_start_offset = (x+hw->html.scroll_x) % hw->html.bg_width;  
+	w_start_offset = (x+hw->html.scroll_x) % hw->html.bg_width;
 	if (w_start_offset || (!w_start_offset && width<hw->html.bg_width)) {
 		w_whole++;
 		start_width=hw->html.bg_width-w_start_offset;
@@ -7129,7 +7129,7 @@ void HTMLSetFocusPolicy(Widget w, int to)
       else
 	{
 	  XtVaSetValues(shell, XmNkeyboardFocusPolicy, XmEXPLICIT, NULL);
-	  /* when we have preference dialog this will have to 
+	  /* when we have preference dialog this will have to
 	     undo all the translations that are currently installed
 	     in the widgets and set the keyboardFocus policy of the
 	     toplevel shell to pointer */

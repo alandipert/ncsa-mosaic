@@ -8,18 +8,18 @@
 ** of representatives of Slate Corporation, Lotus Development Corporation,
 ** GO, Microsoft, Apple, General Magic, and others.
 **
-** This document and the accompanying code samples on disk comprise Version 
-** 1.0 of the Jot specification for the storage and interchange of electronic 
-** ink data.  Permission is granted to incorporate and otherwise use any 
-** portion of the specification.  You may make copies of the specification 
-** for distribution to others, provided you include the notice "Copyright 
+** This document and the accompanying code samples on disk comprise Version
+** 1.0 of the Jot specification for the storage and interchange of electronic
+** ink data.  Permission is granted to incorporate and otherwise use any
+** portion of the specification.  You may make copies of the specification
+** for distribution to others, provided you include the notice "Copyright
 ** 1993, Slate Corporation.  All Rights Reserved" on both the document and
-** the disk label.  You may not modify this specification without written 
+** the disk label.  You may not modify this specification without written
 ** permission from Slate Corporation.
 **
-** The specification is provided "as is" without warranty of any kind.  Slate 
-** further disclaims all implied warranties of merchantability or of fitness 
-** for a particular purpose.  The entire risk arising out of the use or 
+** The specification is provided "as is" without warranty of any kind.  Slate
+** further disclaims all implied warranties of merchantability or of fitness
+** for a particular purpose.  The entire risk arising out of the use or
 ** performance of the specification remains with you.
 **
 **--------------------------------------------------------------------------
@@ -54,10 +54,10 @@
 ** electronic ink data interchange, and neither assumes nor dictates the
 ** nature of how the application deals with ink data internally.  The format
 ** is not intended to be the "internal" ink format of an application, though
-** there is no reason why it could not serve such a purpose. 
+** there is no reason why it could not serve such a purpose.
 **
 ** The scope and goals of this format design are limited to the represent-
-** ation of electronic ink data embedded in some other electronic document, 
+** ation of electronic ink data embedded in some other electronic document,
 ** not to the larger document itself (such as an e-mail or enhanced word-
 ** processing data file).
 **
@@ -70,28 +70,28 @@
 ** or sub-strokes, and then storing a list of encodings of these sub-strokes.
 ** In other words, Jot preserves all information about the original input as
 ** opposed attempting any sort of abstract characterization of the input.
-** 
+**
 ** The storage format has a number of properties:
-** 
+**
 ** * Simple.  Typical operations on the ink data are easy.  If you only wish
 **   to read stroke coordinates and bounding information from the data,
 **   complex information that might be present will not hinder the process.
 **   Likewise, it is easy to write out just simple information.  The
 **   complex information is all optional.
-** 
-** * Compact.  The storage format is intended to be as compact as possible 
+**
+** * Compact.  The storage format is intended to be as compact as possible
 **   without sacrificing simplicity or fidelity.  Optional information such
 **   as time stamps or color specifications occupy space only when they are
 **   present.  Specifications that apply to many strokes (such as line width
 **   or color) are represented just once.
-** 
+**
 ** * Compression.  The stroke information that describes the ink can
 **   optionally be represented in a compressed format.  Compression
 **   techniques include both compression and reduction of the ink data.
-** 
+**
 ** * Inclusive.  The format is capable of storing every property of ink
-**   conceivable as of today.  
-** 
+**   conceivable as of today.
+**
 ** * Expandable and Compatible.  The format is expandable, so as developers
 **   discover new information that should be recorded in an ink storage
 **   format, these new features can be added without changing the behavior of
@@ -100,21 +100,21 @@
 **   applications reading older versions of the format.  Likewise, new
 **   application programs can handle previous versions of the format without
 **   special work.
-** 
+**
 ** The format is not designed to easily support lots of in-memory
 ** manipulation of the ink data, such as deleting strokes, changing line
 ** widths, and so on.  A format supporting these types of manipulations would
 ** be at odds with the above goals.  All the information needed to perform
 ** these manipulations is present in this data format, so an application
 ** might augment this format to facilitate manipulation of the ink data.
-** 
+**
 ** Applications are likely to use some other format internally for real-time
 ** ink manipulation.  Many operating environments provide some internal means
 ** for storing and manipulating ink data, the details of which may be hidden
 ** to some extent from the application designer.  Many such real-time data
 ** structures store fewer types of and/or less information (such as not
 ** preserving information about the tablet point data rate) than are covered
-** in this definition.  
+** in this definition.
 **
 **------------------------------------------------------------------------*/
 
@@ -141,15 +141,15 @@
 ** April    12, 1993 - Release of version 0.99 of the specification.  Moved
 **                     reference sections 28 and 29 to a separate file called
 **                     sample.h
-** May      01, 1993 - Release of version 1.00 of the specification.  
-**                     Changed INK_OFFSET_RECORD units from twips to pen 
+** May      01, 1993 - Release of version 1.00 of the specification.
+**                     Changed INK_OFFSET_RECORD units from twips to pen
 **                     units for consistency and ease of implementation.
 **                     Fixed a typo in reference section 26.0 in the diagram.
 **                     The text accompanying the diagram was correct.
 **                     Fixed a typo in reference section 27.0.  The old text
 **                     "delta-X == 0 or 1" was replaced with the correct text
 **                     "delta-X == 2".  The accompanying diagram was correct.
-**                     Removed all sizeof() constructs and replaced with 
+**                     Removed all sizeof() constructs and replaced with
 **                     appropriate #defines to reduce compiler dependencies.
 **                     Tagged all struct definitions with tag_ prefix.
 **                     Added comments and reordered some existing comments.
@@ -171,12 +171,12 @@
 ** storage of point data in "standard compression" format.  Sign bits are
 ** used to indicate item types, so the bytes are stored high-order to low-
 ** order (exactly opposite).  See the sample code and reference section 23.0
-** for more information on the compressed format.  Uncompressed data is 
+** for more information on the compressed format.  Uncompressed data is
 ** written in Intel order.
 **
 ** All structures are packed for the purposes of writing to a stream.
-** 
-** Signed integer values are two's-complement.  Rectangles are stored 
+**
+** Signed integer values are two's-complement.  Rectangles are stored
 ** x,y,w,h.
 **
 ** These definitions are intended to insulate the sample ink compaction and
@@ -193,13 +193,13 @@
 ** Record Sequence
 ** ---------------
 **
-** In this document, one piece of ink data is called an ink bundle. 
+** In this document, one piece of ink data is called an ink bundle.
 ** Typically this might correspond to the strokes that make up the ink from
 ** the time when the pen touches down until the user finishes writing
 ** (usually determined by a timeout or the pen leaving proximity).  Thus an
 ** ink bundle usually contains many ink strokes, and the strokes do not have
 ** to describe a continuous line of ink.
-** 
+**
 ** As stated in reference section 5.0, all data conforming to this
 ** specification appears as a stream of ink bundles each of which must begin
 ** with an INK_BUNDLE_RECORD and end with an INK_END_RECORD.  There may be
@@ -215,7 +215,7 @@
 ** INK_GROUP_RECORD        optional    // tags the following PENDATA
 ** INK_PENDATA_RECORD      recommended // actual points
 ** INK_GROUP_RECORD        optional    // tags the following PENDATA
-** INK_PENDATA_RECORD      recommended // actual points 
+** INK_PENDATA_RECORD      recommended // actual points
 ** INK_PENDATA_RECORD      recommended // more points in same group
 ** INK_SCALE_RESET_RECORD  optional    // resets to default scaling/offset
 ** INK_PENDATA_RECORD      recommended // actual points
@@ -223,32 +223,32 @@
 ** INK_END_RECORD          required    // end of bundle number one
 **
 ** It is perfectly reasonable to write out only the following (though doing
-** so will cause the ink to be rendered in a completely default manner -- 
+** so will cause the ink to be rendered in a completely default manner --
 ** black hairline width at 1:1 scaling with offset 0):
 **
 ** INK_BUNDLE_RECORD
 ** INK_PENDATA_RECORD
 ** INK_END_RECORD
-** 
+**
 **
 ** Specification Revisions
 ** -----------------------
-** 
-** Future enhancements to this specification may modify certain record types.
-** It is guaranteed that any record modified in a subsequent revision of the 
-** specification will be a strict superset of that record's definition in any
-** previous revision of the specification.  That is, modified record types 
-** will only be lengthened, not shortened.  If a particular record type must
-** be extended such that it would not be a superset of the original, a new 
-** record type would be added to cover that particular extension.
-** 
-** This extension strategy has two important ramifications: 
 **
-** 1) A reading application should *ALWAYS* use the size of a record as 
+** Future enhancements to this specification may modify certain record types.
+** It is guaranteed that any record modified in a subsequent revision of the
+** specification will be a strict superset of that record's definition in any
+** previous revision of the specification.  That is, modified record types
+** will only be lengthened, not shortened.  If a particular record type must
+** be extended such that it would not be a superset of the original, a new
+** record type would be added to cover that particular extension.
+**
+** This extension strategy has two important ramifications:
+**
+** 1) A reading application should *ALWAYS* use the size of a record as
 **    recorded in the record structure itself (i.e., the recordLength field
 **    of the INK_RECORD_HEADERx structure) rather than the sizeof() or any
-**    other size determined at compile time to determine how may bytes to 
-**    read as the data structures are parsed.  This is due to the fact that 
+**    other size determined at compile time to determine how may bytes to
+**    read as the data structures are parsed.  This is due to the fact that
 **    a record may grow in a future revision of the standard.  The only
 **    exception to this rule is the INK_BUNDLE_RECORD which contains a
 **    version number that will be modified with each change to that record.
@@ -256,17 +256,17 @@
 **    version used at compile time, the size of the record should exactly
 **    match the #define of inkRecordBundleSize.
 **
-** 2) Any particular record may be read into a target data structure up to 
-**    the size of the target data structure and the rest may be ignored.  
-**    This is due to the 'strict superset' rule which means that any 
+** 2) Any particular record may be read into a target data structure up to
+**    the size of the target data structure and the rest may be ignored.
+**    This is due to the 'strict superset' rule which means that any
 **    extension of any record type must leave the meaning, content, and size
 **    of any existing fields as is.  So, for example, if an INK_SCALE_RECORD
 **    was modified by adding 2 bytes, the reading application can safely read
 **    the data into the INK_SCALE_RECORD known at compile time and throw
-**    away the extra two bytes: the header, x, and y will be in the same 
+**    away the extra two bytes: the header, x, and y will be in the same
 **    place and will have the same meaning.
 **
-** 
+**
 ** Files of Ink
 ** ------------
 **
@@ -386,14 +386,14 @@ typedef struct tag_XY16 {
 } XY16, FAR *P_XY16;
 
 /*-------------------------------------------------------------------------
-** Note: 
+** Note:
 ** Angles from vertical can exceed +-90 degrees: in this case, the "back" end
 ** of the stylus is nearer the tablet surface than the "front" end.
 **-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------
-** Note: 
-** Standard compaction will normally store angles in nibbles, or single 
+** Note:
+** Standard compaction will normally store angles in nibbles, or single
 ** bytes, rather than in four-byte records.
 **-------------------------------------------------------------------------*/
 
@@ -505,7 +505,7 @@ typedef U16 INK_RECORD_TYPE, FAR *P_INK_RECORD_TYPE;
     )
 
 /*-------------------------------------------------------------------------
-** Note: most compilers will not generate code for the above macro but will 
+** Note: most compilers will not generate code for the above macro but will
 ** determine the proper value at compile time.
 **-------------------------------------------------------------------------*/
 
@@ -598,7 +598,7 @@ typedef struct tag_INK_RECORD_HEADER32 {
 ** the following minimum requirements:
 **
 ** 1)   header.recordType == INK_RECORD_BUNDLE
-** 2)   header.recordLength >= inkRecordBundleSize (See general notes in 
+** 2)   header.recordLength >= inkRecordBundleSize (See general notes in
 **      reference section 1.0 for important information about record sizes.)
 ** 3)   compactionType is an expected and supported value
 ** 4)   penUnitsPerX and penUnitsPerY seem reasonable and expected:
@@ -628,7 +628,7 @@ typedef struct tag_INK_END_RECORD {
 ** data, while smaller, is still whole.  That is, compression under Jot is
 ** loss-less.  Compaction refers to a process where certain pieces of less
 ** important data are actually omitted from the stream and are possibly
-** reconstructed by the reader of the data.  
+** reconstructed by the reader of the data.
 **
 ** Using Jot, a writing application may choose to compress only, compact only
 ** or use some combination.  The standard compression mechanism defined here
@@ -654,13 +654,13 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 /*************************/
 
 /*-------------------------------------------------------------------------
-** The INK_BUNDLE_FLAGS contain some flags that apply to an entire bundle. 
+** The INK_BUNDLE_FLAGS contain some flags that apply to an entire bundle.
 ** If you wanted to store several pieces of ink that had different
 ** INK_BUNDLE_FLAGS, you would do it by storing several different bundles.
 **
 ** Advisory flags:
 **
-** inkPointsRemoved         
+** inkPointsRemoved
 **      Indicates whether all original points are still present or whether
 **      some points were removed to save space.  For applications that are
 **      only interested in the visual aspects of ink, many points can be
@@ -677,12 +677,12 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 **      replacing individual points with an "elided point" item does not
 **      constitute removing points. ("Elided" means omitted or skipped).
 **
-** inkProxDataRemoved   
+** inkProxDataRemoved
 **      Indicates that the original points between strokes (proximity) were
 **      removed to save space.  An out-of-prox point should be stored between
 **      strokes to delimit them.  Some applications depend on knowing the
 **      time between strokes or at the ends of strokes for certain
-**      functions. 
+**      functions.
 **
 **      Note:
 **      "Proximity" is defined as the stylus being close enough to the tablet
@@ -691,17 +691,17 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 **      recommended practice is to include "out of proximity" points in the
 **      recorded ink data when they are used as part of determining the
 **      amount of time a stylus was out of contact with the tablet, or for
-**      triggering the completion of an action such as a "gesture". 
+**      triggering the completion of an action such as a "gesture".
 **
-** inkStrokeLimitsPresent   
+** inkStrokeLimitsPresent
 **      Indicates that INK_BUTTONS items are also present, and that they
 **      indicate what the storing app decided the stroke start/end points
 **      were. (Note: the reading application may otherwise use a different
-**      algorithm for using tip force values to delimit strokes.) 
+**      algorithm for using tip force values to delimit strokes.)
 **
 **      Note:
 **      If inkStrokeLimitsPresent is set, then inkButtonDataPresent must also
-**      be set. 
+**      be set.
 **
 ** Data flags:
 **
@@ -716,7 +716,7 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 **                          the offset value is added ("pre-multiply")
 **                          rather than after ("post-multiply")
 **
-** Note: 
+** Note:
 ** A previous draft version included a provision for compacting data to an
 ** approximation based on Bezier curves.  Initial results did not show
 ** promise in terms of efficiency and performance.
@@ -728,7 +728,7 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 ** not be used directly to render the data.  The definition of these anchor
 ** and control points, and the example code for the approximation and
 ** regeneration of the "true" coordinates could not be worked out at this
-** time. 
+** time.
 **
 ** Some standard values for pen units per meter follow:
 **
@@ -742,7 +742,7 @@ typedef U8 INK_COMPACTION_TYPE, FAR *P_INK_COMPACTION_TYPE;
 **
 ** The specific format for each of these types of data is described in the
 ** INK_PENDATA_RECORD documentation (reference section 8.0).
-** 
+**
 ** Note:
 ** The order in which these flags are defined has nothing to do with the
 ** order in which the data appears in the INK_POINT structure when reading
@@ -798,7 +798,7 @@ typedef struct tag_INK_BUNDLE_RECORD {
 
 /*-------------------------------------------------------------------------
 ** A penData record contains the actual pen data for one or more pen strokes.
-** The bounds applies to all the strokes contained within this record. 
+** The bounds applies to all the strokes contained within this record.
 ** Multiple strokes are typically grouped into one record to increase the
 ** efficiency of the compression algorithm, though strokes may be stored
 ** individually, if desired.
@@ -823,7 +823,7 @@ typedef struct tag_INK_BUNDLE_RECORD {
 **    written by other applications that might group multiple strokes
 **    into a single INK_PENDATA_RECORD.
 **
-** Note: 
+** Note:
 ** In practice, our experience is that unpacking the data in order to compute
 ** the bounds for each stroke to check for strokes that intrude into a given
 ** region is not an excessive burden.  The checks that would have been done
@@ -860,31 +860,31 @@ typedef struct tag_INK_PENDATA_RECORD {
 ** of one) is represented as 0x00010000, a scale of 0.5 as 0x00008000.
 **
 ** Note:
-** All ink is located relative to the lower-left (0,0) corner of a logical 
-** page or window.  Scale and offset operations are cumulative, much in the 
+** All ink is located relative to the lower-left (0,0) corner of a logical
+** page or window.  Scale and offset operations are cumulative, much in the
 ** same way as in PostScript.  One begins with a normalized graphics state
-** and sequentially applies the scale and offset operations to that matrix. 
+** and sequentially applies the scale and offset operations to that matrix.
 ** The INK_SCALE_RESET record returns the graphics state to its default state
 ** (i.e., the transformation matrix is set to an identity matrix and the
 ** offset is reset to the default of 0).  By default, scaling is applied
 ** after adding in any offset specified in an INK_OFFSET_RECORD.  If the ink
 ** bundle has the inkPreMultiplyScale bit set, for all ink in that bundle
 ** scaling is applied before adding in any offset.
-** 
+**
 ** As used in this format, ink scale and offset values are set by the storing
 ** application, to be applied by the rendering application.  If the storing
 ** application collected the ink at scales of (2.0,2.0), the storing
 ** application should insert an INK_SCALE_RECORD with a scale of (0.5,0.5)
 ** for the rendering application to multiply all ink X and Y coordinates by.
 **
-** It is the responsibility of the storing application to deal with any 
+** It is the responsibility of the storing application to deal with any
 ** effects from round-off or truncation error due to the limits of precision
 ** in the FIXED_FRACTION values used in INK_SCALE_RECORDs.
 **
 ** An ink scale record indicates a scale change that stays in effect until
 ** another ink scale record is encountered.  Ink scale values compound: if
 ** the current scale is (2.0,2.0) and an INK_SCALE_RECORD is encountered with
-** scale of (2.0,3.0), the scale to be applied to ink then becomes(4.0,6.0). 
+** scale of (2.0,3.0), the scale to be applied to ink then becomes(4.0,6.0).
 ** In absence of any ink scale record, the default ink scale is unity.  In
 ** general, a typical usage pattern for an application that supports drawing
 ** ink while zoomed at scale is to record a number of strokes at a given
@@ -940,10 +940,10 @@ typedef struct tag_INK_SCALE_RECORD {
 ** would have an offset position, markup ink over an entire form would not
 ** have a offset position (or would have an offset position of (0,0) and a
 ** scale of (1,1)) because it is relative to the entire form coordinate
-** system, not relative to some piece in the form. 
+** system, not relative to some piece in the form.
 **
 ** Note:
-** This approach allows a reader to "blindly" apply the scale and offset 
+** This approach allows a reader to "blindly" apply the scale and offset
 ** values specified to ink data, and puts the burden for computing
 ** compounding of multiple zoom levels, etc., on the writing application.
 **
@@ -993,10 +993,10 @@ typedef struct tag_INK_SCALE_RESET_RECORD {
 ** "erase" function, such as the ability to erase annotation ink on an
 ** "original" document (perhaps a FAX image) the "erase" color restores the
 ** background image where painted.  The "background image" is defined by the
-** rendering application.  
+** rendering application.
 **
 ** Applications which do not support a true "erase" function may interpret
-** this as some other drawing function, such as drawing the "background"      
+** this as some other drawing function, such as drawing the "background"
 ** color.
 **
 **------------------------------------------------------------------------*/
@@ -1022,8 +1022,8 @@ typedef struct tag_INK_COLOR_RECORD {
 /*-------------------------------------------------------------------------
 ** Standardized opacity values:
 ** A recommended practice is that an opacity value of 128 (midway between
-** 0 and 255) be used for "highlighter" colors.  A recommended practice is 
-** that grey values as defined below be used for "standard grey" 
+** 0 and 255) be used for "highlighter" colors.  A recommended practice is
+** that grey values as defined below be used for "standard grey"
 ** highlighters.
 **-------------------------------------------------------------------------*/
 
@@ -1055,7 +1055,7 @@ typedef struct tag_INK_COLOR_RECORD {
 
 /*-------------------------------------------------------------------------
 ** Time is measured in milliseconds.
-** 
+**
 ** Note:
 ** Because of the difficulty synchronizing clocks on different machines
 ** at the time granularity of digitizing tablets, and because the "editing"
@@ -1069,12 +1069,12 @@ typedef struct tag_INK_COLOR_RECORD {
 ** End time records are not required.  The interpretation of an end time
 ** which is in conflict with the end time inferred from the assumed data rate
 ** of points and the number of points (including elided points) is not
-** defined.  
+** defined.
 **
 ** Start time is the time for the first point in the following penData record
 ** and end time is the time of the last point in the following penData
 ** record, because if you are recording tip force, the exact definition of
-** pen up and pen down may be fuzzy and/or application dependent.  
+** pen up and pen down may be fuzzy and/or application dependent.
 **
 **------------------------------------------------------------------------*/
 
@@ -1107,7 +1107,7 @@ typedef struct tag_INK_END_TIME_RECORD {
 /*-------------------------------------------------------------------------
 ** INK_PENDATA_RECORDs can be grouped.  If they are grouped, each
 ** INK_PENDATA_RECORD can be assigned a group number.  All
-** INK_PENDATA_RECORDs with the same group number belong to the same group. 
+** INK_PENDATA_RECORDs with the same group number belong to the same group.
 **
 ** The exact interpretation of grouping is up the applications involved.
 ** Writing applications may group ink data, but not all reading applications
@@ -1156,7 +1156,7 @@ typedef struct tag_INK_GROUP_RECORD {
 /**************************/
 
 /*-------------------------------------------------------------------------
-** Some applications may support the idea of rendering ink as if it were 
+** Some applications may support the idea of rendering ink as if it were
 ** drawn by a certain shaped pen tip.  The most common pen tips would be
 ** round or rectangular.  The exact details of how to render a given pen
 ** tip will be application specific, but this record states what pen tip
@@ -1169,15 +1169,15 @@ typedef struct tag_INK_GROUP_RECORD {
 ** at the end of the structure.
 **
 ** The writing application should be aware that the reading application will
-** only do "the best possible" job of rendering and that fully compliant 
+** only do "the best possible" job of rendering and that fully compliant
 ** reading applications may not be able to render certain nib types and/or
 ** colors.  Both reading and writing applications should pay particular
 ** attention to the following notes regarding defaults and ink drawn at a
 ** width of zero.
-** 
+**
 ** A pen tip which is drawing ink in zero width renders at the minimum
 ** visible width the reading application will support.
-** 
+**
 ** A recommended practice is that ink which should not render (should this
 ** be called for) be drawn with a color value of (0,0,0, 0), i.e., black,
 ** completely transparent.
@@ -1185,14 +1185,14 @@ typedef struct tag_INK_GROUP_RECORD {
 ** Pen tip size should scale when an INK_SCALE_RECORD is encountered.  The
 ** writing application should write a new INK_PENTIP_RECORD after an
 ** INK_SCALE_RECORD if the writing application does not want the pen tip
-** size to scale along with the ink.  If the pen tip scales to zero width, 
+** size to scale along with the ink.  If the pen tip scales to zero width,
 ** it should be rendered by the reading application according to the comment
 ** above.
 **
 ** The default pen tip if no pentip record exists is INK_PENTIP_ROUND, with a
 ** width of one twip.  The dimensions of a round nib specify diameter, not
 ** radius: the X/Y coordinate is the center of this diameter.  Similarly, for
-** for rectangular nibs, the X/Y coordinate is the center of the rectangle.  
+** for rectangular nibs, the X/Y coordinate is the center of the rectangle.
 **
 ** Note:
 ** This specification does not specify information for an algorithmic
@@ -1201,7 +1201,7 @@ typedef struct tag_INK_GROUP_RECORD {
 ** application to draw wider ink as the user presses down harder with the
 ** stylus.  Applications wishing to implement such features may do so using
 ** application-specific record types for this revision of the specification.
-** 
+**
 **------------------------------------------------------------------------*/
 
 typedef S16 INK_PENTIP, FAR *P_INK_PENTIP;
@@ -1248,7 +1248,7 @@ typedef struct tag_INK_PENTIP_RECORD {
 
 /*-------------------------------------------------------------------------
 ** For some applications, it will be important to know the sampling rate of
-** the pen digitizer. 
+** the pen digitizer.
 **
 ** This record would likely be present once in a bundle and would typically
 ** be after the INK_BUNDLE_RECORD, but before the first pen data.
@@ -1259,7 +1259,7 @@ typedef struct tag_INK_PENTIP_RECORD {
 ** ink at the specified rate.  It is likely that most types of rendering
 ** applications will render ink as rapidly as possible to construct a display
 ** in minimum time, and that some types of animation applications will
-** intentionally set an arbitrary sampling rate to vary the display rate.  
+** intentionally set an arbitrary sampling rate to vary the display rate.
 **
 ** Note:
 ** For hardware which supports a highly variable sampling rate, the writing
@@ -1328,15 +1328,15 @@ typedef struct tag_INK_UNITS_PER_Z_RECORD {
 ** start and end are likely to differ, a recommended practice for writing
 ** applications that use the tip force value to determine the "touch" points
 ** in a stroke is to mark those points using the touch bit in the INK_BUTTONS
-** structure.  
+** structure.
 **
 ** It is also recommended that vendors supporting tip force sensing in their
-** hardware linearize their transducers to the greatest extent possible.  
+** hardware linearize their transducers to the greatest extent possible.
 **
 ** Because of the likelihood that tip force transducers may not be accurately
 ** linearized, negative tip force values, while perhaps somewhat absurd
-** are possible and are permitted in this specification.  
-** 
+** are possible and are permitted in this specification.
+**
 **------------------------------------------------------------------------*/
 
 typedef struct tag_INK_UNITS_PER_FORCE_RECORD {
@@ -1366,8 +1366,8 @@ typedef struct tag_INK_UNITS_PER_FORCE_RECORD {
 ** subRecordTypes that they wish to use.  Then, using these subRecordTypes
 ** they can put a wide variety of information into the file.  By examining
 ** the appData signature and comparing it to theirs, an application can
-** decide whether it knows how to interpret the various subRecordtypes.  
-** 
+** decide whether it knows how to interpret the various subRecordtypes.
+**
 **------------------------------------------------------------------------*/
 
 typedef struct tag_INK_APP_RECORD {
@@ -1393,16 +1393,16 @@ typedef struct tag_INK_APP_RECORD {
 ** Uncompacted point format:
 ** -------------------------
 **
-** This structure immediately follows the rest of the INK_PENDATA_RECORD. 
+** This structure immediately follows the rest of the INK_PENDATA_RECORD.
 ** The structure has several optional components, present or not present as
 ** indicated by the INK_BUNDLE_FLAGS in the INK_BUNDLE_RECORD.  The format is
 ** a sequence of "point values", each containing all the scalar data for each
-** sampled tablet point.  
-** 
+** sampled tablet point.
+**
 ** In the uncompacted format, there is a single structure that contains all
 ** of the state information for each point from the tablet.  Components not
 ** present (as indicated by the INK_BUNDLE_FLAGS) are just that: not present,
-** do not exist, do not occupy space.  
+** do not exist, do not occupy space.
 **
 ** Compacted point format:
 ** -----------------------
@@ -1416,7 +1416,7 @@ typedef struct tag_INK_APP_RECORD {
 ** force data, and explicit starts and ends of strokes: the starts and ends
 ** of the strokes are then points that were considered to be such by the
 ** original application storing the data.    The INK_BUTTONS record reflects
-** the state of the next X/Y point following.  
+** the state of the next X/Y point following.
 **
 **------------------------------------------------------------------------*/
 
@@ -1493,12 +1493,12 @@ typedef U32 INK_BUTTONS, FAR * P_INK_BUTTONS;
 /**************************/
 
 /*-------------------------------------------------------------------------
-** INK_POINT data.  The INK_POINT structure varies in size depending on 
+** INK_POINT data.  The INK_POINT structure varies in size depending on
 ** flags set in the bundle header.  The XY32 position is always present, but
 ** the force, rho, height, angle, and buttons members are only present when
 ** indicated by the corresponding flag in the bundle header.  When optional
 ** data is present, it is present in the order defined by this structure;
-** that is, position, force, height, rho, angle, and finally buttons.  
+** that is, position, force, height, rho, angle, and finally buttons.
 **
 ** The INK_POINT structure has the following elements:
 **
@@ -1511,20 +1511,20 @@ typedef U32 INK_BUTTONS, FAR * P_INK_BUTTONS;
 ** height   - optional, present if inkHeightDataPresent is asserted
 **    Units are in pen unitsPerZ as specified by inkPointDefaultUnitsPerZ or
 **    by an INK_UNITS_PER_Z_RECORD, whichever is appropriate.  Units increase
-**    as the stylus is taken away from the tablet.  Zero means "just in 
+**    as the stylus is taken away from the tablet.  Zero means "just in
 **    contact".  Negative values could possibly result from spring action if
 **    the stylus is pressed hard, or if the tablet is not perfectly accurate.
 ** rho      - optional, present if inkRotationDataPresent is asserted
-**    Angles are measured in degrees from some nominal orientation of 
-**    "stylus button on top" (somewhat arbitrary).  Angles increase with 
+**    Angles are measured in degrees from some nominal orientation of
+**    "stylus button on top" (somewhat arbitrary).  Angles increase with
 **    clockwise rotation as seen from the rear end of the stylus.
 ** angle    - optional, present if inkAngleDataPresent is asserted
-**    Angles are measured in pen angle units from the vertical.  Theta 
+**    Angles are measured in pen angle units from the vertical.  Theta
 **    increases in the positive-X direction, phi in the positive-Y.
 ** buttons  - optional, present if inkButtonDataPresent is asserted
-**    
+**
 ** When the INK_BUNDLE_RECORD member compactionType is inkStdCompression,
-** all data in this structure is compressed according to the methods 
+** all data in this structure is compressed according to the methods
 ** described in reference section 23.0.  For more details on how to interpret
 ** the compressed data stream, see the sample code.  The bundle flags which
 ** indicate whether a particular piece of data is present are used regardless
@@ -1532,12 +1532,12 @@ typedef U32 INK_BUTTONS, FAR * P_INK_BUTTONS;
 ** in compressed format, it is NOT written in Intel order but rather most
 ** significant byte first.  In compressed form, some of the eight bit delta
 ** values are reserved for button data and elided (skipped) point counts.
-** This has two important ramifications.  1) When expecting a point, 
+** This has two important ramifications.  1) When expecting a point,
 ** compacted button data or elided point data may be encountered instead, and
 ** 2) when the inkButtonDataPresent flag is asserted in the bundle header,
 ** button data will appear in the place of a point and not in addition to a
 ** point.  If inkButtonDataPresent is not asserted, the reader need not check
-** the point data for the special case of button data; however, the point 
+** the point data for the special case of button data; however, the point
 ** data must still be checked to see if it is a count of elided points rather
 ** than an actual point.
 **
@@ -1561,7 +1561,7 @@ typedef struct tag_INK_POINT {
 
 
 /*-------------------------------------------------------------------------
-** The following default values are assumed before the start of any 
+** The following default values are assumed before the start of any
 ** INK_BUNDLE:
 **
 **------------------------------------------------------------------------*/
@@ -1587,7 +1587,7 @@ typedef struct tag_INK_POINT {
 **
 ** A recommended practice is always to use the compacted point format, not
 ** the uncompacted point format.  Sample code for reading and writing the
-** compacted format is included in an appendix.  
+** compacted format is included in an appendix.
 **
 ** This structure also immediately follows the rest of the
 ** INK_PENDATA_RECORD.
@@ -1601,10 +1601,10 @@ typedef struct tag_INK_POINT {
 ** The storing application, as an alternative to eliminating points, can
 ** specify a "skip" record for elided points.  The skipRecord indicates that
 ** a number of points were skipped, and the reading application is free to
-** insert values for the elided points (interpolating where appropriate). 
+** insert values for the elided points (interpolating where appropriate).
 ** The intent is to allow for accurate time information to be maintained
 ** between time stamps for synchronization with recorded voice, press-hold
-** gesture recognition, etc.  
+** gesture recognition, etc.
 **
 ** Compacted data is written most significant byte first so that reading
 ** applications can read the first byte and determine (from the top two bits)
@@ -1618,9 +1618,9 @@ typedef struct tag_INK_POINT {
 ** and MAX_S7.  Similarly, the reserved encoding for 8 bit deltas are all 8
 ** bit delta pairs where both X and Y are within the inclusive range MIN_S3
 ** and MAX_S3.  In revision 1.0 of Jot, three of the reserved encodings for 8
-** bit deltas are used for special cases: skip counts (reference section 
+** bit deltas are used for special cases: skip counts (reference section
 ** 27.0) and button changes (reference section 26.0).
-** 
+**
 ** x/y position:
 ** ------------
 **
@@ -1744,7 +1744,7 @@ typedef struct tag_INK_POINT {
 **      |1|0|(S3 delta-theta)|(S3 delta-phi)|
 **      -------------------------------------
 **
-** Note: 
+** Note:
 ** Leading bit values of |1|1| are reserved
 **
 **------------------------------------------------------------------------*/
@@ -1760,16 +1760,16 @@ typedef struct tag_INK_POINT {
 ** Since the X/Y data is always present, we use some of the reserved delta
 ** encodings to encode button states and elided (skipped) points.  We use the
 ** 8-bit delta encodings that are unused: the values that can fit into the
-** smaller 4-bit delta encodings. 
+** smaller 4-bit delta encodings.
 **
 ** Button/tip records:
 ** ------------------
 **
 ** It is assumed that the state of barrel buttons and the touching sensor on
 ** the stylus change infrequently.  A compacted button/tip record is only
-** included when the state changes in one of the switches.  The button state 
-** value applies to the X/Y point immediately following the button state 
-** record. 
+** included when the state changes in one of the switches.  The button state
+** value applies to the X/Y point immediately following the button state
+** record.
 **
 **
 ** (Taken from 8-bit byte delta X/Y: two bytes total)
@@ -1779,7 +1779,7 @@ typedef struct tag_INK_POINT {
 **              (delta-X)           (delta-Y)
 **
 ** An eight-bit delta with delta-X == 0 or 1, and delta-Y in the range
-** (-4..3) indicates a button state encoding. 
+** (-4..3) indicates a button state encoding.
 **
 ** It is likely to be the case that many hardware platforms have only one
 ** barrel button.
@@ -1794,10 +1794,10 @@ typedef struct tag_INK_POINT {
 **
 ** The lowest order bit of the delta-X bits is used to indicate that
 ** additional bytes follow: "1" indicates that the next byte is used for the
-** next 7 barrel buttons with state.  The high order bit of each sequential 
+** next 7 barrel buttons with state.  The high order bit of each sequential
 ** byte in the series is "1" if an additional byte must be fetched, "0"
-** otherwise.  In these additional bytes, the additional buttons are 
-** associated in order starting with the low-order bit.   
+** otherwise.  In these additional bytes, the additional buttons are
+** associated in order starting with the low-order bit.
 **
 **------------------------------------------------------------------------*/
 
@@ -1825,10 +1825,10 @@ typedef struct tag_INK_POINT {
 ** skip count value.
 **
 ** The elided points are points removed between the point immediately prior
-** to the skipped-point record and the point immediately afterward.  This 
-** implies that at least one point must follow every skip record (though 
+** to the skipped-point record and the point immediately afterward.  This
+** implies that at least one point must follow every skip record (though
 ** the point may not appear next in the stream if there are intervening
-** button state transitions).  Reading applications that are interested in 
+** button state transitions).  Reading applications that are interested in
 ** recovering elided points will typically interpolate.  Skip counts of zero
 ** are meaningless and not permitted.
 **

@@ -1,30 +1,30 @@
 /*                                            Utilities for the Authorization parts of libwww
              COMMON PARTS OF AUTHORIZATION MODULE TO BOTH SERVER AND BROWSER
-                                             
+
    This module is the interface to the common parts of Access Authorization (AA) package
    for both server and browser. Important to know about memory allocation:
-   
+
    Routines in this module use dynamic allocation, but free automatically all the memory
    reserved by them.
-   
+
    Therefore the caller never has to (and never should) free() any object returned by
    these functions.
-   
+
    Therefore also all the strings returned by this package are only valid until the next
    call to the same function is made. This approach is selected, because of the nature of
    access authorization: no string returned by the package needs to be valid longer than
    until the next call.
-   
+
    This also makes it easy to plug the AA package in: you don't have to ponder whether to
    free() something here or is it done somewhere else (because it is always done somewhere
    else).
-   
+
    The strings that the package needs to store are copied so the original strings given as
    parameters to AA functions may be freed or modified with no side effects.
-   
+
    Also note: The AA package does not free() anything else than what it has itself
    allocated.
-   
+
  */
 
 #ifndef HTAAUTIL_H
@@ -88,10 +88,10 @@ Default filenames
 Datatype definitions
 
   HTAASCHEME
-  
+
    The enumeration HTAAScheme represents the possible authentication schemes used by the
    WWW Access Authorization.
-   
+
  */
 
 typedef enum {
@@ -110,7 +110,7 @@ typedef enum {
 /*
 
   ENUMERATION TO REPRESENT HTTP METHODS
-  
+
  */
 
 typedef enum {

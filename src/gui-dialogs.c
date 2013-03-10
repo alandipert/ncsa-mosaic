@@ -2,7 +2,7 @@
  * NCSA Mosaic for the X Window System                                      *
  * Software Development Group                                               *
  * National Center for Supercomputing Applications                          *
- * University of Illinois at Urbana-Champaign                               * 
+ * University of Illinois at Urbana-Champaign                               *
  * 605 E. Springfield, Champaign IL 61820                                   *
  * mosaic@ncsa.uiuc.edu                                                     *
  *                                                                          *
@@ -241,7 +241,7 @@ mo_window *win = mo_fetch_window_by_id(XmxExtractUniqid ((int)client_data));
 /* ------------------------------------------------------------------------ */
 
 
-mo_status mo_save_window(mo_window *win, char *fname, 
+mo_status mo_save_window(mo_window *win, char *fname,
 					mo_format_token save_format)
 {
   char *efname = (char *)malloc (sizeof (char) * (__MAX_HOME_LEN__ * 2));
@@ -292,7 +292,7 @@ mo_status mo_save_window(mo_window *win, char *fname,
 			XmToggleButtonGetState(win->print_header_toggle_save);
           HTML_Print_Footers=
 			XmToggleButtonGetState(win->print_footer_toggle_save);
-          HTML_Print_Paper_Size_A4= 
+          HTML_Print_Paper_Size_A4=
 			XmToggleButtonGetState(win->print_a4_toggle_save);
 	}
       else /* cci app telling mosaic to save a file */
@@ -333,7 +333,7 @@ mo_status mo_save_window(mo_window *win, char *fname,
         }
       else if (save_format == mo_postscript)
         {
-          char *text = HTMLGetText (win->scrolled_win, 2 + win->font_family, 
+          char *text = HTMLGetText (win->scrolled_win, 2 + win->font_family,
 		win->current_node->url, win->current_node->last_modified);
           if (text)
             {
@@ -358,14 +358,14 @@ mo_status mo_save_window(mo_window *win, char *fname,
 static XmxCallback (save_win_cb)
 {
   char *fname = (char *)malloc (sizeof (char) * 128), efname[128+1];
-  mo_window *win = mo_fetch_window_by_id 
+  mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
   char *ptr=NULL;
 
   mo_busy ();
 
   XtUnmanageChild (win->save_win);
-  
+
   XmStringGetLtoR (((XmFileSelectionBoxCallbackStruct *)call_data)->value,
                    XmSTRING_DEFAULT_CHARSET,
                    &fname);
@@ -377,7 +377,7 @@ static XmxCallback (save_win_cb)
   mo_not_busy ();
 
   free (fname);
-  
+
   return;
 }
 
@@ -385,7 +385,7 @@ void format_sensitive(mo_window *win, int format) {
 
 Arg args[2];
 int n;
-  
+
 	if (format==mo_plaintext) { /*PLAIN*/
 		XmxSetToggleButton(win->print_header_toggle_save,XmxNotSet);
 		XmxSetToggleButton(win->print_footer_toggle_save,XmxNotSet);
@@ -460,7 +460,7 @@ int n;
 static XmxCallback (format_optmenu_cb) {
 
 mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  
+
 	win->save_format = XmxExtractToken ((int)client_data);
 
 	format_sensitive(win,win->save_format);
@@ -498,14 +498,14 @@ char fileBuf[2048],*fileBoxFileName;
       win->print_footer_toggle_save=XmxMakeToggleButton(workarea,
 	"Include Footnotes",save_print_footer_cb,0);
       XmxSetToggleButton(win->print_footer_toggle_save,get_pref_boolean(ePRINT_FOOTNOTES));
-      
+
       paper_size_toggle_box=XmxMakeRadioBox(workarea);
       win->print_a4_toggle_save = XmxMakeToggleButton
 	(paper_size_toggle_box,"A4 Paper Size" ,save_print_a4_cb,0);
       win->print_us_toggle_save = XmxMakeToggleButton
 	(paper_size_toggle_box,"US Letter Paper Size",save_print_us_cb,0);
       XmxSetToggleButton(win->print_a4_toggle_save,!get_pref_boolean(ePRINT_PAPER_SIZE_US));
-      XmxSetToggleButton(win->print_us_toggle_save,get_pref_boolean(ePRINT_PAPER_SIZE_US));      
+      XmxSetToggleButton(win->print_us_toggle_save,get_pref_boolean(ePRINT_PAPER_SIZE_US));
       format_label = XmxMakeLabel (workarea, "Format for document:" );
       /* XmxSetArg (XmNwidth, 210); */
 
@@ -549,14 +549,14 @@ char fileBuf[2048],*fileBoxFileName;
 	}
 
       win->format_optmenu = XmxRMakeOptionMenu (workarea, "",
-                                                format_optmenu_cb, 
+                                                format_optmenu_cb,
                                                 format_opts);
       XmxSetArg(XmNtopOffset,7);
       XmxSetConstraints
         (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_NONE, NULL, NULL, NULL, NULL);
       XmxSetConstraints
-        (win->format_optmenu->base, XmATTACH_FORM, XmATTACH_NONE, 
+        (win->format_optmenu->base, XmATTACH_FORM, XmATTACH_NONE,
          XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, format_label, NULL);
       /*swp*/
@@ -580,7 +580,7 @@ char fileBuf[2048],*fileBoxFileName;
     {
       XmFileSelectionDoSearch (win->save_win, NULL);
     }
-  
+
   /*SWP -- 10.12.95 -- Save File now goes to a specific filename*/
   XtVaGetValues(win->save_win,
                 XmNdirSpec, &fbfn,
@@ -627,7 +627,7 @@ static XmxCallback (savebinary_cancel_cb)
   mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
 
-  if (unlink(temp_binary_fnam)<0) 
+  if (unlink(temp_binary_fnam)<0)
     {
 	char *buf, *final, tmpbuf[80];
 	int final_len;
@@ -644,7 +644,7 @@ static XmxCallback (savebinary_cancel_cb)
 	sprintf(final,"\nUnable to Remove Local File:\n   %s\n\nRemove Error:\n   %s\n" ,(!temp_binary_fnam || !*temp_binary_fnam?" ":temp_binary_fnam),buf);
 
 	XmxMakeErrorDialog (win->base,
-                          final, 
+                          final,
                           "Remove Error" );
 	XtManageChild (Xmx_w);
 
@@ -659,7 +659,7 @@ static XmxCallback (savebinary_cancel_cb)
 /*
   free (cmd);
 */
-  
+
   return;
 }
 
@@ -711,12 +711,12 @@ char fileBuf[2048],*fileBoxFileName;
 			  XmDIALOG_FULL_APPLICATION_MODAL);
 		win->savebinary_win =
 			XmxMakeFileSBDialog(win->base,
-					    "NCSA Mosaic: Save Binary File To Local Disk" , 
+					    "NCSA Mosaic: Save Binary File To Local Disk" ,
 					    "Name for binary file on local disk:" ,
 					    savebinary_win_cb,
 					    0);
 		XmxAddCallback(win->savebinary_win,
-			       XmNcancelCallback, 
+			       XmNcancelCallback,
 			       savebinary_cancel_cb,
 			       0);
 	}
@@ -776,7 +776,7 @@ static XmxCallback (open_local_win_cb)
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
 
   XtUnmanageChild (win->open_local_win);
-  
+
   XmStringGetLtoR (((XmFileSelectionBoxCallbackStruct *)call_data)->value,
                    XmSTRING_DEFAULT_CHARSET,
                    &fname);
@@ -801,7 +801,7 @@ mo_status mo_post_open_local_window (mo_window *win)
 /*      Widget frame, workarea, format_label;*/
 
       win->open_local_win = XmxMakeFileSBDialog
-        (win->base, "NCSA Mosaic: Open Local Document" , 
+        (win->base, "NCSA Mosaic: Open Local Document" ,
          "Name of local document to open:" ,
          open_local_win_cb, 0);
     }
@@ -809,7 +809,7 @@ mo_status mo_post_open_local_window (mo_window *win)
     {
       XmFileSelectionDoSearch (win->open_local_win, NULL);
     }
-  
+
   XmxManageRemanage (win->open_local_win);
   return mo_succeed;
 }
@@ -844,7 +844,7 @@ static XmxCallback (open_win_cb)
       /* if URL is enclosed inside <brackets> then extract it */
       if ( strstr(url, "<") )
 	url = strtok(url, "<>");
-      
+
       xurl=mo_url_prepend_protocol(url);
       mo_load_window_text (win, xurl, NULL);
       /* The following free breaks things under the following conditions:
@@ -861,7 +861,7 @@ static XmxCallback (open_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("docview-menubar-file.html"),
          NULL, NULL);
       break;
@@ -880,32 +880,32 @@ mo_status mo_post_open_window (mo_window *win)
       Widget dialog_frame;
       Widget dialog_sep, buttons_form;
       Widget open_form, label;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->open_win = XmxMakeFormDialog 
+      win->open_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Open Document" );
       dialog_frame = XmxMakeFrame (win->open_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       open_form = XmxMakeForm (dialog_frame);
-      
+
       label = XmxMakeLabel (open_form, "URL To Open: " );
       XmxSetArg (XmNwidth, 310);
       win->open_text = XmxMakeTextField (open_form);
       XmxAddCallbackToText (win->open_text, open_win_cb, 0);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (open_form);
-      
+
       buttons_form = XmxMakeFormAndFourButtons
-        (open_form, open_win_cb, "Open" , 
-         "Clear" , "Dismiss" , 
-         "Help..." , 
+        (open_form, open_win_cb, "Open" ,
+         "Clear" , "Dismiss" ,
+         "Help..." ,
          0, 3, 1, 2);
 
       /* Constraints for open_form. */
@@ -918,18 +918,18 @@ mo_status mo_post_open_window (mo_window *win)
         (win->open_text, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, label, NULL);
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          win->open_text, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XmxManageRemanage (win->open_win);
-  
+
   return mo_succeed;
 }
 
@@ -946,7 +946,7 @@ mo_status mo_send_document_over_dtm (mo_window *win)
     return mo_fail;
 
   text = HTMLGetText (win->scrolled_win, 1, win->current_node->url, 0);
-  
+
   mo_dtm_send_text (win, win->current_node->title, text);
   free (text);
 
@@ -957,7 +957,7 @@ mo_status mo_send_document_over_dtm (mo_window *win)
 
 static XmxCallback (dtmout_win_cb)
 {
-  mo_window *win = mo_fetch_window_by_id 
+  mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
   char *port;
 
@@ -988,7 +988,7 @@ static XmxCallback (dtmout_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("docview-menubar-file.html"),
          NULL, NULL);
       break;
@@ -1004,31 +1004,31 @@ mo_status mo_post_dtmout_window (mo_window *win)
       Widget dialog_frame;
       Widget dialog_sep, buttons_form;
       Widget dtmout_form, label;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->dtmout_win = XmxMakeFormDialog 
+      win->dtmout_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Open DTM Outport" );
       dialog_frame = XmxMakeFrame (win->dtmout_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       dtmout_form = XmxMakeForm (dialog_frame);
-      
+
       label = XmxMakeLabel (dtmout_form, "DTM Output Port: " );
       XmxSetArg (XmNwidth, 240);
       win->dtmout_text = XmxMakeTextField (dtmout_form);
       XmxAddCallbackToText (win->dtmout_text, dtmout_win_cb, 0);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (dtmout_form);
-      
+
       buttons_form = XmxMakeFormAndThreeButtons
         (dtmout_form, dtmout_win_cb, "Open" ,
-	 "Dismiss" , "Help..." , 
+	 "Dismiss" , "Help..." ,
          0, 1, 2);
 
       /* Constraints for dtmout_form. */
@@ -1041,18 +1041,18 @@ mo_status mo_post_dtmout_window (mo_window *win)
         (win->dtmout_text, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, label, NULL);
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          win->dtmout_text, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XmxManageRemanage (win->dtmout_win);
-  
+
   return mo_succeed;
 }
 #endif /* HAVE_DTM */
@@ -1117,14 +1117,14 @@ static XmxCallback (mail_win_cb)
                              XmToggleButtonGetState(win->print_url_only)?
                              "url_only" : content_type,
            win->current_node ? win->current_node->url : NULL);
-      
+
       if (free_text && text)
         free (text);
       free (to);
       free (subj);
-      
+
       mo_not_busy ();
-      
+
       break;
     case 1:
       XtUnmanageChild (win->mail_win);
@@ -1132,8 +1132,8 @@ static XmxCallback (mail_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
-         mo_assemble_help_url ("docview-menubar-file.html"), 
+        (win,
+         mo_assemble_help_url ("docview-menubar-file.html"),
          NULL, NULL);
       break;
     }
@@ -1146,7 +1146,7 @@ void mail_sensitive(mo_window *win, int format) {
 
 Arg args[2];
 int n;
-  
+
 	if (format==mo_plaintext) { /*PLAIN*/
 		XmxSetToggleButton(win->print_header_toggle_mail,XmxNotSet);
 		XmxSetToggleButton(win->print_footer_toggle_mail,XmxNotSet);
@@ -1220,7 +1220,7 @@ int n;
 static XmxCallback (mail_fmtmenu_cb) {
 
 mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  
+
 	win->mail_format = XmxExtractToken ((int)client_data);
 
 	mail_sensitive(win,win->mail_format);
@@ -1241,26 +1241,26 @@ int i;
       Widget frame, workarea, format_label;
       Widget paper_size_toggle_box;
       Widget frame2, url_toggle_box;
-      
-          
+
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->mail_win = XmxMakeFormDialog 
+      win->mail_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Mail Document" );
       dialog_frame = XmxMakeFrame (win->mail_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       mail_form = XmxMakeForm (dialog_frame);
-      
+
       to_label = XmxMakeLabel (mail_form, "Mail To: " );
       XmxSetArg (XmNwidth, 335);
       win->mail_to_text = XmxMakeTextField (mail_form);
-      
+
       subj_label = XmxMakeLabel (mail_form, "Subject: " );
       win->mail_subj_text = XmxMakeTextField (mail_form);
 
@@ -1269,7 +1269,7 @@ int i;
         XmxSetArg (XmNmarginHeight, 5);
         frame = XmxMakeFrame (mail_form, XmxShadowEtchedIn);
         workarea = XmxMakeForm (frame);
-        
+
         /*swp*/
         win->print_header_toggle_mail=XmxMakeToggleButton(workarea,
           "Include Banners",mail_print_header_cb,0);
@@ -1329,7 +1329,7 @@ int i;
 	}
 
 	win->mail_fmtmenu = XmxRMakeOptionMenu (workarea, "",
-                                                mail_fmtmenu_cb, 
+                                                mail_fmtmenu_cb,
                                                 format_opts);
 
         XmxSetArg(XmNtopOffset,7);
@@ -1337,7 +1337,7 @@ int i;
           (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
            XmATTACH_NONE, NULL, NULL, NULL, NULL);
         XmxSetConstraints
-          (win->mail_fmtmenu->base, XmATTACH_FORM, XmATTACH_NONE, 
+          (win->mail_fmtmenu->base, XmATTACH_FORM, XmATTACH_NONE,
            XmATTACH_WIDGET,
            XmATTACH_FORM, NULL, NULL, format_label, NULL);
         /*swp*/
@@ -1367,7 +1367,7 @@ int i;
       win->print_url_only = XmxMakeToggleButton(url_toggle_box,
                                                 "Mail URL Only",
                                                 print_url_cb, 0);
-          
+
       XmxSetToggleButton(win->print_doc_only, 1);
       XmxSetToggleButton(win->print_url_only, 0);
       dialog_sep = XmxMakeHorizontalSeparator (mail_form);
@@ -1389,7 +1389,7 @@ int i;
 
       XmxSetOffsets (subj_label, 14, 0, 10, 0);
       XmxSetConstraints
-        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, 
+        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_NONE,
          win->mail_to_text, NULL, NULL, NULL);
       XmxSetOffsets (win->mail_subj_text, 10, 0, 5, 10);
@@ -1408,22 +1408,22 @@ int i;
          frame, NULL, NULL, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          frame2, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XmxManageRemanage (win->mail_win);
 
   return mo_succeed;
 }
 
-mo_status mo_print_window(mo_window *win, 
+mo_status mo_print_window(mo_window *win,
 			mo_format_token print_format, char *lpr)
 {
   char *fnam, *cmd;
@@ -1500,8 +1500,8 @@ mo_status mo_print_window(mo_window *win,
 
   oops:
     free (lpr);
-      
-  unlink(fnam); 
+
+  unlink(fnam);
   free (fnam);
 
   return mo_succeed;
@@ -1523,7 +1523,7 @@ static XmxCallback (print_win_cb)
       mo_busy ();
 
       lpr = XmxTextGetString (win->print_text);
-       
+
       if (!lpr)
         return;
       if (lpr[0] == '\0')
@@ -1532,7 +1532,7 @@ static XmxCallback (print_win_cb)
       mo_print_window(win, win->print_format, lpr);
 
       mo_not_busy ();
-      
+
       break;
     case 1:
       XtUnmanageChild (win->print_win);
@@ -1540,7 +1540,7 @@ static XmxCallback (print_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("docview-menubar-file.html"),
          NULL, NULL);
       break;
@@ -1554,7 +1554,7 @@ void print_sensitive(mo_window *win, int format) {
 
 Arg args[2];
 int n;
-  
+
 	if (format==mo_plaintext) { /*PLAIN*/
 		XmxSetToggleButton(win->print_header_toggle_print,XmxNotSet);
 		XmxSetToggleButton(win->print_footer_toggle_print,XmxNotSet);
@@ -1628,7 +1628,7 @@ int n;
 static XmxCallback (print_fmtmenu_cb) {
 
 mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  
+
 	win->print_format = XmxExtractToken ((int)client_data);
 
 	print_sensitive(win,win->print_format);
@@ -1651,18 +1651,18 @@ int i;
 
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->print_win = XmxMakeFormDialog 
+      win->print_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Print Document" );
       dialog_frame = XmxMakeFrame (win->print_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       print_form = XmxMakeForm (dialog_frame);
-      
+
       print_label = XmxMakeLabel (print_form, "Print Command: " );
       XmxSetArg (XmNwidth, 270);
       if (get_pref_boolean(eKIOSK) && get_pref_boolean(eKIOSKPRINT)) {
@@ -1676,7 +1676,7 @@ int i;
         XmxSetArg (XmNmarginHeight, 5);
         frame = XmxMakeFrame (print_form, XmxShadowEtchedIn);
         workarea = XmxMakeForm (frame);
-        
+
 	/*swp*/
 	win->print_header_toggle_print=XmxMakeToggleButton(workarea,
 
@@ -1742,7 +1742,7 @@ int i;
 	}
 
 	win->print_fmtmenu = XmxRMakeOptionMenu (workarea, "",
-                                                print_fmtmenu_cb, 
+                                                print_fmtmenu_cb,
                                                 format_opts);
 
         XmxSetArg(XmNtopOffset, 7);
@@ -1750,17 +1750,17 @@ int i;
           (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
            XmATTACH_NONE, NULL, NULL, NULL, NULL);
         XmxSetConstraints
-          (win->print_fmtmenu->base, XmATTACH_FORM, XmATTACH_NONE, 
+          (win->print_fmtmenu->base, XmATTACH_FORM, XmATTACH_NONE,
            XmATTACH_NONE,
            XmATTACH_FORM, NULL, NULL, NULL, NULL);
 	/*swp*/
         XmxSetArg(XmNtopOffset, 15);
 	XmxSetConstraints
-		(win->print_header_toggle_print, XmATTACH_WIDGET, XmATTACH_NONE, 
+		(win->print_header_toggle_print, XmATTACH_WIDGET, XmATTACH_NONE,
 		 XmATTACH_FORM, XmATTACH_NONE,
 		 format_label,NULL,NULL,NULL);
 	XmxSetConstraints
-		(win->print_footer_toggle_print, XmATTACH_WIDGET, XmATTACH_NONE, 
+		(win->print_footer_toggle_print, XmATTACH_WIDGET, XmATTACH_NONE,
 		 XmATTACH_FORM, XmATTACH_NONE,
 		 win->print_header_toggle_print,NULL,NULL,NULL);
 	XmxSetConstraints
@@ -1772,7 +1772,7 @@ int i;
       }
 
       dialog_sep = XmxMakeHorizontalSeparator (print_form);
-      
+
       buttons_form = XmxMakeFormAndThreeButtons
         (print_form, print_win_cb, "Print" ,
 	 "Dismiss" , "Help..." ,
@@ -1794,17 +1794,17 @@ int i;
          win->print_text, NULL, NULL, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          frame, buttons_form, NULL, NULL);
 
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XmxManageRemanage (win->print_win);
 
   return mo_succeed;
@@ -1851,7 +1851,7 @@ char *ptr=NULL,*tptr=NULL,*my_str=NULL;
 
 	searchlen=strlen(win->current_node->text);
 
-	/* search the first hit every time if by cci application */ 
+	/* search the first hit every time if by cci application */
 	if (cci_docommand) {
 		win->src_search_pos=0;
 	}
@@ -2024,7 +2024,7 @@ mo_window *win=mo_fetch_window_by_id(XmxExtractUniqid((int)client_data));
 		}
 
 		case 3: { /* help */
-			mo_open_another_window(win, 
+			mo_open_another_window(win,
 					       mo_assemble_help_url("docview-menubar-file.html"),
 					       NULL,
 					       NULL);
@@ -2043,7 +2043,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 		Widget dialog_frame;
 		Widget dialog_sep, buttons_form;
 		Widget search_form, label;
-      
+
 		/* Create it for the first time. */
 		XmxSetUniqid(win->id);
 		win->src_search_win=
@@ -2056,18 +2056,18 @@ mo_status mo_post_source_search_window(mo_window *win) {
 		/* Constraints for base. */
 		XmxSetConstraints(dialog_frame,
 				  XmATTACH_FORM,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  NULL,
 				  NULL,
-				  NULL, 
+				  NULL,
 				  NULL);
-      
+
 		/* Main form. */
 		search_form=
 			XmxMakeForm(dialog_frame);
-      
+
 		label=
 			XmxMakeLabel(search_form,
 				     "Find string in Source View: " );
@@ -2094,10 +2094,10 @@ mo_status mo_post_source_search_window(mo_window *win) {
 
 		dialog_sep=
 			XmxMakeHorizontalSeparator(search_form);
-      
+
 		buttons_form=
 			XmxMakeFormAndFourButtons(search_form,
-						  source_search_win_cb, 
+						  source_search_win_cb,
 						  "Find",
 						  "Reset",
 						  "Dismiss",
@@ -2137,7 +2137,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 				  XmATTACH_WIDGET,
 				  XmATTACH_FORM,
 				  NULL,
-				  NULL, 
+				  NULL,
 				  label,
 				  NULL);
 
@@ -2147,7 +2147,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 				  XmATTACH_WIDGET,
 				  XmATTACH_NONE,
 				  XmATTACH_WIDGET,
-				  XmATTACH_NONE, 
+				  XmATTACH_NONE,
 				  win->src_search_win_text,
 				  NULL,
 				  label,
@@ -2165,7 +2165,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 				  XmATTACH_NONE,
 				  XmATTACH_WIDGET,
 				  XmATTACH_NONE,
-				  win->src_search_caseless_toggle, 
+				  win->src_search_caseless_toggle,
 				  NULL,
 				  label,
 				  NULL);
@@ -2185,7 +2185,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 		XmxSetConstraints(dialog_sep,
 				  XmATTACH_WIDGET,
 				  XmATTACH_WIDGET,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  win->src_search_backwards_toggle,
 				  buttons_form,
@@ -2194,16 +2194,16 @@ mo_status mo_post_source_search_window(mo_window *win) {
 		XmxSetConstraints(buttons_form,
 				  XmATTACH_NONE,
 				  XmATTACH_FORM,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  NULL,
 				  NULL,
 				  NULL,
 				  NULL);
 	}
-  
+
 	XmxManageRemanage(win->src_search_win);
-  
+
 	return(mo_succeed);
 }
 
@@ -2223,7 +2223,7 @@ mo_window *win=mo_fetch_window_by_id(XmxExtractUniqid((int)client_data));
 		}
 
 		case 1: { /* Help */
-			mo_open_another_window(win, 
+			mo_open_another_window(win,
 					       mo_assemble_help_url("docview-menubar-file.html"),
 					       NULL,
 					       NULL);
@@ -2248,7 +2248,7 @@ mo_status mo_post_source_window(mo_window *win) {
 		Widget dialog_frame;
 		Widget dialog_sep, buttons_form;
 		Widget source_form, label, dlabel;
-      
+
 		/* Create it for the first time. */
 		XmxSetUniqid(win->id);
 		win->source_win=
@@ -2261,18 +2261,18 @@ mo_status mo_post_source_window(mo_window *win) {
 		/* Constraints for base. */
 		XmxSetConstraints(dialog_frame,
 				  XmATTACH_FORM,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  NULL,
 				  NULL,
 				  NULL,
 				  NULL);
-      
+
 		/* Main form. */
 		source_form=
 			XmxMakeForm(dialog_frame);
-      
+
 		label=
 			XmxMakeLabel(source_form,
 				     "URL: ");
@@ -2291,7 +2291,7 @@ mo_status mo_post_source_window(mo_window *win) {
 			  False);
 		win->source_date_text=
 			XmxMakeText(source_form);
-      
+
 		/* Info window: text widget, not editable. */
 		XmxSetArg(XmNscrolledWindowMarginWidth,
 			  10);
@@ -2309,7 +2309,7 @@ mo_status mo_post_source_window(mo_window *win) {
 			  80);
 		win->source_text=
 			XmxMakeScrolledText(source_form);
-      
+
 		dialog_sep=
 			XmxMakeHorizontalSeparator(source_form);
 
@@ -2331,7 +2331,7 @@ mo_status mo_post_source_window(mo_window *win) {
 			      0);
 		XmxSetConstraints(label,
 				  XmATTACH_FORM,
-				  XmATTACH_NONE, 
+				  XmATTACH_NONE,
 				  XmATTACH_FORM,
 				  XmATTACH_NONE,
 				  NULL,
@@ -2345,7 +2345,7 @@ mo_status mo_post_source_window(mo_window *win) {
 			      0);
 		XmxSetConstraints(dlabel,
 				  XmATTACH_WIDGET,
-				  XmATTACH_NONE, 
+				  XmATTACH_NONE,
 				  XmATTACH_FORM,
 				  XmATTACH_NONE,
 				  label,
@@ -2382,11 +2382,11 @@ mo_status mo_post_source_window(mo_window *win) {
 				  NULL);
 		XmxSetConstraints(XtParent(win->source_text),
 				  XmATTACH_WIDGET,
-				  XmATTACH_WIDGET, 
+				  XmATTACH_WIDGET,
 				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  win->source_date_text,
-				  dialog_sep, 
+				  dialog_sep,
 				  NULL,
 				  NULL);
 		XmxSetArg(XmNtopOffset,
@@ -2394,7 +2394,7 @@ mo_status mo_post_source_window(mo_window *win) {
 		XmxSetConstraints(dialog_sep,
 				  XmATTACH_NONE,
 				  XmATTACH_WIDGET,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  NULL,
 				  buttons_form,
@@ -2403,14 +2403,14 @@ mo_status mo_post_source_window(mo_window *win) {
 		XmxSetConstraints(buttons_form,
 				  XmATTACH_NONE,
 				  XmATTACH_FORM,
-				  XmATTACH_FORM, 
+				  XmATTACH_FORM,
 				  XmATTACH_FORM,
 				  NULL,
 				  NULL,
 				  NULL,
 				  NULL);
 	}
-  
+
 	XmxManageRemanage(win->source_win);
 
 	if (win->current_node) {
@@ -2432,7 +2432,7 @@ mo_status mo_search_window(mo_window *win,char *str, int backward, int caseless,
 {
   int rc;
 
-  /* search the first hit every time if by cci application */ 
+  /* search the first hit every time if by cci application */
   if (cci_docommand || news)
   {
     ((ElementRef *)win->search_start)->id = 0;
@@ -2460,9 +2460,9 @@ mo_status mo_search_window(mo_window *win,char *str, int backward, int caseless,
 			  (ElementRef *)win->search_end);
    }
    else {
-	rc = HTMLSearchText(win->scrolled_win, str, 
+	rc = HTMLSearchText(win->scrolled_win, str,
 			    (ElementRef *)win->search_start,
-			    (ElementRef *)win->search_end, 
+			    (ElementRef *)win->search_end,
 			    backward,
 			    caseless);
    }
@@ -2548,7 +2548,7 @@ static XmxCallback (search_win_cb)
       break;
     case 3: /* help */
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("docview-menubar-file.html"),
          NULL, NULL);
       break;
@@ -2564,36 +2564,36 @@ mo_status mo_post_search_window (mo_window *win)
       Widget dialog_frame;
       Widget dialog_sep, buttons_form;
       Widget search_form, label;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->search_win = XmxMakeFormDialog 
+      win->search_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Find In Document" );
       dialog_frame = XmxMakeFrame (win->search_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       search_form = XmxMakeForm (dialog_frame);
-      
+
       label = XmxMakeLabel (search_form, "Find string in document: " );
       XmxSetArg (XmNcolumns, 25);
       win->search_win_text = XmxMakeText (search_form);
       XmxAddCallbackToText (win->search_win_text, search_win_cb, 0);
 
-      win->search_caseless_toggle = XmxMakeToggleButton 
+      win->search_caseless_toggle = XmxMakeToggleButton
         (search_form, "Caseless Search" , NULL, 0);
       XmxSetToggleButton (win->search_caseless_toggle, XmxSet);
-      win->search_backwards_toggle = XmxMakeToggleButton 
+      win->search_backwards_toggle = XmxMakeToggleButton
         (search_form, "Backwards Search" , NULL, 0);
 
       dialog_sep = XmxMakeHorizontalSeparator (search_form);
-      
+
       buttons_form = XmxMakeFormAndFourButtons
-        (search_form, search_win_cb, 
+        (search_form, search_win_cb,
          "Find" , "Reset" ,
 	 "Dismiss" , "Help..." ,
 	 0, 1, 2, 3);
@@ -2616,7 +2616,7 @@ mo_status mo_post_search_window (mo_window *win)
          left to position, right to position. */
       XmxSetConstraints
         (win->search_caseless_toggle, XmATTACH_WIDGET, XmATTACH_NONE,
-         XmATTACH_WIDGET, XmATTACH_NONE, 
+         XmATTACH_WIDGET, XmATTACH_NONE,
          win->search_win_text, NULL, label, NULL);
       XmxSetOffsets (win->search_caseless_toggle, 8, 0, 2, 0);
 
@@ -2624,25 +2624,25 @@ mo_status mo_post_search_window (mo_window *win)
          bottom to nothing, left to position, right to position. */
       XmxSetConstraints
         (win->search_backwards_toggle, XmATTACH_WIDGET, XmATTACH_NONE,
-         XmATTACH_WIDGET, XmATTACH_NONE, win->search_caseless_toggle, 
+         XmATTACH_WIDGET, XmATTACH_NONE, win->search_caseless_toggle,
          NULL, label, NULL);
       XmxSetOffsets (win->search_backwards_toggle, 8, 0, 2, 0);
 
       XmxSetOffsets (dialog_sep, 8, 0, 0, 0);
       /* dialog_sep attaches top to search_backwards_toggle,
          bottom to buttons_form, left to form, right to form */
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          win->search_backwards_toggle, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XmxManageRemanage (win->search_win);
-  
+
   return mo_succeed;
 }
 
@@ -2737,13 +2737,13 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 		if ((!editorName) || (!strlen(editorName))) {
 /*
 			XmxMakeErrorDialog (win->save_win,
-				"Unable to get EDITOR environment variable.", 
+				"Unable to get EDITOR environment variable.",
 				"Edit Source Error");
 			return mo_fail;
 */
 			editorName="vi"; /* default to vi */
 			}
-		
+
 		}
 
 	/* write out source to tmp file with .html extension */
@@ -2768,7 +2768,7 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 		sprintf(final,"\nUnable to Open Editor Temp File:\n   %s\n\nOpen Error:\n   %s\n" ,(!sourceFileName || !*sourceFileName?" ":sourceFileName),buf);
 
 		XmxMakeErrorDialog (win->save_win,
-				    final, 
+				    final,
 				    "Edit Source Error" );
 
 		if (final) {
@@ -2798,7 +2798,7 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 			sprintf(final,"\nUnable to Write Editor Temp File:\n   %s\n\nWrite Error:\n   %s\n" ,(!sourceFileName || !*sourceFileName?" ":sourceFileName),buf);
 
 			XmxMakeErrorDialog (win->save_win,
-					    final, 
+					    final,
 					    "Edit Write Error" );
 
 			if (final) {
@@ -2819,7 +2819,7 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 	if (get_pref_boolean(eEDIT_COMMAND_USE_XTERM)) {
 	  sprintf(execString,"%s -T %s -e %s",
 		  get_pref_string(eXTERM_COMMAND),
-		  editorTitle, 
+		  editorTitle,
 		  editorCommand);
 
 		execArg[argCount++] = get_pref_string(eXTERM_COMMAND);
@@ -2831,8 +2831,8 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 		sprintf(execString,"%s %s\n",editorName,sourceFileName);
 		}
 
-	execArg[argCount++] = editorName; /* problem if there are spaces 
-					in this edit command....will have 
+	execArg[argCount++] = editorName; /* problem if there are spaces
+					in this edit command....will have
 					to parse and break up */
 	execArg[argCount++] = sourceFileName;
 	execArg[argCount++] = NULL;
@@ -2844,14 +2844,14 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 #endif
 	if (!pid) {
 		/* I'm the child */
-	        execvp(execArg[0], execArg); 
+	        execvp(execArg[0], execArg);
 #ifndef DISABLE_TRACE
 		if (srcTrace) {
 			fprintf(stderr,"Couldn't execute:\n%s\n",execString);
 		}
 #endif
 
-		_exit(-1); /*don't use regular exit() or mom's I/O channels 
+		_exit(-1); /*don't use regular exit() or mom's I/O channels
 				will close */
 		}
 
@@ -2874,7 +2874,7 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 	AddChildProcessHandler(pid, mo_done_editing, e);
 
   return mo_succeed;
-} 
+}
 
 
 

@@ -4,9 +4,9 @@
  * Permission is granted to copy and distribute source with out fee.
  * Commercialization of this product requires prior licensing
  * from the National Center for Supercomputing Applications of the
- * University of Illinois.  Commercialization includes the integration of this 
- * code in part or whole into a product for resale.  Free distribution of 
- * unmodified source and use of NCSA software is not considered 
+ * University of Illinois.  Commercialization includes the integration of this
+ * code in part or whole into a product for resale.  Free distribution of
+ * unmodified source and use of NCSA software is not considered
  * commercialization.
  *
  */
@@ -88,4 +88,4 @@ extern Data *DataSearchByLabelAndDOTAndDOST
 		PARAMS((char *s, int dot, int dost));
 extern int DataInList PARAMS((Data *d));
 
-#endif 
+#endif

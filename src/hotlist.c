@@ -77,11 +77,11 @@ void mo_reinit_hotmenu();
 
 /* This file provides support for hotlists of interesting
    documents within the browser.
-   
+
    Initially there will be a single hotlist, 'Default'.
 
    The old hotlist file format look like this:
-   
+
    ncsa-mosaic-hotlist-format-1            [identifying string]
    Default                                 [title]
    url Fri Sep 13 00:00:00 1986            [first word is url;
@@ -90,7 +90,7 @@ void mo_reinit_hotmenu();
    document title cached here              [cached title for above]
    [2-line sequence for single document repeated as necessary]
    ...
-   
+
    Turns out this format is bad for two reasons:
    (1) Document titles can have embedded carriage returns (usually
        on purpose).
@@ -171,14 +171,14 @@ void mo_append_item_to_hotlist (mo_hotlist *list,
       node->any.previous = list->nodelist_last;
       node->any.next = 0;
       node->any.position = node->any.previous->any.position + 1;
-      
+
       /* Now point forward from previous nodelist_last. */
       list->nodelist_last->any.next = node;
-      
+
       /* Now set up new nodelist_last. */
       list->nodelist_last = node;
     }
-  
+
   return;
 }
 
@@ -244,11 +244,11 @@ static void mo_recalculate_hotlist_positions (mo_hotlist *list)
 {
   mo_hot_item *hotnode;
   int count = 1;
-  
+
   for (hotnode = list->nodelist; hotnode != NULL;
        hotnode = hotnode->any.next)
     hotnode->any.position = count++;
-  
+
   return;
 }
 
@@ -397,7 +397,7 @@ static void mo_gui_add_hot_item (mo_hotlist *list, mo_hot_item *item)
 	     (highlight = mo_highlight_hotlist(&item->list)));
 	if (item->type == mo_t_list && highlight)
 	  free(highlight);
-	XmListAddItemUnselected 
+	XmListAddItemUnselected
 	  (win->hotlist_list,
 	   xmstr,
 	   item->any.position);
@@ -460,9 +460,9 @@ mo_status mo_add_item_to_hotlist (mo_hotlist *list, mo_item_type type,
     mo_insert_item_in_hotlist(list, item, position);
   else
     mo_append_item_to_hotlist (list,  item);
-  
+
   mo_gui_add_hot_item (list, item);
-  
+
   return mo_succeed;
 }
 
@@ -476,21 +476,21 @@ mo_status mo_add_item_to_hotlist (mo_hotlist *list, mo_item_type type,
 static void mo_load_hotlist_list (mo_window *win, Widget list)
 {
   mo_hot_item *node;
-  
+
   if (win->edithot_win && XtIsManaged(win->edithot_win))
     XtUnmanageChild (win->edithot_win);
   for (node = win->current_hotlist->nodelist; node != NULL;
        node = node->any.next)
     {
       char *highlight = NULL;
-      XmString xmstr = 
+      XmString xmstr =
         XmxMakeXmstrFromString
 	  (node->type == mo_t_url ?
 	   (get_pref_boolean(eDISPLAY_URLS_NOT_TITLES) ? node->hot.url : node->hot.title) :
 	   (highlight = mo_highlight_hotlist(&node->list)));
       if (node->type == mo_t_list && highlight)
 	free(highlight);
-      XmListAddItemUnselected 
+      XmListAddItemUnselected
         (list, xmstr, 0);
       XmStringFree (xmstr);
     }
@@ -531,7 +531,7 @@ static void mo_visit_hotlist_position (mo_window *win, int position)
 
 static XmxCallback (edit_or_insert_hot_cb)
 {
-  mo_window *win = mo_fetch_window_by_id 
+  mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
   char *title;
   edit_or_insert_hot_info *eht_info;
@@ -546,13 +546,13 @@ static XmxCallback (edit_or_insert_hot_cb)
       Xmx_n = 0;
       XtUnmanageChild (win->edithot_win);
       title = XmxTextGetString (eht_info->title_text);
-      
+
       {
         /* OK, now position is still cached in win->edithot_pos. */
         mo_hotlist *list = win->current_hotlist;
         mo_hot_item *hotnode;
 	mo_window *w = NULL;
-        
+
 	FindHotFromPos(hotnode, list, eht_info->pos);
 
         if (hotnode == NULL)
@@ -588,17 +588,17 @@ static XmxCallback (edit_or_insert_hot_cb)
 		   hotnode->any.position);
 #ifndef DISABLE_TRACE
 		if (srcTrace) {
-			fprintf (stderr, 
+			fprintf (stderr,
 				 "w->hotlist_list 0x%08x, xmstr 0x%08x, hotnode->position %d\n",
-				 w->hotlist_list, 
-				 xmstr, 
+				 w->hotlist_list,
+				 xmstr,
 				 hotnode->any.position);
 		}
 #endif
 		/* There is what appears to be a Motif UMR here... */
-		XmListAddItemUnselected 
-		  (w->hotlist_list, 
-		   xmstr, 
+		XmListAddItemUnselected
+		  (w->hotlist_list,
+		   xmstr,
 		   hotnode->any.position);
 		XmStringFree (xmstr);
               }
@@ -610,7 +610,7 @@ static XmxCallback (edit_or_insert_hot_cb)
 		free(path);
 	      }
 	  }
-        
+
         /* That's it! */
       }
     punt:
@@ -689,8 +689,8 @@ static XmxCallback (edit_or_insert_hot_cb)
     case 2:			/* Help... (Edit) */
     case 5:			/* Help... (Insert) */
       mo_open_another_window
-        (win, 
-         mo_assemble_help_url ("help-on-hotlist-view.html"), 
+        (win,
+         mo_assemble_help_url ("help-on-hotlist-view.html"),
          NULL, NULL);
       break;
     }
@@ -732,12 +732,12 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
   Widget eht_form, title_label, url_label, url_val, sep2;
   edit_or_insert_hot_info *eht_info;
   Widget togm, togm2, insert_tog, append_tog;
-  
+
   XmxSetUniqid (win->id);
   eht_info = (edit_or_insert_hot_info *)
     malloc(sizeof(edit_or_insert_hot_info));
   XmxSetArg (XmNuserData, (XtArgVal)eht_info);
-  ed_or_ins_w = XmxMakeFormDialog 
+  ed_or_ins_w = XmxMakeFormDialog
     (win->hotlist_win, isInsert ? "NCSA Mosaic: Insert Hotlist Entry"  :
      "NCSA Mosaic: Edit Hotlist Entry" );
   XtAddCallback(ed_or_ins_w, XmNdestroyCallback, mo_destroy_hot,
@@ -751,19 +751,19 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
   dialog_frame = XmxMakeFrame (ed_or_ins_w, XmxShadowOut);
 
   /* Constraints for ed_or_ins_w. */
-  XmxSetConstraints 
-    (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+  XmxSetConstraints
+    (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
      XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-  
+
   /* Main form. */
   eht_form = XmxMakeForm (dialog_frame);
-  
+
   title_label = XmxMakeLabel (eht_form, "Entry Title:" );
   XmxSetArg (XmNwidth, 335);
   eht_info->title_text = XmxMakeTextField (eht_form);
   XmxAddCallbackToText (eht_info->title_text, edit_or_insert_hot_cb,
 			isInsert*3);
-  
+
   eht_info->url_lab =
     url_label = XmxMakeLabel (eht_form, "URL:" );
 
@@ -803,12 +803,12 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
 				XmNset, True, NULL);
       sep2 = XmxMakeHorizontalSeparator (eht_form);
     }
-  
+
   buttons_form = XmxMakeFormAndThreeButtons
-    (eht_form, edit_or_insert_hot_cb, "Save" , 
+    (eht_form, edit_or_insert_hot_cb, "Save" ,
      "Dismiss" , "Help..." ,
      isInsert*3, isInsert*3+1, isInsert*3+2);
-  
+
   /* Constraints for eht_form. */
   XmxSetOffsets (title_label, 14, 0, 10, 0);
   XmxSetConstraints
@@ -818,7 +818,7 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
   XmxSetConstraints
     (eht_info->title_text, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_WIDGET,
      XmATTACH_FORM, NULL, NULL, title_label, NULL);
-  
+
   XmxSetOffsets (url_label, 12, 0, 10, 0);
   XmxSetConstraints
     (url_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_NONE,
@@ -829,8 +829,8 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
      XmATTACH_FORM, title_label, NULL, url_label, NULL);
 
   XmxSetArg (XmNtopOffset, 10);
-  XmxSetConstraints 
-    (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+  XmxSetConstraints
+    (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
      XmATTACH_FORM,
      url_val, isInsert ? togm : buttons_form, NULL, NULL);
   if (isInsert)
@@ -851,15 +851,15 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
 	(sep2, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
 	 XmATTACH_FORM, NULL, buttons_form, NULL, NULL);
     }
-  XmxSetConstraints 
-    (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+  XmxSetConstraints
+    (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
      XmATTACH_FORM,
      NULL, NULL, NULL, NULL);
-  
+
   return mo_succeed;
 }
 
-  
+
 static mo_status mo_do_edit_hotnode_title_win (mo_window *win, mo_hot_item
 					       *item, int position)
 {
@@ -868,7 +868,7 @@ static mo_status mo_do_edit_hotnode_title_win (mo_window *win, mo_hot_item
   /* This shouldn't happen. */
   if (!win->hotlist_win)
     return mo_fail;
-  
+
   if (!win->edithot_win)
     mo_create_ed_or_ins_hot_win (win, 0);
 
@@ -880,7 +880,7 @@ static mo_status mo_do_edit_hotnode_title_win (mo_window *win, mo_hot_item
 
   /* Manage the little sucker. */
   XmxManageRemanage (win->edithot_win);
-  
+
   /* Insert this title as a starting point. */
   XmxTextSetString (eht_info->title_text, item->hot.title);
 
@@ -915,7 +915,7 @@ static mo_status mo_edit_title_in_current_hotlist (mo_window *win,
 {
   mo_hotlist *list = win->current_hotlist;
   mo_hot_item *hotnode;
-  
+
   FindHotFromPos(hotnode, list, position);
 
   /* OK, now we have hotnode loaded. */
@@ -963,7 +963,7 @@ static mo_status mo_rbm_toggle_in_hotlist(mo_window *win,int position) {
 
 mo_hotlist *list = win->current_hotlist;
 mo_hot_item *hotnode;
-  
+
 	FindHotFromPos(hotnode, list, position);
 
 	if (!hotnode) { /* How did this happen? */
@@ -1038,7 +1038,7 @@ static void mo_insert_item_in_current_hotlist(mo_window *win)
     }
 
     mo_reinit_hotmenu();
-    
+
 }
 
 
@@ -1049,7 +1049,7 @@ static void mo_insert_item_in_current_hotlist(mo_window *win)
 static mo_root_hotlist *mo_new_root_hotlist (char *filename, char *title)
 {
   mo_root_hotlist *list;
-  
+
   list = (mo_root_hotlist *)malloc (sizeof (mo_root_hotlist));
   list->type = mo_t_list;
   list->nodelist = list->nodelist_last = 0;
@@ -1194,9 +1194,9 @@ static mo_root_hotlist *mo_read_hotlist (char *filename, char *home)
 
   /* amb - display update message for 2.4 users */
   {
-    fputs("Your hotlist file has been updated and is now saved as:\n", 
+    fputs("Your hotlist file has been updated and is now saved as:\n",
 	  stderr);
-    fputs(filename, stderr); 
+    fputs(filename, stderr);
     putc('\n', stderr);
   }
   /* Hey, whaddaya know, it is. */
@@ -1206,11 +1206,11 @@ static mo_root_hotlist *mo_read_hotlist (char *filename, char *home)
   while (1)
     {
       mo_hotnode *node;
-      
+
       status = fgets (line, MO_LINE_LENGTH, fp);
       if (!status || !(*line))
         goto done;
-      
+
       /* We've got a new node. */
       node = (mo_hotnode *)malloc (sizeof (mo_hotnode));
       node->type = mo_t_url;
@@ -1237,16 +1237,16 @@ static mo_root_hotlist *mo_read_hotlist (char *filename, char *home)
           free (node);
           goto done;
         }
-      
+
       node->title = strtok (line, "\n");
       if (!node->title)
         goto screwed_open_file;
       node->title = strdup (node->title);
       mo_convert_newlines_to_spaces (node->title);
-      
+
       mo_append_item_to_hotlist ((mo_hotlist *)list, (mo_hot_item *)node);
     }
-  
+
  done:
   fclose (fp);
   return list;
@@ -1285,12 +1285,12 @@ mo_status mo_dump_hotlist (mo_hotlist *list)
    Upon program startup an attempt will be made to load it out
    of its file; if this attempt isn't successful, it just plain
    doesn't exist yet.  Bummer.
-   
+
    Upon program exit it will be stored to its file.
 */
 
 /*
- * Called on initialization.  
+ * Called on initialization.
  * Tries to load the default hotlist.
  */
 mo_status mo_setup_default_hotlist (void)
@@ -1299,12 +1299,12 @@ mo_status mo_setup_default_hotlist (void)
   char *default_filename = get_pref_string(eDEFAULT_HOTLIST_FILE);
   char *hot_filename = get_pref_string(eDEFAULT_HOT_FILE);
   char *filename;
-  
+
   /* This shouldn't happen. */
   if (!home)
     home = "/tmp";
-  
-  filename = (char *)malloc 
+
+  filename = (char *)malloc
     ((strlen (home) + strlen (default_filename) + 8) * sizeof (char));
   sprintf (filename, "%s/%s", home, default_filename);
 
@@ -1318,12 +1318,12 @@ mo_status mo_setup_default_hotlist (void)
 /*      sprintf(filename, "%s/%s.html", home, default_filename); */
 /* New hotlist format... SWP */
       free(filename);
-      filename = (char *)malloc 
+      filename = (char *)malloc
 	((strlen (home) + strlen (hot_filename) + 8) * sizeof (char));
       sprintf (filename, "%s/%s", home, hot_filename);
       default_hotlist = mo_new_root_hotlist (filename, "Default");
     }
-  
+
   return mo_succeed;
 }
 
@@ -1509,7 +1509,7 @@ static void delete_hot_from_list (mo_hotlist *list, mo_hot_item *hotnode,
   free (hotnode);
   /* Recalculate positions in this hotlist. */
   mo_recalculate_hotlist_positions (list);
-  
+
   /* Do the GUI stuff. */
   while (win = mo_next_window (win))
     {
@@ -1519,12 +1519,12 @@ static void delete_hot_from_list (mo_hotlist *list, mo_hot_item *hotnode,
 	win->hot_cut_buffer = NULL;
     }
     mo_reinit_hotmenu();
-    
+
 }
 
 static XmxCallback (remove_confirm_cb)
 {
-  mo_window *win = mo_fetch_window_by_id 
+  mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
   int position = XmxExtractToken ((int)client_data);
 
@@ -1543,12 +1543,12 @@ static mo_status mo_delete_position_from_current_hotlist (mo_window *win,
 {
   mo_hotlist *list = win->current_hotlist;
   mo_hot_item *hotnode;
-  
+
   FindHotFromPos(hotnode, list, position);
 
   if (hotnode == NULL)
     return mo_fail;
-  
+
   /* OK, now we have hotnode loaded. */
 
   if (hotnode->type == mo_t_list)
@@ -1586,7 +1586,7 @@ static mo_status mo_delete_position_from_current_hotlist (mo_window *win,
 
 static XmxCallback (mailhot_win_cb)
 {
-  mo_window *win = mo_fetch_window_by_id 
+  mo_window *win = mo_fetch_window_by_id
     (XmxExtractUniqid ((int)client_data));
   char *to, *subj;
   FILE *fp;
@@ -1616,13 +1616,13 @@ static XmxCallback (mailhot_win_cb)
       }
 
       mo_finish_sending_mail_message ();
-      
+
     oops:
       free (to);
       free (subj);
 
       mo_not_busy ();
-            
+
       break;
     case 1:
       XtUnmanageChild (win->mailhot_win);
@@ -1630,8 +1630,8 @@ static XmxCallback (mailhot_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
-         mo_assemble_help_url ("help-on-hotlist-view.html"), 
+        (win,
+         mo_assemble_help_url ("help-on-hotlist-view.html"),
          NULL, NULL);
       break;
     }
@@ -1650,32 +1650,32 @@ static mo_status mo_post_mailhot_win (mo_window *win)
       Widget dialog_frame;
       Widget dialog_sep, buttons_form;
       Widget mailhot_form, to_label, subj_label;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->mailhot_win = XmxMakeFormDialog 
+      win->mailhot_win = XmxMakeFormDialog
         (win->hotlist_win, "NCSA Mosaic: Mail Hotlist" );
       dialog_frame = XmxMakeFrame (win->mailhot_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       mailhot_form = XmxMakeForm (dialog_frame);
-      
+
       to_label = XmxMakeLabel (mailhot_form, "Mail To:" );
       XmxSetArg (XmNwidth, 335);
       win->mailhot_to_text = XmxMakeTextField (mailhot_form);
-      
+
       subj_label = XmxMakeLabel (mailhot_form, "Subject:" );
       win->mailhot_subj_text = XmxMakeTextField (mailhot_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (mailhot_form);
-      
+
       buttons_form = XmxMakeFormAndThreeButtons
-        (mailhot_form, mailhot_win_cb, "Mail" , 
+        (mailhot_form, mailhot_win_cb, "Mail" ,
 	 "Dismiss" , "Help..." , 0, 1, 2);
 
       /* Constraints for mailhot_form. */
@@ -1690,28 +1690,28 @@ static mo_status mo_post_mailhot_win (mo_window *win)
 
       XmxSetOffsets (subj_label, 14, 0, 10, 0);
       XmxSetConstraints
-        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, 
+        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_NONE,
          win->mailhot_to_text, NULL, NULL, NULL);
       XmxSetOffsets (win->mailhot_subj_text, 10, 0, 5, 10);
       XmxSetConstraints
-        (win->mailhot_subj_text, XmATTACH_WIDGET, 
+        (win->mailhot_subj_text, XmATTACH_WIDGET,
          XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, win->mailhot_to_text, NULL, subj_label, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          win->mailhot_subj_text, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XtManageChild (win->mailhot_win);
-  
+
   return mo_succeed;
 }
 
@@ -1769,7 +1769,7 @@ static XmxCallback (hotlist_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("help-on-hotlist-view.html"),
          NULL, NULL);
       break;
@@ -1963,9 +1963,9 @@ static XmxCallback (hotlist_list_cb)
   URL_Include_Set(win,0,0);
 
   mo_visit_hotlist_position (win, cs->item_position);
-  
+
   /* Don't unmanage the list. */
-  
+
   return;
 }
 
@@ -1993,15 +1993,15 @@ mo_status mo_post_hotlist_win (mo_window *win)
       XmxSetUniqid (win->id);
       XmxSetArg (XmNwidth, 475);
       XmxSetArg (XmNheight, 342);
-      win->hotlist_win = XmxMakeFormDialog 
+      win->hotlist_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Hotlist View" );
       dialog_frame = XmxMakeFrame (win->hotlist_win, XmxShadowOut);
-      
+
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       hotlist_form = XmxMakeForm (dialog_frame);
 
@@ -2013,10 +2013,10 @@ mo_status mo_post_hotlist_win (mo_window *win)
 
       buttons1_form = XmxMakeFormAndFourButtons
         (hotlist_form, hotlist_win_cb, "Add Current" ,
-	 "Goto URL" , "Remove" , 
+	 "Goto URL" , "Remove" ,
 	 "Edit" , 3, 4, 5, 6);
       buttons2_form = XmxMakeFormAndThreeButtons
-        (hotlist_form, hotlist_win_cb, "Copy" , 
+        (hotlist_form, hotlist_win_cb, "Copy" ,
 	 "Insert" , "Up" ,
 	 7, 8, 9);
       XmxSetArg (XmNfractionBase, (XtArgVal)4);
@@ -2027,7 +2027,7 @@ mo_status mo_post_hotlist_win (mo_window *win)
       XmxSetArg (XmNresizable, False);
       XmxSetArg (XmNscrollBarDisplayPolicy, XmSTATIC);
       XmxSetArg (XmNlistSizePolicy, XmCONSTANT);
-      win->hotlist_list = 
+      win->hotlist_list =
         XmxMakeScrolledList (hotlist_form, hotlist_list_cb, 0);
       XtAugmentTranslations (win->hotlist_list, listTable);
       XtAddCallback(win->hotlist_list,
@@ -2041,7 +2041,7 @@ mo_status mo_post_hotlist_win (mo_window *win)
       URL_Include_Set(win,0,0);
 
       dialog_sep = XmxMakeHorizontalSeparator (hotlist_form);
-      
+
       buttons_form = XmxMakeFormAndFiveButtons(hotlist_form,
 					       hotlist_win_cb,
 					       "Mail To...",
@@ -2054,7 +2054,7 @@ mo_status mo_post_hotlist_win (mo_window *win)
 					       11,
 					       0,
 					       2);
-      
+
       /* Constraints for hotlist_form. */
       /* buttons1_form: top to nothing, bottom to hotlist_list,
          left to form, right to form. */
@@ -2064,32 +2064,32 @@ mo_status mo_post_hotlist_win (mo_window *win)
 	 XmATTACH_FORM, NULL, NULL, NULL, NULL);
       XmxSetOffsets (buttons1_form, 0, 0, 0, 0);
       XmxSetConstraints
-        (buttons1_form, 
-         XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+        (buttons1_form,
+         XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          win->hotlist_label, NULL, NULL, NULL);
       XmxSetOffsets (buttons2_form, 0, 2, 0, 0);
       XmxSetConstraints
-        (buttons2_form, 
-         XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+        (buttons2_form,
+         XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
 	 buttons1_form, NULL, NULL, NULL);
       /* list: top to form, bottom to rbm_toggle,
          etc... */
       XmxSetOffsets (XtParent (win->hotlist_list), 10, 10, 8, 8);
       XmxSetConstraints
-        (XtParent (win->hotlist_list), 
-         XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM, 
+        (XtParent (win->hotlist_list),
+         XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          buttons2_form, win->hotlist_rbm_toggle, NULL, NULL);
       XmxSetOffsets (win->hotlist_rbm_toggle, 0, 10, 6, 6);
       XmxSetConstraints
-        (win->hotlist_rbm_toggle, 
-         XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_NONE, 
+        (win->hotlist_rbm_toggle,
+         XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_NONE,
          NULL, dialog_sep, NULL, NULL);
-      XmxSetConstraints 
-        (dialog_sep, 
+      XmxSetConstraints
+        (dialog_sep,
          XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
       win->save_hotlist_win = win->load_hotlist_win = NULL;
@@ -2097,9 +2097,9 @@ mo_status mo_post_hotlist_win (mo_window *win)
       /* Go get the hotlist up to this point set up... */
       mo_load_hotlist_list (win, win->hotlist_list);
     }
-  
+
   XmxManageRemanage (win->hotlist_win);
-  
+
   return mo_succeed;
 }
 

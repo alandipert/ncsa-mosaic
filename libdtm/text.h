@@ -47,7 +47,7 @@
 /* TXTsetReplaceAll(char *header) */
 /* Boolean TXTshouldReplaceAll(char *header,int garbage) */
 #define TXTsetReplaceAll(h)	dtm_set_int(h,TXTra,1)
-#define TXTshouldReplaceAll(h,i)	(dtm_get_int(h,TXTra,&(i)) == -1)?0:1 
+#define TXTshouldReplaceAll(h,i)	(dtm_get_int(h,TXTra,&(i)) == -1)?0:1
 
 /* TXTsetDimension(char *header,int numBytes) */
 /* TXTgetDimension(char *header,int &numBytes) */

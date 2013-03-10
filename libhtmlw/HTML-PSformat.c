@@ -3,7 +3,7 @@
  * Purpose:	to parse Hypertext widget contents into appropriate PostScript
  *
  * Author:	Ameet A. Raval & Frans van Hoesel & Andrew Ford
- *		(aar@gfdl.gov & hoesel@chem.rug.nl). 
+ *		(aar@gfdl.gov & hoesel@chem.rug.nl).
  *		send bugreports to hoesel@chem.rug.nl
  *
  * Institution: for Ameet A. Raval:
@@ -24,7 +24,7 @@
  *			Montpelier, Bristol, BS6 5HR, GB
  *			E-mail: andrew@icarus.demon.co.uk
  *
- * Date:		1 aug 1993 
+ * Date:		1 aug 1993
  * Modification:	8 nov 1993
  *				o added support for bold/italics courier
  *				o removed unused or no longer needed stuff
@@ -49,8 +49,8 @@
  * WE MAKE NO REPRESENTATIONS ABOUT THE SUITABILITY OF THIS SOFTWARE FOR
  * ANY PURPOSE.  IT IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED
  * WARRANTY. WE SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY THE
- * USERS OF THIS SOFTWARE. 
- * 
+ * USERS OF THIS SOFTWARE.
+ *
  *		pieces of code are taken from xvps by kind
  *		permission of John Bradley.
  *
@@ -121,7 +121,7 @@ extern int SwapElements();
 			PSprintf("%s\n", txt[i]) ; 	\
 		} 					\
 }
-	
+
 /* STREQ tests whether two strings are equal. */
 #define STREQ(a, b)	(strcmp((a), (b)) == 0)
 
@@ -165,7 +165,7 @@ PAGE_DIMENS_T;
 PAGE_DIMENS_T	page_dimens;
 PAGE_DIMENS_T	a4_page_dimens = {
     297 * MM,
-    210 * MM, 
+    210 * MM,
      20 * MM,
      20 * MM,
      20 * MM,
@@ -201,7 +201,7 @@ extern Colormap installed_cmap;
  * screen
  *
  */
-static float 
+static float
 GetDpi(HTMLWidget hw)
 {
     Screen *s = XtScreen(hw);
@@ -228,17 +228,17 @@ GetDpi(HTMLWidget hw)
  *  in this call, otherwise it returns EOF (just as printf does)
  *
  */
-static int 
+static int
 PSprintf(char *format, ...)
 {
     int 	len;
     char 	*s;
     va_list	args;
 
-    if (PS_size - PS_len < 1024) 
+    if (PS_size - PS_len < 1024)
     {
 	PS_size += 1024;
-	if ((s = (char *) realloc(PS_string, PS_size)) == NULL) 
+	if ((s = (char *) realloc(PS_string, PS_size)) == NULL)
 	{
 #ifndef DISABLE_TRACE
 		if (htmlwTrace) {
@@ -254,7 +254,7 @@ PSprintf(char *format, ...)
     /* this is a hack to make it work on systems were vsprintf(s,...)
      * returns s, instead of the len.
      */
-    if (len != EOF && len != 0) 
+    if (len != EOF && len != 0)
 	PS_len += strlen(PS_string+PS_len);
     va_end(args);
     return(len);
@@ -270,13 +270,13 @@ PSprintf(char *format, ...)
  * PSprintf).
  *
  */
-static int 
+static int
 PShex(unsigned char val, int flush)
 {
     static unsigned char hexline[80];
     static char digit[] = "0123456789abcdef";
 
-    if (!flush) 
+    if (!flush)
     {
 	hexline[PS_hexi++] = (char) digit[((unsigned) val >>
 					   (unsigned) 4) & (unsigned) 0x0f];
@@ -287,7 +287,7 @@ PShex(unsigned char val, int flush)
     /* Changed from ">78" to ">77" on advice of
        debra@info.win.tue.nl (Paul De Bra). */
 
-    if ((flush && PS_hexi) || (PS_hexi>77)) 
+    if ((flush && PS_hexi) || (PS_hexi>77))
     {
 	hexline[PS_hexi] = '\0';
 	PS_hexi=0;
@@ -306,13 +306,13 @@ PShex(unsigned char val, int flush)
  *
  */
 static void
-PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily) 
+PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
 {
     PS_fontstyle fn;
     int style, size;
     int fs;
 
-    static PS_fontstyle fontstyle[17] = 
+    static PS_fontstyle fontstyle[17] =
     {
 	RF, IF, BF, FF, BF, BF, BF, BF, BF,
 	BF, IF, FF, FF, FB, FI, FB, FI
@@ -323,7 +323,7 @@ PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
     /* fontsizes as set in gui.c and in HTML.c (listing font is only
      * defined in HTML.c)
      */
-    static int fontsizes[4][3][17] = 
+    static int fontsizes[4][3][17] =
     {
 	/* times font sizes */
 	{
@@ -351,7 +351,7 @@ PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
 	}
     };
 
-    /* next is for each fontfamily the ascent value as given by the 
+    /* next is for each fontfamily the ascent value as given by the
      * medium sized bold x-font (the regular font has the same
      * ascent value for both the medium and the large size Century
      * font).
@@ -446,12 +446,12 @@ PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
 
     /* check size, by looking at the size of the regular font */
     size = 1;
-    if (hw->html.bold_font->ascent > medium_fontascent[fontfamily]) 
+    if (hw->html.bold_font->ascent > medium_fontascent[fontfamily])
     {
 	/* large font */
 	size = 2;
     }
-    else if (hw->html.bold_font->ascent < medium_fontascent[fontfamily]) 
+    else if (hw->html.bold_font->ascent < medium_fontascent[fontfamily])
     {
 	/* small font */
 	size = 0;
@@ -460,7 +460,7 @@ PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
     fs = fontsizes[fontfamily][size][style];
     PS_fontascent = fontascent[fontfamily][size][style];
 
-    if (fn != PS_oldfn || fs != PS_oldfs) 
+    if (fn != PS_oldfn || fs != PS_oldfs)
     {
 	PSprintf( "%2s %d SF\n", fnchar[fn], fs);
 	PS_oldfn=fn, PS_oldfs=fs;
@@ -475,26 +475,26 @@ PSfont(HTMLWidget hw, XFontStruct *font, int fontfamily)
  * Any accumulated footnotes are output and the outstanding footnote count
  * reset to zero.  Footnotes are preceded by a footnote rule and each footnote
  * is consists of a raised mark and the footnote text (i.e. the url).  The mark
- * is in a smaller font than the text.  The ideas are filched from LaTeX. 
+ * is in a smaller font than the text.  The ideas are filched from LaTeX.
  */
 static void
 PSshowpage(void)
 {
     PSprintf("restore\n");
-    if (n_saved_ftns > 0) 
+    if (n_saved_ftns > 0)
     {
 	int	i;
 
-	PSprintf("gsave 0.2 setlinewidth newpath %.2f %.2f M %.2f 0 RL stroke\n", 
+	PSprintf("gsave 0.2 setlinewidth newpath %.2f %.2f M %.2f 0 RL stroke\n",
 		 page_dimens.left_margin,
 		 (page_dimens.bot_margin + (footnote_ptsize * n_saved_ftns) + 4),
 		 (page_dimens.text_width * 0.4));
-	for (i = 0; n_saved_ftns; n_saved_ftns--, i++) 
+	for (i = 0; n_saved_ftns; n_saved_ftns--, i++)
 	{
-	    PSprintf("newpath %.2f %.2f M RF %.2f SF (%d) S 3 -2 R RF %d SF (%s) S\n", 
+	    PSprintf("newpath %.2f %.2f M RF %.2f SF (%d) S 3 -2 R RF %d SF (%s) S\n",
 		     page_dimens.left_margin,
 		     page_dimens.bot_margin + 5 + (n_saved_ftns - 1) * footnote_ptsize,
-		     (0.7 * footnote_ptsize), cur_ftn_no - n_saved_ftns, 
+		     (0.7 * footnote_ptsize), cur_ftn_no - n_saved_ftns,
 		     footnote_ptsize, footnotes[i]);
 	}
 	PSprintf("grestore\n");
@@ -512,10 +512,10 @@ PSshowpage(void)
  *
  */
 static void
-PSnewpage(void) 
+PSnewpage(void)
 {
     PS_curr_page++;
-    
+
     /* the PostScript reference Manual states that the Page: Tag
        should have a label and a ordinal; otherwise programs like
        psutils fail    -gustaf */
@@ -534,7 +534,7 @@ PSnewpage(void)
  * PSinit_latin1 - handle ISO encoding
  *
  * print out initializing PostScript text for ISO Latin1 font encoding
- * This code is copied from the Idraw program (from Stanford's InterViews 
+ * This code is copied from the Idraw program (from Stanford's InterViews
  * package), courtesy of Steinar Kjaernsr|d, steinar@ifi.uio.no
  *
  */
@@ -595,7 +595,7 @@ PSinit_latin1(void)
  *
  */
 static void
-PSinit(void) 
+PSinit(void)
 {
     PS_size = PS_len = PS_offset = PS_hexi = PS_page_offset = 0;
     PS_start_y = 0;
@@ -637,8 +637,8 @@ PSinit(void)
  *	title	title of document
  *	date	date modified/printed
  */
-static void 
-PSheader(char *title, int font, char *url, char *time_str) 
+static void
+PSheader(char *title, int font, char *url, char *time_str)
 {
     static char *notitle="Untitled";
     int set_to_null=0;
@@ -680,7 +680,7 @@ PSheader(char *title, int font, char *url, char *time_str)
     time_t		clock = time(NULL);
 
 #if !defined(VMS) || defined (__DECC)
-    strftime(time_buf, sizeof(time_buf), 
+    strftime(time_buf, sizeof(time_buf),
 	     "Printed %a %b %e %T %Y", localtime(&clock));
 #else
     sprintf(time_buf,"Printed %s",asctime(localtime(&clock)));
@@ -732,16 +732,16 @@ PSheader(char *title, int font, char *url, char *time_str)
     PSprintf("/title (%s) D\n", title);
     PSprintf("/date (%s) D\n", time_str);
     PSconst_out(txt);
-    
+
     /* Output the newpage definition. */
-    
+
     PSprintf("/NP {");
-    if (HTML_Print_Headers) 
+    if (HTML_Print_Headers)
     {
 	PSprintf("gsave 0.4 setlinewidth\n");
-	PSprintf("  newpath %.2f %.2f M %.2f 0 RL stroke", 
+	PSprintf("  newpath %.2f %.2f M %.2f 0 RL stroke",
 		 page_dimens.left_margin,
-		 (page_dimens.bot_margin + page_dimens.text_height), 
+		 (page_dimens.bot_margin + page_dimens.text_height),
 		 page_dimens.text_width);
 	PSprintf("  newpath %.2f %.2f M %.2f 0 RL stroke\n",
 		 page_dimens.left_margin, page_dimens.bot_margin,
@@ -751,7 +751,7 @@ PSheader(char *title, int font, char *url, char *time_str)
 		 (page_dimens.bot_margin + page_dimens.text_height + 6), title);
 	PSprintf("  nstr cvs dup stringwidth pop pgno stringwidth pop add\n");
 	PSprintf("  %.2f E sub %.2f M pgno S S\n",
-		 (page_dimens.left_margin + page_dimens.text_width), 
+		 (page_dimens.left_margin + page_dimens.text_width),
 		 (page_dimens.bot_margin + page_dimens.text_height + 6));
 	PSprintf("  BF 10 SF %.2f %.2f M (%s) S\n",
 		 page_dimens.left_margin, page_dimens.bot_margin - 12, url);
@@ -760,11 +760,11 @@ PSheader(char *title, int font, char *url, char *time_str)
 		 page_dimens.bot_margin - 12);
     }
     PSprintf("  %.2f %.2f translate %.5f %.5f scale } D\n",
-	     page_dimens.left_margin, 
+	     page_dimens.left_margin,
 	     page_dimens.bot_margin + page_dimens.text_height,
 	     Points_Pixel, Points_Pixel);
     PSinit_latin1();
-    
+
     PSprintf("%%%%EndProlog\n");
 
     if (set_to_null) {
@@ -802,9 +802,9 @@ PStrailer(void)
  *
  */
 static void
-PSmoveto(int x, int y) 
+PSmoveto(int x, int y)
 {
-    if (y > PS_start_y + Pixels_Page) 
+    if (y > PS_start_y + Pixels_Page)
     {
 	PS_start_y = y;
 	PSshowpage();
@@ -824,7 +824,7 @@ PSmoveto(int x, int y)
 static void
 PSmove_offset(int offset)
 {
-    if (offset != PS_offset) 
+    if (offset != PS_offset)
     {
 	PSprintf("0 %d R\n", PS_offset - offset );
 	PS_offset = offset;
@@ -836,12 +836,12 @@ PSmove_offset(int offset)
  * Return an indication of whether or not the current element has a footnote.
  *
  * an element has a footnote if it is text or an image and its anchorHRef is not null.
- * If the element is a textual element with an anchorHRef, that has been split across 
+ * If the element is a textual element with an anchorHRef, that has been split across
  * lines then it should be followed by a linefeed element and a text element with the
  * same anchorHRef.  In this case say that the element doesn't have a footnote so as
  * to avoid duplicate footnotes.
  */
-static int 
+static int
 has_footnote(struct ele_rec *el)
 {
     int			rc = 0;
@@ -904,10 +904,10 @@ has_footnote(struct ele_rec *el)
 static void
 PSfootnote(char *href, double height)
 {
-    PSprintf("gsave 0 %.2f R RF %d SF (%d) S grestore\n", 
+    PSprintf("gsave 0 %.2f R RF %d SF (%d) S grestore\n",
 	     height, footnote_ptsize, cur_ftn_no++);
 
-    if (n_saved_ftns == ftn_array_size) 
+    if (n_saved_ftns == ftn_array_size)
     {
 	ftn_array_size += 16;
 	if (!footnotes) {
@@ -917,7 +917,7 @@ PSfootnote(char *href, double height)
 		footnotes = (char **)realloc((void *)footnotes,
 				     (ftn_array_size * sizeof(char *)));
 	}
-	if (footnotes == NULL) 
+	if (footnotes == NULL)
 	{
 #ifndef DISABLE_TRACE
 		if (htmlwTrace) {
@@ -948,9 +948,9 @@ PStext(HTMLWidget hw, struct ele_rec *eptr, int fontfamily, String s)
     unsigned char	ch;
     int 		underline = eptr->underline_number;
     int		 	ascent;
-			  
+
     PSfont(hw, eptr->font, fontfamily);	/* set font */
-    if (PS_fontascent == 0) 
+    if (PS_fontascent == 0)
 	ascent = eptr->font->ascent;
     else
 	ascent = PS_fontascent;
@@ -961,7 +961,7 @@ PStext(HTMLWidget hw, struct ele_rec *eptr, int fontfamily, String s)
        every character stored as an octal escape (worst case scenario). */
 
     s2 = (String) malloc(strlen(s) * 4 + 1);
-    if (s2 == NULL) 
+    if (s2 == NULL)
     {
 #ifndef DISABLE_TRACE
 	if (htmlwTrace) {
@@ -982,14 +982,14 @@ PStext(HTMLWidget hw, struct ele_rec *eptr, int fontfamily, String s)
 	    *stmp++ = B_SLASH;
 	    *stmp++ = ch;
 	}
-	else if (ch > (unsigned char) MAX_ASCII) 
+	else if (ch > (unsigned char) MAX_ASCII)
 	{
 	    /*  convert to octal */
 	    *stmp++ = B_SLASH;
 	    *stmp++ = ((ch >> 6) & 007) + '0';
 	    *stmp++ = ((ch >> 3) & 007) + '0';
 	    *stmp++ = (ch & 007) + '0';
-	} 
+	}
 	else
 	{
 	    *stmp++ = ch;
@@ -997,7 +997,7 @@ PStext(HTMLWidget hw, struct ele_rec *eptr, int fontfamily, String s)
     }
     *(stmp) = '\0';
     PSprintf("(%s)%c\n", s2, (underline)?'U':'S');
-    if (HTML_Print_Footers && has_footnote(eptr)) 
+    if (HTML_Print_Footers && has_footnote(eptr))
     {
 	PSfootnote(eptr->anchorHRef, 0.7 * ascent);
     }
@@ -1012,10 +1012,10 @@ PStext(HTMLWidget hw, struct ele_rec *eptr, int fontfamily, String s)
  * of two. The size of the higher level bullets is just somewhat smaller
  *
  */
-static void 
+static void
 PSbullet(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 {
-    int 	width  = (  eptr->font->max_bounds.lbearing 
+    int 	width  = (  eptr->font->max_bounds.lbearing
 		          + eptr->font->max_bounds.rbearing);
     int 	offset = eptr->y_offset + eptr->font->ascent;
     int		level  = eptr->indent_level;
@@ -1123,7 +1123,7 @@ PSwidget(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
  * does the run-length encoding. This is done to reduce the file size and
  * therefore the time to send the file to the printer. You get longer
  * processing time instead.
- * 
+ *
  * rle is encoded as such:
  *  <count> <value>			# 'run' of count+1 equal pixels
  *  <count | 0x80> <count+1 data bytes>	# count+1 non-equal pixels
@@ -1131,18 +1131,18 @@ PSwidget(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
  *
  * returns length of the rleline vector
  *
-*/ 
+*/
 static int
-PSrle_encode(unsigned char *scanline, 
+PSrle_encode(unsigned char *scanline,
 	     unsigned char *rleline,
-	     int wide) 
+	     int wide)
 {
     int  i, j, blocklen, isrun, rlen;
     unsigned char block[256], pix;
 
     blocklen = isrun = rlen = 0;
 
-    for (i = 0; i < wide; i++) 
+    for (i = 0; i < wide; i++)
     {
 	/*  there are 5 possible states:
 	 *   0: block empty.
@@ -1154,23 +1154,23 @@ PSrle_encode(unsigned char *scanline,
 
 	pix = scanline[i];
 
-	if (!blocklen) 
+	if (!blocklen)
 	{
 	    /* case 0:  empty */
 	    block[blocklen++] = pix;
 	    isrun = 1;
 	}
-	else if (isrun) 
+	else if (isrun)
 	{
 	    if (pix == block[blocklen-1])
-	    { 
+	    {
 		/*  case 1:  isrun, prev==cur */
 		block[blocklen++] = pix;
 	    }
-	    else 
+	    else
 	    {
 		/*  case 2:  isrun, prev!=cur */
-		if (blocklen>1) 
+		if (blocklen>1)
 		{
 		    /*  we have a run block to flush */
 		    rleline[rlen++] = blocklen-1;
@@ -1188,12 +1188,12 @@ PSrle_encode(unsigned char *scanline,
 	    }
 	}
 	else
-	{ 
+	{
 	    /* not a run */
-	    if (pix == block[blocklen-1]) 
+	    if (pix == block[blocklen-1])
 	    {
 		/* case 3: non-run, prev==cur */
-		if (blocklen>1) 
+		if (blocklen>1)
 		{
 		    /*  have a non-run block to flush */
 		    rleline[rlen++] = (blocklen-1) | 0x80;
@@ -1202,7 +1202,7 @@ PSrle_encode(unsigned char *scanline,
 		    /*  start new run block with pix */
 		    block[0] = pix;
 		    blocklen = isrun = 1;
-		} 
+		}
 		else
 		{
 		    /*  blocklen<=1 turn into a run */
@@ -1210,17 +1210,17 @@ PSrle_encode(unsigned char *scanline,
 		    block[blocklen++] = pix;
 		}
 	    }
-	    else 
+	    else
 	    {
 		/* case 4:  non-run, prev!=cur */
 		block[blocklen++] = pix;
 	    }
 	}
-	
+
 	/* max block length.  flush */
 	if (blocklen == 128)
 	{
-	    if (isrun) 
+	    if (isrun)
 	    {
 		rleline[rlen++] = blocklen-1;
 		rleline[rlen++] = block[0];
@@ -1256,7 +1256,7 @@ PSrle_encode(unsigned char *scanline,
 
 
 /*
- * PScolor_image - created postscript colorimage operator 
+ * PScolor_image - created postscript colorimage operator
  *
  * spits out code that checks if the PostScript device in question
  * knows about the 'colorimage' operator.  If it doesn't, it defines
@@ -1265,8 +1265,8 @@ PSrle_encode(unsigned char *scanline,
  *
 */
 
-static void 
-PScolor_image(void) 
+static void
+PScolor_image(void)
 {
     static char *txt[] = {
 
@@ -1316,21 +1316,21 @@ PScolor_image(void)
 
     PSconst_out(txt);
 }
- 
+
 
 /*
  * PScolormap - write colormap
  *
  * spits out code for the colormap of the following image
  * if !color, it spits out a mono-ized graymap
- * 
+ *
 */
 static void
-PScolormap(int color, 
-	   int nc, 
-	   int *rmap, 
-	   int *gmap, 
-	   int *bmap) 
+PScolormap(int color,
+	   int nc,
+	   int *rmap,
+	   int *gmap,
+	   int *bmap)
 {
     int i;
 
@@ -1340,12 +1340,12 @@ PScolormap(int color,
     /*  load up the colormap */
     PSprintf("currentfile cmap readhexstring\n");
 
-    for (i=0; i<nc; i++) 
+    for (i=0; i<nc; i++)
     {
-	if (color)  
+	if (color)
 	    PSprintf("%02x%02x%02x ", rmap[i]>>8,
 		     gmap[i]>>8, bmap[i]>>8);
-	else  
+	else
 	    PSprintf("%02x ", MONO(rmap[i], gmap[i], bmap[i]));
 	if ((i%10) == 9)
 	    PSprintf("\n");
@@ -1357,10 +1357,10 @@ PScolormap(int color,
 
 /*
  * PSrle_cmapimage - define rlecmapimage operator
- * 
+ *
  */
 static void
-PSrle_cmapimage(int color) 
+PSrle_cmapimage(int color)
 {
 
     static char *txt[] = {
@@ -1413,11 +1413,11 @@ PSrle_cmapimage(int color)
     };
 
     PSconst_out(txt);
-    if (color) 
+    if (color)
     {
 	PSconst_out(txt_color);
-    } 
-    else 
+    }
+    else
     {
 	PSconst_out(txt_gray);
     }
@@ -1439,14 +1439,14 @@ PSwrite_bw(unsigned char *pic, int w, int h, int flipbw)
     int	i, j;
     int	err=0;
     unsigned char outbyte, bitnum, bit;
-    
+
     outbyte = bitnum = 0;
     for (i=0; i<h && err != EOF; i++) {
 	for (j=0; j<w && err != EOF; j++) {
 	    bit = *(pic++);
 	    outbyte = (outbyte<<1) | ((bit)&0x01);
 	    bitnum++;
-	    
+
 	    if (bitnum==8) {
 		if (flipbw)
 		    outbyte = ~outbyte & 0xff;
@@ -1463,7 +1463,7 @@ PSwrite_bw(unsigned char *pic, int w, int h, int flipbw)
 	}
     }
     err=PShex('\0', True);	/*  Flush the hex buffer if needed */
-    
+
     return err;
 }
 
@@ -1475,15 +1475,15 @@ PSwrite_bw(unsigned char *pic, int w, int h, int flipbw)
  * rectangle is shown.
  * If anchor is set, a black border is shown around the image.
  * Positioning is not exactly that of Xmosaic's screen, but close enough.
- * 
+ *
 */
 
-static void 
+static void
 PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 {
     ImageInfo 		*img = eptr->pic_data;
     unsigned char 	*imgp = img->image_data;
-    int 		anchor = (eptr->anchorHRef != NULL); 	
+    int 		anchor = (eptr->anchorHRef != NULL);
     int 		ncolors = img->num_colors;
     int 		i, j;
     int 		w = img->width;
@@ -1504,7 +1504,7 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 
 
     PSmove_offset(eptr->y_offset);
-    if (anchor) 
+    if (anchor)
     {
 	/*  draw an outline by drawing a slightly larger black square
 	 *  below the actual image
@@ -1515,8 +1515,8 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 	PSprintf("grestore\n");
 	extra = 4;
     }
-	
-    if (imgp == NULL) 
+
+    if (imgp == NULL)
     {
 	/*  image was not available... do something instead
 	 *  draw an empty square for example
@@ -1534,20 +1534,20 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 	return;
     }
 
-    /*  this is a hack to see if the image is Black & White, 
+    /*  this is a hack to see if the image is Black & White,
      *  Greyscale or 8 bit color
      *  assume it's bw if it has only one or two colors, both some grey's
      *  assume it's greyscale if all the colors (>2) are grey
      *  Images with only one color do occur too.
      */
-    
-    if (   (   (ncolors == 2) 
+
+    if (   (   (ncolors == 2)
 	    && (   (Isgray(img,0) && Isgray(img,1))
-	        || (Is_bg(img,0) && Is_fg(img,1)) 
+	        || (Is_bg(img,0) && Is_fg(img,1))
 	        || (Is_fg(img,0) && Is_bg(img,1)) ))
 	|| (   (ncolors == 1)
 	    && (Isgray(img,0)
-		|| Is_bg(img,0) 
+		|| Is_bg(img,0)
 		|| Is_fg(img,0))))
     {
 	colortype = F_BWDITHER;
@@ -1569,13 +1569,13 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 	    }
 	}
     }
-	
+
     /*  build a temporary dictionary */
     PSprintf("20 dict begin\n\n");
 
     /*  define string to hold a scanline's worth of data */
     PSprintf("/pix %d string def\n\n", slen);
-    
+
     /*  position and scaling */
     PSprintf("gsave currentpoint %d sub translate", h);
     if (anchor)
@@ -1583,45 +1583,45 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
     else
 	PSprintf(" 0 2 translate");
     PSprintf(" %d %d scale\n", w, h);
-    
-    if (colortype == F_BWDITHER) 
+
+    if (colortype == F_BWDITHER)
     {
 	/*  1-bit dither code uses 'image' */
 	int flipbw = 0;
-	
+
 	/*  set if color#0 is 'white' */
 	if ((ncolors == 2 &&
 	     MONO(img->reds[0], img->greens[0],img->blues[0]) >
 	     MONO(img->reds[1], img->greens[1], img->blues[1])) ||
-	    (ncolors == 1 && 
+	    (ncolors == 1 &&
 	     MONO(img->reds[0], img->greens[0],img->blues[0]) >
 	     MONO(127, 127, 127) ))
 	{
-	    flipbw=1; 
+	    flipbw=1;
 	}
-	
+
 	/*  dimensions of data */
 	PSprintf("%d %d %d\n", w, h, bits);
-	
+
 	/*  mapping matrix */
 	PSprintf("[%d 0 0 %d 0 %d]\n\n", w, -h, h);
-	
+
 	PSprintf("{currentfile pix readhexstring pop}\n");
 	PSprintf("image\n");
 
 	/*  write the actual image data */
 	err = PSwrite_bw(imgp, w, h, flipbw);
-    } 
+    }
     else
     {
 	/*  all other formats */
 	unsigned char *rleline = (unsigned char *) NULL;
 	int rlen;
-	
+
 	/*  if we're using color, make sure 'colorimage' is defined */
 	if (colorps)
 	    PScolor_image();
-	
+
 	PScolormap(colorps, ncolors, img->reds, img->greens, img->blues);
 	PSrle_cmapimage(colorps);
 
@@ -1630,9 +1630,9 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 	/*  mapping matrix */
 	PSprintf("[%d 0 0 %d 0 %d]\n", w, -h, h);
 	PSprintf("rlecmapimage\n");
-	
+
 	rleline = (unsigned char *) malloc(w * 2);
-	if (!rleline) 
+	if (!rleline)
 	{
 #ifndef DISABLE_TRACE
 		if (htmlwTrace) {
@@ -1643,7 +1643,7 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 		return;
 	}
 
-	for (i=0; i<h && err != EOF; i++) 
+	for (i=0; i<h && err != EOF; i++)
 	{
 	    rlen = PSrle_encode(imgp, rleline, w);
 	    imgp += w;
@@ -1653,14 +1653,14 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
 	}
 	free(rleline);
     }
-	
+
     /*  stop using temporary dictionary */
     PSprintf("end\n");
     PSprintf("grestore\n");
-	
+
     /*  move currentpoint just right of image */
-    PSprintf("%d 0 R\n", w + extra); 
-    if (HTML_Print_Footers && has_footnote(eptr)) 
+    PSprintf("%d 0 R\n", w + extra);
+    if (HTML_Print_Footers && has_footnote(eptr))
     {
 	PSmove_offset(0);
 	PSfootnote(eptr->anchorHRef, 2.0);
@@ -1699,11 +1699,11 @@ PSimage(HTMLWidget hw, struct ele_rec *eptr, int fontfamily)
  *	2: new century schoolbook
  *	3: lucida
  */
-String ParseTextToPSString(HTMLWidget	 	hw, 
+String ParseTextToPSString(HTMLWidget	 	hw,
 			   struct ele_rec	*elist,
 			   struct ele_rec	*startp,
 			   struct ele_rec	*endp,
-			   int			start_pos, 
+			   int			start_pos,
 			   int			end_pos,
 			   int			space_width,
 			   int			lmargin,
@@ -1720,11 +1720,11 @@ String ParseTextToPSString(HTMLWidget	 	hw,
     struct		ele_rec	*end;
     struct		ele_rec	*last;
     struct		ele_rec	*tmpptr;
-    unsigned long 	fg_pixel, bg_pixel;    
+    unsigned long 	fg_pixel, bg_pixel;
     int			footnotes_this_page = 0;
     int			footnotes_this_line;
     int			reserved_space;
- 	
+
     if (startp == NULL)
 	return(NULL);
 
@@ -1733,17 +1733,17 @@ String ParseTextToPSString(HTMLWidget	 	hw,
      * Get the foreground and background colors so we can check later
      * for black&white documents
      */
-    XtVaGetValues (hw->html.view, 
+    XtVaGetValues (hw->html.view,
 #ifdef MOTIF
 		   XtNforeground, &fg_pixel,
 #endif
-		   XtNbackground, &bg_pixel, 
+		   XtNbackground, &bg_pixel,
 		   NULL);
 #ifndef MOTIF
-    XtVaGetValues ((Widget)hw, 
+    XtVaGetValues ((Widget)hw,
 		   XtNforeground, &fg_pixel,
 		   NULL);
-#endif	
+#endif
     fg_color.pixel = fg_pixel;
     bg_color.pixel = bg_pixel;
     XQueryColor(XtDisplay(hw->html.view),
@@ -1758,12 +1758,12 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 		 DefaultColormap(XtDisplay(hw->html.view),
 				 DefaultScreen(XtDisplay(hw->html.view)))),
 		&bg_color);
-    
+
     /*  this piece of code is needed if the user selects a portion
      *  of the document with the mouse.
      *  I think it will never be used, but I left it in anyway. F.
      */
-    if (SwapElements(startp, endp, start_pos, end_pos)) 
+    if (SwapElements(startp, endp, start_pos, end_pos))
     {
 	start = endp;
 	end = startp;
@@ -1776,7 +1776,7 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 	start = startp;
 	end = endp;
     }
-	
+
     /* Setup page size according to user preference. */
 
     if (HTML_Print_Paper_Size_A4)
@@ -1785,10 +1785,10 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 	page_dimens = us_letter_page_dimens;
 
     page_dimens.text_height = (  page_dimens.page_height
-			       - page_dimens.top_margin 
+			       - page_dimens.top_margin
 			       - page_dimens.bot_margin);
     page_dimens.text_width  = (  page_dimens.page_width
-			       - page_dimens.left_margin 
+			       - page_dimens.left_margin
 			       - page_dimens.right_margin);
 
     /* Calculate the number of Postscript points per pixel of current
@@ -1808,10 +1808,10 @@ String ParseTextToPSString(HTMLWidget	 	hw,
      * wide), but I guess that the hw->html.doc_width includes some
      * left and right margins, so it seems to work in practice.
      */
-    if (pagewidth > page_dimens.text_width) 
+    if (pagewidth > page_dimens.text_width)
 	Points_Pixel = Points_Pixel * page_dimens.text_width / pagewidth;
-    Pixels_Page = (int) (page_dimens.text_height / Points_Pixel);		
-	
+    Pixels_Page = (int) (page_dimens.text_height / Points_Pixel);
+
     PSinit();
     PSheader(hw->html.title, fontfamily, url, time_str);
     PSnewpage();
@@ -1819,14 +1819,14 @@ String ParseTextToPSString(HTMLWidget	 	hw,
     last = start;
     eptr = start;
 
-    while ((eptr != NULL) && (eptr != end)) 
+    while ((eptr != NULL) && (eptr != end))
     {
 	/* Skip the special internal text added for multi-page
 	 * documents.
 	 */
-	if (eptr->internal == True) 
+	if (eptr->internal == True)
 	{
-	    if (eptr->type == E_LINEFEED) 
+	    if (eptr->type == E_LINEFEED)
 	    {
 		PS_page_offset += eptr->line_height;
 	    }
@@ -1835,14 +1835,14 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 	}
 
 	/* check if this is a newline */
-	if (line != eptr->line_number) 
+	if (line != eptr->line_number)
 	{
 	    /* calculate max height */
 	    height = 0;
 	    footnotes_this_line = 0;
 	    line = eptr->line_number;
 	    tmpptr = eptr;
-	    while (tmpptr != NULL && tmpptr->line_number == line) 
+	    while (tmpptr != NULL && tmpptr->line_number == line)
 	    {
 		if (tmpptr->line_height > height)
 		    height = tmpptr->line_height;
@@ -1856,18 +1856,18 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 		xpos = 0;
 
 	    /* check if line fits completly on page */
-	    
+
 	    reserved_space = 0;
-	    if (footnotes_this_page || footnotes_this_line) 
+	    if (footnotes_this_page || footnotes_this_line)
 	    {
 		reserved_space = (  (  footnote_space
 				     + (  footnote_ptsize
-					* (  footnotes_this_page 
+					* (  footnotes_this_page
 					   + footnotes_this_line)))
 				  / Points_Pixel);
 	    }
 
-	    if (ypos + height + reserved_space > PS_start_y + Pixels_Page) 
+	    if (ypos + height + reserved_space > PS_start_y + Pixels_Page)
 	    {
 		PS_start_y = ypos;
 		PSshowpage();
@@ -1877,24 +1877,24 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 	    footnotes_this_page += footnotes_this_line;
 	    PSmoveto( xpos, ypos);
 	}
-		
 
-	switch (eptr->type) 
+
+	switch (eptr->type)
 	{
 	case E_TEXT:
 	    PStext(hw, eptr, fontfamily,
 		   (String)((eptr == start) ? (eptr->edata + start_pos) : eptr->edata));
 	    break;
 
-	case E_BULLET: 
+	case E_BULLET:
 	    PSbullet(hw, eptr, fontfamily);
 	    break;
 
-	case E_IMAGE: 
+	case E_IMAGE:
 	    PSimage(hw, eptr, fontfamily);
 	    break;
 
-	case E_LINEFEED: 
+	case E_LINEFEED:
 	    break;
 
 	case E_HRULE:
@@ -1913,7 +1913,7 @@ String ParseTextToPSString(HTMLWidget	 	hw,
 	last = eptr;
 	eptr = eptr->next;
     }
-	
+
     PSshowpage();
     PStrailer();
 

@@ -28,7 +28,7 @@
 extern int www2Trace;
 #endif
 
-struct _HTStream 
+struct _HTStream
 {
   WWW_CONST HTStreamClass*	isa;
   /* ... */
@@ -55,7 +55,7 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 
 #ifndef DISABLE_TRACE
   if (www2Trace)
-    fprintf 
+    fprintf
       (stderr, "[HTCompressedFileToFile] Entered; fnam '%s', compressed %d\n",
        fnam, compressed);
 #endif
@@ -65,7 +65,7 @@ void HTCompressedFileToFile (char *fnam, int compressed)
     return;
 
   HTProgress ("Preparing to uncompress data.");
-  
+
   znam = (char *)malloc (sizeof (char) * (strlen (fnam) + 8));
 
   /* Either compressed or gzipped. */
@@ -161,11 +161,11 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 
 #ifndef DISABLE_TRACE
   if (www2Trace)
-    fprintf 
+    fprintf
       (stderr, "[HTCompressedFileToFile] Uncompressed '%s' with command '%s'\n",
        znam, cmd);
 #endif
-  
+
   free (cmd);
   free (znam);
 
@@ -178,10 +178,10 @@ void HTCompressedHText (HText *text, int compressed, int plain)
   char *fnam;
   FILE *fp;
   int rv, size_of_data;
-  
+
 #ifndef DISABLE_TRACE
   if (www2Trace)
-    fprintf 
+    fprintf
       (stderr, "[HTCompressedHText] Entered; compressed %d\n",
        compressed);
 #endif
@@ -199,7 +199,7 @@ void HTCompressedHText (HText *text, int compressed, int plain)
       fprintf (stderr, "[HTCompressedHText] size_of_data 0; punting\n");
       return;
     }
-  
+
   fnam = mo_tmpnam ((char *) 0);
   fp = fopen (fnam, "w");
   if (!fp)
@@ -240,7 +240,7 @@ void HTCompressedHText (HText *text, int compressed, int plain)
   HText_clearOutForNewContents (text);
 
   HText_beginAppend (text);
-  
+
   if (plain)
     {
 #ifndef DISABLE_TRACE
@@ -277,6 +277,6 @@ void HTCompressedHText (HText *text, int compressed, int plain)
   free (cmd);
 */
   unlink(fnam);
-  
+
   return;
 }

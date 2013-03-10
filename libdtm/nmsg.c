@@ -53,7 +53,7 @@
  *
  * Revision 1.15  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
 
 #endif
 */
@@ -124,7 +124,7 @@ static int dtm_send_control( fd, msg, msize, sendto_addr )
 	sendaddr[ MAX132 - 1 ] = '\0' ;
 
 	sockaddr.sin_family = AF_INET ;
-	CHECK_ERR( dtm_init_sockaddr( &sockaddr, sendaddr, &fLogical)); 
+	CHECK_ERR( dtm_init_sockaddr( &sockaddr, sendaddr, &fLogical));
 
 	/* Prepare iovec and send message length */
 
@@ -138,10 +138,10 @@ static int dtm_send_control( fd, msg, msize, sendto_addr )
 	{
 		DBGFLOW( "dtm_send_control: message length send error\n" );
 		return status ;
-	} 
+	}
 
 	/* Prepare iovec and send message */
-		
+
 	iov[ 0 ].iov_base = msg ;
 	iov[ 0 ].iov_len = msize ;
 
@@ -168,10 +168,10 @@ int DTMsendDiscard( fd, sendto_addr, set_or_clear )
 
 	sprintf( mbuf, MDISCARD, MROUTEID, set_or_clear );
 
-	DBGFLOW( "DTMsendDiscard: Message:- " ); 
+	DBGFLOW( "DTMsendDiscard: Message:- " );
 	DBGFLOW( mbuf ); DBGFLOW( "\n" );
 
-	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );  
+	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );
 }
 
 /*
@@ -193,8 +193,8 @@ int DTMsendDiscard( fd, sendto_addr, set_or_clear )
 int DTMsendRoute(int fd,char *sendto_addr,int addcount,char **add_addresses,
                         int delcount, char **del_addresses )
 #else
-int DTMsendRoute( fd, sendto_addr, addcount, add_addresses, 
-						delcount, del_addresses ) 
+int DTMsendRoute( fd, sendto_addr, addcount, add_addresses,
+						delcount, del_addresses )
 	int		fd;				/* output socket */
 	char	*sendto_addr;	/* destination address addr:port number */
 	int		addcount;		/* number of addresses to connect to */
@@ -212,18 +212,18 @@ int DTMsendRoute( fd, sendto_addr, addcount, add_addresses,
 	sprintf( mbuf, MROUTE, MROUTEID, delcount, addcount ) ;
 	while( delcount-- ) {
 		strncat( mbuf, " ", (MAX132-1));
-		strncat( mbuf, del_addresses[ delcount ], (MAX132 - 1)); 
+		strncat( mbuf, del_addresses[ delcount ], (MAX132 - 1));
 	}
 	while( addcount-- ) {
 		strncat( mbuf, " ", (MAX132-1));
-		strncat( mbuf, add_addresses[ addcount ], (MAX132 - 1)); 
+		strncat( mbuf, add_addresses[ addcount ], (MAX132 - 1));
 	}
-	mbuf[ MAX132 - 1 ] = '\0' ; 
+	mbuf[ MAX132 - 1 ] = '\0' ;
 
-	DBGFLOW( "DTMsendRoute: Message:- " ); 
+	DBGFLOW( "DTMsendRoute: Message:- " );
 	DBGFLOW( mbuf ); DBGFLOW( "\n" );
 
-	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );  
+	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );
 }
 
 /*
@@ -254,10 +254,10 @@ int dtm_nsend_ackroute( portname )
 	sprintf( mbuf, MACKROUTE, MACKROUTEID, refname, portname );
 	mbuf[ MAX132 - 1 ] = '\0' ;
 
-	DBGFLOW( "dtm_nsend_ackroute: Message:- " ); 
+	DBGFLOW( "dtm_nsend_ackroute: Message:- " );
 	DBGFLOW( mbuf ); DBGFLOW( "\n" );
 
-	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );  
+	return dtm_send_control( fd, mbuf, (strlen( mbuf ) + 1), sendto_addr );
 }
 
 /*
@@ -326,7 +326,7 @@ int DTMrecvRegistration(fd, buffer, len)
 		messages and sending routing messages.
 
 */
-		
+
 #ifdef DTM_PROTOTYPES
 int DTMmakeNameServerPort(char *portid)
 #else
@@ -335,7 +335,7 @@ int DTMmakeNameServerPort(portid)
 #endif
 {
   struct sockaddr_in	saddr;
-  
+
 
   saddr.sin_family = AF_INET;
   saddr.sin_addr.s_addr = htonl(0);

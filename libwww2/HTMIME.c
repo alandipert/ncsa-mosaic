@@ -43,7 +43,7 @@ char  *HTTP_expires;
 /*		MIME Object
 **		-----------
 */
-typedef enum _MIME_state 
+typedef enum _MIME_state
 {
   BEGINNING_OF_LINE,
   CONTENT_,
@@ -73,24 +73,24 @@ typedef enum _MIME_state
 } MIME_state;
 
 #define VALUE_SIZE 8192		/* @@@@@@@ Arbitrary? */
-struct _HTStream 
+struct _HTStream
 {
   WWW_CONST HTStreamClass *	isa;
-  
+
   MIME_state		state;		/* current state */
   MIME_state		if_ok;		/* got this state if match */
   MIME_state		field;		/* remember which field */
   MIME_state		fold_state;	/* state on a fold */
   WWW_CONST char *		check_pointer;	/* checking input */
-  
+
   char *		value_pointer;	/* storing values */
   char 			value[VALUE_SIZE];
-  
+
   HTParentAnchor *	anchor;		/* Given on creation */
   HTStream *		sink;		/* Given on creation */
-  
+
   char *	        boundary;	/* For multipart */
-  
+
   HTFormat		encoding;	/* Content-Transfer-Encoding */
   char *                compression_encoding;
   int                   content_length;
@@ -98,9 +98,9 @@ struct _HTStream
   HTFormat		format;		/* Content-Type */
   HTStream *		target;		/* While writing out */
   HTStreamClass		targetClass;
-  
+
   HTAtom *		targetRep;	/* Converting into? */
-  
+
   char *                location;
   char *		expires;
   char *		last_modified;
@@ -138,7 +138,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 	me->header_length ++; /* bjs - update this first */
     }
 
-  switch(me->state) 
+  switch(me->state)
     {
     case MIME_IGNORE:
 #ifndef DISABLE_TRACE
@@ -146,20 +146,20 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
         fprintf (stderr, "[HTMIME_put_character] Got MIME_IGNORE; returning...\n");
 #endif
       return;
-      
+
 /*    case MIME_TRANSPARENT:*/
-      
+
     case NEWLINE:
-      if (c != '\n' && WHITE(c)) 
+      if (c != '\n' && WHITE(c))
         {
           /* Folded line */
           me->state = me->fold_state;	/* pop state before newline */
           break;
         }
       /* else Falls through */
-      
+
     case BEGINNING_OF_LINE:
-      switch(c) 
+      switch(c)
         {
         case 'c':
         case 'C':
@@ -168,7 +168,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
           me->state = CHECK;
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Got C at beginning of line; checking for 'ontent-'\n");
 #endif
           break;
@@ -180,7 +180,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 		me->state = E;
 #ifndef DISABLE_TRACE
 		if (www2Trace)
-		fprintf (stderr, 
+		fprintf (stderr,
 			 "[MIME] Got E at beginning of line; checking for 'X'\n");
 #endif
 	  }
@@ -214,7 +214,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
           {
             int compressed = COMPRESSED_NOT;
 #ifndef DISABLE_TRACE
-            if (www2Trace) 
+            if (www2Trace)
               fprintf (stderr,
                        "HTMIME: DOING STREAMSTACK: MIME content type is %s, converting to %s\n",
                        HTAtom_name(me->format), HTAtom_name(me->targetRep));
@@ -251,10 +251,10 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 #endif
             me->target = HTStreamStack(me->format, me->targetRep, compressed,
                                        me->sink, me->anchor);
-            if (!me->target) 
+            if (!me->target)
               {
 #ifndef DISABLE_TRACE
-                if (www2Trace) 
+                if (www2Trace)
                   {
                     fprintf(stderr, "MIME: Can't translate! ** \n");
                     fprintf(stderr, "HTMIME: Defaulting to HTML.\n");
@@ -267,7 +267,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
                                            me->sink,
                                            me->anchor);
               }
-            if (me->target) 
+            if (me->target)
               {
                 me->targetClass = *me->target->isa;
 		/* Check for encoding and select state from there @@ */
@@ -276,17 +276,17 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
                 if (www2Trace)
                   fprintf (stderr, "[MIME] Entering MIME_TRANSPARENT\n");
 #endif
-                me->state = MIME_TRANSPARENT; 
+                me->state = MIME_TRANSPARENT;
 		/* bjs note: header is now completely read */
-		
-              } 
-            else 
+
+              }
+            else
               {
                 /* This is HIGHLY EVIL -- the browser WILL BREAK
                    if it ever reaches here.  Thus the default to
                    HTML above, which should always happen... */
 #ifndef DISABLE_TRACE
-                if (www2Trace) 
+                if (www2Trace)
                   fprintf (stderr, "MIME: HIT HIGHLY EVIL!!! ***\n");
 #endif
                 me->state = MIME_IGNORE;		/* What else to do? */
@@ -301,20 +301,20 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 #endif
           goto bad_field_name;
           break;
-          
+
 	} /* switch on character */
       break;
-      
+
     case CHECK:				/* Check against string */
-      if (TOLOWER(c) == *(me->check_pointer)++) 
+      if (TOLOWER(c) == *(me->check_pointer)++)
         {
-          if (!*me->check_pointer) 
+          if (!*me->check_pointer)
             me->state = me->if_ok;
-        } 
-      else 
+        }
+      else
         {		/* Error */
 #ifndef DISABLE_TRACE
-          if (www2Trace) 
+          if (www2Trace)
             fprintf(stderr,
                     "HTMIME: Bad character `%c' found where `%s' expected\n",
                     c, me->check_pointer - 1);
@@ -326,21 +326,21 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
     case CONTENT_:
 #ifndef DISABLE_TRACE
       if (www2Trace)
-        fprintf (stderr, 
+        fprintf (stderr,
                  "[MIME] in case CONTENT_\n");
 #endif
-      switch(c) 
+      switch(c)
         {
 	case 't':
 	case 'T':
           me->state = CONTENT_T;
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Was CONTENT_, found T, state now CONTENT_T\n");
 #endif
           break;
-          
+
 	case 'e':
 	case 'E':
           me->check_pointer = "ncoding:";
@@ -348,11 +348,11 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
           me->state = CHECK;
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Was CONTENT_, found E, checking for 'ncoding:'\n");
 #endif
           break;
-          
+
 	case 'l':
 	case 'L':
           me->check_pointer = "ength:";
@@ -360,29 +360,29 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
           me->state = CHECK;
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Was CONTENT_, found L, checking for 'ength:'\n");
 #endif
           break;
-          
+
 	default:
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Was CONTENT_, found nothing; bleah\n");
 #endif
           goto bad_field_name;
-          
+
 	} /* switch on character */
       break;
-      
+
     case CONTENT_T:
 #ifndef DISABLE_TRACE
       if (www2Trace)
-        fprintf (stderr, 
+        fprintf (stderr,
                  "[MIME] in case CONTENT_T\n");
 #endif
-      switch(c) 
+      switch(c)
         {
 	case 'r':
 	case 'R':
@@ -391,11 +391,11 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
           me->state = CHECK;
 #ifndef DISABLE_TRACE
           if (www2Trace)
-            fprintf (stderr, 
+            fprintf (stderr,
                      "[MIME] Was CONTENT_T; going to check for ansfer-encoding:\n");
 #endif
           break;
-          
+
 	case 'y':
 	case 'Y':
           me->check_pointer = "pe:";
@@ -406,7 +406,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
             fprintf (stderr, "[MIME] Was CONTENT_T; going to check for pe:\n");
 #endif
           break;
-          
+
 	default:
 #ifndef DISABLE_TRACE
           if (www2Trace)
@@ -544,25 +544,25 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
       me->state = SKIP_GET_VALUE;
       /* Fall through! (no break!) */
     case SKIP_GET_VALUE:
-      if (c == '\n') 
+      if (c == '\n')
         {
           me->fold_state = me->state;
           me->state = NEWLINE;
           break;
         }
-      if (WHITE(c)) 
+      if (WHITE(c))
         break;	/* Skip white space */
-      
+
       me->value_pointer = me->value;
-      me->state = GET_VALUE;   
+      me->state = GET_VALUE;
       /* Fall through to store first character */
-      
+
     case GET_VALUE:
-      if (WHITE(c)) 
+      if (WHITE(c))
         {
           /* End of field */
           *me->value_pointer = 0;
-          switch (me->field) 
+          switch (me->field)
             {
             case CONTENT_TYPE:
 #ifndef DISABLE_TRACE
@@ -593,7 +593,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
               me->encoding = HTAtom_for(me->value);
 #ifndef DISABLE_TRACE
               if (www2Trace)
-                fprintf (stderr, 
+                fprintf (stderr,
                          "[MIME_put_char] Picked up transfer_encoding '%s'\n",
                          (char*)me->encoding);
 #endif
@@ -602,8 +602,8 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
               me->compression_encoding = strdup (me->value);
 #ifndef DISABLE_TRACE
               if (www2Trace)
-                fprintf (stderr, 
-                         "[MIME_put_char] Picked up compression encoding '%s'\n", 
+                fprintf (stderr,
+                         "[MIME_put_char] Picked up compression encoding '%s'\n",
                          me->compression_encoding);
 #endif
               break;
@@ -614,8 +614,8 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 	      noLength=0;
 #ifndef DISABLE_TRACE
               if (www2Trace)
-                fprintf (stderr, 
-                         "[MIME_put_char] Picked up content length '%d'\n", 
+                fprintf (stderr,
+                         "[MIME_put_char] Picked up content length '%d'\n",
                          me->content_length);
 #endif
               break;
@@ -755,7 +755,7 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 	}
       else
         {
-          if (me->value_pointer < me->value + VALUE_SIZE - 1) 
+          if (me->value_pointer < me->value + VALUE_SIZE - 1)
             {
               *me->value_pointer++ = c;
               break;
@@ -766,25 +766,25 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
 	    }
 	}
       /* Fall through */
-      
+
     case JUNK_LINE:
-      if (c == '\n') 
+      if (c == '\n')
         {
           me->state = NEWLINE;
           me->fold_state = me->state;
 	}
       break;
-      
+
     } /* switch on state*/
-  
+
   return;
-  
+
  value_too_long:
 #ifndef DISABLE_TRACE
   if (www2Trace) fprintf(stderr,
                      "HTMIME: *** Syntax error. (string too long)\n");
 #endif
-  
+
  bad_field_name:				/* Ignore it */
   me->state = JUNK_LINE;
   return;
@@ -818,7 +818,7 @@ PRIVATE void HTMIME_put_string ARGS2(HTStream *, me, WWW_CONST char*, s)
       if (www2Trace)
         fprintf (stderr, "[HTMIME_put_string] Doing char-by-char put_character\n");
 #endif
-      for (p=s; *p; p++) 
+      for (p=s; *p; p++)
         HTMIME_put_character(me, *p);
     }
   else
@@ -857,7 +857,7 @@ PRIVATE void HTMIME_write ARGS3(HTStream *, me, WWW_CONST char*, s, int, l)
         fprintf (stderr, "[HTMIME_write] Doing char-by-char put_character\n");
 #endif
 
-      for (p=s; p < s+l; p++) 
+      for (p=s; p < s+l; p++)
         HTMIME_put_character(me, *p);
     }
   else
@@ -903,10 +903,10 @@ PRIVATE void HTMIME_free ARGS1(HTStream *, me)
       me->targetClass = *me->target->isa;
       (*me->targetClass.put_string) (me->target, "<H1>ERROR IN HTTP/1.0 RESPONSE</H1> The remote server returned a HTTP/1.0 response that Mosaic's MIME parser could not understand.  Please contact the server maintainer.<P> Sorry for the inconvenience,<P> <ADDRESS>The Management</ADDRESS>");
       securityType=HTAA_UNKNOWN;
-    } 
-  if (me->target) 
+    }
+  if (me->target)
     (*me->targetClass.free)(me->target);
-      
+
   if (me->expires)
      {
        char *p;
@@ -947,7 +947,7 @@ PRIVATE void HTMIME_free ARGS1(HTStream *, me)
 
 PRIVATE void HTMIME_end_document ARGS1(HTStream *, me)
 {
-  if (me->target) 
+  if (me->target)
     (*me->targetClass.end_document)(me->target);
 }
 
@@ -968,14 +968,14 @@ PRIVATE void HTMIME_handle_interrupt ARGS1(HTStream *, me)
 **	-----------------------
 */
 PUBLIC WWW_CONST HTStreamClass HTMIME =
-{		
+{
   "MIMEParser",
   HTMIME_free,
   HTMIME_end_document,
   HTMIME_put_character, 	HTMIME_put_string,
   HTMIME_write,
   HTMIME_handle_interrupt
-  }; 
+  };
 
 
 /*	Subclass-specific Methods
@@ -990,9 +990,9 @@ PUBLIC HTStream* HTMIMEConvert ARGS5(
         int,                    compressed)
 {
     HTStream* me;
-    
+
     me = malloc(sizeof(*me));
-    me->isa = &HTMIME;       
+    me->isa = &HTMIME;
 
 #ifndef DISABLE_TRACE
     if (www2Trace)
@@ -1021,6 +1021,6 @@ PUBLIC HTStream* HTMIMEConvert ARGS5(
 /* bjs - a kludge for HTFormat.c */
 int HTMIME_get_header_length(HTStream *me)
 {
-    if(me->isa != &HTMIME) return 0; /* in case we screw up */ 
+    if(me->isa != &HTMIME) return 0; /* in case we screw up */
     return me->header_length;
 }

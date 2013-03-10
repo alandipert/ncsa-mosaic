@@ -173,8 +173,8 @@ static void set_annotation_mode (mo_window *win, int mode)
 {
   win->annotation_mode = mode;
 
-  XmxSetSensitive 
-    (win->delete_button, 
+  XmxSetSensitive
+    (win->delete_button,
      mode == mo_edit_annotation ? XmxSensitive : XmxNotSensitive);
   return;
 }
@@ -230,12 +230,12 @@ static XmxCallback (annotate_win_cb)
                   for (i = 0; i < strlen (author); i++)
                     if (author[i] == '\"')
                       author[i] = '\'';
-                  
+
 		  /*
 		   * Add the new annotation to the server -- with its real URL
                    * if inside an HDF file, else the canonical form.
 		   */
-                  mo_new_grpan(mo_url_to_unique_document 
+                  mo_new_grpan(mo_url_to_unique_document
                                (win->current_node->url), title, author, txt);
 
                   mo_set_win_current_node (win, win->current_node);
@@ -263,8 +263,8 @@ static XmxCallback (annotate_win_cb)
 		  /*
 		   * Change the annotation on the server
 		   */
-                  mo_modify_grpan(mo_url_to_unique_document 
-                                  (win->current_node->url), 
+                  mo_modify_grpan(mo_url_to_unique_document
+                                  (win->current_node->url),
                                   title, author, txt);
 
                   mo_reload_window_text (win, 0);
@@ -282,10 +282,10 @@ static XmxCallback (annotate_win_cb)
             {
               if (win->annotation_mode == mo_new_annotation)
                 {
-                  mo_new_pan 
-                    (mo_url_to_unique_document (win->current_node->url), 
-                     XmxTextGetString (win->annotate_title), 
-                     XmxTextGetString (win->annotate_author), 
+                  mo_new_pan
+                    (mo_url_to_unique_document (win->current_node->url),
+                     XmxTextGetString (win->annotate_title),
+                     XmxTextGetString (win->annotate_author),
                      txt);
                   /* Inefficient, but safe. */
                   mo_write_pan_list ();
@@ -294,8 +294,8 @@ static XmxCallback (annotate_win_cb)
               else /* edit annotation */
                 {
                   mo_modify_pan (win->editing_id,
-                                 XmxTextGetString (win->annotate_title), 
-                                 XmxTextGetString (win->annotate_author), 
+                                 XmxTextGetString (win->annotate_title),
+                                 XmxTextGetString (win->annotate_author),
                                  txt);
                   /* Inefficient, but safe. */
                   mo_write_pan_list ();
@@ -325,7 +325,7 @@ static XmxCallback (passwd_toggle_cb)
 {
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
   int on = XmToggleButtonGetState (win->passwd_toggle);
-  
+
   if (on)
     {
       XmxSetSensitive (win->passwd_label, XmxSensitive);
@@ -353,7 +353,7 @@ static void do_slate (mo_window *win)
   sprintf (namestr, "%s (%s)",
            get_pref_string(eDEFAULT_AUTHOR_EMAIL),
            get_pref_string(eDEFAULT_AUTHOR_NAME));
-  
+
   XmxTextSetString (win->annotate_author, namestr);
 
   sprintf (namestr, "%s %s","Annotation by",
@@ -382,7 +382,7 @@ static XmxCallback (include_fsb_cb)
 
   XtUnmanageChild (win->include_fsb);
   fname = (char *)malloc (128 * sizeof (char));
-  
+
   XmStringGetLtoR (((XmFileSelectionBoxCallbackStruct *)call_data)->value,
                    XmSTRING_DEFAULT_CHARSET,
                    &fname);
@@ -406,8 +406,8 @@ static XmxCallback (include_fsb_cb)
 
 	sprintf(final,"\nUnable to Open File:\n   %s\n\nOpen Error:\n   %s\n",(!efname || !*efname?" ":efname),buf);
 
-	XmxMakeErrorDialog (win->annotate_win, 
-                          final, 
+	XmxMakeErrorDialog (win->annotate_win,
+                          final,
                           "Annotation Open Error");
 	XtManageChild (Xmx_w);
 
@@ -417,14 +417,14 @@ static XmxCallback (include_fsb_cb)
 	}
       return;
     }
-  
+
   while (1)
     {
       long pos;
       status = fgets (line, MO_LINE_LENGTH, fp);
       if (!status || !(*line))
         goto done;
-      
+
       XmTextInsert (win->annotate_text,
                     pos = XmTextGetInsertionPosition (win->annotate_text),
                     line);
@@ -452,7 +452,7 @@ static XmxCallback (include_button_cb)
     {
       XmFileSelectionDoSearch (win->include_fsb, NULL);
     }
-  
+
   XmxManageRemanage (win->include_fsb);
 
   return;
@@ -478,19 +478,19 @@ mo_status mo_delete_annotation (mo_window *win, int id)
     return mo_fail;
 
   mo_delete_pan (id);
-  
+
   /* Now that we've deleted the annotation, take care of
      business.  Damn, but this shouldn't have to happen here. */
   if (win->current_node->previous)
     {
       mo_node *prev = win->current_node->previous;
-      
+
       mo_kill_node (win, win->current_node);
       prev->next = NULL;
       win->current_node = prev;
       /* Set the text. */
       mo_reload_window_text (win, 0);
-    }      
+    }
   else
     {
       /* No previous node; this only happens if someone's dumb enough
@@ -502,7 +502,7 @@ mo_status mo_delete_annotation (mo_window *win, int id)
 
       mo_load_window_text (win, home_document, NULL);
     }
-  
+
   return mo_succeed;
 }
 
@@ -522,13 +522,13 @@ mo_status mo_delete_group_annotation (mo_window *win, char *url)
   if (win->current_node->previous)
     {
       mo_node *prev = win->current_node->previous;
-      
+
       mo_kill_node (win, win->current_node);
       prev->next = NULL;
       win->current_node = prev;
       /* Set the text. */
       mo_reload_window_text (win, 0);
-    }      
+    }
   else
     {
       /* No previous node; this only happens if someone's dumb enough
@@ -540,7 +540,7 @@ mo_status mo_delete_group_annotation (mo_window *win, char *url)
 
       mo_load_window_text (win, home_document, NULL);
     }
-  
+
   return mo_succeed;
 }
 
@@ -561,7 +561,7 @@ static XmxCallback (delete_button_cb)
     {
       mo_delete_group_annotation (win, win->current_node->url);
     }
-  
+
   return;
 }
 
@@ -605,7 +605,7 @@ static void do_privacy (mo_window *win)
 static XmxCallback (pubpri_opts_cb)
 {
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  
+
   win->pubpri = XmxExtractToken ((int)client_data);
 
 #ifdef GRPAN_PASSWD
@@ -627,7 +627,7 @@ static XmxCallback (pubpri_opts_cb)
    If mo_post_annotate_win is told it's supposed to edit,
    then it installs title, author, text, etc. as it sees fit.
 
-   If, while in edit mode, 'Clear Slate' gets hit, 
+   If, while in edit mode, 'Clear Slate' gets hit,
    mode flips to mo_edit_annotation regardless -- everything's wiped out.
    */
 
@@ -643,25 +643,25 @@ static void make_annotate_win (mo_window *win)
 #ifdef GRPAN_PASSWD
   Widget passwd_frame, passwd_f;
 #endif
-  
+
   /* Create it for the first time. */
   XmxSetUniqid (win->id);
   XmxSetArg (XmNresizePolicy, XmRESIZE_GROW);
-  win->annotate_win = XmxMakeFormDialog 
+  win->annotate_win = XmxMakeFormDialog
     (win->base, "NCSA Mosaic: Annotate Window" );
   dialog_frame = XmxMakeFrame (win->annotate_win, XmxShadowOut);
-  
+
   /* Constraints for base. */
-  XmxSetConstraints 
-    (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+  XmxSetConstraints
+    (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
      XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-  
+
   /* Main form. */
   annotate_form = XmxMakeForm (dialog_frame);
-  
+
   author_label = XmxMakeLabel (annotate_form, "Annotation Author:" );
   win->annotate_author = XmxMakeTextField (annotate_form);
-  
+
   title_label = XmxMakeLabel (annotate_form, "Annotation Title:" );
   win->annotate_title = XmxMakeTextField (annotate_form);
 
@@ -671,11 +671,11 @@ static void make_annotate_win (mo_window *win)
     (annotate_form, "", pubpri_opts_cb, pubpri_opts);
   XmxRSetSensitive (win->pubpri_menu, mo_annotation_public, XmxNotSensitive);
   if (!get_pref_string(eANNOTATION_SERVER))
-    XmxRSetSensitive (win->pubpri_menu, mo_annotation_workgroup, 
+    XmxRSetSensitive (win->pubpri_menu, mo_annotation_workgroup,
                       XmxNotSensitive);
   win->pubpri = mo_annotation_private;
 
-#ifdef GRPAN_PASSWD  
+#ifdef GRPAN_PASSWD
   /* --- Frame for the password fields. --- */
   XmxSetArg (XmNmarginWidth, 4);
   XmxSetArg (XmNmarginHeight, 4);
@@ -683,17 +683,17 @@ static void make_annotate_win (mo_window *win)
   passwd_frame = XmxMakeFrame (annotate_form, XmxShadowEtchedOut);
   passwd_f = XmxMakeForm (passwd_frame);
   {
-    win->passwd_toggle = XmxMakeToggleButton 
+    win->passwd_toggle = XmxMakeToggleButton
       (passwd_f, "Password Protection" , passwd_toggle_cb, 0);
     XmxSetToggleButton (win->passwd_toggle, XmxSet);
-    
+
     win->passwd_label = XmxMakeLabel (passwd_f, "Password:" );
     XmxSetArg (XmNcolumns, 20);
     win->annotate_passwd = XmxMakeTextField (passwd_f);
 
     XmxSetOffsets (win->passwd_toggle, 1, 0, 2, 10);
-    XmxSetConstraints 
-      (win->passwd_toggle, XmATTACH_FORM, XmATTACH_FORM, 
+    XmxSetConstraints
+      (win->passwd_toggle, XmATTACH_FORM, XmATTACH_FORM,
        XmATTACH_FORM, XmATTACH_NONE, NULL, NULL, NULL, NULL);
     XmxSetOffsets (win->passwd_label, 1, 0, 15, 10);
     XmxSetConstraints
@@ -705,14 +705,14 @@ static void make_annotate_win (mo_window *win)
        XmATTACH_WIDGET, XmATTACH_FORM, NULL, NULL, win->passwd_label, NULL);
   }
 #endif
-  
+
   logo = XmxMakeNamedLabel (annotate_form, NULL, "logo");
   XmxApplyBitmapToLabelWidget
     (logo, annotate_bits, annotate_width, annotate_height);
-  
+
   sep = XmxMakeHorizontalSeparator (annotate_form);
-  
-  text_label = XmxMakeLabel 
+
+  text_label = XmxMakeLabel
     (annotate_form, "Enter the annotation text:");
 
   clear_button = XmxMakePushButton
@@ -721,7 +721,7 @@ static void make_annotate_win (mo_window *win)
     (annotate_form, "Include File..." , include_button_cb, 0);
   win->delete_button = XmxMakePushButton
     (annotate_form, "Delete" , delete_button_cb, 0);
-  
+
   XmxSetArg (XmNscrolledWindowMarginWidth, 10);
   XmxSetArg (XmNscrolledWindowMarginHeight, 8);
   XmxSetArg (XmNcursorPositionVisible, True);
@@ -730,14 +730,14 @@ static void make_annotate_win (mo_window *win)
   XmxSetArg (XmNrows, 15);
   XmxSetArg (XmNcolumns, 80);
   win->annotate_text = XmxMakeScrolledText (annotate_form);
-  
+
   dialog_sep = XmxMakeHorizontalSeparator (annotate_form);
-  
+
   buttons_form = XmxMakeFormAndThreeButtonsSqueezed
     (annotate_form, annotate_win_cb, "Save" ,
-     "Dismiss" , "Help..." , 
+     "Dismiss" , "Help..." ,
      0, 1, 2);
-  
+
   /* Constraints for annotate_form. */
   /* author_label: top form, bottom nothing,
      left form, right nothing. */
@@ -757,7 +757,7 @@ static void make_annotate_win (mo_window *win)
   XmxSetOffsets (title_label, 14, 10, 10, 10);
   XmxSetConstraints
     (title_label, XmATTACH_WIDGET, XmATTACH_NONE,
-     XmATTACH_FORM, XmATTACH_NONE, 
+     XmATTACH_FORM, XmATTACH_NONE,
      win->annotate_author, NULL, NULL, NULL);
   /* annotate_title: top annotate_author, bottom nothing,
      left title_label, right logo. */
@@ -773,7 +773,7 @@ static void make_annotate_win (mo_window *win)
 #endif
   XmxSetConstraints
     (win->pubpri_menu->base, XmATTACH_WIDGET, XmATTACH_NONE,
-     XmATTACH_FORM, XmATTACH_NONE, 
+     XmATTACH_FORM, XmATTACH_NONE,
      win->annotate_title, NULL, NULL, NULL);
 #ifdef GRPAN_PASSWD
   /* passwd_frame: top annotate_title, bottom nothing,
@@ -793,7 +793,7 @@ static void make_annotate_win (mo_window *win)
     (sep, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
      XmATTACH_FORM, win->pubpri_menu->base, NULL, NULL, NULL);
 #endif /* not GRPAN_PASSWD */
-    
+
   /* text_label: top sep, bottom nothing,
      left form, right nothing */
   XmxSetOffsets (text_label, 12, 0, 10, 10);
@@ -801,7 +801,7 @@ static void make_annotate_win (mo_window *win)
     (text_label, XmATTACH_WIDGET, XmATTACH_NONE,
      XmATTACH_FORM, XmATTACH_NONE,
      sep, NULL, NULL, NULL);
-  
+
   /* Buttons */
   XmxSetOffsets (clear_button, 8, 0, 0, 3);
   XmxSetConstraints
@@ -818,27 +818,27 @@ static void make_annotate_win (mo_window *win)
     (win->delete_button, XmATTACH_WIDGET, XmATTACH_NONE,
      XmATTACH_NONE, XmATTACH_FORM,
      sep, NULL, NULL, NULL);
-  
+
   /* logo: top form, bottom nothing,
      left nothing, right form. */
   XmxSetOffsets (logo, 5, 10, 10, 5);
   XmxSetConstraints
     (logo, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_NONE, XmATTACH_FORM,
      NULL, NULL, NULL, NULL);
-  
+
   XmxSetOffsets (XtParent (win->annotate_text), 0, 2, 0, 0);
   XmxSetConstraints
-    (XtParent (win->annotate_text), XmATTACH_WIDGET, XmATTACH_WIDGET, 
+    (XtParent (win->annotate_text), XmATTACH_WIDGET, XmATTACH_WIDGET,
      XmATTACH_FORM, XmATTACH_FORM,
      text_label, dialog_sep, NULL, NULL);
-  
+
   XmxSetArg (XmNtopOffset, 10);
-  XmxSetConstraints 
-    (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, 
+  XmxSetConstraints
+    (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
      XmATTACH_FORM,
      NULL, buttons_form, NULL, NULL);
-  XmxSetConstraints 
-    (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+  XmxSetConstraints
+    (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
      XmATTACH_FORM,
      NULL, NULL, NULL, NULL);
 
@@ -848,7 +848,7 @@ static void make_annotate_win (mo_window *win)
   do_privacy (win);
 #endif
   win->include_fsb = 0;
-  
+
   return;
 }
 
@@ -865,8 +865,8 @@ static void make_annotate_win (mo_window *win)
      * window title should change (to Edit Annotation)
      * 'Annotate' should change to 'Commit'.
    Right now this doesn't happen. */
-mo_status mo_post_annotate_win 
-  (mo_window *win, int edit_flag, int id, char *title, char *author, 
+mo_status mo_post_annotate_win
+  (mo_window *win, int edit_flag, int id, char *title, char *author,
    char *text, char *fname)
 {
   if (!win->current_node)
@@ -875,7 +875,7 @@ mo_status mo_post_annotate_win
   /* First thing we do is create the window if it doesn't exist yet. */
   if (!win->annotate_win)
     make_annotate_win (win);
-  
+
   /* If we're in edit mode, then do the right thing. */
   if (edit_flag)
     {
@@ -891,7 +891,7 @@ mo_status mo_post_annotate_win
       else if (win->current_node->annotation_type == mo_annotation_workgroup)
         win->pubpri = mo_annotation_workgroup;
       XmxRSetOptionMenuHistory(win->pubpri_menu, win->pubpri);
-      
+
       XmxTextSetString (win->annotate_author, author);
       XmxTextSetString (win->annotate_title, title);
 #ifdef GRPAN_PASSWD
@@ -907,7 +907,7 @@ mo_status mo_post_annotate_win
 
   /* Finally, we manage. */
   XmxManageRemanage (win->annotate_win);
-  
+
   return mo_succeed;
 }
 

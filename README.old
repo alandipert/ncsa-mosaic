@@ -14,7 +14,7 @@ Binaries
 
 NCSA Mosaic is known to compile on the following platforms:
 
-  SGI (IRIX 4.0.x and 5.x) 
+  SGI (IRIX 4.0.x and 5.x)
   IBM (AIX 3.2.4)
   Sun (SunOS 4.1.3, 5.3, and 5.4 (Solaris))
   DECstation 5000-200 (Ultrix 4.x)
@@ -34,7 +34,7 @@ Installation Instructions
 -------------------------
 
 Simply examine the toplevel Makefile, change the appropriate
-customizable options, and type 'make'.  
+customizable options, and type 'make'.
 
 The final result is a single independent executable, src/Mosaic.
 
@@ -50,7 +50,7 @@ There is one tricky thing:
    platform-independent hierarchical scientific data format, and NCSA
    DTM, a network-based message-passing protocol useful for exchanging
    scientific data between applications.  If you compile one of them
-   in, you should compile both of them in.  
+   in, you should compile both of them in.
 
    If you don't already know what HDF and DTM are and want to compile
    Mosaic quickly, forget about them for the time being -- you can
@@ -111,7 +111,7 @@ depends on user feedback and support.
 =============================================================================
 Scott Powers    spowers@ncsa.uiuc.edu \        The N.C.S.A. X Mosaic
 Kristin Buxton  kbuxton@uiuc.edu       \         Development Team
-Dan Pape        dpape@ncsa.uiuc.edu     > 
+Dan Pape        dpape@ncsa.uiuc.edu     >
 Tommy Reilly    tpreilly@uiuc.edu      /  Comments? Suggestions? Problems?
 Brian Swetland  swetland@uiuc.edu     /       mosaic-x@ncsa.uiuc.edu
 =============================================================================

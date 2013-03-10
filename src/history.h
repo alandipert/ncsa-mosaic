@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -71,7 +71,7 @@ mo_status mo_kill_node (mo_window *, mo_node *);
 mo_status mo_kill_node_descendents (mo_window *, mo_node *);
 mo_status mo_add_node_to_history (mo_window *, mo_node *);
 char *mo_grok_title (mo_window *, char *, char *);
-mo_status mo_record_visit (mo_window *, char *, char *, 
+mo_status mo_record_visit (mo_window *, char *, char *,
                                   char *, char *, char *, char *);
 mo_status mo_back_node (mo_window *);
 mo_status mo_forward_node (mo_window *);

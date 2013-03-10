@@ -1,7 +1,7 @@
 /*                       ASSOCIATION LIST FOR STORING NAME-VALUE PAIRS
-                                             
+
    Lookups from assosiation list are not case-sensitive.
-   
+
  */
 
 #ifndef HTASSOC_H

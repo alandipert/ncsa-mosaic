@@ -4,7 +4,7 @@
 #
 # In all cases configure will check the dir you supply for all libs and
 # header files as well the lib and include subdirectories of that directory.
-# So if you do things right and install everything in a place like 
+# So if you do things right and install everything in a place like
 # /usr/local/include and /usr/local/lib
 # you can just enter /usr/local (the default) for every field.
 #

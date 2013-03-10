@@ -241,7 +241,7 @@ ClearJot(hw, w, width, height)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return;
 	}
 
@@ -253,7 +253,7 @@ ClearJot(hw, w, width, height)
 			hw->html.drawGC,
 			0, 0, jptr->width, jptr->height);
 	}
-	
+
 	FreeStrokes(jptr->strokes);
 	jptr->strokes = NULL;
 	jptr->last_stroke = NULL;
@@ -319,7 +319,7 @@ EVJotExpose(w, data, event)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return;
 	}
 
@@ -360,7 +360,7 @@ EVJotPress(w, data, event)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return;
 	}
 
@@ -409,12 +409,12 @@ EVJotMove(w, data, event)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return;
 	}
 
 	if (jptr->drawing == False)
-	{	
+	{
 		return;
 	}
 
@@ -463,12 +463,12 @@ EVJotRelease(w, data, event)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return;
 	}
 
 	if (jptr->drawing == False)
-	{	
+	{
 		return;
 	}
 
@@ -521,7 +521,7 @@ EJB_JOTfromJot(w)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return(NULL);
 	}
 
@@ -648,12 +648,12 @@ JOTfromJot(w, buffer_len)
 
 	jptr = GetJot(w);
 	if (jptr == NULL)
-	{	
+	{
 		return(NULL);
 	}
 
 	dlen = sizeof(MY_INK_POINT) * jptr->stroke_cnt;
-                
+
 	dataArray = (MY_INK_POINT *)malloc(dlen);
 	cnt = 0;
 	sptr = jptr->strokes;
@@ -692,7 +692,7 @@ JOTfromJot(w, buffer_len)
 	pptr = (INK_PENDATA_RECORD *)malloc(inkRecordPenDataSize(dlen));
 	pptr->header.recordType = inkRecordPenData;
 	pptr->header.recordLength = inkRecordPenDataSize(dlen);
-	pptr->bounds.origin.x = jptr->min_x; 
+	pptr->bounds.origin.x = jptr->min_x;
 	pptr->bounds.origin.y = jptr->min_y;
 	pptr->bounds.size.w = jptr->max_x - jptr->min_x + 1;
 	pptr->bounds.size.h = jptr->max_y - jptr->min_y + 1;
@@ -719,7 +719,7 @@ JOTfromJot(w, buffer_len)
 	bcopy((char *)pptr, (char *)(buffer + inkRecordBundleSize),
 		inkRecordPenDataSize(dlen));
 */
-	memcpy((char *)(buffer + inkRecordBundleSize), (char *)pptr, 
+	memcpy((char *)(buffer + inkRecordBundleSize), (char *)pptr,
 		inkRecordPenDataSize(dlen));
 /*
 	bcopy((char *)eptr, (char *)(buffer + inkRecordBundleSize +

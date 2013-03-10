@@ -757,9 +757,9 @@ $NEW_DESCRIPTOR (string_interval);
 /*
  * Written by: Tommy Reilly
  *
- * Simple function that stat's a file to see if it exists. 
+ * Simple function that stat's a file to see if it exists.
  *
- * Simple returns 1 or 0. 
+ * Simple returns 1 or 0.
  */
 int file_exists(char* name)
 {
@@ -783,7 +783,7 @@ int file_exists(char* name)
  * Written by: Tommy Reilly (with major code snarfing from Scott Powers)
  *
  * This is essentially Scott's my_move function re-written without rename
- * and without erasing the source file. 
+ * and without erasing the source file.
  *
  * If "overwrite" is true, the destination file will automatically be
  * overwritten. If it is false and the file exists, my_move will return
@@ -810,32 +810,32 @@ int my_copy(char *src, char *dest, char *retBuf, int bufsize, int overwrite)
   char *cmd;
   int ret;
 #endif
-  
-  if (!retBuf) 
+
+  if (!retBuf)
     {
       return(SYS_NO_RETBUF);
     }
 
-  if (!src || !*src) 
+  if (!src || !*src)
     {
       strcpy(retBuf,"There was no source file specified.\n");
       return(SYS_NO_SRC_FILE);
     }
-	
-  if (!dest || !*dest) 
+
+  if (!dest || !*dest)
     {
       strcpy(retBuf,"There was no destination file specified.\n");
       return(SYS_NO_DEST_FILE);
     }
-  
+
   *retBuf='\0';
-  
-  if (!overwrite) 
+
+  if (!overwrite)
     {
 #if defined(MULTINET) && defined(__alpha)
       if (decc$stat(dest,&dest_stat))
 #else
-      if (stat(dest,&dest_stat)) 
+      if (stat(dest,&dest_stat))
 #endif
 	{
 	  sprintf(retBuf,"Stat [%s] error:\n     File already exists.\n",dest);
@@ -843,64 +843,64 @@ int my_copy(char *src, char *dest, char *retBuf, int bufsize, int overwrite)
 	}
     }
 
-  
+
 #ifndef VMS  /* Must copy file header as well as contents. PGE */
-  if ((fd_src=open(src,O_RDONLY))==(-1)) 
+  if ((fd_src=open(src,O_RDONLY))==(-1))
     {
       copy_error=strdup(my_strerror(errno));
 
-      if (!copy_error) 
+      if (!copy_error)
 	{
 	  strcpy(retBuf,"There was not enough memory allocate.\n");
 	  return(SYS_NO_MEMORY);
 	}
-      
-      if (strlen(copy_error)>(bufsize-strlen(retBuf))) 
+
+      if (strlen(copy_error)>(bufsize-strlen(retBuf)))
 	{
 	  fprintf(stderr,"%s\n",copy_error);
 	}
-      else 
+      else
 	{
 	  sprintf(retBuf,"%sCopy([%s] to [%s]) error:\n     %s\n\n",retBuf,src,dest,copy_error);
 	}
       free(copy_error);
-      
+
       return(SYS_SRC_OPEN_FAIL);
     }
-  
-  if ((fd_dest=open(dest,O_WRONLY|O_CREAT,0644))==(-1)) 
+
+  if ((fd_dest=open(dest,O_WRONLY|O_CREAT,0644))==(-1))
     {
       copy_error=strdup(my_strerror(errno));
 
-      if (!copy_error) 
+      if (!copy_error)
 	{
 	  strcpy(retBuf,"There was not enough memory allocate.\n");
 	  return(SYS_NO_MEMORY);
 	}
-      
-      if (strlen(copy_error)>(bufsize-strlen(retBuf))) 
+
+      if (strlen(copy_error)>(bufsize-strlen(retBuf)))
 	{
 	  fprintf(stderr,"%s\n",copy_error);
 	}
-      else 
+      else
 	{
 	  sprintf(retBuf,"%sCopy([%s] to [%s]) error:\n     %s\n\n",retBuf,src,dest,copy_error);
 	}
       free(copy_error);
-      
+
       close(fd_src);
-      
+
       return(SYS_DEST_OPEN_FAIL);
     }
-  
+
   /*both files open and ready*/
-  while (n_src>0) 
+  while (n_src>0)
     {
       n_src=read(fd_src,buf,BUFSIZ-1);
-      if (n_src>0) 
+      if (n_src>0)
 	{
 	  n_dest=write(fd_dest,buf,n_src);
-	  if (n_dest>0) 
+	  if (n_dest>0)
 	    {
 	      continue;
 	    }
@@ -909,7 +909,7 @@ int my_copy(char *src, char *dest, char *retBuf, int bufsize, int overwrite)
 	  sprintf(retBuf,"Write([%s]) error:\n     %s\n\n",dest,my_strerror(errno));
 	  return(SYS_WRITE_FAIL);
 	}
-      if (!n_src) 
+      if (!n_src)
 	{
 	  continue;
 	}
@@ -918,10 +918,10 @@ int my_copy(char *src, char *dest, char *retBuf, int bufsize, int overwrite)
       sprintf(retBuf,"Read([%s]) error:\n     %s\n\n",src,my_strerror(errno));
       return(SYS_READ_FAIL);
     }
-  
+
   close(fd_src);
   close(fd_dest);
-  
+
 #else   /* VMS, PGE */
   cmd = malloc(sizeof(char) * (20 + strlen(src) + strlen(dest)));
   if(!cmd)
@@ -935,13 +935,13 @@ int my_copy(char *src, char *dest, char *retBuf, int bufsize, int overwrite)
 #endif  /* VMS, PGE */
 
   return(SYS_SUCCESS);
-} 
+}
 
 
 /*
  * Written by: Tommy Reilly (originally by Scott Powers I think)
  *
- * This is a function that finds the users home directory. 
+ * This is a function that finds the users home directory.
  *
  * Return Values:
  *   SYS_NO_MEMORY -- No memory to allocate with.
@@ -953,7 +953,7 @@ int get_home(char **ret)
 #ifndef VMS  /* PGE */
   char *home = NULL;
   struct passwd *pwdent;
-  
+
   if(!(home = getenv("HOME")))
     {
       if (!(pwdent=getpwuid(getuid())))
@@ -962,7 +962,7 @@ int get_home(char **ret)
 	  *ret=NULL;
 	  return(SYS_INTERNAL_FAIL);
 	}
-      else 
+      else
 	{
 /*
 	  home = malloc(sizeof(char) * (strlen(pwdent->pw_dir) + 1));

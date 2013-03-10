@@ -113,7 +113,7 @@ struct protoent *protocolEntry;
 	else {
 		socketFD = socket(AF_INET, SOCK_STREAM,0);
 		}
-	
+
 	if (socketFD < 0) {
 
 #ifndef DISABLE_TRACE
@@ -131,7 +131,7 @@ struct protoent *protocolEntry;
 	serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
 	serverAddress.sin_port = htons(portNumber);
 
-	if (bind(socketFD, (struct sockaddr *) &serverAddress, 
+	if (bind(socketFD, (struct sockaddr *) &serverAddress,
 		sizeof(serverAddress))<0){
 #ifndef DISABLE_TRACE
 			if (srcTrace) {
@@ -146,7 +146,7 @@ struct protoent *protocolEntry;
             /* set socket to non-blocking for linux */
         fcntl(socketFD,FNDELAY,0);
 #endif
-        
+
 	if (listen(socketFD,5) == -1) {
 #ifndef DISABLE_TRACE
 		if (srcTrace) {
@@ -160,7 +160,7 @@ struct protoent *protocolEntry;
             /* set socket to non-blocking */
 	ioctl(socketFD,FIONBIO,0);
 #endif
-        
+
 	return(socketFD);
 }
 
@@ -259,7 +259,7 @@ fd_set readfds;
 	else {
 		return(0);
 		}
-	
+
 }
 
 int NetIsThereAConnection(socketFD)

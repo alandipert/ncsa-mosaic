@@ -187,7 +187,7 @@ PUBLIC int HTAAFile_readPasswdRec ARGS3(FILE *, fp,
 					char *, out_password)
 {
     char terminator;
-    
+
     terminator = HTAAFile_readField(fp, out_username, MAX_USERNAME_LEN);
 
     if (terminator == EOF) {				/* End of file */
@@ -229,7 +229,7 @@ PUBLIC BOOL HTAA_checkPassword ARGS3(WWW_CONST char *, username,
     char user[MAX_USERNAME_LEN+1];
     char pw[MAX_PASSWORD_LEN+1];
     int status;
-    
+
     if (filename && *filename)  fp = fopen(filename,"r");
     else			fp = fopen(PASSWD_FILE,"r");
 
@@ -263,7 +263,7 @@ PUBLIC BOOL HTAA_checkPassword ARGS3(WWW_CONST char *, username,
     } while (status != EOF);
 
     fclose(fp);
-    
+
 #ifndef DISABLE_TRACE
     if (www2Trace) fprintf(stderr, "HTAAFile_checkPassword: (%s,%s) %scorrect\n",
 		       username, password, ((status != EOF) ? "" : "in"));

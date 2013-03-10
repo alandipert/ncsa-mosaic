@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -63,10 +63,10 @@
    the source whenever something changed. */
 
 #ifndef __MOWWW_H__
-#define __MOWWW_H__ 
+#define __MOWWW_H__
 
 char *mo_pull_er_over (char *, char **);
-char *mo_post_pull_er_over (char *url, char *content_type, char *data, 
+char *mo_post_pull_er_over (char *url, char *content_type, char *data,
                             char **texthead);
 mo_status mo_pull_er_over_virgin (char *, char *);
 mo_status mo_re_init_formats (void);
@@ -87,10 +87,10 @@ void application_user_feedback (char *);
 char *mo_escape_part (char *);
 char *mo_unescape_part (char *);
 
-FILE *mo_start_sending_mail_message (char *to, char *subj, 
+FILE *mo_start_sending_mail_message (char *to, char *subj,
                                      char *content_type, char *url);
 mo_status mo_finish_sending_mail_message (void);
-mo_status mo_send_mail_message (char *text, char *to, char *subj, 
+mo_status mo_send_mail_message (char *text, char *to, char *subj,
                                 char *content_type, char *url);
 
 void application_error(char *str, char *title);

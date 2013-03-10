@@ -4,9 +4,9 @@
  * Permission is granted to copy and distribute source with out fee.
  * Commercialization of this product requires prior licensing
  * from the National Center for Supercomputing Applications of the
- * University of Illinois.  Commercialization includes the integration of this 
- * code in part or whole into a product for resale.  Free distribution of 
- * unmodified source and use of NCSA software is not considered 
+ * University of Illinois.  Commercialization includes the integration of this
+ * code in part or whole into a product for resale.  Free distribution of
+ * unmodified source and use of NCSA software is not considered
  * commercialization.
  *
  */
@@ -68,7 +68,7 @@ typedef struct {
 	short int *data;
 	} Dol;
 
-typedef enum { AF_NO_FUNC, AF_STOP, AF_FPLAY, AF_RPLAY 
+typedef enum { AF_NO_FUNC, AF_STOP, AF_FPLAY, AF_RPLAY
 		} AnimFunc;
 
 typedef enum { ART_NONE, ART_SINGLE, ART_CONT, ART_BOUNCE

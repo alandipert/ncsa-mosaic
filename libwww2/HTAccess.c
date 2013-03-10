@@ -66,7 +66,7 @@ PUBLIC char * HTClientHost = 0;	/* Name of remote login host if any */
 */
 
 PUBLIC HTFormat HTOutputFormat = NULL;
-PUBLIC HTStream* HTOutputStream = NULL;	/* For non-interactive, set this */ 
+PUBLIC HTStream* HTOutputStream = NULL;	/* For non-interactive, set this */
 
 PUBLIC BOOL using_gateway = NO; /* are we using a gateway? */
 PUBLIC BOOL using_proxy = NO; /* are we using a proxy gateway? */
@@ -142,7 +142,7 @@ PRIVATE int get_physical ARGS3(
     char * host = NULL;
     struct Proxy *GetNoProxy();
     extern int useKeepAlive;
-    
+
     HTAnchor_setPhysical(anchor, addr);
 
     access =  HTParse(HTAnchor_physical(anchor),
@@ -348,7 +348,7 @@ PRIVATE int HTLoad ARGS4(
 
     while (1) {
     	if (status < 0) return status;	/* Can't resolve or forbidden */
-   	 
+
 	retry=5;
 
 retry_proxy:
@@ -428,9 +428,9 @@ PUBLIC HTStream *HTSaveStream ARGS1(HTParentAnchor *, anchor)
 {
     HTProtocol * p = HTAnchor_protocol(anchor);
     if (!p) return NULL;
-    
+
     return (*p->saveStream)(anchor);
-    
+
 }
 
 
@@ -449,7 +449,7 @@ PUBLIC HTStream *HTSaveStream ARGS1(HTParentAnchor *, anchor)
 **
 **    On Exit,
 **        returns    1     Success in opening document
-**                   0     Failure 
+**                   0     Failure
 **                   -1    Interrupted
 **
 */
@@ -468,7 +468,7 @@ PRIVATE int HTLoadDocument ARGS4(
 
     use_this_url_instead = NULL;
 
-    /* We LOVE goto's! 
+    /* We LOVE goto's!
      *
      * Let's rephrase this..._You_ love goto's...we _abhore_ goto's. People who
      *   LOVE goto's should be shot.
@@ -480,7 +480,7 @@ PRIVATE int HTLoadDocument ARGS4(
 #endif
 
     status = HTLoad(full_address, anchor, format_out, sink);
-    
+
     if (status == HT_LOADED) {
 #ifndef DISABLE_TRACE
 	if (www2Trace) {
@@ -498,9 +498,9 @@ PRIVATE int HTLoadDocument ARGS4(
 #ifndef DISABLE_TRACE
         if (www2Trace)
           {
-            fprintf (stderr, "HTAccess: '%s' is a redirection URL.\n", 
+            fprintf (stderr, "HTAccess: '%s' is a redirection URL.\n",
                      full_address);
-            fprintf (stderr, "HTAccess: Redirecting to '%s'\n", 
+            fprintf (stderr, "HTAccess: Redirecting to '%s'\n",
                      redirecting_url);
           }
 #endif
@@ -518,26 +518,26 @@ PRIVATE int HTLoadDocument ARGS4(
 #endif
         return -1;
       }
-    
+
     if (status == HT_NO_DATA) {
 #ifndef DISABLE_TRACE
 	if (www2Trace) {
-	    fprintf(stderr, 
+	    fprintf(stderr,
 	    "HTAccess: `%s' has been accessed, No data left.\n",
 	    full_address);
 	}
 #endif
 	return 0;
     }
-    
+
     if (status<0) {		      /* Failure in accessing a document */
 #ifndef DISABLE_TRACE
-	if (www2Trace) fprintf(stderr, 
+	if (www2Trace) fprintf(stderr,
                            "HTAccess: Can't access `%s'\n", full_address);
 #endif
 	return 0;
     }
- 
+
     /* If you get this, then please find which routine is returning
        a positive unrecognised error code! */
 
@@ -561,7 +561,7 @@ PRIVATE int HTLoadDocument ARGS4(
 **
 **    On Exit,
 **        returns    1     Success in opening document
-**                   0      Failure 
+**                   0      Failure
 **                   -1      Interrupted
 **
 **
@@ -591,7 +591,7 @@ PUBLIC int HTLoadAbsolute ARGS1(WWW_CONST char *,addr)
 **
 **    On Exit,
 **        returns    YES     Success in opening document
-**                   NO      Failure 
+**                   NO      Failure
 **
 **
 */
@@ -619,7 +619,7 @@ PUBLIC BOOL HTLoadToStream ARGS3(
 **
 **    On Exit,
 **        returns    YES     Success in opening document
-**                   NO      Failure 
+**                   NO      Failure
 **
 **
 */

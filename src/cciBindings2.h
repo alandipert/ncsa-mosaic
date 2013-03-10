@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -89,13 +89,13 @@ void MoCCINewConnection(XtAppContext app_context,int *source,XtInputId *inputID)
 static XmxCallback (MoCCIWindowCallBack);
 mo_status MoDisplayCCIWindow(mo_window *win);
 void MoCCISendOutputToClient(char *contentType,char *fileName);
-int MoCCIFormToClient(char *actionID, char *query, char *contentType, 
+int MoCCIFormToClient(char *actionID, char *query, char *contentType,
 char *post_data, int status);
 void MoCCISendOutput(MCCIPort client,Boolean sendIt,char *contentType);
 void MoCCIStartListening(Widget w,int port);
 void MoCCISendEventOutput(CCI_events event_type);
 void MoCCISendMouseAnchorOutput(char *anchor);
-void MoCCISendBrowserViewOutput(char *url, char *contentType, 
+void MoCCISendBrowserViewOutput(char *url, char *contentType,
 char *data, int dataLength);
 int MoCCISendBrowserViewFile(char *url, char *contentType, char *filename);
 int MoCCIMaxNumberOfConnectionsAllowed();

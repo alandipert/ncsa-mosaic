@@ -81,19 +81,19 @@ static char *pull_guts_from_hdfref (char *target)
 
   return NULL;
 }
-  
+
 
 
 /****************************************************************************
  * name:    mo_hdf_fetch_local_filename
  * purpose: Given an HDF URL (we will canonicalize it), return the
  *          filename of the local cached copy of the file.
- * inputs:  
+ * inputs:
  *   - char *url: The URL to use.
- * returns: 
+ * returns:
  *   The local filename (char *).
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 char *mo_hdf_fetch_local_filename (char *url)
 {
@@ -112,14 +112,14 @@ char *mo_hdf_fetch_local_filename (char *url)
  *          ), and a target anchor (can be NULL), pull the filename out
  *          of the internal HTML reference and do the right thing
  *          with the resulting HDF file.
- * inputs:  
+ * inputs:
  *   - char     *url: The URL we're visiting.
  *   - char *newtext: The block of HTML containing the internal
  *                    HTML reference.
  *   - char  *target: The target anchor in the URL, or NULL.
- * returns: 
+ * returns:
  *   HTML (char *)
- * remarks: 
+ * remarks:
  *   When we're called, we've already pulled over something from the net.
  *   So no matter what, nuke any existing file and cache the current
  *   file.
@@ -142,7 +142,7 @@ char *mo_decode_internal_reference (char *url, char *newtext, char *target)
       system (cmd);
       free (cmd);
       */
-      unlink(fname); 
+      unlink(fname);
     }
 
   /* Now go get the new filename. */
@@ -174,21 +174,21 @@ char *mo_decode_internal_reference (char *url, char *newtext, char *target)
 
   return text;
 }
-  
+
 
 /****************************************************************************
  * name:    mo_decode_hdfref
  * purpose: Given a URL (canonicalized with or without target still
  *          attached) and a target anchor which is an hdfref,
  *          look up the cached local file and decode the href.
- * inputs:  
+ * inputs:
  *   - char    *url: URL for the data file on the net.
  *   - char *target: Target anchor (hdfref).
- * returns: 
+ * returns:
  *   HTML for the hdfref.
- * remarks: 
+ * remarks:
  *   The URL is canonicalized (target anchor stripped out) for the call
- *   to mo_fetch_cached_data(), so it can return the appropriate local 
+ *   to mo_fetch_cached_data(), so it can return the appropriate local
  *   filename for all internal references.
  *   --> We assume the file is already stored locally. ???
  ****************************************************************************/
@@ -251,7 +251,7 @@ mo_status mo_do_hdf_dtm_thang (char *url, char *hdfdtmref)
           free (cache_url);
         }
     }
-  
+
   hdfDtmThang (fname, hdfdtmref);
 
   return mo_succeed;

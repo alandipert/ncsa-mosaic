@@ -31,5 +31,5 @@ typedef struct _DrawingAreaClassRec	*DrawingAreaWidgetClass;
 typedef struct _DrawingAreaRec		*DrawingAreaWidget;
 
 extern WidgetClass drawingAreaWidgetClass;
- 
+
 #endif /* _XawDrawingArea_h */

@@ -14,8 +14,8 @@
 ** History
 **	   Sep 91	TBL adapted shell-ui.c (BK) with HTRetrieve.c from WWW.
 **	   Feb 91	TBL Generated HTML cleaned up a bit (quotes, escaping)
-**			    Refers to lists of sources. 
-**	   Mar 93	TBL   Lib 2.0 compatible module made.	
+**			    Refers to lists of sources.
+**	   Mar 93	TBL   Lib 2.0 compatible module made.
 **
 ** Bugs
 **	Uses C stream i/o to read and write sockets, which won't work
@@ -69,7 +69,7 @@
 #include "HTML.h"		/* The object we will generate */
 #include "HTFile.h"
 #include "HTAlert.h"
- 
+
 /* #include "ParseWSRC.h" */
 
 #ifndef DISABLE_TRACE
@@ -143,7 +143,7 @@ PRIVATE BOOL acceptable_inited = NO;
 PRIVATE void init_acceptable NOARGS
 {
     unsigned int i;
-    char * good = 
+    char * good =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./-_$";
     for(i=0; i<256; i++) acceptable[i] = NO;
     for(;*good; good++) acceptable[(unsigned int)*good] = YES;
@@ -196,11 +196,11 @@ PRIVATE char * WWW_from_WAIS ARGS1(any *, docid)
   char * p = (docid->bytes);
   int i, l;
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     {
       char *p;
       fprintf(stderr, "WAIS id (%d bytes) is ", (int)docid->size);
-      for (p = docid->bytes; p < docid->bytes + docid->size; p++) 
+      for (p = docid->bytes; p < docid->bytes + docid->size; p++)
         {
           if ((*p >= ' ') && (*p<= '~')) /* Assume ASCII! */
             fprintf(stderr, "%c", *p);
@@ -208,12 +208,12 @@ PRIVATE char * WWW_from_WAIS ARGS1(any *, docid)
             fprintf(stderr, "<%x>", (unsigned)*p);
         }
       fprintf(stderr, "\n");
-    }	 
+    }
 #endif
 
-  for (p = docid->bytes; 
-       (p < docid->bytes+docid->size) && 
-       (q < &buf[BIG]);) 
+  for (p = docid->bytes;
+       (p < docid->bytes+docid->size) &&
+       (q < &buf[BIG]);)
     {
 #ifndef DISABLE_TRACE
       if (www2Trace) fprintf(stderr, "    Record type %d, length %d\n",
@@ -235,10 +235,10 @@ PRIVATE char * WWW_from_WAIS ARGS1(any *, docid)
           l = l + (int)((unsigned char)*p);
           p++;
         }
-      
+
       for (i = 0; i < l; i++, p++)
         {
-          if (!acceptable[(unsigned char)*p]) 
+          if (!acceptable[(unsigned char)*p])
             {
               *q++ = HEX_ESCAPE;
               *q++ = hex[((unsigned char)*p) >> 4];
@@ -250,8 +250,8 @@ PRIVATE char * WWW_from_WAIS ARGS1(any *, docid)
     }
   *q++ = 0;			/* Terminate string */
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
-    fprintf(stderr, "WWW form of id: %s\n", buf); 
+  if (www2Trace)
+    fprintf(stderr, "WWW form of id: %s\n", buf);
 #endif
 
   {
@@ -282,40 +282,40 @@ PRIVATE any * WAIS_from_WWW ARGS2 (any *, docid, char *, docname)
   int n;	/* size */
 
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
-    fprintf(stderr, "WWW id (to become WAIS id): %s\n", docname); 
+  if (www2Trace)
+    fprintf(stderr, "WWW id (to become WAIS id): %s\n", docname);
 #endif
-  for(n=0, p = docname; *p; p++) 
+  for(n=0, p = docname; *p; p++)
     {	/* Count sizes of strings */
       n++;
       if (*p == ';')  n--;		/* Not converted */
       else if (*p == HEX_ESCAPE) n=n-2;	/* Save two bytes */
       docid->size = n;
     }
-  
+
   docid->bytes = (char *) malloc(docid->size + 32); /* result record */
   z = docid->bytes;
-  
-  for(p = docname; *p; ) 
+
+  for(p = docname; *p; )
     {
       q = strchr(p, '=');
-      if (!q) 
+      if (!q)
         return 0;
       *q = '\0';
       *z++ = atoi(p);
       *q = '=';
       s = strchr(q, ';');	/* (Check only) */
-      if (!s) 
+      if (!s)
         return 0;	/* Bad! No ';';	*/
       sor = z;          /* Remember where the size field was */
       z++;              /* Skip record size for now */
-      
+
       {
         int len;
         int tmp;
-	for(p=q+1; *p!=';' ; ) 
+	for(p=q+1; *p!=';' ; )
           {
-            if (*p == HEX_ESCAPE) 
+            if (*p == HEX_ESCAPE)
               {
                 char c;
                 unsigned int b;
@@ -323,17 +323,17 @@ PRIVATE any * WAIS_from_WWW ARGS2 (any *, docid, char *, docname)
 	        c = *p++;
 		b = from_hex(c);
 		c = *p++;
-		if (!c) 
+		if (!c)
                   break;	/* Odd number of chars! */
 		*z++ = (b<<4) + from_hex(c);
-              } 
-            else 
+              }
+            else
               {
 	        *z++ = *p++;	/* Record */
               }
           }
         len = (z-sor-1);
-        
+
         z = sor;
         if (len > 127)
           {
@@ -349,10 +349,10 @@ PRIVATE any * WAIS_from_WWW ARGS2 (any *, docid, char *, docname)
           }
         z++;
       }
-      
-      for(p=q+1; *p!=';' ; ) 
+
+      for(p=q+1; *p!=';' ; )
         {
-          if (*p == HEX_ESCAPE) 
+          if (*p == HEX_ESCAPE)
             {
               char c;
               unsigned int b;
@@ -360,20 +360,20 @@ PRIVATE any * WAIS_from_WWW ARGS2 (any *, docid, char *, docname)
               c = *p++;
               b = from_hex(c);
               c = *p++;
-              if (!c) 
+              if (!c)
                 break;	/* Odd number of chars! */
               *z++ = (b<<4) + from_hex(c);
-	    } 
-          else 
+	    }
+          else
             {
               *z++ = *p++;	/* Record */
 	    }
 	}
       p++;			/* After semicolon: start of next record */
     }
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     {
       char *p;
       fprintf(stderr, "WAIS id (%d bytes) is ", (int)docid->size);
@@ -384,10 +384,10 @@ PRIVATE any * WAIS_from_WWW ARGS2 (any *, docid, char *, docname)
           fprintf(stderr, "<%x>", (unsigned)*p);
       }
       fprintf(stderr, "\n");
-    }	 
+    }
 #endif
   return docid;		/* Ok */
-  
+
 } /* WAIS_from_WWW */
 
 
@@ -406,7 +406,7 @@ PRIVATE void output_text_record ARGS3(
          on unsigned char from the start.  What was he thinking??? */
       PUTBLOCK((unsigned char *)record->DocumentText->bytes,
                record->DocumentText->size);
-    }    
+    }
 } /* output text record */
 
 
@@ -435,9 +435,9 @@ display_search_response ARGS4(
     }
 
   archie = strstr(database, "archie")!=0;	/* Specical handling */
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "HTWAIS: Displaying search response\n");
 #endif
 #ifndef DISABLE_TRACE
@@ -463,7 +463,7 @@ display_search_response ARGS4(
 
   if ( response->DatabaseDiagnosticRecords != 0 ) {
     info = (WAISSearchResponse *)response->DatabaseDiagnosticRecords;
-    i =0; 
+    i =0;
 
     if (info->Diagnostics != NULL)
       showDiags((HTStream*)target, info->Diagnostics);
@@ -479,8 +479,8 @@ display_search_response ARGS4(
 /*	Make a printable string out of the document id.
 */
 #ifndef DISABLE_TRACE
-	if (www2Trace) fprintf(stderr, 
-		"HTWAIS:  %2ld: Score: %4ld, lines:%4ld '%s'\n", 
+	if (www2Trace) fprintf(stderr,
+		"HTWAIS:  %2ld: Score: %4ld, lines:%4ld '%s'\n",
 	       i,
 	       (long int)(info->DocHeaders[k]->Score),
 	       (long int)(info->DocHeaders[k]->Lines),
@@ -539,7 +539,7 @@ display_search_response ARGS4(
                   {
                     strcat (types_array, "TEXT");
                   }
-                
+
 		sprintf(line, "%s/%s/%d/%s",
                         dbname,
                         types_array,
@@ -547,7 +547,7 @@ display_search_response ARGS4(
                         docname);
 
                 PUTS ("<A HREF=\"");
-                if (head->Types && head->Types[0] && 
+                if (head->Types && head->Types[0] &&
                     strcmp (head->Types[0], "URL") == 0)
                   {
                     /* The real URL, maybe? */
@@ -574,7 +574,7 @@ display_search_response ARGS4(
 	  }
       } /* next document header */
     } /* if there were any document headers */
-    
+
     if ( info->ShortHeaders != 0 ) {
       k =0;
       while (info->ShortHeaders[k] != 0 ) {
@@ -653,9 +653,9 @@ static int mosaic_connect_to_server(char *host_name, long port, FILE **fp)
   FILE* file;
   long fd;
   int rv;
-  
+
   rv = fd_mosaic_connect_to_server (host_name, port, &fd);
-  if(rv == 0) 
+  if(rv == 0)
     {
       HTProgress ("Could not connect to WAIS server.");
       return 0;
@@ -666,7 +666,7 @@ static int mosaic_connect_to_server(char *host_name, long port, FILE **fp)
       return -1;
     }
 
-  if ((file = fdopen(fd,"r+")) == NULL) 
+  if ((file = fdopen(fd,"r+")) == NULL)
     {
       HTProgress ("Could not open WAIS connection for reading.");
       return 0;
@@ -679,7 +679,7 @@ static int mosaic_connect_to_server(char *host_name, long port, FILE **fp)
 
 /* ------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------ */
-    
+
 /* Pulled in from gui.c; corresponds to Rdata.max_wais_responses. */
 extern int max_wais_responses;
 
@@ -706,7 +706,7 @@ PUBLIC int HTLoadWAIS ARGS4(
   long request_buffer_length;	/* how of the request is left */
   SearchResponseAPDU  *retrieval_response = 0;
   char keywords[MAX_KEYWORDS_LENGTH + 1];
-  char *server_name;	
+  char *server_name;
   char *wais_database = NULL;		/* name of current database */
   char *www_database;			/* Same name escaped */
   char *service;
@@ -719,57 +719,57 @@ PUBLIC int HTLoadWAIS ARGS4(
   BOOL ok = NO;
   WAISSearchResponse *response;
   diagnosticRecord **diag;
-  
-  if (!acceptable_inited) 
+
+  if (!acceptable_inited)
     init_acceptable();
-  
+
   /*	Decipher and check syntax of WWW address:
    **	----------------------------------------
    **
    **	First we remove the "wais:" if it was spcified.  920110
-   */  
+   */
   names = HTParse(arg, "", PARSE_HOST | PARSE_PATH | PARSE_PUNCTUATION);
   key = strchr(names, '?');
-  
-  if (key) 
+
+  if (key)
     {
       char * p;
       *key++ = 0;	/* Split off keywords */
       for (p=key; *p; p++) if (*p == '+') *p = ' ';
       HTUnEscape(key);
     }
-  if (names[0]== '/') 
+  if (names[0]== '/')
     {
       server_name = names+1;
       if (*server_name == '/')
         server_name++;	/* Accept one or two */
       www_database = strchr(server_name,'/');
-      if (www_database) 
+      if (www_database)
         {
           *www_database++ = 0;		/* Separate database name */
           doctype = strchr(www_database, '/');
-          if (key) 
+          if (key)
             ok = YES;	/* Don't need doc details */
-          else if (doctype) 
+          else if (doctype)
             {	/* If not search parse doc details */
               *doctype++ = 0;	/* Separate rest of doc address */
               doclength = strchr(doctype, '/');
-              if(doclength) 
+              if(doclength)
                 {
                   *doclength++ = 0;
-                  
+
                   /* OK, now doclength should be the rest of the URL,
                      right??? */
 #ifndef DISABLE_TRACE
                   if (www2Trace)
-                    fprintf (stderr, 
+                    fprintf (stderr,
                              "WAIS: doctype '%s', doclength\n~~~~\n%s\n~~~~\n",
                              doctype, doclength);
 #endif
                   /* Multitype! */
                   if (strchr (doctype, ','))
                     {
-                      HTStructured *target = 
+                      HTStructured *target =
                         HTML_new(anAnchor, format_out, sink);
                       char *t, *oldt, *newt, *revised;
                       int first;
@@ -787,7 +787,7 @@ PUBLIC int HTLoadWAIS ARGS4(
                       START(HTML_TITLE);
                       PUTS("Multiple Format Opportunity");
                       END(HTML_TITLE);
-                      
+
                       START(HTML_H1);
                       PUTS("Multiple Format Opportunity");
                       END(HTML_H1);
@@ -801,7 +801,7 @@ PUBLIC int HTLoadWAIS ARGS4(
                          with leading period. */
                       oldt = (char *)malloc (strlen (t) + 16);
                       sprintf (oldt, ".%s", t);
-                      
+
                       first = 1;
 
                       while (t && *t)
@@ -816,7 +816,7 @@ PUBLIC int HTLoadWAIS ARGS4(
                           PUTS("/");
                           PUTS(doclength);
                           PUTS("\">");
-                          
+
                           /* Unescape t in place; we don't need it anymore
                              after this anyway. */
                           HTUnEscape (t);
@@ -826,37 +826,37 @@ PUBLIC int HTLoadWAIS ARGS4(
                         }
 
                       free (oldt);
-                      
+
                       PUTS("</ul>");
-                      
+
                       END_TARGET;
                       FREE_TARGET;
-                      
+
                       /* Hey, WE'RE DONE! */
                       free (names);
                       return HT_LOADED;
                     }
-                  
+
                   document_length = atol(doclength);
-                  if (document_length) 
+                  if (document_length)
                     {
                       docname=strchr(doclength, '/');
-                      if (docname) 
+                      if (docname)
                         {
                           *docname++ = 0;
                           ok = YES;	/* To avoid a goto! */
                         } /* if docname */
                     } /* if document_length valid */
                 } /* if doclength */
-            } 
-          else 
+            }
+          else
             { /* no doctype?  Assume index required */
               if (!key) key = "";
               ok = YES;
             } /* if doctype */
         } /* if database */
     }
-  
+
   if (!ok)
     {
       free (names);
@@ -864,16 +864,16 @@ PUBLIC int HTLoadWAIS ARGS4(
     }
 
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "HTWAIS: Parsed OK; type is '%s'\n", doctype);
 #endif
 
   service = strchr(names, ':');
-  if (service)  
+  if (service)
     *service++ = 0;
-  else 
+  else
     service = "210";
-  
+
   if (server_name[0] == 0)
     connection = NULL;
   else if (!(key && !*key))
@@ -907,94 +907,94 @@ PUBLIC int HTLoadWAIS ARGS4(
 
   StrAllocCopy(wais_database,www_database);
   HTUnEscape(wais_database);
-  
+
   /* This below fixed size stuff is terrible */
   request_message = (char*)s_malloc((size_t)MAX_MESSAGE_LEN * sizeof(char));
   response_message = (char*)s_malloc((size_t)MAX_MESSAGE_LEN * sizeof(char));
-  
+
   /*	If keyword search is performed but there are no keywords,
    **	the user has followed a link to the index itself. It would be
    **	appropriate at this point to send him the .SRC file - how?
    */
-  if (key && !*key) 
+  if (key && !*key)
     {				/* I N D E X */
       HTStructured * target = HTML_new(anAnchor, format_out, sink);
-      
+
       START(HTML_TITLE);
       PUTS(wais_database);
       PUTS(" index");
       END(HTML_TITLE);
-      
+
       START(HTML_H1);
       PUTS(wais_database);
       END(HTML_H1);
 
       START(HTML_ISINDEX);
-      
+
       START(HTML_P);
-      
+
       END_TARGET;
-      if (connection) 
+      if (connection)
         FW_close_connection(connection);
       FREE_TARGET;
-    } 
-  else if (key) 
+    }
+  else if (key)
     {					/* S E A R C H */
       char *p;
       HTStructured * target;
-      
+
       strncpy(keywords, key, MAX_KEYWORDS_LENGTH);
-      while(p=strchr(keywords, '+')) 
+      while(p=strchr(keywords, '+'))
         *p = ' ';
-      
+
       /* Send advance title to get something fast to the other end */
-      
+
       target = HTML_new(anAnchor, format_out, sink);
-      
+
       START(HTML_TITLE);
       PUTS(keywords);
       PUTS(" (in ");
       PUTS(wais_database);
       PUTS(")");
       END(HTML_TITLE);
-      
+
       START(HTML_H1);
       PUTS(keywords);
       END(HTML_H1);
-      
+
       START(HTML_ISINDEX);
-      
+
       request_buffer_length = MAX_MESSAGE_LEN; /* Amount left */
 #ifndef DISABLE_TRACE
       if (www2Trace) fprintf(stderr, "HTWAIS: Search for `%s' in `%s'\n",
                          keywords, wais_database);
 #endif
-      
-      if(NULL == generate_search_apdu(request_message + HEADER_LENGTH, 
-                                      &request_buffer_length, 
+
+      if(NULL == generate_search_apdu(request_message + HEADER_LENGTH,
+                                      &request_buffer_length,
                                       keywords, wais_database, NULL, MAXDOCS))
         {
           HTProgress ("WAIS request too large; something went wrong.");
         }
-      
-      if(!interpret_message(request_message, 
-                            MAX_MESSAGE_LEN - request_buffer_length, 
+
+      if(!interpret_message(request_message,
+                            MAX_MESSAGE_LEN - request_buffer_length,
                             response_message,
                             MAX_MESSAGE_LEN,
                             connection,
                             false	/* true verbose */
-                            )) 
+                            ))
         {
           HTProgress ("WAIS returned message too large; something went wrong.");
-        } 
-      else 
+        }
+      else
         {	/* returned message ok */
           SearchResponseAPDU  *query_response = 0;
           readSearchResponseAPDU(&query_response,
                                  response_message + HEADER_LENGTH);
           /* We do want this to be called if !query_response, to
              get our cute error message. */
-          display_search_response(target, 
+          display_search_response(target,
                                   query_response, wais_database, keywords);
           if (query_response)
             {
@@ -1003,13 +1003,13 @@ PUBLIC int HTLoadWAIS ARGS4(
               freeSearchResponseAPDU( query_response);
             }
         }	/* returned message not too large */
-      
+
       END_TARGET;
-      if (connection) 
+      if (connection)
         FW_close_connection(connection);
       FREE_TARGET;
-    } 
-  else 
+    }
+  else
     {			/* D O C U M E N T    F E T C H */
       HTFormat format_in;
       HTStream * target;
@@ -1025,7 +1025,7 @@ PUBLIC int HTLoadWAIS ARGS4(
         fprintf(stderr,
                 "===WAIS=== Retrieve document id `%s' type `%s' length %ld\n",
                 docname, doctype, document_length);
-#endif      
+#endif
       {
         char *tmp_doctype = strdup (doctype);
         char *tmp;
@@ -1044,59 +1044,59 @@ PUBLIC int HTLoadWAIS ARGS4(
           char dummy[256];
           HTAtom *pencoding;
           int compressed;
-          
+
           sprintf (dummy, "foo.%s", doctype);
           format_in = HTFileFormat (dummy, &pencoding,
                                     WWW_PLAINTEXT, &compressed);
           /* Assume it will always be at *least* WWW_PLAINTEXT. */
         }
-      
+
       target = HTStreamStack(format_in, format_out, 0, sink, anAnchor);
-      if (!target) 
+      if (!target)
         {
           free (names);
-          if (connection) 
+          if (connection)
             FW_close_connection(connection);
           return HT_NOT_LOADED;
         }
 
       /*	Decode hex or literal format for document ID
-       */	
+       */
       WAIS_from_WWW(docid, docname);
-      
+
       /*	Loop over slices of the document
-       */	
+       */
       {
         int bytes = 0, intr;
         char line[256];
-        
+
         HTClearActiveIcon ();
-        
+
         count = 0;
         while (1)
           {
             char *type = s_strdup(doctype);	/* Gets freed I guess */
             request_buffer_length = MAX_MESSAGE_LEN; /* Amount left */
 #ifndef DISABLE_TRACE
-            if (www2Trace) 
+            if (www2Trace)
               fprintf(stderr, "HTWAIS: Slice number %ld\n", count);
 #endif
-            
+
             intr = HTCheckActiveIcon (1);
             if (intr)
               {
                 HTProgress ("Data transfer interrupted.");
                 (*target->isa->handle_interrupt)(target);
                 free (names);
-                if (connection) 
+                if (connection)
                   FW_close_connection(connection);
                 return HT_INTERRUPTED;
               }
-            
+
             if(generate_retrieval_apdu
                (request_message + HEADER_LENGTH,
-                &request_buffer_length, 
-                docid, 
+                &request_buffer_length,
+                docid,
                 CT_byte,
                 count * CHARS_PER_PAGE,
                 (count + 1) * CHARS_PER_PAGE,
@@ -1104,33 +1104,33 @@ PUBLIC int HTLoadWAIS ARGS4(
                 wais_database
                 ) == 0)
               {
-                HTProgress 
+                HTProgress
                   ("WAIS error condition; retrieval may be unsuccessful.");
               }
 
             free (type);
-            
-            /*	Actually do the transaction given by request_message */   
+
+            /*	Actually do the transaction given by request_message */
             if(0 ==
                interpret_message
-               (request_message, 
-                MAX_MESSAGE_LEN - request_buffer_length, 
+               (request_message,
+                MAX_MESSAGE_LEN - request_buffer_length,
                 response_message,
                 MAX_MESSAGE_LEN,
                 connection,
-                false /* true verbose */	
+                false /* true verbose */
                 ))
               {
                 HTProgress ("WAIS error condition; retrieval may be unsuccessful.");
                 goto no_more_data;
               }
-            
+
             /* 	Parse the result which came back into memory.
              */
-            readSearchResponseAPDU(&retrieval_response, 
+            readSearchResponseAPDU(&retrieval_response,
                                    response_message + HEADER_LENGTH);
-            
-            response = 
+
+            response =
               (WAISSearchResponse *)retrieval_response->DatabaseDiagnosticRecords;
             diag = response->Diagnostics;
 
@@ -1141,11 +1141,11 @@ PUBLIC int HTLoadWAIS ARGS4(
                   fprintf (stderr, "WAIS: no more data (NULL response->Text)\n");
 #endif
                 if (retrieval_response->DatabaseDiagnosticRecords)
-                  freeWAISSearchResponse 
+                  freeWAISSearchResponse
                     (retrieval_response->DatabaseDiagnosticRecords);
                 freeSearchResponseAPDU (retrieval_response);
                 goto no_more_data;
-              } 
+              }
             else if
               (((WAISSearchResponse *)
                 retrieval_response->DatabaseDiagnosticRecords)->Text[0]->DocumentText->size)
@@ -1163,7 +1163,7 @@ PUBLIC int HTLoadWAIS ARGS4(
                   fprintf (stderr, "WAIS: no more data (fell through)\n");
 #endif
                 if (retrieval_response->DatabaseDiagnosticRecords)
-                  freeWAISSearchResponse 
+                  freeWAISSearchResponse
                     (retrieval_response->DatabaseDiagnosticRecords);
                 freeSearchResponseAPDU (retrieval_response);
                 goto no_more_data;
@@ -1184,39 +1184,39 @@ PUBLIC int HTLoadWAIS ARGS4(
                   fprintf (stderr, "WAIS: no more data (diag)\n");
 #endif
                 if (retrieval_response->DatabaseDiagnosticRecords)
-                  freeWAISSearchResponse 
+                  freeWAISSearchResponse
                     (retrieval_response->DatabaseDiagnosticRecords);
                 freeSearchResponseAPDU (retrieval_response);
                 goto no_more_data;
               }
 
             if (retrieval_response->DatabaseDiagnosticRecords)
-              freeWAISSearchResponse 
+              freeWAISSearchResponse
                 (retrieval_response->DatabaseDiagnosticRecords);
             freeSearchResponseAPDU (retrieval_response);
 
             count++;
           }	/* Loop over slices */
-        
+
       } /* local variables */
 
     no_more_data:
-      
+
       END_TARGET;
       /* Close the connection BEFORE calling system(), which can
          happen in the free method. */
-      if (connection) 
+      if (connection)
         FW_close_connection(connection);
       FREE_TARGET;
-      
+
       free (docid->bytes);
     } /* If document rather than search */
-  
-  if (wais_database) 
+
+  if (wais_database)
     free (wais_database);
   s_free (request_message);
   s_free(response_message);
-  
+
   free(names);
   return HT_LOADED;
 }

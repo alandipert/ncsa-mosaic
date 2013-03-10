@@ -1,7 +1,7 @@
 /*  Ben Fried deserves credit for writing the code that upon which
- *  this source is based. 				ADC 
+ *  this source is based. 				ADC
  */
-#include "../config.h"    
+#include "../config.h"
 
 #if defined(KRB4) || defined(KRB5)
 
@@ -122,7 +122,7 @@ int scheme_login(scheme)
  * Returns 1 if pipe open fails
  * Returns 0 otherwise (even if klog fails!)
  ***************************************************************************/
-int AFSgetTGT(username, password, err_string) 
+int AFSgetTGT(username, password, err_string)
     char *err_string, *username, *password;
 {
     char reason[256];
@@ -222,7 +222,7 @@ int k4getTGT(username, password, err_string)
 #endif /* KRB4 */
 #ifdef KRB5
 /****************************************************************************
- * k5getTGT() -- calls K5 libraries to get TGT   (non-AFS)  
+ * k5getTGT() -- calls K5 libraries to get TGT   (non-AFS)
  *		 most of this was copied from the Krb5 kinit.c
  *
  * Returns 0 on success (err_string = "")
@@ -279,7 +279,7 @@ int k5getTGT(username, password, err_string)
     }
 
     my_creds.server = server;
-    my_creds.times.starttime = 0;       
+    my_creds.times.starttime = 0;
     my_creds.times.endtime = 0;		/* now + KRB5_DEFAULT_LIFE; */
     my_creds.times.renew_till = 0;
 
@@ -292,9 +292,9 @@ int k5getTGT(username, password, err_string)
     if (code) {
 	sprintf(err_string,"krb5_get_in_tkt error: %s", error_message(code));
 	return 1;
-    } 
+    }
     else {
-	return 0; 
+	return 0;
     }
 }
 #endif
@@ -354,7 +354,7 @@ int str_to_kdata(in_str, out_str)
 
 
 /****************************************************************************
- * compose_kerberos_auth_string 
+ * compose_kerberos_auth_string
  *
  * Accepts: scheme (one of the HTAA_KERBEROS values)
  * 	    hostname
@@ -426,7 +426,7 @@ char *compose_kerberos_auth_string(scheme, hostname)
 	    if (!k5context) {
 		krb5_init_context(&k5context);
                 if (code) {
-                    sprintf(krb_err_str,"Error initializing Kerb5 context: %s\n",error_message(code)); 
+                    sprintf(krb_err_str,"Error initializing Kerb5 context: %s\n",error_message(code));
                     application_user_info_wait(krb_err_str);
                     return (char *) NULL;
                 }
@@ -441,11 +441,11 @@ char *compose_kerberos_auth_string(scheme, hostname)
 		}
 	    }
 
-	
+
 	    code = krb5_mk_req(k5context, &k5auth_context, AP_OPTS_USE_SESSION_KEY,
 			       "khttp", hostname, NULL, k5ccache, &k5ap_req);
 
-    	    if (!code) { 	
+    	    if (!code) {
 
 		/* get username from credentials cache */
 
@@ -467,7 +467,7 @@ char *compose_kerberos_auth_string(scheme, hostname)
                     return (char *) NULL;
                 }
 
-		krb5_sname_to_principal(k5context, hostname, "khttp", 
+		krb5_sname_to_principal(k5context, hostname, "khttp",
 				        KRB5_NT_SRV_HST, &k5serverp);
 
 		memset((char *)&k5in_creds, 0, sizeof(k5in_creds));
@@ -480,7 +480,7 @@ char *compose_kerberos_auth_string(scheme, hostname)
 
 		code = krb5_get_credentials(k5context,KRB5_GC_CACHED,k5ccache,&k5in_creds,&k5out_creds);
 
-		if ((code == KRB5_CC_NOTFOUND) || (now >= k5out_creds->times.endtime)) {    
+		if ((code == KRB5_CC_NOTFOUND) || (now >= k5out_creds->times.endtime)) {
 			/* replace "Matching creds not found" */
 			sprintf(krb_err_str,"Kerberos ticket expired\n");
 			code = 666;
@@ -497,7 +497,7 @@ char *compose_kerberos_auth_string(scheme, hostname)
 		    sprintf(krb_err_str,"krb5_mk_req: %s\n",error_message(code));
 		}
             }
-	    else { 
+	    else {
                 pass = kdata_to_str(k5ap_req.data, k5ap_req.length);
 	    }
 	}
@@ -548,7 +548,7 @@ char *compose_kerberos_auth_string(scheme, hostname)
  * validate_kerberos_server_auth
  * Accepts: scheme (one of the HTAA_KERBEROS values)
  *          the Authorization line from the request
- * Returns: NIL on success, T on failure 
+ * Returns: NIL on success, T on failure
 	    (currently return value not used)
  ************************************************************************/
 int validate_kerberos_server_auth(scheme, str)
@@ -587,7 +587,7 @@ int validate_kerberos_server_auth(scheme, str)
     else if (scheme == HTAA_KERBEROS_V4) {
 	retval = k4validate_kerberos_server_auth(str);
     }
-#endif 
+#endif
 #ifdef KRB5
     else if (scheme == HTAA_KERBEROS_V5) {
 	retval = k5validate_kerberos_server_auth(str);
@@ -644,9 +644,9 @@ int k4validate_kerberos_server_auth(str)
 
     if (ntohl(*(long *)k4authent.dat) != k4checksum + 1) {
 	fprintf(stderr,"\n\nchecksum just doesn't check out\n\n");
-	return 1; 
+	return 1;
     }
- 
+
     return 0;
 }
 #endif
@@ -663,7 +663,7 @@ int k5validate_kerberos_server_auth(instr)
 
     k5ap_rep.length = str_to_kdata(instr, tmpstr);
 
-    if (k5ap_rep.length == 0) 
+    if (k5ap_rep.length == 0)
  	return 1;
 
     k5ap_rep.data = tmpstr;
@@ -672,7 +672,7 @@ int k5validate_kerberos_server_auth(instr)
 
     krb5_free_ap_rep_enc_part(k5context, k5ap_rep_result);
 
-    if (code) 
+    if (code)
  	return 1;
 
     return 0;

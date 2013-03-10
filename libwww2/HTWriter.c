@@ -102,7 +102,7 @@ PRIVATE void HTWriter_put_string ARGS2(HTStream *, me, WWW_CONST char*, s)
 */
 PRIVATE void HTWriter_write ARGS3(HTStream *, me, WWW_CONST char*, s, int, l)
 {
- 
+
     WWW_CONST char *read_pointer 	= s;
     WWW_CONST char *write_pointer = s+l;
 
@@ -165,14 +165,14 @@ PRIVATE void HTWriter_handle_interrupt ARGS1(HTStream *, me)
 **	-----------------------
 */
 PRIVATE WWW_CONST HTStreamClass HTWriter = /* As opposed to print etc */
-{		
+{
 	"SocketWriter",
 	HTWriter_free,
 	HTWriter_end_document,
 	HTWriter_put_character, 	HTWriter_put_string,
 	HTWriter_write,
         HTWriter_handle_interrupt
-}; 
+};
 
 
 /*	Subclass-specific Methods
@@ -183,8 +183,8 @@ PUBLIC HTStream* HTWriter_new ARGS1(int, soc)
 {
     HTStream* me = (HTStream*)malloc(sizeof(*me));
     if (me == NULL) outofmem(__FILE__, "HTWriter_new");
-    me->isa = &HTWriter;       
-    
+    me->isa = &HTWriter;
+
     me->soc = soc;
     me->write_pointer = me->buffer;
     return me;
@@ -198,7 +198,7 @@ PUBLIC HTStream* HTASCIIWriter ARGS1(int, soc)
 {
     HTStream* me = (HTStream*)malloc(sizeof(*me));
     if (me == NULL) outofmem(__FILE__, "HTASCIIWriter");
-    me->isa = &HTWriter;       
+    me->isa = &HTWriter;
 
     me->soc = soc;
     me->write_pointer = me->buffer;

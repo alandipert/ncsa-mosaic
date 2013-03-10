@@ -22,7 +22,7 @@
 /************************************************************************
 **
 **  sds.c - Scientific Data Set utility routines.
-**	
+**
 *************************************************************************/
 /*
 #ifdef RCSLOG
@@ -47,7 +47,7 @@
  *
  * Revision 1.12  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.11  1992/03/16  20:39:10  creiman
  * Changed declaration of SDSgetMinMax to match prototype. (Changed doubles
  * to floats)
@@ -67,22 +67,22 @@
  *
  * Revision 1.7  91/12/18  02:42:41  dweber
  * Oops.  Guess I forgot to change getRanks name.
- * 
+ *
  * Revision 1.6  1991/12/18  02:41:53  dweber
  * Added SDSgetRank
  *
  * Revision 1.5  91/12/09  12:12:27  dweber
  * Deleted the function SDSconvert
- * 
+ *
  * Revision 1.4  91/09/26  20:20:52  jplevyak
  * Minor header file reorganization.
- * 
+ *
  * Revision 1.3  91/09/13  18:01:21  jplevyak
  * Fixed minor bug w/extra argument in call.
- * 
+ *
  * Revision 1.2  91/06/11  15:20:50  sreedhar
  * disclaimer added
- * 
+ *
  * Revision 1.1  1990/11/08  16:39:09  jefft
  * Initial revision
  *
@@ -213,7 +213,7 @@ int SDSgetMinMax(h, min, max)
 
   h = strchr(h, ' ') + 1;
   *max = (float)atof(h);
-  
+
   return 0;
 }
 

@@ -134,7 +134,7 @@ extern int HTMLSearchText (Widget w, char *pattern,
 extern void HTMLSetAppInsensitive(Widget hw);
 extern void HTMLSetAppSensitive(Widget hw);
 extern void HTMLTraverseTabGroups();
-extern void HTMLDrawBackgroundImage(Widget w, int x, int y, int width, 
+extern void HTMLDrawBackgroundImage(Widget w, int x, int y, int width,
 				    int height);
 extern void HTMLSetFocusPolicy(Widget w, int to);
 #endif /* _NO_PROTO */
@@ -259,7 +259,7 @@ typedef struct table_field {
         int colWidth;           /* uniform width for all element in this col*/
         int rowHeight;          /* uniform hieght for all element in the row*/
 	Boolean	header;		/* is this field created with <TH> or <TD> */
-	
+
 	/* contents */
 	FieldType	type;
 	char		*text;
@@ -429,9 +429,9 @@ struct delay_rec {
 #define M_TABLE_HEADER	47
 #define M_TABLE_ROW	48
 #define M_TABLE_DATA	49
-#define M_SUP           50  
-#define M_SUB           51 
-#define M_FIGURE        52 
+#define M_SUP           50
+#define M_SUB           51
+#define M_FIGURE        52
 #define M_COMMENT       53
 #define M_DOC_HEAD      54 /* amb 2 */
 #define M_UNDERLINED    55 /* amb 2 */

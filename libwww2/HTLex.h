@@ -1,5 +1,5 @@
 /*                         LEXICAL ANALYSOR (MAINLY FOR CONFIG FILES)
-                                             
+
  */
 
 #ifndef HTLEX_H
@@ -34,7 +34,7 @@ extern int lex_line;            /* Line number in source file   */
 Get Next Lexical Item
 
    If returns LEX_ALPH_STR or LEX_TMPL_STR the string is in global buffer lex_buffer.
-   
+
  */
 
 PUBLIC LexItem lex PARAMS((FILE * fp));

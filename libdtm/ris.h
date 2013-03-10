@@ -34,29 +34,29 @@
  *
  * Revision 1.11  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.10  1992/02/21  13:48:04  dweber
  * Fixed prototyping problem in RISgetType.
  *
  * Revision 1.9  92/02/18  16:22:04  dweber
  * Added functions for setting/getting associated palette names.
  * (RISsetPaletteName and RISgetPaletteName)
- * 
+ *
  * Revision 1.8  92/01/24  19:12:55  dweber
  * *** empty log message ***
- * 
+ *
  * Revision 1.7  91/11/18  11:48:57  dweber
  * Returned the RISsize definition and changed PALsize to PALelements for same reason
- * 
+ *
  * Revision 1.6  91/11/04  15:06:08  dweber
  * Added PAL size commands
- * 
+ *
  * Revision 1.5  91/11/04  12:58:36  dweber
  * Added RIS types and removed 8/24 bit distinction from class level.
- * 
+ *
  * Revision 1.4  91/09/10  15:07:32  jefft
  * cleaned-up message class macros.
- * 
+ *
  * Revision 1.3  1991/06/11  15:23:04  sreedhar
  * disclaimer added
  *
@@ -65,7 +65,7 @@
  *
  * Revision 1.1  90/11/08  16:38:04  jefft
  * Initial revision
- * 
+ *
 */
 
 

@@ -81,14 +81,14 @@ PUBLIC int HTAA_getUid NOARGS
 	if (isNumber(current_prot->uid_name)) {
 	    if (NULL != (pw = getpwuid(atoi(current_prot->uid_name)))) {
 #ifndef DISABLE_TRACE
-		if (www2Trace) fprintf(stderr, 
+		if (www2Trace) fprintf(stderr,
 				   "%s(%s) returned (%s:%s:%d:%d:...)\n",
 				   "HTAA_getUid: getpwuid",
 				   current_prot->uid_name,
 				   pw->pw_name, pw->pw_passwd,
 				   pw->pw_uid, pw->pw_gid);
 #endif
-		return pw->pw_uid;	
+		return pw->pw_uid;
 	    }
 	}
 	else {	/* User name (not a number) */
@@ -118,9 +118,9 @@ PUBLIC int HTAA_getUid NOARGS
 **		Default is 65534 (nogroup).
 */
 PUBLIC int HTAA_getGid NOARGS
-{    
+{
     struct group *gr = NULL;
-    
+
     if (current_prot  &&  current_prot->gid_name) {
 	if (isNumber(current_prot->gid_name)) {
 	    if (NULL != (gr = getgrgid(atoi(current_prot->gid_name)))) {
@@ -137,7 +137,7 @@ PUBLIC int HTAA_getGid NOARGS
 	else {	/* Group name (not number) */
 	    if (NULL != (gr = getgrnam(current_prot->gid_name))) {
 #ifndef DISABLE_TRACE
-		if (www2Trace) fprintf(stderr, 
+		if (www2Trace) fprintf(stderr,
 				   "%s(\"%s\") returned (%s:%s:%d:...)\n",
 				   "HTAA_getGid: getgrnam",
 				   current_prot->gid_name,
@@ -216,9 +216,9 @@ PRIVATE void HTAA_parseProtFile ARGS2(HTAAProt *, prot,
 		break;
 
 	    if (lex_item == LEX_ALPH_STR) {	/* Valid setup record */
-		
+
 		StrAllocCopy(fieldname, lex_buffer);
-		
+
 		if (LEX_FIELD_SEP != (lex_item = lex(fp)))
 		    unlex(lex_item);	/* If someone wants to use colon */
 		                        /* after field name it's ok, but */
@@ -245,7 +245,7 @@ PRIVATE void HTAA_parseProtFile ARGS2(HTAAProt *, prot,
 						"authentication scheme:",
 						lex_buffer);
 #endif
-			
+
 			if (LEX_ITEM_SEP != (lex_item = lex(fp)))
 			    break;
 			/*
@@ -282,7 +282,7 @@ PRIVATE void HTAA_parseProtFile ARGS2(HTAAProt *, prot,
 			HTAssocList_add(prot->values, fieldname, lex_buffer);
 			lex_item = lex(fp);  /* Read record separator */
 #ifndef DISABLE_TRACE
-			if (www2Trace) fprintf(stderr, 
+			if (www2Trace) fprintf(stderr,
 					   "%s `%s' bound to value `%s'\n",
 					   "HTAA_parseProtFile: Name",
 					   fieldname, lex_buffer);
@@ -347,7 +347,7 @@ PRIVATE HTAAProt *HTAAProt_new ARGS3(WWW_CONST char *,	cur_docname,
 
     if (!prot_cache)
 	prot_cache = HTList_new();
-    
+
     while (NULL != (cache_item = (HTAAProtCache*)HTList_nextObject(cur))) {
 	if (!strcmp(cache_item->prot_filename, prot_filename))
 	    break;
@@ -536,7 +536,7 @@ PUBLIC HTAAProt *HTAA_getDefaultProtection NOARGS
     if (!current_prot) {
 	current_prot = default_prot;
 	default_prot = NULL;
-    }	
+    }
     return current_prot;
 }
 

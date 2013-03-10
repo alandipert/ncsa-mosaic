@@ -1,7 +1,7 @@
-/* 
+/*
  *  A minimalistic constraint widget
  *
- *  Sun Sep 12 20:03:49 GMT 1993     Gustaf Neumann                 
+ *  Sun Sep 12 20:03:49 GMT 1993     Gustaf Neumann
  */
 #include "../config.h"
 #ifndef MOTIF
@@ -70,7 +70,7 @@ DrawingAreaClassRec drawingAreaClassRec = {
   { /* constraint_class fields */
     /* subresourses       */   NULL,
     /* subresource_count  */   0,
-    /* constraint_size    */   0, 
+    /* constraint_size    */   0,
     /* initialize         */   NULL, /*ConstraintInitialize,*/
     /* destroy            */   NULL,
     /* set_values         */   NULL, /*ConstraintSetValues,*/
@@ -157,9 +157,9 @@ static Boolean ConstraintSetValues(current, request, new, args, num_args)
     Cardinal *num_args;
 {
 /*
-  register DrawingAreaConstraints cfc = 
+  register DrawingAreaConstraints cfc =
       (DrawingAreaConstraints) current->core.constraints;
-  register DrawingAreaConstraints nfc = 
+  register DrawingAreaConstraints nfc =
       (DrawingAreaConstraints) new->core.constraints;
  */
   return( FALSE );
@@ -184,7 +184,7 @@ static XtGeometryResult PreferredGeometry( widget, request, reply  )
 {
 /*
     DrawingAreaWidget w = (DrawingAreaWidget)widget;
- */   
+ */
     return XtGeometryNo;
 }
 

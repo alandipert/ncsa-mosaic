@@ -51,13 +51,13 @@ void HTList_addObject ARGS2(HTList *,me, void *,newObject)
 
 void HTList_addObjectAtEnd ARGS2(HTList *,me, void *,newObject)
 {
-  if (me) 
+  if (me)
     {
       HTList *newNode = (HTList *)malloc (sizeof (HTList));
       if (newNode == NULL) outofmem(__FILE__, "HTList_addObject");
       newNode->object = newObject;
       newNode->next = NULL;
-      while (me->next) 
+      while (me->next)
         me = me->next;
       me->next = newNode;
     }

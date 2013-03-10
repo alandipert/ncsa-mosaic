@@ -3,35 +3,35 @@ See document FEATURES for canonical list of features.
 From 2.5 to 2.6
 ...............
 
- o Inline JPEGs are supported. 
- o mailto URLs are supported. 
+ o Inline JPEGs are supported.
+ o mailto URLs are supported.
  o Improved Usenet support, including threaded newsgroup listings and article
-   posting. 
+   posting.
  o Common Client Interface now supports POST to server, SEND
-   BROWSERVIEW and QUIT browser protocol functionality. 
+   BROWSERVIEW and QUIT browser protocol functionality.
  o PostScript printing and saving optionally includes URL and page number as
-   page header. 
+   page header.
  o Minimal group annotation support. Set the annotationServer resource
-   to the URL of your CGI annotation server. 
+   to the URL of your CGI annotation server.
  o The URL text field is now editable. Pressing Enter within the text field
-   causes Mosaic to open the displayed URL. 
+   causes Mosaic to open the displayed URL.
  o Load to local disk can now be activated on a one-time basis by holding down
-   the shift key while clicking on a hyperlink. 
+   the shift key while clicking on a hyperlink.
  o HTTP header Referer now contains a document's parent URL (for hyperlinks
    that are clicked-on with the mouse pointer, only). NCSA httpd 1.4 can log
-   the Referer field. 
+   the Referer field.
  o HTTP header User-Agent now uses a slightly different format, for
-   consistency with other platforms: 
+   consistency with other platforms:
      User-Agent: NCSA_Mosaic/2.6 (X11; SunOS 4.1.3 sun4m)  libwww/2.12 modified
  o resource *maxNumCCIConnect added to restrict number of cci clients
-   communicating with the browser. 
- o comment card for user survey introduced in this version. 
- o Added additional entity support 
+   communicating with the browser.
+ o comment card for user survey introduced in this version.
+ o Added additional entity support
  o On reload, added support for a cache proxy. If resource
    reloadPragmaNoCache is set, Mosaic will send an additional header notifying
-   proxy not to use cache. 
- o Added support for older NNTP servers. 
- o Code has been Saber tested. 
+   proxy not to use cache.
+ o Added support for older NNTP servers.
+ o Code has been Saber tested.
 
 From 2.4 to 2.5
 ...............
@@ -44,26 +44,26 @@ From 2.4 to 2.5
    (thanks to Gilles Bourhis).
  o Hotlists are now stored in HTML as nested unordered lists.
  o Binaries are now linked with the latest, greatest, HDF (Hierarchical
-   Data Format) library. 
+   Data Format) library.
  o Added -kiosk command-line flag and Boolean X resource, kiosk.
  o Also added -kioskNoExit command-line flag and Boolean X
    resource kioskNoExit for kiosk mode without the close button.
  o Added defaultFontChoice X resource.
  o Added experimental editor hook to File menu.
  o Added editCommandUseXterm resource.
- o Added child signal handler. 
+ o Added child signal handler.
  o For security reasons, changed /bin/rm system calls to unlink().
  o Added limited HTML table support.
  o Added support for HTML <SUP>superscript</SUP> and <SUB>subscript
-   </SUB> tags, allong with supSubFont X resource. 
+   </SUB> tags, allong with supSubFont X resource.
  o Forms may now have multiple submit buttons by including a NAME
    attribute in INPUT elements of type SUBMIT.
  o Fixed comment parsing, so that HTML mark-up can exist inside
    comments. Comments should begin with <!-- and end with -->
  o Mosaic no longer displays text inside the <HEAD> section of an
-   HTML document. 
- o Added <U>underline</U> support. 
- o Fixed case-sensitivity forms bug. 
+   HTML document.
+ o Added <U>underline</U> support.
+ o Fixed case-sensitivity forms bug.
  o Fixed some forms core dumps
  o More verbose error messages
 
@@ -100,406 +100,406 @@ From 2.2 to 2.3
 From 2.1 to 2.2
 ...............
 
- o Fixed bug in unrecognized URLs that have whitespace at the beginning. 
- o Fixed bug with transparent color GIF89 images. 
- o Fixed more inlined image parsing code dumps. 
- o Fixed odd extra flashing in documents accessed after form documents. 
- o Fixed socket leak in interrupted I/O. 
- o Fixed bug in whitespace terminated entity '&' escapes. 
- o Added Frans Van Hoesel's latest postscript changes. 
- o Added Frans Van Hoesel's extra font support. 
- o Speedups in GIF decoding, thanks to David Koblas. 
+ o Fixed bug in unrecognized URLs that have whitespace at the beginning.
+ o Fixed bug with transparent color GIF89 images.
+ o Fixed more inlined image parsing code dumps.
+ o Fixed odd extra flashing in documents accessed after form documents.
+ o Fixed socket leak in interrupted I/O.
+ o Fixed bug in whitespace terminated entity '&' escapes.
+ o Added Frans Van Hoesel's latest postscript changes.
+ o Added Frans Van Hoesel's extra font support.
+ o Speedups in GIF decoding, thanks to David Koblas.
  o Improved handling of monochrome displays. Detect mono without needing
-   the -mono option, and dither inlined images. 
+   the -mono option, and dither inlined images.
  o Added <OPTION VALUE=val> support so you can have the value returned
-   different than the string displayed. 
+   different than the string displayed.
  o Added <INPUT TYPE=hidden> to allow invisible constant name/value pairs
-   to be added to submitted forms. 
- o Made resource verticalScrollOnRight user settable. 
- o Added hooks for PEM and PGP decoding by external application(s). 
- o Added support for proxy gateways, specifiable on a per access method basis. 
+   to be added to submitted forms.
+ o Made resource verticalScrollOnRight user settable.
+ o Added hooks for PEM and PGP decoding by external application(s).
+ o Added support for proxy gateways, specifiable on a per access method basis.
 
 From 2.0 to 2.1
 ...............
 
  o Remote control users and script writers take note: control filename
    changed from /tmp/xmosaic.pid to /tmp/Mosaic.pid. This
-   is the final such change, forever. 
+   is the final such change, forever.
  o Transparent uncompression over HTTP/1.0 is working -- Plexus
    3.0i-beta is known to handle the server-side aspects, and the first
    release of NCSA httpd after 1.0a5 will. Only content encodings
-   "x-compress" and "x-gzip" are currently handled. 
- o Transparent uncompression for local files is now working. 
- o Mail sending from within Mosaic is redone. Notably: 
-    o mailCommand resource is now totally obsolete. 
+   "x-compress" and "x-gzip" are currently handled.
+ o Transparent uncompression for local files is now working.
+ o Mail sending from within Mosaic is redone. Notably:
+    o mailCommand resource is now totally obsolete.
     o sendmailCommand resource is now expected to point to
-      your system's sendmail binary; default is 
+      your system's sendmail binary; default is
       /usr/lib/sendmail. Assumption is made that this
       program accepts command-line arguments specifying
       addresses to which message should be mailed, and accepts other
-      headers and message text from stdin. 
+      headers and message text from stdin.
     o Mailed messages are now MIME-compliant, including use of
-      proper content-types. 
+      proper content-types.
     o Additional header X-URL is used to indicate the URL of a
-      mailed document to the recipient. 
+      mailed document to the recipient.
     o A BASE directive is added to mailed HTML documents to
       allow inlined images and relative hyperlinks to work on the
-      other end. 
+      other end.
  o Mosaic 1.2's multiline FTP response fixes (courtesy John
-   Ockerbloom) merged in, and tweaks made. 
- o Added support for freeWAIS 0.202's URL type in native WAIS code. 
+   Ockerbloom) merged in, and tweaks made.
+ o Added support for freeWAIS 0.202's URL type in native WAIS code.
  o Added support for "204 NoResponse" responses in HTTP/1.0. When
    such a response is received, Mosaic will not go to a new document or
    an error message but will completely disregard the results of the
-   connection. 
+   connection.
  o Status line now displays "xx of yy bytes" when talking to an HTTP/1.0
    server that tells it content-length. (For small transfers this may not
    happen, which is to be expected, as header and entire data block
-   transfer will be very close together.) 
+   transfer will be very close together.)
  o Worked around BadWindow crash under Ultrix with Edit Hotlist
-   window. 
+   window.
  o Worked around BadWindow crash under Ultrix with ISINDEX forms
-   and text entry areas. 
- o Glitch with formatting long lines in some cases fixed. 
- o Fixed rare coredump opportunity in SELECT/OPTION handling. 
- o Fixed rare uninitialized memory read in widget selection code. 
- o Fixed another coredump opportunity in inlined image loading. 
+   and text entry areas.
+ o Glitch with formatting long lines in some cases fixed.
+ o Fixed rare coredump opportunity in SELECT/OPTION handling.
+ o Fixed rare uninitialized memory read in widget selection code.
+ o Fixed another coredump opportunity in inlined image loading.
  o Fixed coredump opportunity in client-side authentication code with
-   long (>48 character) realm names. 
+   long (>48 character) realm names.
  o Mosaic no longer tries to pick up final reply from FTP servers, to
    thwart those servers that don't seem to be responding to the final reply
    read. Also should make FTP performance a little better. This may be
    an evil thing to do (since Mosaic may now tear down the socket before
-   the FTP server has finished writing to it); I'm not sure. 
+   the FTP server has finished writing to it); I'm not sure.
  o Rob says: "It appears on first glance that Mosaic 2.0 is ignoring
-   anchors in redirected URLs." He was right, and it's now fixed. 
+   anchors in redirected URLs." He was right, and it's now fixed.
  o Made a few fixes in PostScript printing code: corrected header
-   generation, and fixed width handling (thanks to Gustaf Neumann). 
- o Tweaked reloading code to avoid strange error message. 
+   generation, and fixed width handling (thanks to Gustaf Neumann).
+ o Tweaked reloading code to avoid strange error message.
  o Mosaic now assumes that text documents beginning with string
    "<BASE" or "<base" are HTML -- this makes it easy to use Mosaic
    as a metamail viewer for HTML documents mailed from this version
-   of Mosaic. 
+   of Mosaic.
  o Merged in donated fixes for 6-bit and 16-bit displays. These aren't
-   guaranteed to work as we have no way to test them. 
- o Fixed missing closing ADDRESS tag in news articles. 
+   guaranteed to work as we have no way to test them.
+ o Fixed missing closing ADDRESS tag in news articles.
  o Fixed condition in WAIS source parser that caused it to lose track of
    its state if escapted characters were inside quotes (thanks to Larry
-   Masinter). 
+   Masinter).
  o Fixed FTP code to allow ftp://username:password@host/
-   URLs (thanks to Larry Masinter). 
+   URLs (thanks to Larry Masinter).
  o This version of Mosaic supports the GIF89 transparent color
    extension. You can create GIFs with a transparent background color
    with the latest beta of netpbm and its ppmtogif filter (you can
    FTP that from ftp.cs.ubc.ca in /ftp/archive/netpbm if
-   you're desperate). 
+   you're desperate).
  o Merged in SOCKS modifications from Ying-Da Lee
    (ylee@syl.dl.nec.com); for the version of SOCKS needed to compile
    with SOCKS support enabled, see here; note that SOCKS and the SOCKS
    code now in Mosaic are NOT supported by NCSA.
  o Fixed memory problem with trackFullURLs set to false (that
    option still doesn't work in all cases, but at least it does something
-   reasonable now). 
- o Tweaks for compilation on various platforms. 
+   reasonable now).
+ o Tweaks for compilation on various platforms.
 
 From 2.0 prerelease 8 to 2.0
 ............................
 
  o Fixed intermittent bug in loading files to disk (would inaccurately
-   complain about insufficient temporary disk space). 
- o Extension map files can now have tabs as whitespace. 
+   complain about insufficient temporary disk space).
+ o Extension map files can now have tabs as whitespace.
  o Fixed more minor glitches in image caching, multiple windows, fun
-   things like that. 
+   things like that.
  o Never retry HTTP/1.0 POST operation as HTTP0 operation (makes no
-   sense to do so). 
+   sense to do so).
  o Removed really horrible compatibility hack for broken HTTP0 servers
    introduced in pre7 -- no longer useful, since ANU Bioinformatics has
-   upgraded to HTTP/1.0. 
- o Tweaked remote control a little (fixed redisplay bugs on some servers). 
- o Tweaked HTTP/1.0 status messages. 
- o Tweaked bcopy/bzero macros for System V/Solaris. 
+   upgraded to HTTP/1.0.
+ o Tweaked remote control a little (fixed redisplay bugs on some servers).
+ o Tweaked HTTP/1.0 status messages.
+ o Tweaked bcopy/bzero macros for System V/Solaris.
 
 From 2.0 prerelease 7 to 2.0 prerelease 8
 .........................................
 
  o Renamed executable 'Mosaic' and application class name 'Mosaic'. User
-   X resources and system app defaults files should be updated as necessary. 
- o Implemented FORM METHOD="POST" with optional 
-   ENCTYPE="application/x-www-form-urlencoded". 
- o Implemented TEXTAREA as described in the current (11/2) HTML+ spec. 
+   X resources and system app defaults files should be updated as necessary.
+ o Implemented FORM METHOD="POST" with optional
+   ENCTYPE="application/x-www-form-urlencoded".
+ o Implemented TEXTAREA as described in the current (11/2) HTML+ spec.
  o Fixed bugs with image caching (particularly with very small image cache
-   sizes) and multiple open windows. 
- o Scrolled lists with nothing selected now return nothing. 
+   sizes) and multiple open windows.
+ o Scrolled lists with nothing selected now return nothing.
  o Fixed coredump opportunity in GUI part of authentication code (Marc's
-   fault, not Ari's). 
- o Fixed glitch with spinning icon and deferred image loading. 
- o Quotes (") in OPTIONs now work. 
+   fault, not Ari's).
+ o Fixed glitch with spinning icon and deferred image loading.
+ o Quotes (") in OPTIONs now work.
  o Radio buttons no longer allowed to be "none of many" (document writers
    should make one of the buttons checked by default -- if you think you
    want to allow "none of many" behavior, just throw in a "none of the
-   above" radio button). 
+   above" radio button).
  o Image input elements whose images are deferred no longer have a
-   hyperlink available in the deferred image icon. 
- o Fixed glitch with exploding Gopher/FTP icons in some cases. 
+   hyperlink available in the deferred image icon.
+ o Fixed glitch with exploding Gopher/FTP icons in some cases.
  o Force allowShellResize to false on Mosaic shell windows to avoid some
-   stupid window manager bugs. 
+   stupid window manager bugs.
  o "I have noticed that Mosaic 2.0pre6 does not properly scroll horizontally
    when a preformatted <PRE> declared document is wider than the
    window." Also gopher://gopher.ora.com/00/ordering/online.ordering.
-   Fixed! 
+   Fixed!
  o Fixed coredump opportunity when temporary directory (TMPDIR) is
-   unusable. 
+   unusable.
  o Fixed coredump opportunities when interrupting NNTP connects and
-   reads and when including inlined images in news articles (yikes). 
+   reads and when including inlined images in news articles (yikes).
  o Fixed bad PostScript output of documents with titles with embedded
-   newlines. 
- o Fixed problems in PostScript code on DEC Alphas (hopefully). 
- o Fixed another coredump opportunity in GIF reading code. 
- o Fixed glitch in simplying URLs like 'http://blargh.blah.:8001/'. 
- o Password entry fields in forms now obey the MAXLENGTH attribute. 
+   newlines.
+ o Fixed problems in PostScript code on DEC Alphas (hopefully).
+ o Fixed another coredump opportunity in GIF reading code.
+ o Fixed glitch in simplying URLs like 'http://blargh.blah.:8001/'.
+ o Password entry fields in forms now obey the MAXLENGTH attribute.
  o Changed default DEC Ultrix and Alpha audio player to "aplay" (c.f.
-   AudioFile). 
+   AudioFile).
  o Tried to make handling of HTTP network writes more elegant, in case
-   some HTTP0 server really confuses things. 
- o Additional performance optimizations in HTML widget. 
- o New colorful spinning globe icon. 
+   some HTTP0 server really confuses things.
+ o Additional performance optimizations in HTML widget.
+ o New colorful spinning globe icon.
  o Final interface tweaks, according to the advice of our user interface and
-   visual design expert. 
- o Fixed compilation glitches on a couple different platforms. 
- o A few miscellaneous minor cleanups. 
+   visual design expert.
+ o Fixed compilation glitches on a couple different platforms.
+ o A few miscellaneous minor cleanups.
 
 From 2.0 prerelease 6 to 2.0 prerelease 7
 .........................................
 
  o Smart inlined image caching. Resource imageCacheSize can be
    set to the maximum image cache size of your choice (in kbytes;
-   default 2048) -- command line option -ics also does this. 
+   default 2048) -- command line option -ics also does this.
     o All of the images in a given document will be (temporarily)
-      cached while on that page regardless of the value of 
-      imageCacheSize. (This is a feature :-). 
-    o Cache flushes "least recently viewed". 
- o Added TYPE="image" to forms support (see testcase). 
+      cached while on that page regardless of the value of
+      imageCacheSize. (This is a feature :-).
+    o Cache flushes "least recently viewed".
+ o Added TYPE="image" to forms support (see testcase).
  o Added interruptible reads. All data loads should now be completely
    interruptible (from end of DNS lookup to beginning of in-widget
    document formatting), except for certain stages of a direct WAIS
-   query. 
+   query.
  o Added "mosaic-internal-present" magic viewer to cause arbitrary
    MIME types to be presented to the user using Mosaic's normal
    plaintext display mechanism. Added many default mappings for
-   things like troff and TeX documents to this magic viewer. 
+   things like troff and TeX documents to this magic viewer.
  o Made additional fixes to HTTP code for very small inlined images
-   -- testcases here and here. 
+   -- testcases here and here.
  o Transparent uncompression is back (but not recommended, for
-   cross-platform compatibility). 
-    o X resources uncompressCommand and 
-      gunzipCommand still control uncompression commands. 
+   cross-platform compatibility).
+    o X resources uncompressCommand and
+      gunzipCommand still control uncompression commands.
     o You should upgrade to gzip version 1.2.4 if you're not already
       there, as the new default for X resource gunzipCommand is
-      "gunzip -n -f", which requires a recent version of gzip. 
+      "gunzip -n -f", which requires a recent version of gzip.
     o Mosaic will not transparently uncompress anything coming
-      across a HTTP/1.0 connection, under any circumstances, yet. 
+      across a HTTP/1.0 connection, under any circumstances, yet.
     o Mosaic will not transparently uncompress anything
       transferred in binary transfer mode, but will transparently
       uncompress files typed such that they get saved directly to
       disk (e.g. application/octet-stream, and any
       MIME type mapped to magic viewer
-      "mosaic-internal-dump"). 
+      "mosaic-internal-dump").
  o Partially removed smart FTP interface -- will be restored at some
    point in the future when I have more time to work on it. In the
-   meantime, it caused too many problems with too many servers. 
+   meantime, it caused too many problems with too many servers.
  o Added "Reload Images" menu option to explicitly flush images on
-   current page and reload the entire thing. 
+   current page and reload the entire thing.
  o Added horrible hack to allow (slow, but working) transactions with
-   way-old HTTP0 servers. 
+   way-old HTTP0 servers.
  o Made handling of screwed-up HTTP/1.0 MIME header sets more
-   robust. 
- o Proper password entry dialog for authentication support. 
+   robust.
+ o Proper password entry dialog for authentication support.
  o Added last resolved host info caching to help performance with slow,
-   confused, or misconfigured DNS servers. 
- o Most temporary files weren't going into specified TMPDIR -- fixed. 
- o Fixed bug in handling of Gopher titles with 8-bit characters (testcase 
-   here -- this image). 
+   confused, or misconfigured DNS servers.
+ o Most temporary files weren't going into specified TMPDIR -- fixed.
+ o Fixed bug in handling of Gopher titles with 8-bit characters (testcase
+   here -- this image).
  o Fixed bugs in issuing Gopher queries -- punctuation in queries, etc.
-   should work now. 
+   should work now.
  o Better handling if temporary disk space runs out (still not a good
-   thing to allow to happen, though). 
+   thing to allow to happen, though).
  o Better socket handling (sockets should always be closed by the time
    an external viewer is started now, so they don't leak until the viewer
-   exits). 
+   exits).
  o Fixed bug in handling HTTP/1.0 redirection for inlined images and
-   reloading. 
+   reloading.
  o Fixed bug in following symlinks to absolutely specified files on FTP
-   servers. 
- o Fixed minor and intermittent scrollbar management bug. 
- o Fixed another coredump opportunity in GIF reading code. 
+   servers.
+ o Fixed minor and intermittent scrollbar management bug.
+ o Fixed another coredump opportunity in GIF reading code.
  o Fixed another coredump opportunity in FTP icon code (testcase
    file://ftp.uwp.edu/pub/music/lyrics/b/beatles -- can't read it because
    the FTP server is highly nonstandard, but at least now it doesn't dump
-   core). 
- o Fixed coredump opportunity in mailcap-parsing code. 
- o Fixed handling of some Gopher directories (e.g. 
-   gopher://calypso.oit.unc.edu/11/sunsite.d). 
- o Fixed coredump when using HREF instead of SRC with IMG. 
+   core).
+ o Fixed coredump opportunity in mailcap-parsing code.
+ o Fixed handling of some Gopher directories (e.g.
+   gopher://calypso.oit.unc.edu/11/sunsite.d).
+ o Fixed coredump when using HREF instead of SRC with IMG.
  o Color stuff -- start at http://nearnet.gnn.com/mkt/mkt.intro.html
    with correct colors and middle-button the resource directory, close
    new window, repeat as necessary, occasionally pressing 'R' (refresh)
    in the original window -- you'll see the colors in the newly opened
-   window look incorrect (in 1.2 also). Fixed! 
- o Fixed interruptible I/O weirdness on some System V systems. 
- o Cleaned up generation of Gopher titles. 
+   window look incorrect (in 1.2 also). Fixed!
+ o Fixed interruptible I/O weirdness on some System V systems.
+ o Cleaned up generation of Gopher titles.
  o Changed default player for all audio files from showaudio to sfplay
-   for SGIs to avoid various problems. 
+   for SGIs to avoid various problems.
  o Problem in SELECT's coming over Gopher -- %0D's at end of lines
-   don't get clipped out -- testcase 
-   gopher://gopher.saintjoe.edu/0/search/archieplex.html -- fixed. 
- o Fixed glitch with PostScript code. 
+   don't get clipped out -- testcase
+   gopher://gopher.saintjoe.edu/0/search/archieplex.html -- fixed.
+ o Fixed glitch with PostScript code.
  o Made small change to FTP code to cooperate with various FTP
-   servers better (testcase here). 
+   servers better (testcase here).
  o Fixed coredump when pressing Reset button in form with password
-   entry field. 
+   entry field.
  o Fixed socket leaking problems in FTP, WAIS, and beyond -- sockets
    should never again be leaked by Mosaic; if you can confirm this is
    happening, please let us know (and provide evidence, testcase
-   sequences, and netstat readouts). 
+   sequences, and netstat readouts).
  o Added recognition of Gopher+ image, sound, and movie types --
    still no guarantee they'll be handled properly, as Gopher+ does typing
    a little differently and we don't provide full support for Gopher+
-   anyway. 
+   anyway.
  o Fixed problem if temporary local copy of HDF file goes away
-   unexpectedly. Also better handling of temporary local files -- 
+   unexpectedly. Also better handling of temporary local files --
    however, beware that if you use Mosaic's HDF viewing support, you
    should clean up your temporary directory space on a fairly regular
    basis, as Mosaic does not always know when to clean it up for you
    (for various reasons -- Mosaic should always clean up local copies of
-   other types of data files though). 
+   other types of data files though).
  o Fixed longstanding security glitch in Gopher support (Marc VH will
-   recognize this). 
- o News support tweaked. 
- o More performance enhancements -- go Quantify! 
- o Added some portability fixes. 
- o Lots of little cleanups and fixes. 
+   recognize this).
+ o News support tweaked.
+ o More performance enhancements -- go Quantify!
+ o Added some portability fixes.
+ o Lots of little cleanups and fixes.
 
 From 2.0 prerelease 5 to 2.0 prerelease 6
 .........................................
 
- o Added CERN authentication code with GUI support (see CERN docs and 
-   testcases). 
+ o Added CERN authentication code with GUI support (see CERN docs and
+   testcases).
  o Added/revised scrolled lists, option menus, multiline text areas support in
-   fill-out forms; see docs. 
+   fill-out forms; see docs.
  o Added local directory icons and enhanced FTP icons (thanks to Charles
-   Henrich). 
- o New toggle button for selecting delayed image loading on the fly. 
+   Henrich).
+ o New toggle button for selecting delayed image loading on the fly.
  o New "Load Images In Current" menu option to load all (delayed) images
-   in current document. 
+   in current document.
  o Improved handling of wide range of HTTP/1.0 response codes (see BSDI
-   testcases). 
+   testcases).
  o Fixed really stupid problem with networking -- numeric addresses were
-   being handled incorrectly. 
+   being handled incorrectly.
  o Fixed coredump when reloading initial document that had been interrupted
    first time it was being loaded; also added internal fixes to make doing
-   things with no document loaded at least not crash the program. 
+   things with no document loaded at least not crash the program.
  o Fixed bug when retrieving ftp://mailbase.ac.uk/pub/lists-k-o/nir (it's not
-   accessible but a spurious bug report was getting dumped to stderr). 
+   accessible but a spurious bug report was getting dumped to stderr).
  o Made FTP directory handling more flexible/accurate (testcase here --
-   should see "lists" directory). 
- o Handle HTTP0/HTTP1 socket-level protocol clash a little better (e.g. 
+   should see "lists" directory).
+ o Handle HTTP0/HTTP1 socket-level protocol clash a little better (e.g.
    http://sunsite.unc.edu:8988/expo/nobeamup_map.html?49,51 -- might not
-   be a valid testcase anymore). 
- o Binary transfer bug fixed -- it works right now. 
+   be a valid testcase anymore).
+ o Binary transfer bug fixed -- it works right now.
  o Transparent uncompression still doesn't work (sorry), but the mutant
    compressed filename munging code that was alive in pre5 is disabled now,
-   and compressed files are treated as binary. 
+   and compressed files are treated as binary.
  o Worked around strange Motif bug causing crashes on some platforms with
-   message about accelerators. 
+   message about accelerators.
  o Now properly recognize comments ('#' first character in line) in extension
-   maps. 
+   maps.
  o Fixed problem with encoding of 8-bit characters in fill-out forms and
-   elsewhere. 
- o Made MIME type handling case insensitive in HTTP and WAIS code. 
+   elsewhere.
+ o Made MIME type handling case insensitive in HTTP and WAIS code.
  o Enhanced URL canonicalization (safe handling of trailing period in fully
-   qualified hostnames, plus lowercasing of all hostnames). 
- o Cleaned up some big direct WAIS and other memory leaks. 
- o Improved handling of Gopher errors. 
+   qualified hostnames, plus lowercasing of all hostnames).
+ o Cleaned up some big direct WAIS and other memory leaks.
+ o Improved handling of Gopher errors.
  o Improved handling of binary transfer mode (now "Load To Local Disk")
    -- local tmp file properly removed when cancel button is hit, and dialog
-   box is now modal to prevent problems. 
+   box is now modal to prevent problems.
  o Fixed bug in delayed inlined image icon handling with multiple delayed
-   inlined images on the same line. 
+   inlined images on the same line.
  o Gopher/FTP icons are now part of anchors, so they can be clicked on (even
-   though they're normal color -- trust us on this one). 
+   though they're normal color -- trust us on this one).
  o Fixed memory corruption problem with remote control newwin
-   directive. 
+   directive.
  o Changed FTP client code to always pass fully qualified machine name in
    anonymous password whenever possible (actual username is already being
-   passed). 
- o Cleaned up menubar. 
- o Lots of little cleanups, performance tweaks, and portability fixes. 
+   passed).
+ o Cleaned up menubar.
+ o Lots of little cleanups, performance tweaks, and portability fixes.
 
 From 2.0 prerelease 4 to 2.0 prerelease 5
 .........................................
 
  o Added INPUT elements of type RADIO for fill-out forms as per
-   HTML+ spec. 
+   HTML+ spec.
  o Added INPUT elements of type PASSWORD for fill-out forms as per
-   HTML+ spec. 
+   HTML+ spec.
  o Added INPUT elements of type OPTION for option menus in fill-out
-   forms (not in HTML+ spec yet). 
+   forms (not in HTML+ spec yet).
  o Added resource twirlingTransferIcon, default true, can be set to false to
-   turn off twirling NCSA logo on transfers (interruption is still possible). 
+   turn off twirling NCSA logo on transfers (interruption is still possible).
  o Added resource twirlIncrement, default 4096, to indicate how many bytes
    (minimum) are transferred between icon twirls in interface for normal
-   (FTP, Gopher, HTTP) transfers, if twirlingTransferIcon is on. 
- o FTP interface now has icons, byte counts (courtesy Charles Henrich). 
- o Gopher icons are back. 
+   (FTP, Gopher, HTTP) transfers, if twirlingTransferIcon is on.
+ o FTP interface now has icons, byte counts (courtesy Charles Henrich).
+ o Gopher icons are back.
  o Gopher type handling is back up to par, including support for
-   tweakGopherTypes. 
+   tweakGopherTypes.
  o Brought default mailcap and extension mapping stuff up to speed;
    enumerated previously wildcarded types (image/*, audio/*) for
-   debatably broken CERN server. 
+   debatably broken CERN server.
  o External viewers need not have "%s" as part of their names anymore; if
    they don't, then the data will be piped through stdin when they are
-   executed. 
+   executed.
  o Added "Reload Config Files" menubar entry, to cause mailcaps and
-   extension maps to be reloaded on the fly. 
- o Multiformat WAIS support is now working; testcase here; sample query. 
- o MIME types returned from WAIS servers are now handled correctly. 
- o Telnet/rlogin/tn3270 works again. 
- o Upon startup, now writes own pid into ~/.mosaicpid. 
+   extension maps to be reloaded on the fly.
+ o Multiformat WAIS support is now working; testcase here; sample query.
+ o MIME types returned from WAIS servers are now handled correctly.
+ o Telnet/rlogin/tn3270 works again.
+ o Upon startup, now writes own pid into ~/.mosaicpid.
  o Clip anchor ("#...") off of current URL, if present, before doing search,
-   for both forms and isindex. 
+   for both forms and isindex.
  o Widget creation now deferred as long as possible, to eliminate ugliness of
-   index field, etc. showing up too early. 
+   index field, etc. showing up too early.
  o It should now be impossible to do anything interface-wise during a
-   transfer except click on the interrupt button for the current window. 
+   transfer except click on the interrupt button for the current window.
  o Fixed memory problem introduced in pre4 triggered when opening a new
-   window with middle mouse click. 
- o Fixed HTML widget crash condition that hit HP-UX. 
+   window with middle mouse click.
+ o Fixed HTML widget crash condition that hit HP-UX.
  o Fixed problem jumping to anchors in the same document (jump to "#a" in
    a document, the "#b", then go back and you were still at "#b" instead of
    "#a"). Also nailed down jumping back and forth between anchors in
-   general. Performance maybe could be better. 
- o Handle 403 return codes better ("Forbidden"). 
+   general. Performance maybe could be better.
+ o Handle 403 return codes better ("Forbidden").
  o Fixed problem with icon not righting itself after reloading inlined images
-   (testcase). 
+   (testcase).
  o Fixed problem with invalid content-type returned as part of HTTP/1.0
    reply (was causing bad memory corruption; now unrecognized
-   content-types default to HTML). Testcase -- click on "Help". 
+   content-types default to HTML). Testcase -- click on "Help".
  o Fixed problem introduced in pre4 with confused history mechanism and
-   internal anchors. 
- o Fixed minor problem with news formatting. 
+   internal anchors.
+ o Fixed minor problem with news formatting.
  o Ignore SIGPIPE; error EPIPE is also considered to be a sign of the
-   HTTP1/0 protocol incompatibility problem. 
- o Fixed problem with -dil and images that aren't accessible at all. 
+   HTTP1/0 protocol incompatibility problem.
+ o Fixed problem with -dil and images that aren't accessible at all.
  o Merged in useful fixes from 2.11, including ignoring of ":80" for HTTP
    URLs and ":70" for Gopher URLs in URL parsing for improved history
-   tracking. 
+   tracking.
  o Killed use of const structs in HTML-PSformat.c to make compilation
-   under Ultrix easier. 
- o Added patches for Esix 4.0.4 and Solaris x86 2.1. 
+   under Ultrix easier.
+ o Added patches for Esix 4.0.4 and Solaris x86 2.1.
  o Reported bug: "Found a bug with the maxlength parm, if you set a size to
    something other than the specified maxlength, it will allow data of any
-   length to be entered" fixed. 
- o Cleaned up communication notification mechanisms. 
+   length to be entered" fixed.
+ o Cleaned up communication notification mechanisms.
 
 From 2.0 prerelease 3 to 2.0 prerelease 4
 .........................................
@@ -508,43 +508,43 @@ From 2.0 prerelease 3 to 2.0 prerelease 4
    hazards of prereleases, to keep users from having the slightest thought
    that a prerelease is the same thing as a stable release and should be
    given to small children, normal users, or people without senses of
-   humor. 
- o Basic interruptible I/O. 
+   humor.
+ o Basic interruptible I/O.
     o You can interrupt in the middle of a connect or between reads
       of chunks of data during HTTP, Gopher, direct WAIS, and FTP
-      connections. 
+      connections.
     o Existing problems: can't interrupt DNS (hostname) lookups,
-      can't interrupt in the middle of reads. 
+      can't interrupt in the middle of reads.
  o Added support for NCSA httpd 1.0 style extension/content-type config
-   files (extension maps). 
+   files (extension maps).
     o Resource useDefaultExtensionMap, default true, can be
       set to false to keep Mosaic from having any default extension
       mappings. We strongly recommend that this resource be left
-      true; simply override as necessary. 
+      true; simply override as necessary.
     o Resource globalExtensionMap, default
       "/usr/local/lib/mosaic/mime.types", can be set to the location of
-      the system-wide extension map config file of your choice. 
+      the system-wide extension map config file of your choice.
     o Resource personalExtensionMap, default
       ".mime.types", can be set to the location of the personal
       extension map config file of your choice -- the value of the
-      environment variable HOME is prepended to this. 
-    o Extension matching is now case insensitive (e.g., .txt and 
-      .TXT are always treated the same). 
+      environment variable HOME is prepended to this.
+    o Extension matching is now case insensitive (e.g., .txt and
+      .TXT are always treated the same).
  o Added support for RFC 1343-style mailcap files to map MIME types
    to external viewers. Together with the extension map support (above),
    this provides complete customizability of viewers, supported types, and
-   extensions in a manner smoothly compatible with multimedia mail. 
+   extensions in a manner smoothly compatible with multimedia mail.
     o Resource useDefaultTypeMap, default true, can be set to
-      false to keep Mosaic from having any default type mappings. 
+      false to keep Mosaic from having any default type mappings.
       We strongly recommend that this resource be left true; simply
-      override as necessary. 
+      override as necessary.
     o Resource globalTypeMap, default
       "/usr/local/lib/mosaic/mailcap", can be set to the location of the
-      system-wide mailcap (type map config) file of your choice. 
+      system-wide mailcap (type map config) file of your choice.
     o Resource personalTypeMap, default ".mailcap", can be set
       to the location of the personal mailcap file of your choice --
       the value of the environment variable HOME is prepended to
-      this. 
+      this.
     o In this prerelease, we are not RFC 1343-compliant in a couple
       respects: a "%s" must be included in the viewer specification; if
       it is not, Mosaic will not currently feed the data to the viewer
@@ -552,183 +552,183 @@ From 2.0 prerelease 3 to 2.0 prerelease 4
       like copiousoutput, test, and needsterminal aren't
       recognized either. We don't know if these things are important
       or not (needsterminal probably is but the others probably
-      aren't). 
+      aren't).
     o There are two "magic viewers" that can be associated with
-      particular MIME types: 
+      particular MIME types:
        o mosaic-internal-dump is used to tell Mosaic to
          dump files of the corresponding type to disk (providing
          the user with a dialog box to specify a filename).
          Normally this "magic viewer" applies to all
-         unrecognized types (including, by default, 
-         application/octet-stream). 
+         unrecognized types (including, by default,
+         application/octet-stream).
        o mosaic-internal-reference is used to tell
          Mosaic that it has native handling capabilities for this
          datatype. This should only be used for HDF and
          netCDF data files, and only with versions of Mosaic
          that have native HDF support compiled in. By default
-         this "magic viewer" applies to types 
-         application/x-hdf, 
+         this "magic viewer" applies to types
+         application/x-hdf,
          application/x-netcdf, application/hdf,
          and application/netcdf (the latter two aren't
          valid MIME types at the moment, but should be
-         someday). 
+         someday).
  o Added better WAIS type support. In particular, given an arbitrary
-   WAIS type (e.g. "TEXT", "WSRC", "GIF"), the following occurs: 
+   WAIS type (e.g. "TEXT", "WSRC", "GIF"), the following occurs:
      1 If a MIME type of the same name is found, then that is the type.
       (This is looking forward to the days when WAIS servers will
-      return MIME types -- "image/gif" instead of "GIF", etc.) 
+      return MIME types -- "image/gif" instead of "GIF", etc.)
      2 Otherwise, a dummy filename "foo.type" is constructed (e.g.
       "foo.GIF") and run through the normal extension mapping code
       to try to do a MIME type match. This means that you can
       expand the WAIS types Mosaic handles simply by adding
-      entries to your extension map (and, if necessary, your mailcap). 
-     3 If this fails, we assume plaintext. 
+      entries to your extension map (and, if necessary, your mailcap).
+     3 If this fails, we assume plaintext.
  o Fixed "bad docid" problem with direct WAIS queries to some WAIS
    servers (including White House Papers). (I'm still not sure this is
    bulletproof -- please send bug reports regarding bad or missing docids
-   or documents, inconsistent results, etc.) 
+   or documents, inconsistent results, etc.)
  o Added support for 300-level HTTP/1.0 replies (301 and 302 --
-   redirection or forwarding of URLs). 
+   redirection or forwarding of URLs).
 
    In conjunction with NCSA httpd 1.0a2 and later, this means graphical
    overviews of distributed information spaces are now easily doable (a
    single image map can essentially point to lots of URLs scattered all
-   across the Web). An example is here. 
+   across the Web). An example is here.
  o Added support for <BASE HREF="whatever"> to allow
    specification of a "real" URL inside an HTML document. (This is a
    convenient way to have WAIS server access not screw up URLs of
    documents that normally exist in a hypermedia hierarchy, or in any
    other instance where the same document, especially when containing
-   relative links, is served off of more than one server.) 
+   relative links, is served off of more than one server.)
 
    An example is here -- the document is physically located at
    "http://wintermute.ncsa.uiuc.edu:8080/foobar.html" but the "real" URL
    is specified in the document source. Inlined links specified with
-   relative URLs, and relative hyperlinks, work. 
+   relative URLs, and relative hyperlinks, work.
  o Deferred inline image loading -- resource delayImageLoads can
    be set to true (or command-line flag -dil) to cause inlined images to
-   not be loaded by default. 
+   not be loaded by default.
     o Instead, a little icon is inlined that can be clicked on to have the
-      image loaded and expanded in place. 
+      image loaded and expanded in place.
     o Images serving as anchors get a little arrow icon on top of the
-      little image icon that can be clicked on to follow the anchor. 
+      little image icon that can be clicked on to follow the anchor.
     o Only problem remaining: how to handle ISMAP images
-      reasonably in this context. 
+      reasonably in this context.
  o Reworked HTML widget layout to support consistent baselines --
-   typography is much improved. This also means: 
-    o <IMG ALIGN=MIDDLE> is now supported. 
+   typography is much improved. This also means:
+    o <IMG ALIGN=MIDDLE> is now supported.
     o Input elements in fill-out forms are now better aligned with
       their surroundings -- baseline of text in text widget is aligned
       with baseline of surrounding text line; toggle buttons are placed
-      correctly. 
+      correctly.
  o Papered over basic incompatibility between HTTP0 and HTTP/1.0
    protocols -- sockets can get confused when sending a HTTP/1.0
    request to a HTTP0 server; we now detect when this happens and
    reissue the request as HTTP0. This is not a really good fix, as there is a
    performance hit if it must be done frequently and it's ugly besides, but
    it does mean that data should never be lost when talking to a HTTP0
-   server. 
+   server.
  o Fixed compatibility problem with X11R5/Motif 1.2 (the binaries we
    distribute are still linked with X11R4/Motif 1.1 but you should be able
-   to compile and run with X11R5/Motif 1.2 now). 
- o New and improved inlined XPM3 support. 
+   to compile and run with X11R5/Motif 1.2 now).
+ o New and improved inlined XPM3 support.
  o Fixed fairly large memory problem dealing with external data elements
    in HTFWriter.c, which often instantiated itself in coredumps in the
-   GIF reading/decompressing code. 
+   GIF reading/decompressing code.
  o Fixed really stupid problem interpreting binary data over HTTP/1.0
-   connections. 
- o Fixed coredump on File->Mail To with no specified subject. 
+   connections.
+ o Fixed coredump on File->Mail To with no specified subject.
  o Fixed coredump on "Save As" under some circumstances with new
-   HTML widget. 
+   HTML widget.
  o Fixed coredump on getting back NULL text on first connection or on
-   reload. 
+   reload.
  o Fixed stupid bug-like feature in HDF code regarding display of only
-   value of a single-value vdata. 
+   value of a single-value vdata.
  o Now sends DTM disconnect message when closing application, if
-   DTM connection is active. 
- o Took out extra space after periods bug-like feature. 
+   DTM connection is active.
+ o Took out extra space after periods bug-like feature.
  o Fixed bug with new widget: document sometimes getting shoved off
-   top of window and no scrollbar appearing. 
+   top of window and no scrollbar appearing.
  o Binary transfer mode is back, and unknown types are handled as with
-   binary transfer mode. 
+   binary transfer mode.
  o Fixed problem with trailing slash on FTP directory (old problem, once
-   fixed, reintroduced in 2.0). 
- o Fixed lots of memory leaks (thanks to Purify). 
+   fixed, reintroduced in 2.0).
+ o Fixed lots of memory leaks (thanks to Purify).
  o Changed default documentsMenuSpecfile to
-   /usr/local/lib/mosaic/documents.menu. 
+   /usr/local/lib/mosaic/documents.menu.
 
 From 2.0 prerelease 2 to 2.0 prerelease 3
 .........................................
 
- o Libwww2 merged in (based on libwww-2.09a; heavily modified).  
+ o Libwww2 merged in (based on libwww-2.09a; heavily modified).
     o Basic HTTP/1.0 support, including MIME format
       comprehension.  (See libwww-2.09/HTInit.c; no run-time
-      customization is in place yet.) 
-    o Direct WAIS support.  
-       o Link to freeWAIS 0.1 client libraries.  
-       o Handle plaintext, html, binary formats (!) cleanly.  
+      customization is in place yet.)
+    o Direct WAIS support.
+       o Link to freeWAIS 0.1 client libraries.
+       o Handle plaintext, html, binary formats (!) cleanly.
        o Even access HDF/netCDF files out of a WAIS database
          and have them be handled properly by Mosaic (parsed and
          displayed with inlined images, hyperlinks, and the works
-         as usual).  
+         as usual).
        o New resource maxWaisResponses controls maximum
          number of matches you get from a WAIS server; default
-         is 200.  
-    o FTP and file interfaces now alphabetize filenames.  
+         is 200.
+    o FTP and file interfaces now alphabetize filenames.
     o Local file interface inlines README file in directory listing, if
-      one exists.  
+      one exists.
     o "ftp" URL always forces FTP link -- never tries local directory.
-      "file" URL still first tries local directory then tries FTP link.  
+      "file" URL still first tries local directory then tries FTP link.
     o Search suffix now cropped from URL before determining file
-      type by extension.  
+      type by extension.
     o Lots of new bugs, and lots of previously fixed bugs from Mosaic
-      1.x reincarnated as new bugs.  
- o New and improved HTML widget.  
+      1.x reincarnated as new bugs.
+ o New and improved HTML widget.
     o No more document pages or large virtual windows -- everything
-      is managed by the widget itself (including scrollbars).  
+      is managed by the widget itself (including scrollbars).
     o Preformatted text sections wider than window do not force all
       text to be formatted to full width of window; text will be
       formatted to width of visible window and horizontal scrollbar
-      will allow viewing remainder of the pre sections.  
+      will allow viewing remainder of the pre sections.
     o Jumping to anchor in document in new window (e.g.  using
-      middle button) now works.  
-    o Performance performance performance!  (Really!) 
+      middle button) now works.
+    o Performance performance performance!  (Really!)
     o Scrolling up or down by pages now gives you a leftover line
-      from the previous page.  
+      from the previous page.
     o Added <br> and <hr> tags (linebreak and horizontal rule,
-      respectively); also now support <strike> for strikeout effect.  
+      respectively); also now support <strike> for strikeout effect.
     o Initial fill-out form support.  This is a partial implementation of
-      HTML+'s fill-out form spec, with a few minor changes.  
+      HTML+'s fill-out form spec, with a few minor changes.
        o For information on what's supported, how it works, and
-         examples, see here.  
+         examples, see here.
        o A partially or fully filled out form will retain its state if
-         you move to another document and then back.  
+         you move to another document and then back.
        o ISINDEX is now handled via an inlined fill-out form
          (which means searchIndexInDialog resource is no longer
-         useful).  
- o New directives and features for remote control: 
+         useful).
+ o New directives and features for remote control:
     o "pagedown", "pageup", "scrolldown", and "scrollup" directives
-      for remote control of scrollbar.  
+      for remote control of scrollbar.
     o Audio, video, and other external datatypes can now be accessed
-      without the window going out to lunch.  
+      without the window going out to lunch.
  o Status area of document view window now gives byte count during
-   network transfer, etc.  (This isn't complete yet.) 
+   network transfer, etc.  (This isn't complete yet.)
  o New resource trackFullURLs, if set to False, enables prototypical smart
    display of "where you're going" during mouse tracking, including format
-   divination.  This is still in progress...  
+   divination.  This is still in progress...
  o Unflagged command-line arg specifies startup document, which is now
-   different from home document.  
- o Normal ISINDEX queries are now escaped properly.  
+   different from home document.
+ o Normal ISINDEX queries are now escaped properly.
  o ACTION attribute now accepted for ISINDEX tag; allows specification
-   of alternate search engine.  
+   of alternate search engine.
  o New File->Refresh menu entry (to cause image colors to be restored,
-   etc.  without requiring network transfer) -- keyboard hotkey capital-R.  
- o Capital-H is now hotkey for calling up hotlist window.  
+   etc.  without requiring network transfer) -- keyboard hotkey capital-R.
+ o Capital-H is now hotkey for calling up hotlist window.
  o Fixed bug -- http://386bsd.cc.purdue.edu:8001/ was getting the machine
-   name interpreted as numeric address.  
- o Nuked future list in history window.  
- o Nuked SIGINT interrupt hack.  
- o Nuked prototype group annotation support.  
+   name interpreted as numeric address.
+ o Nuked future list in history window.
+ o Nuked SIGINT interrupt hack.
+ o Nuked prototype group annotation support.
 
 From 2.0 prerelease 1 to 2.0 prerelease 2
 .........................................
@@ -736,21 +736,21 @@ From 2.0 prerelease 1 to 2.0 prerelease 2
  o Added searchIndexInDialog resource.  If false (default), Search Index
    field (from 1.2) pops up on searchable pages and pops down on
    non-searchable pages.  If true, Search Index button (from 2.0
-   prerelease 0/1) allows user to call up dialog box.  
+   prerelease 0/1) allows user to call up dialog box.
  o The "Reload" option now clears out cached image data for the current
    document before reloading the document, thus causing the images to
    be reloaded also, if resource reloadReloadsImages is set to true
-   (default is false).  
+   (default is false).
  o The "Clear Image Cache" menu option wipes out all cached images
-   (reclaiming memory).  
- o "Clear Global History" also clears the image cache now.  
+   (reclaiming memory).
+ o "Clear Global History" also clears the image cache now.
  o Fixed bug with internal bitmaps used in Gopher menus failing on
-   non-8-bit displays.  
+   non-8-bit displays.
  o Ripped out Window Per Document option (middle button still causes
-   new window to be opened on anchor activation).  
+   new window to be opened on anchor activation).
  o Toplevel Makefile (configure one file, type 'make', and you're done),
    as well as Makefile.sun, Makefile.ibm, Makefile.dec, Makefile.alpha
-   for common configurations.  
+   for common configurations.
  o Configurable Documents menu.  By default there isn't one.  Places to
    look in order of preference at program startup are the value of the
    resource documentsMenuSpecfile (by default
@@ -758,299 +758,299 @@ From 2.0 prerelease 1 to 2.0 prerelease 2
    variable MOSAIC_DOCUMENTS_MENU_SPECFILE, and the
    value of the compile-time #define
    DOCUMENTS_MENU_SPECFILE (by default
-   /usr/local/mosaic/documents.menu).  
+   /usr/local/mosaic/documents.menu).
 
    The specfile itself consists of alternating lines of title and URL; a
    single line starting with two dashes ("--") between any two title/URL
    pairs counts as a separator.  By default up to 80 things (title/URL pairs
    + separators) can be in a specfile; this can be increased in
    src/gui-menubar.c if you're crazy.  An example specfile is distributed
-   with the source code (but is not intended to be a default).  
+   with the source code (but is not intended to be a default).
 
    The developer who implemented this feature disagrees with its
    presence in the program; the contents of such a customizable menubar
    ought to be in a hypermedia page (so you can actually format, lay out,
    and explain the various hyperlinks) that in turn ought to be served to
    the network (so others can benefit from your organization of
-   information).  
+   information).
  o Added simpleInterface resource to allow menubar and bottom button
    configuration to be considerably pared down (default is false).
    Comments on what should and shouldn't be in the simple user
-   interface should be sent to cbushell@ncsa.uiuc.edu.  
+   interface should be sent to cbushell@ncsa.uiuc.edu.
  o Added "Network Starting Points" document pointer in Navigate menu
    (to make up for disappearance of Documents & Manuals menu); the
-   URL is customizable at compile time (see src/mosaic.h).  
+   URL is customizable at compile time (see src/mosaic.h).
  o trackPointerMotion can now be set to false to inhibit pointer/URL
-   tracking.  
- o Fixed yet another libwww bug -- coredump on malformed URL 
-   gopher//mother.cs.bham.ac.uk:2070/.  
+   tracking.
+ o Fixed yet another libwww bug -- coredump on malformed URL
+   gopher//mother.cs.bham.ac.uk:2070/.
 
 From 2.0 prerelease 0 to 2.0 prerelease 1
 .........................................
 
- o Fixes for PostScript printing on non-SGI's and in general.  
- o Moved "Search Index" button to left side of window.  
- o Fixed problems keeping img.c from compiling without HDF support.  
- o Ripped out Documents, Manuals.  
- o Better Gopher icons (thanks, Kevin Hughes).  
+ o Fixes for PostScript printing on non-SGI's and in general.
+ o Moved "Search Index" button to left side of window.
+ o Fixed problems keeping img.c from compiling without HDF support.
+ o Ripped out Documents, Manuals.
+ o Better Gopher icons (thanks, Kevin Hughes).
  o Removed hardcoding of location of help documents.  Here's how things
    work now: By default, the www.ncsa.uiuc.edu location is used.  This can be
    overridden in src/Makefile by setting the DOCS_DIRECTORY_DEFAULT
    define.  This can in turn be overridden by the environment variable
    MOSAIC_DOCS_DIRECTORY environment variable, which can in turn be
    overridden by the XMosaic*DocsDirectory X resource (which by default is
-   NULL).  How's that?  
+   NULL).  How's that?
  o Home page is now customizable at compile time by setting
-   -DHOME_PAGE_DEFAULT to any URL.  
- o Other things that are customizable at compile time (see src/mosaic.h): 
-    o WHATSNEW_PAGE_DEFAULT 
-    o DEMO_PAGE_DEFAULT 
-    o HTMLPRIMER_PAGE_DEFAULT 
-    o URLPRIMER_PAGE_DEFAULT 
- o Removed native DMF support.  
+   -DHOME_PAGE_DEFAULT to any URL.
+ o Other things that are customizable at compile time (see src/mosaic.h):
+    o WHATSNEW_PAGE_DEFAULT
+    o DEMO_PAGE_DEFAULT
+    o HTMLPRIMER_PAGE_DEFAULT
+    o URLPRIMER_PAGE_DEFAULT
+ o Removed native DMF support.
  o Reading a .HDF file that's not an HDF/netCDF file no longer exits on
-   "ncopen: Not a netcdf file".  
+   "ncopen: Not a netcdf file".
 
 From 1.2 to 2.0 prerelease 0
 ............................
 
- o Native HDF browsing support, and resources to support it.  
- o Search keyword is now in a dialog box.  
- o Mouse tracking, including display of target URL.  
- o Bitmaps in Gopher interface.  
- o History list now tracks jumps to internal anchors.  
+ o Native HDF browsing support, and resources to support it.
+ o Search keyword is now in a dialog box.
+ o Mouse tracking, including display of target URL.
+ o Bitmaps in Gopher interface.
+ o History list now tracks jumps to internal anchors.
  o New and improved PostScript printing (courtesy Ameet Raval and Frans Von
-   Hoesel); see below.  
- o Usenet news reading problems and other bugs fixed.  
- o DTM support updated to Collage 1.2-alpha equivalent.  
+   Hoesel); see below.
+ o Usenet news reading problems and other bugs fixed.
+ o DTM support updated to Collage 1.2-alpha equivalent.
 
 From 1.1 to 1.2
 ...............
 
  o Binary transfer mode, when on, now forces all files to be treated as
    binary, whether or not their extensions are recognized.  (Due to
-   overwhelming popular request.) 
+   overwhelming popular request.)
  o Gopher file types are now picked up on the basis of file extension, if a
    file extension exists, with the default being the normally assumed
    type.  This means that "foo.ps" returned as type '0' (text) is interpreted
    as PostScript, etc.  Resource tweakGopherTypes (default True) can be
    set to False to turn this off and interpret Gopher documents stricly by
-   the Gopher typing system.  
+   the Gopher typing system.
  o Resource postscriptViewerCommand is now "dump" by default.  This
    is because ghostview (the previous default), as currently shipped, runs
    ghostscript in unsafe mode and a malicious PostScript file could cause
-   damage to your filesystem as a result.  
+   damage to your filesystem as a result.
  o Added fullHostname resource to allow explicit setting of the fully
    qualified hostname (machine.domain).  We recommend you don't use
    this resource (allow Mosaic to determine your full hostname on the
-   fly) unless your system chokes on gethostbyname().  
+   fly) unless your system chokes on gethostbyname().
  o Fixed problem with annotationServer resource set and annotation
-   server not available or network down.  
- o Fixed problem with missing title (or author) in annotation.  
- o Fixed occasional coredump in File->Reload.  
+   server not available or network down.
+ o Fixed problem with missing title (or author) in annotation.
+ o Fixed occasional coredump in File->Reload.
  o Fixed occasional crash with inlined images after windows have been
-   closed.  
+   closed.
  o Made failure of gethostbyname() robust (coredumps actually inside
    gethostbyname() must still be dealt with by the gethostbynameIsEvil
-   resource).  
+   resource).
  o Fixed coredump when checking for editable annotation property when
-   document contains no text.  
+   document contains no text.
  o Fixed coredump when closing window if hotkey is hit while window
-   is still open but in the process of being destroyed.  
+   is still open but in the process of being destroyed.
  o Local files should now always be automatically canonicalized into a
    full URL of form file://hostname/full/path/filename -- this applies to
    command-line arguments and to filenames passed through
    File->Open.
  o Now recognize file://localhost/ scheme for expressly accessing local
-   files.  
+   files.
  o Fixed problem with multiline FTP server responses (courtesy John
-   Ockerbloom).  
+   Ockerbloom).
  o Fixed problem with ".." in FTP directory resulting in slash falling off
-   of toplevel URL and subsequent jumps failing.  
+   of toplevel URL and subsequent jumps failing.
  o Fixed problem with trailing slashes in FTP directory specifications
-   that were causing part of the directory name to be used twice.  
+   that were causing part of the directory name to be used twice.
  o Changed sgimoviePlayerCommand default to movieplayer, which
-   actually exists on some SGI systems.  
- o Made a few changes to menubar Documents and Help menus.  
- o Cleaned up lots of typecasting warnings in Xmx code.  
- o Fixed problem with Motif 1.2 and file insertions in annotate window.  
- o Fixed problem with double quotes in titles of group annotations.  
+   actually exists on some SGI systems.
+ o Made a few changes to menubar Documents and Help menus.
+ o Cleaned up lots of typecasting warnings in Xmx code.
+ o Fixed problem with Motif 1.2 and file insertions in annotate window.
+ o Fixed problem with double quotes in titles of group annotations.
  o Added resource reverseInlinedBitmapColors to allow reversal of
-   foreground and background colors in inlined XBM bitmaps.  
+   foreground and background colors in inlined XBM bitmaps.
  o Fixed problem with group annotations on URL's containing pound
    signs (normally this never happens, but it will happen for HDF files in
-   Mosaic 2.0).  
+   Mosaic 2.0).
  o Added confirmation box for deleting annotations from the menubar;
-   added resource confirmDeleteAnnotation, defaults to true.  
+   added resource confirmDeleteAnnotation, defaults to true.
  o Correctly recognizes mis-suffixed HTML files starting with <head>,
-   <html>, and <HTML> tags also now.  
- o XPM3-format inlined image support fixed.  
+   <html>, and <HTML> tags also now.
+ o XPM3-format inlined image support fixed.
 
 From 1.0 to 1.1
 ...............
 
- o Hotkeys in document view windows.  
- o Color leaks and glitches in inlined image support fixed.  
- o Support for TMPDIR environment variable, as well as resource 
+ o Hotkeys in document view windows.
+ o Color leaks and glitches in inlined image support fixed.
+ o Support for TMPDIR environment variable, as well as resource
    tmpDirectory and command-line flag -tmpdir, for specifying
-   location of tmp directory for transient data files.  
- o Added GUI-supported modification of hotlist entry titles.  
- o Added ISMAP tag support to IMG tag (courtesy Tony Sanders).  
- o CSO phonebook support (courtesy Lou Montulli).  
+   location of tmp directory for transient data files.
+ o Added GUI-supported modification of hotlist entry titles.
+ o Added ISMAP tag support to IMG tag (courtesy Tony Sanders).
+ o CSO phonebook support (courtesy Lou Montulli).
  o Added printing/saving straight to PostScript (courtesy Ameet A.  Raval).
-   No support for images yet, though.  
- o Fixed typo in Motif 1.2 support in HTML widget.  
+   No support for images yet, though.
+ o Fixed typo in Motif 1.2 support in HTML widget.
  o Fixed typo (nothing was broken, just caused it to be a little slow
-   sometimes) in document page handling.  
- o Two spaces between sentences in pretty selections now.  
- o SGML comments are now ignored.  
- o Updated copyright notice.  
- o Documentation hyperlinks point straight to new NCSA server.  
+   sometimes) in document page handling.
+ o Two spaces between sentences in pretty selections now.
+ o SGML comments are now ignored.
+ o Updated copyright notice.
+ o Documentation hyperlinks point straight to new NCSA server.
  o Mosaic can now be remotely controlled via signals by a parent process;
    e.g., to allow use as a browser for context-sensitive help from another
-   application.  More information coming...  
+   application.  More information coming...
  o Default rgbViewerCommand is now 'xv' on non-SGI platforms, since xv
-   3.0 now handles SGI RGB files.  
- o New WAIS interface document, pointing to NCSA gateway.  
- o URL of document is now sent in 'Mail To...' messages.  
- o <cite> now supported.  
- o <blockquote> now supported.  
- o <var> now uses italics.  
- o Fixed rare parsing/layout coredumps.  
- o Fixed rare pretty selection coredumps.  
+   3.0 now handles SGI RGB files.
+ o New WAIS interface document, pointing to NCSA gateway.
+ o URL of document is now sent in 'Mail To...' messages.
+ o <cite> now supported.
+ o <blockquote> now supported.
+ o <var> now uses italics.
+ o Fixed rare parsing/layout coredumps.
+ o Fixed rare pretty selection coredumps.
  o Fixed stupid memory and file-handling glitches; made hotlist and other
-   config file-handling much more robust.  
- o Properly handle (nuke) newlines in titles and URL's now.  
- o Fixed rare stupid coredumps in Motif lists.  
- o No more coredump when saving/printing/mailing empty file.  
+   config file-handling much more robust.
+ o Properly handle (nuke) newlines in titles and URL's now.
+ o Fixed rare stupid coredumps in Motif lists.
+ o No more coredump when saving/printing/mailing empty file.
  o Mosaic now has no default geometry resource value.  Initial window
    placement and toplevel dialog placement will be entirely according to
-   your window manager's settings.  
+   your window manager's settings.
  o Added resource percentVerticalSpace to allow customization of the space
    between paragraphs, between headers and paragraphs, etc.  in the HTML
-   widget.  
+   widget.
  o Fixed coredump when starting Mosaic with home page a directory with
-   no slashes in the specification.  
- o Added recognition of '.gz' for gzip'd files, as per GNU change.  
- o Fixed glitch with X bitmaps served by Gopher servers as inlined images.  
- o Added editres support.  
- o Added Motif 1.2 tearoff menu support.  
- o Better DEC Alpha OSF/1 support.  
- o Better Dell SVR4 support.  
- o A few more source cleanups for NeXT support.  
- o Reorganized Documents menu and added new options to Help menu.  
- o Added support for group annotation server (not yet available).  
- o Cleaned up src/Makefile (some).  
+   no slashes in the specification.
+ o Added recognition of '.gz' for gzip'd files, as per GNU change.
+ o Fixed glitch with X bitmaps served by Gopher servers as inlined images.
+ o Added editres support.
+ o Added Motif 1.2 tearoff menu support.
+ o Better DEC Alpha OSF/1 support.
+ o Better Dell SVR4 support.
+ o A few more source cleanups for NeXT support.
+ o Reorganized Documents menu and added new options to Help menu.
+ o Added support for group annotation server (not yet available).
+ o Cleaned up src/Makefile (some).
  o Suffixes .dump and .saveme are now recognized and trigger binary
-   file dump to local disk.  
- o Busy cursor now shows up more often, like it should.  
+   file dump to local disk.
+ o Busy cursor now shows up more often, like it should.
  o HDF files are now recognized and passed to Collage via Collage's -load
-   option, which isn't yet in a released version.  
- o Miscellaneous bug fixes and cleanups.  
+   option, which isn't yet in a released version.
+ o Miscellaneous bug fixes and cleanups.
 
 From 0.13 to 1.0
 ................
 
  o Added new resource, gethostbynameIsEvil, for Sun's that
    coredump when gethostbyname() is called to try to find out what
-   their own names are. (Command-line flag is -ghbnie.) 
+   their own names are. (Command-line flag is -ghbnie.)
  o Explicitly pop down all dialog boxes when document view
    window is closed, for window managers too dull to do so
-   themselves. 
- o Better visited anchor color for non-SGI's. 
- o Added .hqx and .uu to list of file extensions handled like .tar files. 
+   themselves.
+ o Better visited anchor color for non-SGI's.
+ o Added .hqx and .uu to list of file extensions handled like .tar files.
  o Added 'Clear' button to Open box, to allow more convenient
-   cut-n-paste entries of URL's. 
+   cut-n-paste entries of URL's.
  o New resource 'autoPlaceWindows'; if set to False, new document
    view windows will not be automatically positioned by the
    program itself (but it's still up to your window manager just how
-   they're placed). 
+   they're placed).
  o Command-line flags -i and -iconic now have desired effect (new
-   resource initialWindowIconic can also be used). 
- o Gif-reading code is a little more bulletproof. 
- o Obscure infinite loop triggered by extra space in IMG tag fixed. 
+   resource initialWindowIconic can also be used).
+ o Gif-reading code is a little more bulletproof.
+ o Obscure infinite loop triggered by extra space in IMG tag fixed.
  o Eliminated nonintuitive error message when image can't be read
    (inlined NCSA bitmap is indication enough that something's not
    right for authors, and readers can't do anything about bad images
-   in any case). 
+   in any case).
  o Obscure parsing bug (for constructs like <ADDRESS><A
-   HREF=...>text<A></ADDRESS>) fixed. 
- o Fixed mysterious stupid coredump that only hits Suns. 
- o Fixed stupid coredump on URL's like '://cbl.leeds.ac.uk/'. 
- o Fixed buglet in handling rlogin URL's. 
+   HREF=...>text<A></ADDRESS>) fixed.
+ o Fixed mysterious stupid coredump that only hits Suns.
+ o Fixed stupid coredump on URL's like '://cbl.leeds.ac.uk/'.
+ o Fixed buglet in handling rlogin URL's.
  o New support for Solaris/SYSVR4 (courtesy
-   dana@thumper.bellcore.com). 
+   dana@thumper.bellcore.com).
  o Better support for HP-UX 8.x and 9.x (courtesy
-   johns@hpwarf.wal.hp.com). 
- o Better support for NeXT (courtesy scott@shrug.dur.ac.uk). 
+   johns@hpwarf.wal.hp.com).
+ o Better support for NeXT (courtesy scott@shrug.dur.ac.uk).
  o Some miscellaneous portability fixes (courtesy
-   bingle@cs.purdue.edu). 
- o Miscellaneous bug fixes and cleanups. 
+   bingle@cs.purdue.edu).
+ o Miscellaneous bug fixes and cleanups.
 
 From 0.12 to 0.13
 .................
 
- o Fixed occasional mysterious coredump in startup routines. 
- o Fixed occasional stupid coredump in freeing document text. 
+ o Fixed occasional mysterious coredump in startup routines.
+ o Fixed occasional stupid coredump in freeing document text.
  o Fixed silly coredump on accessing malformed URLs like
-   ftp:/tcp/xxx.yyy.zzz.www. 
+   ftp:/tcp/xxx.yyy.zzz.www.
  o Fixed URL parsing choke on accessing URL 'test.html#foobar' as
-   an initial program argument. 
- o Added system() call error reporting. 
+   an initial program argument.
+ o Added system() call error reporting.
  o Changed default anchor representations: blue and single solid
    underline for unvisited, dark purple and single dashed underline
-   for visited. 
+   for visited.
  o Jumping from 2nd+ document page to 1st document page in a
-   single document via anchors works now. 
- o Various glitches with scrollbars, document pages, etc. fixed. 
+   single document via anchors works now.
+ o Various glitches with scrollbars, document pages, etc. fixed.
  o New toggle-button options (caseless, backwards) in File->Search
-   window. 
- o File->Search doesn't put search results on top line of window. 
- o Use of -l flag for rlogins restored. 
+   window.
+ o File->Search doesn't put search results on top line of window.
+ o Use of -l flag for rlogins restored.
  o Built-in finger interface with faces support (thanks, Marc V of
-   IU!). 
- o Miscellaneous bug fixes and cleanups. 
+   IU!).
+ o Miscellaneous bug fixes and cleanups.
 
 From 0.11 to 0.12
 .................
 
  o Files retrieved via binary transfer mode now get a file selection box
-   for user-provided filename. 
+   for user-provided filename.
  o Inlined image widths are now taken into account when formatting
-   text & images together. 
- o Fixed trigger of server bug on some systems wrt freeing color cells. 
- o Inlined images work on 24-bit TrueColor servers now. 
- o GUI interface for mailing hotlist and window history lists. 
- o Support for <ol> (numbered lists). 
- o Better support for nested description lists. 
+   text & images together.
+ o Fixed trigger of server bug on some systems wrt freeing color cells.
+ o Inlined images work on 24-bit TrueColor servers now.
+ o GUI interface for mailing hotlist and window history lists.
+ o Support for <ol> (numbered lists).
+ o Better support for nested description lists.
  o Support for <tt>, <b>, <i>, <em>, <strong>, <code>, <samp>,
    <kbd>, <var>, and corresponding resources italicFont, boldFont, and
-   fixedFont. 
- o Better 8-bit cleanliness. 
- o Bug with inlined images as anchors at end of documents fixed. 
+   fixedFont.
+ o Better 8-bit cleanliness.
+ o Bug with inlined images as anchors at end of documents fixed.
  o Compact description lists: <dl compact> causes first line of <dd>
-   text to jump up on same line with <dt> if room exists. 
- o SGML representations of 8-bit ISO8859 characters now work. 
+   text to jump up on same line with <dt> if room exists.
+ o SGML representations of 8-bit ISO8859 characters now work.
  o Fixed bugs with weird Lucida font metrics on DEC Alpha and a few
-   other servers. 
- o Fixed coredump triggered by <li>'s outside of a list. 
- o Fixed coredumps on malformed URL's like telnet:machine.name. 
+   other servers.
+ o Fixed coredump triggered by <li>'s outside of a list.
+ o Fixed coredumps on malformed URL's like telnet:machine.name.
  o Fixed coredumps on malformed URL's like
-   gopher:/gopher.uiuc.edu/. 
+   gopher:/gopher.uiuc.edu/.
  o Various document types returned via WAIS searches are now
-   detected (by extension only) and forked to viewers as appropriate. 
- o Fixed minor bug with disappearing whitespace. 
+   detected (by extension only) and forked to viewers as appropriate.
+ o Fixed minor bug with disappearing whitespace.
  o Fixed bug with extraneous newlines in description lists in very
-   narrow windows. 
+   narrow windows.
  o Fixed bug with erroneous description elements causing text to fall
-   off the left side of the screen. 
- o Audio annotations on HP systems with audio hardware work now. 
+   off the left side of the screen.
+ o Audio annotations on HP systems with audio hardware work now.
  o Default SGI audio annotation quality is lower now, to decrease disk
-   space usage. 
- o SCO Open Desktop support. 
- o Harris Nighthawk support. 
- o AIX 3.2 support for reading local directories. 
- o Minor bugfixes and cleanups. 
+   space usage.
+ o SCO Open Desktop support.
+ o Harris Nighthawk support.
+ o AIX 3.2 support for reading local directories.
+ o Minor bugfixes and cleanups.
 
 From 0.10 to 0.11
 .................
@@ -1070,10 +1070,10 @@ From 0.9 to 0.10
     o Image files can be located anywhere on the net (pointed to by
       URL); image data is cached in memory for fast display and
       reuse.
-    o Example of inlined bitmap: 
+    o Example of inlined bitmap:
       <IMG SRC="file://foobar.com/foobar.xbm">
-    o Example of inlined image serving as anchor: 
-      <A HREF="http://foobar.com/ref.html"> 
+    o Example of inlined image serving as anchor:
+      <A HREF="http://foobar.com/ref.html">
       <IMG SRC="file://foobar.com/blagh.gif"> </A>
  o Better support for acting as binary file retrieval client.
     o Each window can either be in binary transfer mode or not;
@@ -1100,7 +1100,7 @@ From 0.9 to 0.10
     o Setting one of the multimedia resources to the text string
       "dump" will cause files of that type to be dumped to local
       disk as though in binary transfer mode.
-    o See http://hoohoo.ncsa.uiuc.edu:80/mosaic-docs/file-typing-issues.html 
+    o See http://hoohoo.ncsa.uiuc.edu:80/mosaic-docs/file-typing-issues.html
       for a more thorough discussion of these issues.
  o Audio annotations for Sun's with /usr/demo/SOUND/record (or
    something similar) are now enabled. Resources
@@ -1229,7 +1229,7 @@ From 0.6 to 0.7
       visited anchor types.
  o Application exits when all windows are closed.
  o Support for <menu> and <dir>.
- o Better support for nested lists (filled bullets, empty bullets, 
+ o Better support for nested lists (filled bullets, empty bullets,
    empty boxes).
  o Better selection capabilities:
     o Select by character.

@@ -75,7 +75,7 @@
  * indirect or consequential damages or any damages
  * whatsoever resulting from loss of use, data or profits,
  * whether in an action of contract, negligence or other tortious
- * action, arising out of or in connection with the use 
+ * action, arising out of or in connection with the use
  * or performance of this software.
  *
  */
@@ -272,7 +272,7 @@ xpmReadFile(filename, mdata)
 /*
  * close the file related to the xpmData if any
  */
-int 
+int
 xpmDataClose(mdata)
     xpmData *mdata;
 {
@@ -408,7 +408,7 @@ ParseComment(mdata)
 /*
  * skip to the end of the current string and the beginning of the next one
  */
-int 
+int
 xpmNextString(mdata)
     xpmData *mdata;
 {
@@ -804,7 +804,7 @@ xpmNextUI(mdata, ui_return)
 /*
  * parse xpm header
  */
-int 
+int
 xpmParseHeader(mdata)
     xpmData *mdata;
 {
@@ -860,7 +860,7 @@ xpmParseHeader(mdata)
 /*
  * get the current comment line
  */
-int 
+int
 xpmGetCmt(mdata, cmt)
     xpmData *mdata;
     char **cmt;
@@ -1080,7 +1080,7 @@ unsigned char *ReadXpm3Pixmap(FILE *fp, char *datafile, int *w, int *h,
 			tmpcolr.pixel = bg_pixel;
 
 			/* Now query for the full color info. */
-			XQueryColor (XtDisplay (view), 
+			XQueryColor (XtDisplay (view),
 				(installed_colormap ?
 				 installed_cmap :
 				 DefaultColormap (XtDisplay (view),
@@ -1203,7 +1203,7 @@ unsigned char *ProcessXpm3Data(Widget wid, char **xpmdata, int *w,
 			tmpcolr.pixel = bg_pixel;
 
 			/* Now query for the full color info. */
-			XQueryColor (XtDisplay (wid), 
+			XQueryColor (XtDisplay (wid),
 				(installed_colormap ?
 				 installed_cmap :
 				 DefaultColormap (XtDisplay (wid),

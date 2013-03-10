@@ -18,7 +18,7 @@ void HTSortInit (void)
       size_of_hunk = SIZE_OF_HUNK;
       hunk = (char **)malloc (sizeof (char *) * size_of_hunk);
     }
-    
+
   return;
 }
 
@@ -38,7 +38,7 @@ void HTSortAdd (char *str)
     expand_hunk ();
 
   hunk[count++] = str;
-  
+
   return;
 }
 
@@ -49,9 +49,9 @@ static int dsortf (char **s1, char **s2)
 
 void HTSortSort (void)
 {
-  qsort ((void *)hunk, 
-	 count, 
-	 sizeof (char *), 
+  qsort ((void *)hunk,
+	 count,
+	 sizeof (char *),
 	 (void *)dsortf);
 
   return;

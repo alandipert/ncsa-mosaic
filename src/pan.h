@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -73,7 +73,7 @@ mo_status mo_setup_pan_list (void);
 mo_status mo_write_pan_list (void);
 mo_status mo_new_pan (char *url, char *title, char *author, char *text);
 mo_status mo_delete_pan (int id);
-mo_status mo_modify_pan (int id, char *title, char *author, 
+mo_status mo_modify_pan (int id, char *title, char *author,
                          char *text);
 char *mo_fetch_personal_annotations (char *url);
 char *mo_fetch_pan_links (char *url, int on_top);

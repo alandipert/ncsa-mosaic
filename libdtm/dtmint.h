@@ -37,7 +37,7 @@
  *
  * Revision 1.28  92/05/05  22:27:50  jplevyak
  * Corrected X interface code.
- * 
+ *
  * Revision 1.27  1992/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
  *
@@ -62,13 +62,13 @@
  *
  * Revision 1.20  92/02/27  23:59:56  jplevyak
  * Fixup prototype problems.
- * 
+ *
  * Revision 1.19  1992/01/30  19:28:50  jplevyak
  * Add support for c++ type external definitions.
  *
  * Revision 1.18  92/01/24  18:45:50  jefft
  * Removed prototypes for dtm_set_<type> and dtm_get_<type>, added them to dtm.h
- * 
+ *
  * Revision 1.17  1991/12/16  19:44:04  jefft
  * Fixed bug with defining of NULL macro
  *
@@ -97,13 +97,13 @@
  * Major reorganization.  Made this file compatible with dtm.h.  Moved
  * redundant out.  Added several configuration parameters, added
  * prototypes for internally global functions.
- * 
+ *
  * Revision 1.9  91/09/18  15:28:50  jplevyak
  * Added some external definitions for shared functions.
- * 
+ *
  * Revision 1.8  91/09/13  17:37:37  sreedhar
  * MAX132 instead of MAXBUFSIZE
- * 
+ *
  * Revision 1.7  1991/08/15  19:10:53  sreedhar
  * Changes for logical portname version
  *
@@ -121,10 +121,10 @@
  *
  * Revision 1.2  90/11/21  12:35:44  jefft
  * Removed trailing comma from DTM error enum type.
- * 
+ *
  * Revision 1.1  90/11/08  16:32:03  jefft
  * Initial revision
- * 
+ *
 */
 
 
@@ -147,7 +147,7 @@
 #endif
 
 /*	Added to shut up the SGI compiler which quotes ANSI regulations at
-	you. 
+	you.
 */
 #ifdef DTM_PROTOTYPES
 struct sockaddr;
@@ -163,7 +163,7 @@ struct iovec;
 #define	INIT(x)
 #endif
 
-#define	reg	register	
+#define	reg	register
 
 
 /*
@@ -261,7 +261,7 @@ struct iovec;
 				*/
 #define	MAX132	132		/* max space of 132 */
 #define	SEP	" "		/* blank as separator */
-#define	COLON	":"		/* colon as separator */	
+#define	COLON	":"		/* colon as separator */
 
 #ifndef	NULL
 # if defined( _STDC_ ) || defined( __STDC__ )
@@ -272,33 +272,33 @@ struct iovec;
 #endif
 
 #define	FOR_EACH_OUT_PORT( pcur, pp ) \
-	for ( pcur = pp->out;  pcur != NULL ; pcur = pcur->next ) 
+	for ( pcur = pp->out;  pcur != NULL ; pcur = pcur->next )
 #define	FOR_EACH_IN_PORT( inp, pp ) \
 	for ( inp = pp->in; inp != NULL ; inp = inp->next )
 
 
-/* 
-	PORT STRUCTURES 
+/*
+	PORT STRUCTURES
 */
 
 typedef	struct sockaddr_in	S_ADDR;
 
-typedef	struct	Port	
+typedef	struct	Port
 {
 	uint32	nethostid ;
 	uint16	portid ;
 } Port ;
 
-typedef	struct	Outport	
+typedef	struct	Outport
 {
 	S_ADDR	sockaddr ;		/* Socket family, netid/hostid, portid */
-	int32	connfd ; 			/* connection fd */ 
-	int		availwrite ;		/* port availability for write */	
-	int		seqstart ;			/* "Sequence start" message sent or not */ 
-	struct Outport * next;	/* link to next outport */ 
+	int32	connfd ; 			/* connection fd */
+	int		availwrite ;		/* port availability for write */
+	int		seqstart ;			/* "Sequence start" message sent or not */
+	struct Outport * next;	/* link to next outport */
 } Outport ;
 
-#define	DTM_NEW_DATASET		-1	
+#define	DTM_NEW_DATASET		-1
 typedef struct Inport {
 	int32		fd;				/* connection fds */
 	int32		blocklen;		/* records no. of bytes read */
@@ -315,27 +315,27 @@ typedef struct Inport {
 			to restore the assertion
 #endif
 #endif
-	XtInputId	XinputId;	
+	XtInputId	XinputId;
 #else
 	int			XinputId;
 #endif
 	struct Inport	* next;
 } Inport;
 
-typedef	struct 
+typedef	struct
 {
-	S_ADDR	sockaddr ;	
+	S_ADDR	sockaddr ;
 				/* Socket family, netid/hostid, portid */
-	int32	sockfd ; /* Main socket of port 
+	int32	sockfd ; /* Main socket of port
 					Outport - UDP socket
 					Inport  - TCP socket
 				 */
 #ifdef _XtIntrinsic_h
-	XtInputId	XinputId;	
+	XtInputId	XinputId;
 #else
 	int			XinputId;
 #endif
-	
+
 	int		fLogical;
 	char	portname[ PNAMELEN ] ;	/* Logical portname */
 
@@ -375,11 +375,11 @@ typedef	struct
 	GLOBAL VARIABLES
 */
 
-#define	DTM_INITIALIZED					(DTMpt != NULL) 
+#define	DTM_INITIALIZED					(DTMpt != NULL)
 #define	DTM_PORTS_INITIAL				20
 #define	DTM_PORTS_GROW					20
 global DTMPORT	**DTMpt					INIT( NULL );
-global int32	DTMptCount				INIT( 0 );	
+global int32	DTMptCount				INIT( 0 );
 global int32 	DTMportSequenceNumber	INIT( 1 );
 
 #ifdef _ARCH_MSDOS
@@ -420,7 +420,7 @@ extern int		dtm_nsend_sockaddr DTM_PROTO(( int fd, char * sendto_addr,
 					char * refname, char * portname, S_ADDR * sockaddr ));
 extern Outport * dtm_new_out_port DTM_PROTO(( Port * port ));
 #define	DTM_PORT_MASK			0xFFFF
-#define	DTM_PORT_KEY_SHIFT		16	
+#define	DTM_PORT_KEY_SHIFT		16
 extern	int		dtm_map_port_internal DTM_PROTO(( int32 port ));
 extern	void	dtm_map_port_external DTM_PROTO(( int32 * port ));
 #define	DTM_WAIT				TRUE
@@ -433,26 +433,26 @@ extern	int		dtm_destroy_in_port	DTM_PROTO(( Inport * inp, DTMPORT * pp ));
 extern	int		dtm_writev_buffer	DTM_PROTO(( int fd, struct iovec *iov,
 										int32 iovlen, int32 iovsize,
 										struct sockaddr * addr, int addrlen ));
-extern	int		dtm_read_buffer		DTM_PROTO(( int d, int32 * blocklen, 
+extern	int		dtm_read_buffer		DTM_PROTO(( int d, int32 * blocklen,
 										void * buffer, int length ));
-extern	int		dtm_recv_header		DTM_PROTO((int fd , void * header, 
+extern	int		dtm_recv_header		DTM_PROTO((int fd , void * header,
 										int length));
 extern	int		dtm_read_header		DTM_PROTO((int fd , void * header,
 										int length));
-extern	int		dtm_parse_ipaddr	DTM_PROTO(( char * source, 
+extern	int		dtm_parse_ipaddr	DTM_PROTO(( char * source,
 										unsigned long * dest ));
 extern	int		dtm_quick_select	DTM_PROTO(( int socket, int32 * count ));
-extern	int		dtm_select			DTM_PROTO(( int fd, int32 * count, 
+extern	int		dtm_select			DTM_PROTO(( int fd, int32 * count,
 										int32 time ));
-extern	int		dtm_accept			DTM_PROTO(( int fd, S_ADDR * sn, 
+extern	int		dtm_accept			DTM_PROTO(( int fd, S_ADDR * sn,
 										struct timeval * timeout ));
 extern int		dtm_connect 		DTM_PROTO(( S_ADDR * sn, int * sockret ));
 extern int		dtm_quick_connect	DTM_PROTO(( S_ADDR * sn, int * sockret ));
-extern int		dmt_end_connect		DTM_PROTO(( int32 socket )); 
+extern int		dmt_end_connect		DTM_PROTO(( int32 socket ));
 extern unsigned long	dtm_get_ipaddr	DTM_PROTO(( char * ipaddrstr ));
-extern int		dtm_socket_init 	DTM_PROTO(( S_ADDR * sockaddr, int porttype, 
+extern int		dtm_socket_init 	DTM_PROTO(( S_ADDR * sockaddr, int porttype,
 										int fLogicalName ));
-extern int		dtm_init_sockaddr	DTM_PROTO(( S_ADDR * sockaddr, 
+extern int		dtm_init_sockaddr	DTM_PROTO(( S_ADDR * sockaddr,
 										char * portname,
 										int	* pfLogicalName ));
 extern int 		dtm_ninit			DTM_PROTO(( void ));
@@ -463,13 +463,13 @@ extern char * 	dtm_find_tag		DTM_PROTO(( char *, char *));
 extern int		dtm_accept_read_connections DTM_PROTO(( DTMPORT *pp,int fWait ));
 extern void		dtm_set_Xcallback	DTM_PROTO(( DTMPORT *pp, Inport * inp ));
 #ifdef _XtIntrinsic_h
-extern void		dtm_handle_in		DTM_PROTO(( caddr_t client_data,  
+extern void		dtm_handle_in		DTM_PROTO(( caddr_t client_data,
 										int * fd, XtInputId * in ));
 #else
-extern void		dtm_handle_in		DTM_PROTO(( caddr_t client_data,  
+extern void		dtm_handle_in		DTM_PROTO(( caddr_t client_data,
 										int * fd, void * in ));
 #endif
- 
+
 #ifdef __cplusplus
 };
 #endif

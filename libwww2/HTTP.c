@@ -46,7 +46,7 @@ char **extra_headers=NULL;
 #define _LIBWWW2
 #include "../src/kcms.h"
 
-struct _HTStream 
+struct _HTStream
 {
   HTStreamClass * isa;
 };
@@ -121,7 +121,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
   BOOL extensions;		/* Assume good HTTP server */
   int compressed;
   char line[2048];	/* bumped up to cover Kerb huge headers */
-  
+
   int length, doing_redirect, rv;
   int already_retrying = 0;
   int return_nothing;
@@ -139,13 +139,13 @@ PUBLIC int HTLoadHTTP ARGS4 (
       HTProgress ("Bad request.");
       goto done;
     }
-  if (!*arg) 
+  if (!*arg)
     {
       status = -2;
       HTProgress ("Bad request.");
       goto done;
     }
-  
+
   sprintf(crlf, "%c%c", CR, LF);
 
   /* At this point, we're talking HTTP/1.0. */
@@ -164,20 +164,20 @@ PUBLIC int HTLoadHTTP ARGS4 (
   line_kept_clean = NULL;
   return_nothing = 0;
 
-	/* okay... addr looks like http://hagbard.ncsa.uiuc.edu/blah/etc.html 
+	/* okay... addr looks like http://hagbard.ncsa.uiuc.edu/blah/etc.html
 	lets crop it at the 3rd '/' */
-	for(p = arg,i=0;*p && i!=3;p++) 
+	for(p = arg,i=0;*p && i!=3;p++)
 		if(*p=='/') i++;
 
-	if(i==3) 
+	if(i==3)
 		i = p-arg; /* i = length not counting last '/' */
-	else 
+	else
 		i = 0;
 
 	if((lsocket != -1) && i && addr && !strncmp(addr,arg,i)){
 		/* keepalive is active and addresses match -- try the old socket */
 		s = lsocket;
-		keepingalive = 1; /* flag in case of network error due to server timeout*/ 
+		keepingalive = 1; /* flag in case of network error due to server timeout*/
 		lsocket = -1; /* prevent looping on failure */
 #ifndef DISABLE_TRACE
 		if (www2Trace)
@@ -229,18 +229,18 @@ PUBLIC int HTLoadHTTP ARGS4 (
       }
       if (status < 0) {
 #ifndef DISABLE_TRACE
-	  if (www2Trace) 
-	      fprintf(stderr, 
+	  if (www2Trace)
+	      fprintf(stderr,
 		      "HTTP: Unable to connect to remote host for `%s' (errno = %d).\n", arg, errno);
 #endif
 	  HTProgress ("Unable to connect to remote host.");
 	  status = HT_NO_DATA;
 	  goto done;
-      }   
+      }
   }
   /*	Ask that node for the document,
    **	omitting the host name & anchor
-   */        
+   */
   {
     char * p1 = HTParse(arg, "", PARSE_PATH|PARSE_PUNCTUATION);
     command = malloc(5 + strlen(p1)+ 2 + 31);
@@ -267,15 +267,15 @@ PUBLIC int HTLoadHTTP ARGS4 (
         strcat(command, p1);
     free(p1);
   }
-  if (extensions) 
+  if (extensions)
     {
       strcat(command, " ");
       strcat(command, HTTP_VERSION);
     }
-  
+
   strcat(command, crlf);	/* CR LF, as in rfc 977 */
 
-  if (extensions) 
+  if (extensions)
     {
 #ifdef SAM_NOT_YET
 		/* SAM This produces an absolutely huge Accept: line.  While
@@ -311,10 +311,10 @@ PUBLIC int HTLoadHTTP ARGS4 (
 		env_length+=strlen(line);
 	}
 
-      for(i=0; i<n; i++) 
+      for(i=0; i<n; i++)
         {
           HTPresentation * pres = HTList_objectAt(HTPresentations, i);
-          if (pres->rep_out == WWW_PRESENT) 
+          if (pres->rep_out == WWW_PRESENT)
             {
 		sprintf(line, " %s,",HTAtom_name(pres->rep));
 		env_length+=strlen(line);
@@ -353,7 +353,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
       }
 
       /*This is just used for "not" sending this header on a proxy request*/
-      if (useKeepAlive) { 
+      if (useKeepAlive) {
 	sprintf(line, "Connection: keep-alive%c%c", CR, LF);
 	StrAllocCat(command, line);
       }
@@ -435,24 +435,24 @@ PUBLIC int HTLoadHTTP ARGS4 (
         char *colon;
         int portnumber;
         char *auth;
-        
+
         docname = HTParse(arg, "", PARSE_PATH);
         hostname = HTParse(arg, "", PARSE_HOST);
         if (hostname &&
-            NULL != (colon = strchr(hostname, ':'))) 
+            NULL != (colon = strchr(hostname, ':')))
           {
             *(colon++) = '\0';	/* Chop off port number */
             portnumber = atoi(colon);
           }
         else portnumber = 80;
-        
-        if (NULL!=(auth=HTAA_composeAuth(hostname, portnumber, docname))) 
+
+        if (NULL!=(auth=HTAA_composeAuth(hostname, portnumber, docname)))
           {
             sprintf(line, "%s%c%c", auth, CR, LF);
             StrAllocCat(command, line);
           }
 #ifndef DISABLE_TRACE
-        if (www2Trace) 
+        if (www2Trace)
           {
             if (auth)
               fprintf(stderr, "HTTP: Sending authorization: %s\n", auth);
@@ -485,9 +485,9 @@ PUBLIC int HTLoadHTTP ARGS4 (
                  content_length, CR, LF);
         StrAllocCat(command, line);
       }
-      
+
       StrAllocCat(command, crlf);	/* Blank line means "end" */
-      
+
       if (post_data)
         StrAllocCat(command, post_data);
       else
@@ -551,7 +551,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
 #endif
 
   free (command);
-  if (status <= 0) 
+  if (status <= 0)
     {
       if (status == 0)
         {
@@ -561,7 +561,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
 #endif
           /* Do nothing. */
         }
-      else if 
+      else if
         ((errno == ENOTCONN || errno == ECONNRESET || errno == EPIPE) &&
          !already_retrying &&
          /* Don't retry if we're posting. */ !do_post)
@@ -569,8 +569,8 @@ PUBLIC int HTLoadHTTP ARGS4 (
             /* Arrrrgh, HTTP 0/1 compability problem, maybe. */
 #ifndef DISABLE_TRACE
             if (www2Trace)
-              fprintf 
-                (stderr, 
+              fprintf
+                (stderr,
                  "HTTP: BONZO ON WRITE Trying again with HTTP0 request.\n");
 #endif
 /*
@@ -601,7 +601,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
           goto done;
         }
     }
-  
+
 #ifndef DISABLE_TRACE
   if (www2Trace)
     fprintf (stderr, "HTTP: WRITE delivered OK\n");
@@ -616,15 +616,15 @@ PUBLIC int HTLoadHTTP ARGS4 (
       /* Get numeric status etc */
       BOOL end_of_file = NO;
       int buffer_length = INIT_LINE_SIZE;
-    
+
       line_buffer = (char *) malloc(buffer_length * sizeof(char));
-    
+
       do {
 	  /* Loop to read in the first line */
 	  /* Extend line buffer if necessary for those crazy WAIS URLs ;-) */
 	  if (buffer_length - length < LINE_EXTEND_THRESH) {
 	      buffer_length = buffer_length + buffer_length;
-	      line_buffer = 
+	      line_buffer =
 		  (char *) realloc(line_buffer, buffer_length * sizeof(char));
           }
 #ifndef DISABLE_TRACE
@@ -639,7 +639,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
 	      fprintf (stderr, "HTTP: Read %d\n", status);
 #endif
 	  if (status <= 0) {
-	      /* Retry if we get nothing back too; 
+	      /* Retry if we get nothing back too;
 		 bomb out if we get nothing twice. */
 	      if (status == HT_INTERRUPTED) {
 #ifndef DISABLE_TRACE
@@ -650,8 +650,8 @@ PUBLIC int HTLoadHTTP ARGS4 (
 		  status = HT_INTERRUPTED;
 		  NETCLOSE (s);
 		  goto clean_up;
-              } else 
-		  if 
+              } else
+		  if
 		  (status < 0 &&
 		   (errno == ENOTCONN || errno == ECONNRESET || errno == EPIPE)
 		   && !already_retrying && !do_post)
@@ -662,11 +662,11 @@ PUBLIC int HTLoadHTTP ARGS4 (
 			      fprintf (stderr, "HTTP: BONZO Trying again with HTTP0 request.\n");
 #endif
 			  NETCLOSE(s);
-			  if (line_buffer) 
+			  if (line_buffer)
 			      free(line_buffer);
-			  if (line_kept_clean) 
+			  if (line_kept_clean)
 			      free(line_kept_clean);
-			  
+
 			  extensions = NO;
 			  already_retrying = 1;
 			  HTProgress ("Retrying as HTTP0 request.");
@@ -684,9 +684,9 @@ PUBLIC int HTLoadHTTP ARGS4 (
 			  if (www2Trace)
 			      fprintf (stderr, "HTTP: Hit unexpected network read error; aborting connection; status %d.\n", status);
 #endif
-			  HTProgress 
+			  HTProgress
 			      ("Unexpected network read error; connection aborted.");
-			  
+
 			  NETCLOSE (s);
 			  status = -1;
 			  goto clean_up;
@@ -699,13 +699,13 @@ PUBLIC int HTLoadHTTP ARGS4 (
 	      sprintf (line, "Read %d bytes of data.", bytes_already_read);
 	      HTProgress (line);
 	  }
-        
+
 	  if (status == 0) {
 	      end_of_file = YES;
 	      break;
           }
 	  line_buffer[length+status] = 0;
-        
+
 	  if (line_buffer) {
 	      if (line_kept_clean)
 		  free (line_kept_clean);
@@ -715,16 +715,16 @@ PUBLIC int HTLoadHTTP ARGS4 (
 */
 	      memcpy (line_kept_clean, line_buffer, buffer_length);
           }
-        
+
 	  eol = strchr(line_buffer + length, LF);
 	  /* Do we *really* want to do this? */
-	  if (eol && eol != line_buffer && *(eol-1) == CR) 
-	      *(eol-1) = ' '; 
-        
+	  if (eol && eol != line_buffer && *(eol-1) == CR)
+	      *(eol-1) = ' ';
+
 	  length = length + status;
-	  
+
 	  /* Do we really want to do *this*? */
-	  if (eol) 
+	  if (eol)
 	      *eol = 0;		/* Terminate the line */
       /* All we need is the first line of the response.  If it's a HTTP/1.0
 	 response, then the first line will be absurdly short and therefore
@@ -733,8 +733,8 @@ PUBLIC int HTLoadHTTP ARGS4 (
       /* Well, let's try 100. */
       } while (!eol && !end_of_file && bytes_already_read < 100);
   } /* Scope of loop variables */
-    
-    
+
+
   /*	We now have a terminated unfolded line. Parse it.
    **	-------------------------------------------------
    */
@@ -742,7 +742,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
   if (www2Trace)
     fprintf(stderr, "HTTP: Rx: %s\n", line_buffer);
 #endif
-  
+
   {
     int fields;
     char server_version[VERSION_LENGTH+1];
@@ -752,11 +752,11 @@ PUBLIC int HTLoadHTTP ARGS4 (
 	statusError=0;
 
     server_version[0] = 0;
-    
+
     fields = sscanf(line_buffer, "%20s %d",
                     server_version,
                     &server_status);
-    
+
 #ifndef DISABLE_TRACE
     if (www2Trace)
       fprintf (stderr, "HTTP: Scanned %d fields from line_buffer\n", fields);
@@ -765,13 +765,13 @@ PUBLIC int HTLoadHTTP ARGS4 (
     if (www2Trace)
       fprintf (stderr, "HTTP: line_buffer '%s'\n", line_buffer);
 #endif
-    
+
     /* Rule out HTTP/1.0 reply as best we can. */
     if (fields < 2 || !server_version[0] || server_version[0] != 'H' ||
         server_version[1] != 'T' || server_version[2] != 'T' ||
         server_version[3] != 'P' || server_version[4] != '/' ||
-        server_version[6] != '.') 
-      {	
+        server_version[6] != '.')
+      {
         /* HTTP0 reply */
         HTAtom * encoding;
 
@@ -779,11 +779,11 @@ PUBLIC int HTLoadHTTP ARGS4 (
         if (www2Trace)
           fprintf (stderr, "--- Talking HTTP0.\n");
 #endif
-        
+
         format_in = HTFileFormat(arg, &encoding, WWW_HTML, &compressed);
         start_of_data = line_kept_clean;
-      } 
-    else 
+      }
+    else
       {
         /* Decode full HTTP response */
         format_in = HTAtom_for("www/mime");
@@ -793,21 +793,21 @@ PUBLIC int HTLoadHTTP ARGS4 (
            length or anything else in this situation. */
         start_of_data = eol ? eol + 1 : "";
         length = eol ? length - (start_of_data - line_buffer) : 0;
-        
+
 #ifndef DISABLE_TRACE
         if (www2Trace)
           fprintf (stderr, "--- Talking HTTP1.\n");
 #endif
 
-        switch (server_status / 100) 
+        switch (server_status / 100)
           {
           case 3:		/* Various forms of redirection */
             /* We now support this in the parser, at least. */
             doing_redirect = 1;
             break;
-            
+
           case 4:		/* "I think I goofed" */
-            switch (server_status) 
+            switch (server_status)
               {
               case 403:
 		statusError=1;
@@ -816,27 +816,27 @@ PUBLIC int HTLoadHTTP ARGS4 (
 
               case 401:
                 /* length -= start_of_data - text_buffer; */
-                if (HTAA_shouldRetryWithAuth(start_of_data, length, s)) 
+                if (HTAA_shouldRetryWithAuth(start_of_data, length, s))
                   {
                     (void)NETCLOSE(s);
 			lsocket = -1;
-                    if (line_buffer) 
+                    if (line_buffer)
                       free(line_buffer);
-                    if (line_kept_clean) 
+                    if (line_kept_clean)
                       free(line_kept_clean);
 
 #ifndef DISABLE_TRACE
-                    if (www2Trace) 
+                    if (www2Trace)
                       fprintf(stderr, "%s %d %s\n",
                               "HTTP: close socket", s,
                               "to retry with Access Authorization");
 #endif
-                    
+
                     HTProgress ("Retrying with access authorization information.");
                     goto try_again;
                     break;
                   }
-                else 
+                else
                   {
 		    statusError=1;
                     /* Fall through. */
@@ -851,7 +851,7 @@ PUBLIC int HTLoadHTTP ARGS4 (
           case 5:		/* I think you goofed */
 	    statusError=1;
             break;
-            
+
           case 2:		/* Good: Got MIME object */
             switch (server_status)
               {
@@ -877,13 +877,13 @@ PUBLIC int HTLoadHTTP ARGS4 (
                 break;
               }
             break;
-            
+
           default:		/* bad number */
 	    statusError=1;
             HTAlert("Unknown status reply from server!");
             break;
           } /* Switch on server_status/100 */
-        
+
       }	/* Full HTTP reply */
   } /* scope of fields */
 
@@ -892,8 +892,8 @@ PUBLIC int HTLoadHTTP ARGS4 (
                          format_out,
                          compressed,
                          sink, anAnchor);
-  
-  if (!target) 
+
+  if (!target)
     {
       char buffer[1024];	/* @@@@@@@@ */
       sprintf(buffer, "Sorry, no known way of converting %s to %s.",
@@ -943,9 +943,9 @@ PUBLIC int HTLoadHTTP ARGS4 (
 #endif
       /* Recycle the first chunk of data, in all cases. */
       (*target->isa->put_block)(target, start_of_data, length);
-      
+
       /* Go pull the bulk of the data down. */
-	/* if we dont use length, header length is wrong due to the 
+	/* if we dont use length, header length is wrong due to the
 	    discarded first line - bjs*/
       rv = HTCopy(s, target, length /*bytes_already_read*/);
       if (rv == -1)
@@ -966,11 +966,11 @@ PUBLIC int HTLoadHTTP ARGS4 (
           /* May as well consider it an interrupt -- right? */
           (*target->isa->handle_interrupt) (target);
           NETCLOSE(s);
-          if (line_buffer) 
+          if (line_buffer)
             free(line_buffer);
-          if (line_kept_clean) 
+          if (line_kept_clean)
             free(line_kept_clean);
-          
+
           extensions = NO;
           already_retrying = 1;
           HTProgress ("Retrying as HTTP0 request.");
@@ -1027,11 +1027,11 @@ PUBLIC int HTLoadHTTP ARGS4 (
 
   /*	Clean up
    */
-  
- clean_up: 
-  if (line_buffer) 
+
+ clean_up:
+  if (line_buffer)
     free(line_buffer);
-  if (line_kept_clean) 
+  if (line_kept_clean)
     free(line_kept_clean);
 
  done:

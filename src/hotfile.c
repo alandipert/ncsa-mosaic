@@ -186,7 +186,7 @@ static void mo_parse_hotlist_list(mo_hotlist *list, struct mark_up  **current)
   char *url = NULL, *title = NULL, *rbm=NULL;
   struct mark_up *mptr;
   int done = 0;
-  
+
   for (mptr = *current; mptr != NULL && !done; mptr && (mptr = mptr->next))
     switch (mptr->type)
       {
@@ -439,13 +439,13 @@ mo_status mo_write_hotlist (mo_hotlist *list, FILE *fp)
 
   fputs("<TITLE>Hotlist from ", fp);
   if (!get_pref_string(eDEFAULT_AUTHOR_NAME)) {
-	fputExpanded("Unknown", fp);      
+	fputExpanded("Unknown", fp);
   }
   else {
-	fputExpanded(get_pref_string(eDEFAULT_AUTHOR_NAME), fp);      
+	fputExpanded(get_pref_string(eDEFAULT_AUTHOR_NAME), fp);
   }
   fputs("</TITLE>\n", fp);
-  
+
   mo_write_list_r(list, fp);
 
   fputs("</HTML>\n", fp);

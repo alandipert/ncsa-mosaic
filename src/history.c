@@ -187,11 +187,11 @@ mo_status mo_add_node_to_history (mo_window *win, mo_node *node)
 
   if (win->history_list)
     {
-      XmString xmstr = 
+      XmString xmstr =
 	XmxMakeXmstrFromString(
 			       get_pref_boolean(eDISPLAY_URLS_NOT_TITLES) ?
 			       node->url : node->title);
-      XmListAddItemUnselected 
+      XmListAddItemUnselected
         (win->history_list, xmstr, node->position);
       XmStringFree (xmstr);
     }
@@ -228,14 +228,14 @@ static char *mo_grok_alternate_title (char *url, char *ref)
           if (foo2)
             {
               char *server = (char *) malloc ((foo2 - foo1 + 2));
-              
+
 /*              bcopy (foo1, server, (foo2 - foo1));*/
               memcpy(server, foo1, (foo2 - foo1));
               server[(foo2 - foo1)] = '\0';
-              
+
               title = (char *) malloc ((strlen (server) + 32) * sizeof (char));
               sprintf (title, "%s %s", "Gopher server at" , server);
-              
+
               /* OK, we got a title... */
               free (server);
 
@@ -252,7 +252,7 @@ static char *mo_grok_alternate_title (char *url, char *ref)
 
   /* If we got here, assume we should use 'ref' if possible
      for the WAIS title. */
-  if (!strncmp (url, "wais:", 5) || 
+  if (!strncmp (url, "wais:", 5) ||
       !strncmp (url, "http://info.cern.ch:8001/", 25) ||
       !strncmp (url, "http://info.cern.ch.:8001/", 26) ||
       !strncmp (url, "http://www.ncsa.uiuc.edu:8001/", 30))
@@ -273,14 +273,14 @@ static char *mo_grok_alternate_title (char *url, char *ref)
           if (foo2)
             {
               char *server = (char *) malloc ((foo2 - foo1 + 2));
-              
+
 /*              bcopy (foo1, server, (foo2 - foo1));*/
               memcpy(server, foo1, (foo2 - foo1));
               server[(foo2 - foo1)] = '\0';
-              
+
               title = (char *) malloc ((strlen (server) + 32) * sizeof (char));
               sprintf (title, "%s %s", "WAIS server at" , server);
-              
+
               /* OK, we got a title... */
               free (server);
 
@@ -302,7 +302,7 @@ static char *mo_grok_alternate_title (char *url, char *ref)
         {
           /* It's a news article. */
           foo1 = url + 5;
-          
+
           title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
           sprintf (title, "%s %s", "USENET article" , foo1);
 
@@ -312,7 +312,7 @@ static char *mo_grok_alternate_title (char *url, char *ref)
         {
           /* It's a newsgroup. */
           foo1 = url + 5;
-          
+
           title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
           sprintf (title, "%s %s", "USENET newsgroup" , foo1);
 
@@ -327,51 +327,51 @@ static char *mo_grok_alternate_title (char *url, char *ref)
         {
           /* It's a local file. */
           foo1 = url + 7;
-          
+
           title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
           sprintf (title, "%s %s", "Local file" , foo1);
-          
+
           goto done;
         }
       else if (strncmp (url, "file://localhost/", 17) == 0)
         {
           /* It's a local file. */
           foo1 = url + 16;
-          
+
           title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
           sprintf (title, "%s %s", "Local file" , foo1);
-          
+
           goto done;
         }
       else
         {
           /* It's a remote file. */
           foo1 = url + 7;
-          
+
           title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
           sprintf (title, "%s %s", "Remote file" , foo1);
-          
+
           goto done;
         }
     }
-  
+
   if (!strncmp (url, "ftp:", 4))
     {
       {
         /* It's a remote file. */
         foo1 = url + 6;
-        
+
         title = (char *)malloc ((strlen (foo1) + 32) * sizeof (char));
         sprintf (title, "%s %s", "Remote file" , foo1);
-        
+
         goto done;
       }
     }
-  
+
   /* Punt... */
   title = (char *) malloc ((strlen (url) + 24) * sizeof (char));
   sprintf (title, "%s %s", "Untitled" , url);
-  
+
  done:
   return title;
 }
@@ -413,7 +413,7 @@ extern int securityType;
    to figure out what the title is, and call mo_node_to_history
    to add the new mo_node to both the window's data structures and
    to its Motif history list. */
-mo_status mo_record_visit (mo_window *win, char *url, char *newtext, 
+mo_status mo_record_visit (mo_window *win, char *url, char *newtext,
                            char *newtexthead, char *ref,
 			   char *last_modified, char *expires)
 {
@@ -483,7 +483,7 @@ mo_status mo_forward_node (mo_window *win)
 mo_status mo_visit_position (mo_window *win, int pos)
 {
   mo_node *node;
-  
+
   for (node = win->history; node != NULL; node = node->next)
     {
       if (node->position == pos)
@@ -528,7 +528,7 @@ mo_status mo_dump_history (mo_window *win)
 #endif
 
   return mo_succeed;
-}  
+}
 
 /* ------------------------------------------------------------------------ */
 /* ----------------------------- HISTORY GUI ------------------------------ */
@@ -539,17 +539,17 @@ mo_status mo_dump_history (mo_window *win)
 static void mo_load_history_list (mo_window *win, Widget list)
 {
   mo_node *node;
-  
+
   for (node = win->history; node != NULL; node = node->next)
     {
-      XmString xmstr = 
+      XmString xmstr =
 	XmxMakeXmstrFromString (get_pref_boolean(eDISPLAY_URLS_NOT_TITLES) ?
                                 node->url : node->title);
-      XmListAddItemUnselected 
+      XmListAddItemUnselected
         (list, xmstr, 0);
       XmStringFree (xmstr);
     }
-  
+
   XmListSetBottomPos (list, 0);
   if (win->current_node)
     XmListSelectPos (win->history_list, win->current_node->position, False);
@@ -587,20 +587,20 @@ static XmxCallback (mailhist_win_cb)
 
       {
         mo_node *node;
-        
+
         fprintf (fp, "<HTML>\n");
         fprintf (fp, "<H1>History Path From %s</H1>\n",
                  get_pref_string(eDEFAULT_AUTHOR_NAME));
         fprintf (fp, "<DL>\n");
         for (node = win->history; node != NULL; node = node->next)
           {
-            fprintf (fp, "<DT>%s\n<DD><A HREF=\"%s\">%s</A>\n", 
+            fprintf (fp, "<DT>%s\n<DD><A HREF=\"%s\">%s</A>\n",
                      node->title, node->url, node->url);
           }
         fprintf (fp, "</DL>\n");
         fprintf (fp, "</HTML>\n");
       }
-        
+
       mo_finish_sending_mail_message ();
 
     oops:
@@ -608,7 +608,7 @@ static XmxCallback (mailhist_win_cb)
       free (subj);
 
       mo_not_busy ();
-            
+
       break;
     case 1:
       XtUnmanageChild (win->mailhist_win);
@@ -616,8 +616,8 @@ static XmxCallback (mailhist_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
-         mo_assemble_help_url ("help-on-nested-hotlists.html"), 
+        (win,
+         mo_assemble_help_url ("help-on-nested-hotlists.html"),
          NULL, NULL);
       break;
     }
@@ -636,30 +636,30 @@ static mo_status mo_post_mailhist_win (mo_window *win)
       Widget dialog_frame;
       Widget dialog_sep, buttons_form;
       Widget mailhist_form, to_label, subj_label;
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->mailhist_win = XmxMakeFormDialog 
+      win->mailhist_win = XmxMakeFormDialog
         (win->history_win, "NCSA Mosaic: Mail Window History" );
       dialog_frame = XmxMakeFrame (win->mailhist_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       mailhist_form = XmxMakeForm (dialog_frame);
-      
+
       to_label = XmxMakeLabel (mailhist_form, "Mail To:" );
       XmxSetArg (XmNwidth, 335);
       win->mailhist_to_text = XmxMakeTextField (mailhist_form);
-      
+
       subj_label = XmxMakeLabel (mailhist_form, "Subject:" );
       win->mailhist_subj_text = XmxMakeTextField (mailhist_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (mailhist_form);
-      
+
       buttons_form = XmxMakeFormAndThreeButtons
         (mailhist_form, mailhist_win_cb, "Mail" ,
 	 "Dismiss" , "Help..." , 0, 1, 2);
@@ -676,28 +676,28 @@ static mo_status mo_post_mailhist_win (mo_window *win)
 
       XmxSetOffsets (subj_label, 14, 0, 10, 0);
       XmxSetConstraints
-        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, 
+        (subj_label, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_NONE,
          win->mailhist_to_text, NULL, NULL, NULL);
       XmxSetOffsets (win->mailhist_subj_text, 10, 0, 5, 10);
       XmxSetConstraints
-        (win->mailhist_subj_text, XmATTACH_WIDGET, XmATTACH_NONE, 
+        (win->mailhist_subj_text, XmATTACH_WIDGET, XmATTACH_NONE,
          XmATTACH_WIDGET,
          XmATTACH_FORM, win->mailhist_to_text, NULL, subj_label, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
          win->mailhist_subj_text, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
     }
-  
+
   XtManageChild (win->mailhist_win);
-  
+
   return mo_succeed;
 }
 
@@ -718,7 +718,7 @@ static XmxCallback (history_win_cb)
       break;
     case 2:
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("docview-menubar-navigate.html#history"),
          NULL, NULL);
       break;
@@ -731,7 +731,7 @@ static XmxCallback (history_list_cb)
 {
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
   XmListCallbackStruct *cs = (XmListCallbackStruct *)call_data;
-  
+
   mo_visit_position (win, cs->item_position);
 
   return;
@@ -751,18 +751,18 @@ mo_status mo_post_history_win (mo_window *win)
 	 ~Shift ~Ctrl ~Meta ~Alt <Btn2Up>:   ListEndSelect() ListKbdActivate()";
 
       listTable = XtParseTranslationTable(listTranslations);
-      
+
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      win->history_win = XmxMakeFormDialog 
+      win->history_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Window History" );
       dialog_frame = XmxMakeFrame (win->history_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       history_form = XmxMakeForm (dialog_frame);
 
@@ -775,17 +775,17 @@ mo_status mo_post_history_win (mo_window *win)
       XmxSetArg (XmNlistSizePolicy, XmCONSTANT);
       XmxSetArg (XmNwidth, 380);
       XmxSetArg (XmNheight, 184);
-      win->history_list = XmxMakeScrolledList 
+      win->history_list = XmxMakeScrolledList
         (history_form, history_list_cb, 0);
       XtAugmentTranslations (win->history_list, listTable);
 
       dialog_sep = XmxMakeHorizontalSeparator (history_form);
-      
+
       buttons_form = XmxMakeFormAndThreeButtons(history_form,
 						history_win_cb,
 						"Mail To...",
-						"Dismiss", 
-						"Help...", 
+						"Dismiss",
+						"Help...",
 						1,
 						0,
 						2);
@@ -798,16 +798,16 @@ mo_status mo_post_history_win (mo_window *win)
       /* History list is stretchable. */
       XmxSetOffsets (XtParent (win->history_list), 0, 10, 10, 10);
       XmxSetConstraints
-        (XtParent (win->history_list), 
-         XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM, 
+        (XtParent (win->history_list),
+         XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          history_label, dialog_sep, NULL, NULL);
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, 
+      XmxSetConstraints
+        (dialog_sep,
          XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
-      XmxSetConstraints 
-        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (buttons_form, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
 
@@ -816,6 +816,6 @@ mo_status mo_post_history_win (mo_window *win)
     }
 
   XmxManageRemanage (win->history_win);
-  
+
   return mo_succeed;
 }

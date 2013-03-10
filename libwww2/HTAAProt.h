@@ -1,5 +1,5 @@
 /*                                   PROTECTION SETUP FILE
-                                             
+
  */
 
 #ifndef HTAAPROT_H
@@ -39,15 +39,15 @@ typedef struct {
 Callbacks for rule system
 
    The following three functioncs are called by the rule system:
-   
+
       HTAA_clearProtections() when starting to translate a filename
-      
+
       HTAA_setDefaultProtection() when "defprot" rule is matched
-      
+
       HTAA_setCurrentProtection() when "protect" rule is matched
-      
+
    Protection setup files are cached by these functions.
-   
+
  */
 
 /* PUBLIC                                       HTAA_setDefaultProtection()
@@ -117,11 +117,11 @@ Getting Protection Settings
 
       HTAA_getCurrentProtection() returns the current protection mode (if there was a
       "protect" rule). NULL, if no "protect" rule has been matched.
-      
+
       HTAA_getDefaultProtection() sets the current protection mode to what it was set to
       by "defprot" rule and also returns it (therefore after this call also
       HTAA_getCurrentProtection() returns the same structure.
-      
+
  */
 
 /* PUBLIC                                       HTAA_getCurrentProtection()

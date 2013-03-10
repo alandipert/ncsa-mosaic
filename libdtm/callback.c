@@ -51,7 +51,7 @@ static void DTMsigioHandler( sig, code, scp, addr )
 	char 				*addr;
 #endif
 {
-	/* 
+	/*
 		Unfortunately, not one of the parameters listed above
 		provides even the slightest help in determinine WHICH
 		port is now ready for input, and any system calls
@@ -68,7 +68,7 @@ static void DTMsigioHandler( sig, code, scp, addr )
 		if ( !DTMpt[i]->callback ) continue;
 		port = i;
 		dtm_map_port_external(&port);
-#if 0 
+#if 0
 		if ((ready = DTMavailRead( port ))== DTMERROR) continue;
 		if ( ready == DTM_PORT_READY ) {
 			DBGMSG( "DTMsigioHandler calling user routine\n" );
@@ -99,7 +99,7 @@ int dtm_sigio( fd )
 #endif
 		DTMerrno = DTMSOCK;
 		return DTMERROR;
-	}	
+	}
 #ifdef __hpux
 	if (flags = ioctl( fd, FIOSSAIOSTAT, &sigio_on ) == -1 ) {
 #else
@@ -107,7 +107,7 @@ int dtm_sigio( fd )
 #endif
 		DTMerrno = DTMSOCK;
 		return DTMERROR;
-	}	
+	}
 	return DTM_OK;
 }
 
@@ -117,7 +117,7 @@ int DTMreadReady( int port, void (*pfn)() )
 int DTMreadReady( port, pfn )
 	int32				port;
 	void 				(*pfn)();
-#endif	
+#endif
 {
 	DTMPORT * pp;
 
@@ -136,14 +136,14 @@ int DTMreadReady( port, pfn )
 	if ( pp->porttype != INPORTTYPE ) {
 		DTMerrno = DTMBADPORT;
 		return DTMERROR;
-	}	
+	}
 	DBGMSG1( "DTMreadReady port has sockfd %d\n", pp->sockfd );
 #ifndef _ARCH_MSDOS
 	if ( (int)signal( SIGIO, DTMsigioHandler) == -1 ) {
 		DBGMSG( "DTMreadReady signal failed\n" );
 		DTMerrno = DTMSOCK;
 		return DTMERROR;
-	}	
+	}
 #endif
 	pp->callback = pfn;
 	{
@@ -151,12 +151,12 @@ int DTMreadReady( port, pfn )
 		if( dtm_sigio( pp->sockfd )== DTMERROR) {
 			DTMerrno = DTMSOCK;
 			return DTMERROR;
-		}	
+		}
 		FOR_EACH_IN_PORT( inp, pp ) {
 			if (dtm_sigio( inp->fd )== DTMERROR) {
 				DTMerrno = DTMSOCK;
 				return DTMERROR;
-			}	
+			}
 		}
 	}
 	return DTM_OK;

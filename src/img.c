@@ -284,17 +284,17 @@ ImageInfo *ImageResolve (Widget w, char *src, int noload, char *wid, char *hei)
         while(*src != '\n') src++;
         *src='\0';
         src++;
-        
+
         goto stuffcache;
     }
-          
+
 #ifndef DISABLE_TRACE
     if (srcTrace)
         fprintf (stderr,
                  "[ImageResolve] I'm entering, src '%s', noload %d!\n",
                  src, noload);
 #endif
-  
+
     if (!src)
         return NULL;
 
@@ -313,14 +313,14 @@ ImageInfo *ImageResolve (Widget w, char *src, int noload, char *wid, char *hei)
         if (win->scrolled_win == w)
         {
             mo_set_current_cached_win (win);
-            
+
             cached_url = win->current_node ? win->current_node->url : "lose";
             win->cached_url = cached_url;
-          
+
             goto foundit;
         }
     }
-  
+
   /* Shit outta luck. */
 #ifndef DISABLE_TRACE
     if (srcTrace)
@@ -328,7 +328,7 @@ ImageInfo *ImageResolve (Widget w, char *src, int noload, char *wid, char *hei)
 #endif
 
     return NULL;
-  
+
 foundit:
 #ifndef DISABLE_TRACE
     if (srcTrace)
@@ -344,7 +344,7 @@ foundit:
                 if(strstr(cached_url, imagekill_sites[i])) {
                     extern Widget view; /*hw->html.view*/
                     Widget swin = current_win->scrolled_win;
-              
+
                     if (!done_fetch_colors){
                         if (!view)
                             return NULL;
@@ -354,24 +354,24 @@ foundit:
                                       XtNbackground, &bg_pixel,
                                       NULL);
                         done_fetch_colors = 1;
-                    }    
+                    }
                     RETURN_IMGINFO_FROM_BITMAP(blank);
                 }
             }
         }
     }
-  
-  
+
+
   /* Internal images. */
   if (strncmp (src, "internal-", 9) == 0)
-    {    
+    {
 
       if (!done_fetch_colors)
         {
 
           if (!view)
             return NULL;
-          
+
           /* First, go fetch the pixels. */
 	  XtVaGetValues(view,
 			XtNforeground, &fg_pixel,
@@ -476,7 +476,7 @@ stuffcache:
       return NULL;
     }
 
-    
+
 #ifndef DISABLE_TRACE
   if (srcTrace)
     fprintf (stderr, "GOING ON THROUGH...\n");
@@ -491,14 +491,14 @@ stuffcache:
   if (ishdf)
     {
       img_data =
-        (ImageInfo *)hdfGrokImage 
-          (mo_hdf_fetch_local_filename (src), 
+        (ImageInfo *)hdfGrokImage
+          (mo_hdf_fetch_local_filename (src),
            hdfref,
            &bg);
 
 #ifndef DISABLE_TRACE
       if (srcTrace)
-        fprintf (stderr, "[ImageResolve] Did hdfGrokImage, got back 0x%08x\n", 
+        fprintf (stderr, "[ImageResolve] Did hdfGrokImage, got back 0x%08x\n",
                  img_data);
 #endif
 
@@ -533,7 +533,7 @@ stuffcache:
             /* if w is NULL we're stuffing the cache with our own info...
                 BJS */
         if(w) {
-                
+
 		/* We have to load the image. */
 		fnam = mo_tmpnam(src);
 
@@ -550,11 +550,11 @@ stuffcache:
 
 			return NULL;
 		}
-      
+
 #ifndef DISABLE_TRACE
 		if (srcTrace)
-		fprintf (stderr, 
-			 "[ImageResolve] Got through mo_pull_er_over_virgin, rc %d\n", 
+		fprintf (stderr,
+			 "[ImageResolve] Got through mo_pull_er_over_virgin, rc %d\n",
 			 rc);
 #endif
 
@@ -575,7 +575,7 @@ stuffcache:
 		/* Send it through CCI if need be            */
 		MoCCISendBrowserViewFile(src, "unknown", fnam);
 	}
-        
+
 	data = ReadBitmap(fnam, &width, &height, colrs, &bg);
 
 #ifndef DISABLE_TRACE
@@ -610,13 +610,13 @@ stuffcache:
 
 		bg_map = (unsigned char *)malloc(width * height);
 	}
-      
+
 	/* Now delete the file. */
-	unlink(fnam); 
+	unlink(fnam);
 	{
 		char *hfnam = (char *)malloc ((strlen (fnam) + strlen(".html") + 5) * sizeof (char));
 		sprintf (hfnam, "%s.html", fnam);
-		unlink(hfnam); 
+		unlink(hfnam);
 		free(hfnam);
 	}
 
@@ -728,10 +728,10 @@ int found_bg=0;
    */
   if ((cnt > get_pref_int(eCOLORS_PER_INLINED_IMAGE))&&(Vclass != TrueColor))
     {
-      MedianCut(img_data->image_data, &img_data->width, 
-                &img_data->height, colrs, 256, 
+      MedianCut(img_data->image_data, &img_data->width,
+                &img_data->height, colrs, 256,
                 get_pref_int(eCOLORS_PER_INLINED_IMAGE));
-      
+
       for (i=0; i < 256; i++)
         Used[i] = 0;
       cnt = 1;
@@ -770,7 +770,7 @@ int found_bg=0;
   for (i=0; i < 256; i++)
     {
       int indx;
-      
+
       if (Used[i] != 0)
         {
           indx = Used[i] - 1;
@@ -796,7 +796,7 @@ int found_bg=0;
 	img_data->blues[cnt - 1] = bg_blue;
 	img_data->bg_index=(cnt-1);
       }
-  
+
   bgptr = bg_map;
   cptr = img_data->clip_data;
   ptr = img_data->image_data;

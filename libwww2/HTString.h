@@ -1,8 +1,8 @@
 /*                                                                 String handling for libwww
                                          STRINGS
-                                             
+
    Case-independent string comparison and allocations with copies etc
-   
+
  */
 #ifndef HTSTRING_H
 #define HTSTRING_H
@@ -18,7 +18,7 @@ extern WWW_CONST char * HTLibraryVersion;   /* String for help screen etc */
 Case-insensitive string comparison
 
    The usual routines (comp instead of cmp) had some problem.
-   
+
  */
 extern int strcasecomp  PARAMS((WWW_CONST char *a, WWW_CONST char *b));
 extern int strncasecomp PARAMS((WWW_CONST char *a, WWW_CONST char *b, int n));
@@ -45,5 +45,5 @@ extern char * HTNextField PARAMS ((char** pstr));
 /*
 
    end
-   
+
     */

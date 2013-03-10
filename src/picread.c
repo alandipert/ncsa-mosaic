@@ -354,21 +354,21 @@ XColor *colrs;
             /* First, go fetch the pixels. */
             XtVaGetValues (view, XtNforeground, &fg_pixel,
                          XtNbackground, &bg_pixel, NULL);
-            
+
             /* Now, load up fg_color and bg_color. */
             fg_color.pixel = fg_pixel;
             bg_color.pixel = bg_pixel;
-            
+
             /* Now query for the full color info. */
-            XQueryColor 
-              (XtDisplay (view), 
+            XQueryColor
+              (XtDisplay (view),
                (installed_colormap ?
 		installed_cmap :
 		DefaultColormap (XtDisplay (view),
                                 DefaultScreen (XtDisplay (view)))),
                &fg_color);
-            XQueryColor 
-              (XtDisplay (view), 
+            XQueryColor
+              (XtDisplay (view),
                (installed_colormap ?
 		installed_cmap :
 		DefaultColormap (XtDisplay (view),
@@ -400,7 +400,7 @@ XColor *colrs;
             blackbit = fg_color.pixel;
             whitebit = bg_color.pixel;
           }
-  
+
 	/*
 	 * Error out here on visuals we can't handle so we won't core dump
 	 * later.
@@ -420,7 +420,7 @@ XColor *colrs;
             colrs[blackbit].blue = bg_color.blue;
             colrs[blackbit].pixel = bg_color.pixel;
             colrs[blackbit].flags = DoRed|DoGreen|DoBlue;
-            
+
             colrs[whitebit].red = fg_color.red;
             colrs[whitebit].green = fg_color.green;
             colrs[whitebit].blue = fg_color.blue;
@@ -434,7 +434,7 @@ XColor *colrs;
             colrs[blackbit].blue = fg_color.blue;
             colrs[blackbit].pixel = fg_color.pixel;
             colrs[blackbit].flags = DoRed|DoGreen|DoBlue;
-            
+
             colrs[whitebit].red = bg_color.red;
             colrs[whitebit].green = bg_color.green;
             colrs[whitebit].blue = bg_color.blue;
@@ -643,9 +643,9 @@ int *bg;
 {
     unsigned char *bit_data;
     FILE *fp;
-    
+
     *bg = -1;
-    
+
     /* Obviously this isn't going to work. */
     if ((datafile == NULL)||(datafile[0] == '\0'))
 	{
@@ -655,10 +655,10 @@ int *bg;
 	{
 	    fp = fopen(datafile, "r");
 	}
-    
+
     if (fp != NULL)
 	{
-	    
+
 	    bit_data = ReadGIF(fp, w, h, colrs, bg);
 	    if (bit_data != NULL)
 		{
@@ -666,7 +666,7 @@ int *bg;
 		    return(bit_data);
 		}
 	    rewind(fp);
-	    
+
 	    bit_data = ReadXbmBitmap(fp, datafile, w, h, colrs);
 	    if (bit_data != NULL)
 		{
@@ -674,7 +674,7 @@ int *bg;
 		    return(bit_data);
 		}
 	    rewind(fp);
-	    
+
 	    bit_data = ReadXpm3Pixmap(fp, datafile, w, h, colrs, bg);
 	    if (bit_data != NULL)
 		{
@@ -682,10 +682,10 @@ int *bg;
 		    return(bit_data);
 		}
 	    rewind(fp);
-	    
+
 #ifdef HAVE_PNG
 /* I can't believe Mosaic works this way... - DXP */
-/* I have to put this BEFORE ReadJPEG, because that code 
+/* I have to put this BEFORE ReadJPEG, because that code
    screws up the file pointer by closing it if there is an error - go fig. */
 	    bit_data = ReadPNG(fp, w, h, colrs);
 	    if (bit_data != NULL) /* ie. it was able to read the image */

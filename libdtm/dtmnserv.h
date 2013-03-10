@@ -34,17 +34,17 @@
  *
  * Revision 1.5  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
 */
 
 
 /*
-	Purpose	: Header file for name server interaction 
+	Purpose	: Header file for name server interaction
 	Notes	:
 
-	Message format: 
+	Message format:
 
-	Portid	- nethostid:portid	
+	Portid	- nethostid:portid
 	Header 	- opcode
 
 	DTM to nameserver
@@ -52,7 +52,7 @@
 	Send message length.
 
 	Mreg  	  - Header refname portname Portid
-	Mackroute - Header refname portname 
+	Mackroute - Header refname portname
 
 	Nameserver to DTM
 
@@ -65,11 +65,11 @@
 	Nethostid is in dotted decimal notation of internet.
 */
 
-#define	MREGID		"REGISTER"	
+#define	MREGID		"REGISTER"
 #define	MREG		"%s %s %s %s:%d"
-#define	MROUTEID	"ROUTE"	
+#define	MROUTEID	"ROUTE"
 #define	MROUTE		"%s %d %d"		/*  %s:%d  %s:%d .... */
-#define	MACKROUTEID	"ROUTE_ACK"	
-#define	MACKROUTE	"%s %s %s"	
+#define	MACKROUTEID	"ROUTE_ACK"
+#define	MACKROUTE	"%s %s %s"
 #define	MDISCARDID	"DISCARD"
 #define	MDISCARD	"%s %d"

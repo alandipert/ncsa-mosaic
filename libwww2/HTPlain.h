@@ -13,7 +13,7 @@
 extern HTStream* HTPlainPresent PARAMS((
         HTPresentation *        pres,
         HTParentAnchor *        anchor,
-        HTStream *              sink, 
+        HTStream *              sink,
         HTFormat                format_in,
         int                     compressed));
 

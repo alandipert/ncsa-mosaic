@@ -1,6 +1,6 @@
 /*                                  Network News Transfer protocol module for the WWW library
                                           HTNEWS
-                                             
+
  */
 /* History:
 **      26 Sep 90       Written TBL in Objective-C

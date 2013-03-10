@@ -35,7 +35,7 @@ char * HTStrip(s)
 	char *s;
 #endif
 {
-#define SPACE(c) ((c==' ')||(c=='\t')||(c=='\n')) 
+#define SPACE(c) ((c==' ')||(c=='\t')||(c=='\n'))
     char * p=s;
     for(p=s;*p;p++);		        /* Find end of string */
     for(p--;p>=s;p--) {
@@ -73,7 +73,7 @@ PRIVATE void scan(name, parts)
       length = strlen(name);
     else
       length = 0;
-    
+
     parts->access = 0;
     parts->host = 0;
     parts->absolute = 0;
@@ -83,7 +83,7 @@ PRIVATE void scan(name, parts)
     /* Argh. */
     if (!length)
       return;
-    
+
     after_access = name;
     for(p=name; *p; p++) {
 	if (*p==':') {
@@ -94,7 +94,7 @@ PRIVATE void scan(name, parts)
 	if (*p=='/') break;
 	if (*p=='#') break;
     }
-    
+
     for(p=name+length-1; p>=name; p--) {
 	if (*p =='#') {
 	    parts->anchor=p+1;
@@ -113,7 +113,7 @@ PRIVATE void scan(name, parts)
 	    }
 	} else {
 	    parts->absolute = p+1;		/* Root found but no host */
-	}	    
+	}
     } else {
         parts->relative = (*after_access) ? after_access : 0;	/* zero for "" */
     }
@@ -125,7 +125,7 @@ PRIVATE void scan(name, parts)
       parts->anchor = 0;
     }
 
-} /*scan */    
+} /*scan */
 
 
 /*	Parse a Name relative to another name
@@ -160,22 +160,22 @@ char * HTParse(aName, relatedName, wanted)
     char * p;
     char *access;
     struct struct_parts given, related;
-    
+
     if (!aName)
       aName = strdup ("\0");
     if (!relatedName)
       relatedName = strdup ("\0");
-    
+
     /* Make working copies of input strings to cut up:
     */
     len = strlen(aName)+strlen(relatedName)+10;
     result=(char *)malloc(len);		/* Lots of space: more than enough */
-    
+
     StrAllocCopy(name, aName);
     StrAllocCopy(rel, relatedName);
-    
+
     scan(name, &given);
-    scan(rel,  &related); 
+    scan(rel,  &related);
     result[0]=0;		/* Clear string  */
     access = given.access ? given.access : related.access;
     if (wanted & PARSE_ACCESS)
@@ -183,7 +183,7 @@ char * HTParse(aName, relatedName, wanted)
 	    strcat(result, access);
 	    if(wanted & PARSE_PUNCTUATION) strcat(result, ":");
 	}
-	
+
     if (given.access && related.access)	/* If different, inherit nothing. */
         if (strcmp(given.access, related.access)!=0) {
 	    related.host=0;
@@ -191,10 +191,10 @@ char * HTParse(aName, relatedName, wanted)
 	    related.relative=0;
 	    related.anchor=0;
 	}
-	
+
     if (wanted & PARSE_HOST)
         if(given.host || related.host) {
-          char * tail = result + strlen(result);   
+          char * tail = result + strlen(result);
 	    if(wanted & PARSE_PUNCTUATION) strcat(result, "//");
 	    strcat(result, given.host ? given.host : related.host);
 #define CLEAN_URLS
@@ -204,27 +204,27 @@ char * HTParse(aName, relatedName, wanted)
           {
             char * p;
             p = strchr(tail, ':');
-            if (p && access) 
+            if (p && access)
               {		/* Port specified */
                 if ((strcmp(access, "http") == 0 && strcmp(p, ":80") == 0) ||
-                    (strcmp(access, "gopher") == 0 && 
+                    (strcmp(access, "gopher") == 0 &&
                      (strcmp(p, ":70") == 0 ||
                       strcmp(p, ":70+") == 0)))
                   *p = (char)0;	/* It is the default: ignore it */
                 else if (p && *p && p[strlen(p)-1] == '+')
                   p[strlen(p)-1] = 0;
               }
-            if (!p) 
+            if (!p)
               p = tail + strlen(tail); /* After hostname */
             p--;				/* End of hostname */
-            if (strlen (tail) > 3 && (*p == '.')) 
+            if (strlen (tail) > 3 && (*p == '.'))
               {
 #ifndef DISABLE_TRACE
                 if (www2Trace)
                   fprintf (stderr, "[Parse] tail '%s' p '%s'\n", tail, p);
 #endif
                 *p = (char)0; /* chop final . */
-                
+
                 /* OK, at this point we know that *(p+1) exists,
                    else we would not be here.
 
@@ -238,7 +238,7 @@ char * HTParse(aName, relatedName, wanted)
                   {
 #ifndef DISABLE_TRACE
                     if (www2Trace)
-                      fprintf (stderr, "[Parse] Copying '%s' to '%s', %zu bytes\n", 
+                      fprintf (stderr, "[Parse] Copying '%s' to '%s', %zu bytes\n",
                                p+1, p, strlen (p+1));
 #endif
 /*
@@ -268,14 +268,14 @@ char * HTParse(aName, relatedName, wanted)
           }
 #endif
 	}
-	
+
     if (given.host && related.host)  /* If different hosts, inherit no path. */
         if (strcmp(given.host, related.host)!=0) {
 	    related.absolute=0;
 	    related.relative=0;
 	    related.anchor=0;
 	}
-	
+
     if (wanted & PARSE_PATH) {
         if(given.absolute) {				/* All is given */
 	    if(wanted & PARSE_PUNCTUATION) strcat(result, "/");
@@ -299,7 +299,7 @@ char * HTParse(aName, relatedName, wanted)
 	    strcat(result, "/");
 	}
     }
-		
+
     if (wanted & PARSE_ANCHOR)
         if(given.anchor || related.anchor) {
 	    if(wanted & PARSE_PUNCTUATION) strcat(result, "#");
@@ -309,7 +309,7 @@ char * HTParse(aName, relatedName, wanted)
       free(rel);
     if (name)
       free(name);
-    
+
     StrAllocCopy(return_value, result);
     free(result);
     return return_value;		/* exactly the right length */
@@ -343,25 +343,25 @@ void HTSimplify(filename)
   char * q;
   if (filename[0] && filename[1])
     {
-      for(p=filename+2; *p; p++) 
+      for(p=filename+2; *p; p++)
         {
-          if (*p=='/') 
+          if (*p=='/')
             {
-              if ((p[1]=='.') && (p[2]=='.') && (p[3]=='/' || !p[3] )) 
+              if ((p[1]=='.') && (p[2]=='.') && (p[3]=='/' || !p[3] ))
                 {
                   /* Changed clause below to (q>filename) due to attempted
                      read to q = filename-1 below. */
                   for (q = p-1; (q>filename) && (*q!='/'); q--)
                     ; /* prev slash */
                   if (q[0]=='/' && 0!=strncmp(q, "/../", 4)
-                      && !(q-1>filename && q[-1]=='/')) 
+                      && !(q-1>filename && q[-1]=='/'))
                     {
                       strcpy(q, p+3);	/* Remove  /xxx/..	*/
                       if (!*filename) strcpy(filename, "/");
                       p = q-1;		/* Start again with prev slash 	*/
-                    } 
-                } 
-              else if ((p[1]=='.') && (p[2]=='/' || !p[2])) 
+                    }
+                }
+              else if ((p[1]=='.') && (p[2]=='/' || !p[2]))
                 {
                   strcpy(p, p+2);			/* Remove a slash and a dot */
                 }
@@ -369,7 +369,7 @@ void HTSimplify(filename)
         }
     }
 }
-  
+
 
 /*		Make Relative Name
 **		------------------
@@ -403,7 +403,7 @@ char * HTRelative(aName, relatedName)
     WWW_CONST char * path = 0;
     WWW_CONST char * last_slash = 0;
     int slashes = 0;
-    
+
     for(;*p; p++, q++) {	/* Find extent of match */
     	if (*p!=*q) break;
 	if (*p==':') after_access = p+1;
@@ -413,9 +413,9 @@ char * HTRelative(aName, relatedName)
 	    if (slashes==3) path=p;
 	}
     }
-    
+
     /* q, p point to the first non-matching character or zero */
-    
+
     if (!after_access) {			/* Different access */
         StrAllocCopy(result, aName);
     } else if (slashes<3){			/* Different nodes */
@@ -431,7 +431,7 @@ char * HTRelative(aName, relatedName)
 	strcat(result, last_slash+1);
     }
 #ifndef DISABLE_TRACE
-    if (www2Trace) 
+    if (www2Trace)
       fprintf(stderr, "HT: `%s' expressed relative to\n    `%s' is\n   `%s'.",
               aName, relatedName, result);
 #endif
@@ -461,7 +461,7 @@ char *HTEscape (char *part)
     return NULL;
 
   escaped = (char *)malloc (strlen (part) * 3 + 1);
-  
+
   for (q = escaped, p = part; *p != '\0'; p++)
     {
       int c = (int)((unsigned char)(*p));
@@ -476,9 +476,9 @@ char *HTEscape (char *part)
           *q++ = HT_HEX(c % 16);
         }
     }
-  
+
   *q=0;
-  
+
   return escaped;
 }
 
@@ -496,7 +496,7 @@ char *HTEscape (char *part)
 
 PRIVATE char from_hex ARGS1(char, c)
 {
-    return  c >= '0' && c <= '9' ?  c - '0' 
+    return  c >= '0' && c <= '9' ?  c - '0'
     	    : c >= 'A' && c <= 'F'? c - 'A' + 10
     	    : c - 'a' + 10;	/* accept small letters just in case */
 }
@@ -516,11 +516,11 @@ PUBLIC char * HTUnEscape ARGS1( char *, str)
             p++;
             *q++ = ' ';
 	} else {
-	    *q++ = *p++; 
+	    *q++ = *p++;
 	}
     }
-    
+
     *q++ = 0;
     return str;
-    
+
 } /* HTUnEscape */

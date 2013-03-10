@@ -177,7 +177,7 @@ xinc = -I/usr/openwin/include -I/usr/dt/include
 :::
 SWP
 ---
-This is where you specify where you have installed your X libraries. Some 
+This is where you specify where you have installed your X libraries. Some
 systems have everything off of /usr/lib, some are not so lucky. If you
 are compiling and you get an error of "can't find include file XXX.h" it is
 more than likely a problem here (or if you don't have a particular lib
@@ -280,10 +280,10 @@ JPEG support. Comment it out if you aren't going to use it.
 
 #### KERBEROS SUPPORT
 ####
-#### If you want Mosaic to support Kerberos authentication, set the 
+#### If you want Mosaic to support Kerberos authentication, set the
 #### following flags appropriately.  You can support Kerberos V4 and/or V5,
 #### although it's most likely that your realm supports one or the other.
-#### To enable DES-encryption of HTTP messages via Kerberos key exchange, 
+#### To enable DES-encryption of HTTP messages via Kerberos key exchange,
 #### define the KRB-ENCRYPT flag.
 
 ##krb4dir   = /usr/athena
@@ -298,7 +298,7 @@ JPEG support. Comment it out if you aren't going to use it.
 
 #Do not comment out.
 krbflags  = $(krb4flags) $(krb5flags)
-krblibs   = $(krb4libs) $(krb5libs) 
+krblibs   = $(krb4libs) $(krb5libs)
 :::
 SWP
 ---
@@ -315,7 +315,7 @@ to leave it alone.
 #### recommend linking with CNIDR's freeWAIS 0.5 distribution; other
 #### WAIS distributions may work but we have not tested them with
 #### Mosaic.  freeWAIS 0.5 can currently (Sept.1995) be found at
-#### ftp://sunsite.unc.edu/pub/wais/servers/freeWAIS 
+#### ftp://sunsite.unc.edu/pub/wais/servers/freeWAIS
 
 #### If you do not wish to link to the WAIS libraries, then comment
 #### the following lines out.  Mosaic will then communicate with WAIS
@@ -379,7 +379,7 @@ a slight to Tom...we simply had not thought it through.
 Another note...the 2.8 distribution tree will be drastically changing. Do not
 expect patches for 2.7x to work for 2.8x. We will be moving the libraries
 out of the distribution tree and into a "library" distribution along with
-pointers to completely external libs (jpeg, png, zlib, etc). Since we have 
+pointers to completely external libs (jpeg, png, zlib, etc). Since we have
 these libs in binary form, we will probably distribute a "binary_libs" archive
 of all the libs we build with for each platform (for those who can't get the
 lib to build or simply don't care to take the time, but still want to play
@@ -394,7 +394,7 @@ great space wishes to perform this feat for us, we would gladly accept.
 
 Scott Powers	spowers@ncsa.uiuc.edu \        The N.C.S.A. X Mosaic
 Paul Bleisch    pbleisch@ncsa.uiuc.edu \         Development Team
-Dan Pape	dpape@ncsa.uiuc.edu     > 
+Dan Pape	dpape@ncsa.uiuc.edu     >
 Tommy Reilly	tpreilly@ncsa.uiuc.edu /  Comments? Suggestions? Problems?
 Brian Swetland	swetland@ncsa.uiuc.edu/       mosaic-x@ncsa.uiuc.edu
 

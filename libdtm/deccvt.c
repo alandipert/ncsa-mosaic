@@ -45,7 +45,7 @@
  *
  * Revision 1.4  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.3  1992/04/03  18:25:50  jplevyak
  * Fixed indice computation problem.
  *
@@ -61,7 +61,7 @@
  *
  * Revision 1.1  90/11/08  16:40:06  jefft
  * Initial revision
- * 
+ *
 
 #endif
 
@@ -92,14 +92,14 @@ static int dtm_short(mode, buf, size)
 {
 	int		nShorts, i;
 	DBGFLOW("# dtm_short called.\n");
-	
+
 	nShorts = (mode == DTMLOCAL) ? (size / 2) : size;
 	if (buf)
 		for ( i = 0; i < nShorts ; i++ ) {
 			swap(*buf, *(buf+1));
-			buf += 2;	
+			buf += 2;
 		}
-		
+
 	return ((mode == DTMLOCAL) ? (size / 2) : (size * 2));
 }
 

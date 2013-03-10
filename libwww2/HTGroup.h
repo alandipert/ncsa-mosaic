@@ -1,5 +1,5 @@
 /*                                    GROUP FILE ROUTINES
-                                             
+
  */
 
 #ifndef HTGROUP_H
@@ -46,63 +46,63 @@ Group definition grammar
 
   string
                          "sequence of alphanumeric characters"
-                         
+
   user_name
                          string
-                         
+
   group_name
                          string
-                         
+
   group_ref
                          group_name
-                         
+
   user_def
                          user_name | group_ref
-                         
+
   user_def_list
                            user_def { ',' user_def }
-                         
+
   user_part
                          user_def | '(' user_def_list ')'
-                         
+
   templ
-                         
+
                          "sequence of alphanumeric characters and '*'s"
-                         
+
   ip_number_mask
                          templ '.' templ '.' templ '.' templ
-                         
+
   domain_name_mask
                          templ { '.' templ }
-                         
+
   address
-                         
+
                          ip_number_mask | domain_name_mask
-                         
+
   address_def
-                         
+
                          address
-                         
+
   address_def_list
                          address_def { ',' address_def }
-                         
+
   address_part
                          address_def | '(' address_def_list ')'
-                         
+
   item
                          [user_part] ['@' address_part]
-                         
+
   item_list
                          item { ',' item }
-                         
+
   group_def
                          item_list
-                         
+
   group_decl
                          group_name ':' group_def
-                         
+
   PARSE GROUP DEFINITION
-  
+
  */
 
 PUBLIC GroupDef *HTAA_parseGroupDef PARAMS((FILE * fp));
@@ -112,7 +112,7 @@ Fill in Pointers to referenced Group Definitions in a Group Definition
 
    References to groups (by their name) are resolved from group_def_list and pointers to
    those structures are added to group_def.
-   
+
  */
 
 PUBLIC void HTAA_resolveGroupReferences PARAMS((GroupDef *     group_def,
@@ -123,7 +123,7 @@ Read Group File (and do caching)
 
    If group file is already in cache returns a pointer to previously read group definition
    list.
-   
+
  */
 
 PUBLIC GroupDefList *HTAA_readGroupFile PARAMS((WWW_CONST char * filename));
@@ -133,7 +133,7 @@ Delete Group Definition
 
    Groups in cache should never be freed by this function. This should only be used to
    free group definitions read by HTAA_parseGroupDef.
-   
+
  */
 
 PUBLIC void GroupDef_delete PARAMS((GroupDef * group_def));
@@ -149,7 +149,7 @@ PUBLIC void HTAA_printGroupDef PARAMS((GroupDef * group_def));
 Does a User Belong to a Given Set of Groups
 
    This function checks both the username and the internet address.
-   
+
  */
 
 /* PUBLIC                                       HTAA_userAndInetInGroup()

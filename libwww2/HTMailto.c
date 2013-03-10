@@ -23,7 +23,7 @@
 extern int www2Trace;
 #endif
 
-struct _HTStructured 
+struct _HTStructured
 {
   WWW_CONST HTStructuredClass *	isa;
   /* ... */
@@ -58,13 +58,13 @@ PUBLIC int HTSendMailTo ARGS4(
   char *mailtoSubject;
 
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
+  if (www2Trace)
     fprintf(stderr, "HTMailto: Mailing to %s\n", arg);
 #endif
-  
-  if (!initialized) 
+
+  if (!initialized)
     initialized = initialize();
-  if (!initialized) 
+  if (!initialized)
     {
       HTProgress ((char *) 0);
       return HT_NOT_LOADED;
@@ -72,16 +72,16 @@ PUBLIC int HTSendMailTo ARGS4(
 
   {
     WWW_CONST char * p1=arg;
-    
+
     /*	We will ask for the document, omitting the host name & anchor.
      **
      **	Syntax of address is
      **		xxx@yyy			User xxx at site yyy (xxx is optional).
-     */        
+     */
     if (!my_strncasecmp (arg, "mailto:", 7))
       p1 = arg + 7;		/* Skip "mailto:" prefix */
-    
-    if (!*arg) 
+
+    if (!*arg)
       {
 	HTProgress ("Could not find email address");
 	return HT_NOT_LOADED;	/* Ignore if no name */

@@ -66,14 +66,14 @@ tags:
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 
-main.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
-main.o: main.h gui.h pan.h child.h globalhist.h cciBindings2.h 
+main.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
+main.o: main.h gui.h pan.h child.h globalhist.h cciBindings2.h
 main.o: cci.h port.h cciServer.h kcms.h
 
 gui.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h gui.h port.h
 gui.o: gui-documents.h main.h mo-www.h gui-menubar.h proxy.h pan.h pixmaps.h
 gui.o: ../libwww2/HTAAUtil.h ../libhtmlw/HTML.h xresources.h cci.h
-gui.o: pixmaps/*.xpm 
+gui.o: pixmaps/*.xpm
 gui.o: bitmaps/*.xbm
 
 gui-dialogs.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
@@ -87,8 +87,8 @@ gui-menubar.o: cciBindings.h cciBindings2.h cciServer.h history.h pan.h
 gui-menubar.o: annotate.h mo-www.h globalhist.h proxy.h
 gui-menubar.o: ../libwww2/HTAAUtil.h
 
-gui-documents.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
-gui-documents.o: gui.h gui-documents.h gui-extras.h mo-www.h annotate.h 
+gui-documents.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
+gui-documents.o: gui.h gui-documents.h gui-extras.h mo-www.h annotate.h
 gui-documents.o: history.h ../libhtmlw/HTML.h cci.h port.h cciBindings.h
 
 gui-news.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h gui.h
@@ -104,7 +104,7 @@ newsrc.o: prefs.h prefs_defs.h
 gui-extras.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h gui.h
 gui-extras.o: gui-extras.h mo-www.h ../libhtmlw/HTML.h ../libnut/system.h
 
-mo-www.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
+mo-www.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
 mo-www.o: mo-www.h ../libwww2/HTAAUtil.h ../libwww2/HTUtils.h
 mo-www.o: ../libwww2/HTString.h ../libwww2/tcp.h ../libwww2/HTTCP.h
 mo-www.o: ../libwww2/HTParse.h ../libwww2/HTAccess.h ../libwww2/HTAnchor.h
@@ -119,7 +119,7 @@ hotlist.o: mosaic.h ../libXmx/Xmx.h toolbar.h
 hotlist.o: prefs.h prefs_defs.h hotlist.h hotfile.h gui.h
 hotlist.o: mo-www.h bitmaps/hotlist.xbm ../libnut/system.h
 
-history.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
+history.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
 history.o: gui.h mo-www.h gui-popup.h ../libhtmlw/HTML.h
 history.o: hotlist.h ../libwww2/HTAAUtil.h
 
@@ -149,7 +149,7 @@ img.o: bitmaps/gopher_sound.xbm bitmaps/gopher_index.xbm
 img.o: bitmaps/gopher_telnet.xbm bitmaps/gopher_binary.xbm
 img.o: bitmaps/gopher_unknown.xbm
 
-picread.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
+picread.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
 picread.o: picread.h gifread.h xpmread.h readJPEG.h readPNG.h
 
 xpmhash.o: xpm.h
@@ -158,7 +158,7 @@ xpmread.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h xpmread.h
 
 gifread.o: gifread.h
 
-pixmaps.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h 
+pixmaps.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h
 pixmaps.o: pixmaps.h xpmread.h xpm.h
 pixmaps.o: pixmaps/*.xpm
 
@@ -170,7 +170,7 @@ hotfile.o: prefs.h prefs_defs.h hotlist.h mo-www.h ../libhtmlw/HTML.h
 
 child.o: child.h list.h
 
-mailto.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h gui.h 
+mailto.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h gui.h
 mailto.o: ../libnut/url-utils.h ../libnut/system.h
 
 readJPEG.o: mosaic.h ../libXmx/Xmx.h toolbar.h prefs.h prefs_defs.h readJPEG.h
@@ -200,8 +200,8 @@ support.o: cci.h port.h
 bla.o: cciServer.h cci.h port.h list.h
 bla.o: memStuffForPipSqueeks.h ../libwww2/HTPlain.h ../libwww2/HTStream.h
 bla.o: ../libwww2/HTUtils.h ../libwww2/HTString.h /usr/include/stdarg.h
-bla.o: ../libwww2/HTAnchor.h ../libwww2/HTList.h ../libwww2/HTAtom.h 
-bla.o: ../libwww2/HTFormat.h ../libwww2/HText.h ../libwww2/HTFile.h 
+bla.o: ../libwww2/HTAnchor.h ../libwww2/HTList.h ../libwww2/HTAtom.h
+bla.o: ../libwww2/HTFormat.h ../libwww2/HText.h ../libwww2/HTFile.h
 bla.o: ../libwww2/HTAccess.h ../libwww2/tcp.h ../libwww2/HTML.h
 bla.o: ../libwww2/HTMLDTD.h ../libwww2/SGML.h ../libwww2/HTCompressed.h
 

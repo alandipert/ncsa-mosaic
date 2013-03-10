@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Apr 10 17:41:00 CDT 1996
  * Author: Dan Pape
  *
@@ -69,7 +69,7 @@
 char *mo_fetch_grpan_links (char *url);
 mo_status mo_is_editable_grpan (char *text);
 mo_status mo_new_grpan (char *url, char *title, char *author, char *text);
-mo_status mo_audio_grpan (char *url, char *title, char *author, 
+mo_status mo_audio_grpan (char *url, char *title, char *author,
                           char *data, int len);
 mo_status mo_modify_grpan (char *url, char *title, char *author, char *text);
 mo_status mo_delete_grpan (char *url);

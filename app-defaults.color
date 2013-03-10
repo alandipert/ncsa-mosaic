@@ -24,7 +24,7 @@ Mosaic*pulldownmenu*fontList:	-*-helvetica-bold-o-normal-*-14-*-iso8859-1
 Mosaic*XmList*fontList:	-*-helvetica-medium-r-normal-*-14-*-iso8859-1
 Mosaic*XmText.fontList:      -*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
 Mosaic*XmTextField.fontList: -*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1
-  
+
 Mosaic*optionmenu*marginHeight: 	0
 Mosaic*optionmenu*marginTop: 		5
 Mosaic*optionmenu*marginBottom: 	5
@@ -61,7 +61,7 @@ Mosaic*XmPushButton*highlightThickness:	0
 Mosaic*XmScrollBar*highlightThickness:     0
 Mosaic*highlightThickness:	                0
 Mosaic*keyboardFocusPolicy:                pointer
-  
+
 Mosaic*TitleFont: -adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1
 Mosaic*Font: -adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1
 Mosaic*ItalicFont: -adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1
@@ -102,7 +102,7 @@ Mosaic*XmList*TopShadowColor:              #e7e7e7e7e7e7
 Mosaic*XmText*TopShadowColor:              #e7e7e7e7e7e7
 Mosaic*XmSelectionBox*TopShadowColor:      #e7e7e7e7e7e7
 Mosaic*XmMessageBox*TopShadowColor:        #e7e7e7e7e7e7
-  
+
 Mosaic*TroughColor:                        #646464646464
 Mosaic*SelectColor:			#ffffffff0000
 Mosaic*HighlightColor:		 	#bfbfbfbfbfbf

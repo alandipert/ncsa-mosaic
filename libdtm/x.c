@@ -43,7 +43,7 @@
  *
  * Revision 1.4  92/05/05  22:27:50  jplevyak
  * Corrected X interface code.
- * 
+ *
  * Revision 1.3  1992/05/04  22:05:55  jplevyak
  * Declare DTMaddInput external
  *
@@ -121,12 +121,12 @@ void dtm_handle_new_out( client_data, fd, id )
 		automatically handled.
 */
 #ifdef DTM_PROTOTYPES
-int DTMaddInput( int p_ext, caddr_t condition, 
+int DTMaddInput( int p_ext, caddr_t condition,
 					XtInputCallbackProc proc, caddr_t client_data )
 #else
 int	DTMaddInput( p_ext, condition, proc, client_data )
 	int					p_ext;
-	caddr_t 			condition; 
+	caddr_t 			condition;
 	XtInputCallbackProc	proc;
 	caddr_t				client_data;
 #endif
@@ -148,14 +148,14 @@ int	DTMaddInput( p_ext, condition, proc, client_data )
 		/*
 			Set up callback for new connections
 		*/
-		XtAddInput( pp->sockfd, XtInputReadMask, dtm_handle_new_in, 
+		XtAddInput( pp->sockfd, XtInputReadMask, dtm_handle_new_in,
 				(caddr_t) p );
 		FOR_EACH_IN_PORT( inp, pp ) {
-			inp->XinputId = XtAddInput( inp->fd, XtInputReadMask, 
+			inp->XinputId = XtAddInput( inp->fd, XtInputReadMask,
 					dtm_handle_in, (caddr_t) p );
 		}
 	} else {
-		XtAddInput( pp->sockfd, XtInputReadMask, dtm_handle_new_out, 
+		XtAddInput( pp->sockfd, XtInputReadMask, dtm_handle_new_out,
 				(caddr_t) p );
 	}
 	return DTM_OK;

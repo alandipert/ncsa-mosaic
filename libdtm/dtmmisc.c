@@ -48,7 +48,7 @@
  *
  * Revision 1.8  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.7  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
@@ -58,7 +58,7 @@
  *
  * Revision 1.5  91/09/26  20:24:21  jplevyak
  * Added debug.h as include file.
- * 
+ *
  * Revision 1.4  1991/06/11  15:19:36  sreedhar
  * disclaimer added
  *
@@ -70,7 +70,7 @@
  *
  * Revision 1.1  90/11/08  16:32:18  jefft
  * Initial revision
- * 
+ *
 
 #endif
 */
@@ -341,7 +341,7 @@ int DTMgetGroup(h, cmd, parent, self)
     }
   else
     *parent = '\0';
-  
+
   h = strchr(h, ' ')+1;
 
   /* get self name */

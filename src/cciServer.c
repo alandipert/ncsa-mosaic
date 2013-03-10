@@ -194,8 +194,8 @@ MCCIPort client;
 }
 
 int MCCIReadContent(client,content)
-/* read from client. Next line should contain Content-Length: value 
-   and then the content body. Returns the number of chars read. 
+/* read from client. Next line should contain Content-Length: value
+   and then the content body. Returns the number of chars read.
    0 on error. space is allocated and placed into 'content'*/
 MCCIPort client;
 char **content;
@@ -262,14 +262,14 @@ int MCCIHandleSend(client,line,retText)
 {
   int retCode;
   char *s,*end,*start;
-  
+
   if (!(s = strchr(line,' ')))
     { /* skip over SEND */
       strcpy(retText,"Error in protocol");
       return(MCCIR_ERROR);
     }
-  
-  
+
+
   GetWordFromString(s,&start,&end);
   if (!my_strncasecmp(start,MCCI_S_ANCHOR,strlen(MCCI_S_ANCHOR)))
     {
@@ -279,9 +279,9 @@ int MCCIHandleSend(client,line,retText)
       /* ejb 9 March 1995 added BEFORE and AFTER cases */
       if (start && (start != end))
 /* SEND ANCHOR STOP => turn off SEND ANCHOR */
-	if (!my_strncasecmp(start,MCCI_S_STOP,strlen(MCCI_S_STOP))) 
+	if (!my_strncasecmp(start,MCCI_S_STOP,strlen(MCCI_S_STOP)))
 	  MCCIRequestSendAnchor(&retCode,retText,client,0);
-	else 
+	else
 /* SEND ANCHOR BEFORE => Mosaic sends anchor, BEFORE done getting */
 	  if (!my_strncasecmp(start,MCCI_S_BEFORE,strlen(MCCI_S_BEFORE)))
 	    MCCIRequestSendAnchor(&retCode,retText,client,MCCI_SEND_BEFORE);
@@ -334,7 +334,7 @@ int MCCIHandleSend(client,line,retText)
 				MCCIRequestSendOutput(&retCode,retText,
 							client,1,start);
 				}
-			
+
 			}
 		else {
 			/* "SEND OUTPUT" so send it all */
@@ -342,7 +342,7 @@ int MCCIHandleSend(client,line,retText)
 							client,1,(char *)0);
 			}
 		}
-	
+
   else if (!my_strncasecmp(start,MCCI_S_BROWSERVIEW,strlen(MCCI_S_BROWSERVIEW))){
 /* SEND BROWSERVIEW */
 		s = end;
@@ -366,7 +366,7 @@ int MCCIHandleSend(client,line,retText)
 							client,1);
 			}
 		}
-   
+
   else if (!my_strncasecmp(start,MCCI_S_EVENT,strlen(MCCI_S_EVENT))){
 /* SEND EVENT */
 		s = end;
@@ -491,7 +491,7 @@ char *next;
 		    }
 	    }
 	else {
-		output = MCCI_DEFAULT; 
+		output = MCCI_DEFAULT;
 		}
 
 #ifndef DISABLE_TRACE
@@ -513,12 +513,12 @@ char *next;
 	}
 #endif
 
-	MCCIRequestPost(client,&retCode, retText, url, mimeType, 
+	MCCIRequestPost(client,&retCode, retText, url, mimeType,
 				postData, postDataLength, output);
 
 	free(url);
 	free(mimeType);
-	
+
 	return(retCode);
 }
 
@@ -615,7 +615,7 @@ char *next;
 		    }
 	    }
 	else {
-		output = MCCI_DEFAULT; 
+		output = MCCI_DEFAULT;
 		}
 
 #ifndef DISABLE_TRACE
@@ -638,12 +638,12 @@ char *next;
 	}
 #endif
 
-	MCCIRequestDisplay(client, &retCode, retText, url, mimeType, 
+	MCCIRequestDisplay(client, &retCode, retText, url, mimeType,
 				displayData, displayDataLength, output);
 
 	free(url);
 	free(mimeType);
-	
+
 	return(retCode);
 }
 
@@ -666,7 +666,7 @@ int retCode;
 /*	absRel = MCCI_DEFAULT;*/
 	headerExt = (char *) 0;
  	headerExtLength=0;
-	
+
 	if (!(s = strchr(line,' '))){ /* skip over GET */
 		strcpy(retText,"Error in protocol");
 		return(MCCIR_ERROR);
@@ -737,7 +737,7 @@ int retCode;
 	}
 #endif
         /* set flag to be caught in MoCCISendAnchorToCCI */
-	cciStatPreventSendAnchor(client, url); 
+	cciStatPreventSendAnchor(client, url);
 	MCCIRequestGetURL(&retCode,retText,url,output,headerExt);
 	if ((headerExtLength > 0) && (headerExt)) {
 		FREE(headerExt);
@@ -863,10 +863,10 @@ int status;
 
         /* set flag to be caught in MoCCISendAnchorToCCI */
 /*
-	cciStatPreventSendAnchor(client, url); 
+	cciStatPreventSendAnchor(client, url);
 */
 	MCCIRequestForm(client, &retCode,retText,actionID,status);
-		
+
 /*  	free(actionID);
 */
 	return(retCode);
@@ -951,7 +951,7 @@ int retCode;
 	 else
 	   MCCIGetAnnotationDummyLine(&retCode,retText,retData,retDataLength,annoCodes[index]);
 
-		if (retDataLength != 
+		if (retDataLength !=
 		    NetServerWrite(client,retData,retDataLength)) {
 		  return(MCCI_FAIL);
 		}
@@ -1119,7 +1119,7 @@ char *line;
 				&retDataLength);
 */
 		MCCISendResponseLine(client,retCode,retText);
-		if (retDataLength != 
+		if (retDataLength !=
 		    NetServerWrite(client,*retData,retDataLength)) {
 		  return(MCCI_FAIL);
 		}
@@ -1176,13 +1176,13 @@ char *line;
 		MCCISendResponseLine(client,retCode,retText);
 		}
 	else {
-		/* 
+		/*
 		MCCIRRequestUnrecognized();
 		*/
 		MCCISendResponseLine(client,MCCIR_UNRECOGNIZED,
 			"Command not recognized");
 		}
-		
+
 
 	return(1);
 }
@@ -1201,7 +1201,7 @@ char buff[1024];
 	return(MCCISendResponseLine(client, MCCIR_ANCHOR_INFO,buff));
 }
 
-int MCCIFormQueryToClient(client, actionID, query, contentType, post_data)  
+int MCCIFormQueryToClient(client, actionID, query, contentType, post_data)
 MCCIPort client;
 char *actionID;
 char *query;
@@ -1211,7 +1211,7 @@ char *post_data;
 char buff[1024];
 int length, dataLength;
 
-	
+
 	sprintf(buff, "%s %s ", actionID, query);
 	if(MCCISendResponseLine(client, MCCIR_FORM_RESPONSE,buff)){
 		return(MCCI_FAIL);
@@ -1223,7 +1223,7 @@ int length, dataLength;
                 return(MCCI_FAIL);
                 }
 
-	dataLength = strlen(post_data); 
+	dataLength = strlen(post_data);
 	sprintf(buff,"Content-Length: %d \r\n",dataLength);
 	length = strlen(buff);
         if (length != NetServerWrite(client,buff,length)) {
@@ -1233,7 +1233,7 @@ int length, dataLength;
         if (dataLength!= NetServerWrite(client,post_data,dataLength)) {
                 return(MCCI_FAIL);
 		}
-	
+
 	return(MCCI_OK);
 }
 
@@ -1285,7 +1285,7 @@ FILE *fp;
 
 			}
 		else {
-			/* error reading here...but we promised to send 
+			/* error reading here...but we promised to send
 			   countDown number of bytes, so send nulls */
 			while (countDown > 0) {
 				if (1 != NetServerWrite(client,"\0",1)) {
@@ -1297,7 +1297,7 @@ FILE *fp;
 		}
 	fclose(fp);
 	return(MCCI_OK);
-	
+
 }
 
 
@@ -1332,7 +1332,7 @@ int length;
         if (dataLength!= NetServerWrite(client,data,dataLength)) {
                 return(MCCI_FAIL);
 		}
-	
+
 	return(MCCI_OK);
 
 }

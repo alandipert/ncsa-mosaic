@@ -1,7 +1,7 @@
 # This file is part of Mosaic and is only useful if it is in
 #
-#                $HOME/.mosaic-user-defs 
-# 
+#                $HOME/.mosaic-user-defs
+#
 # If you want to use the functionality herein described move this file
 # to that location. -- TPR
 #
@@ -13,14 +13,14 @@
 #
 #   Button Title
 #   action spec
-# 
+#
 # There are (currently) three ways to specify an action:
 #
 #   Webster
 #   GET:http://a.site.with.webster/cgi-bin/websterquery?q=__string__
 #
 #   Search Engine
-#   POST:http://a.site.with.webster/cgi-bin/websterquery q=__string__# 
+#   POST:http://a.site.with.webster/cgi-bin/websterquery q=__string__#
 #
 #   Fetch Selection
 #   FETCH:__string__
@@ -28,7 +28,7 @@
 #   What GET does:
 #     This is for a search form that is of the GET method, clicking on the
 #     Webster button (in User pull_right menu) will send the selected text
-#     to this cgi query and Mosaic will pull up the results. 
+#     to this cgi query and Mosaic will pull up the results.
 #
 #   What POST does:
 #     This is for a search form that is of the POST method, clicking on the
@@ -38,11 +38,11 @@
 #   What FETCH does:
 #     This just treats the selection like a url and fetches it.
 #
-# Here is a working example (for uiuc domain only, uncomment this if you 
+# Here is a working example (for uiuc domain only, uncomment this if you
 # are in the domain and ever feel like looking up words you find surfing)
 #
 # Webster
-# GET:http://www.uiuc.edu/cgi-bin/oed?__string__ 
+# GET:http://www.uiuc.edu/cgi-bin/oed?__string__
 #
 # How you use it:
 #
@@ -55,16 +55,16 @@
 #    We thank you for your support.
 #
 # One thing that might be useful to know if you have problems with this
-# feature is that it you need to add quotes to a selection of more than 
+# feature is that it you need to add quotes to a selection of more than
 # one word but you can't have quotes in a url so add %22's around __string__
-# in the spec line if the button is meant to accept selections of more than 
+# in the spec line if the button is meant to accept selections of more than
 # one word (see provided functions).
 #
 # Note: With Mosaic 2.8b1 you will be able to do construct these
-# user defined actions within Mosaic via a preferences dialog. 
+# user defined actions within Mosaic via a preferences dialog.
 # This will mean you don't have to rerun Mosaic if you add a new action.
-# This file is a temporary thing and will be obsolete with 2.8b1 
-# (all though if you have this file 2.8b1 will read it and 
+# This file is a temporary thing and will be obsolete with 2.8b1
+# (all though if you have this file 2.8b1 will read it and
 # put it in preferences and then erase it).
 #
 

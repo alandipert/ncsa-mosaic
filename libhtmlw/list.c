@@ -4,9 +4,9 @@
  * Permission is granted to copy and distribute source with out fee.
  * Commercialization of this product requires prior licensing
  * from the National Center for Supercomputing Applications of the
- * University of Illinois.  Commercialization includes the integration of this 
- * code in part or whole into a product for resale.  Free distribution of 
- * unmodified source and use of NCSA software is not considered 
+ * University of Illinois.  Commercialization includes the integration of this
+ * code in part or whole into a product for resale.  Free distribution of
+ * unmodified source and use of NCSA software is not considered
  * commercialization.
  *
  */
@@ -18,7 +18,7 @@
  * list contains pointers to the head, tail, and current list position.
  * the list itsself is doubly linked with both next and previous pointers.
  *
- * ddt 
+ * ddt
  */
 #include <stdio.h>
 #include "listP.h"
@@ -166,7 +166,7 @@ struct LISTINSTANCE *m;
 		FREE(m);
 		}
 	FREE(theList);
-		
+
 }
 
 
@@ -202,7 +202,7 @@ struct LISTINSTANCE *l;
 	theList->current = l;
 
 	theList->listCount++;
-	
+
 	return(1);
 }
 
@@ -230,7 +230,7 @@ struct LISTINSTANCE *l;
 	theList->current = l;
 
 	return(NIL);
-	
+
 }
 
 /*
@@ -297,7 +297,7 @@ List theList;
 char *entry;
 int count;
 struct LISTINSTANCE *saveCurrent;
-*/	
+*/
 	if (theList) {
 		return(theList->listCount);
 		}

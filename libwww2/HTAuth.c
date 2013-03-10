@@ -65,7 +65,7 @@ PRIVATE HTAAUser *decompose_auth_string ARGS2(char *,		authstring,
                         /* this also frees all the strings pointed to	*/
 			/* by the static 'user'.			*/
 
-    if (!authstring || !*authstring || 
+    if (!authstring || !*authstring ||
 	scheme != HTAA_BASIC || scheme == HTAA_PUBKEY)
 	return NULL;
 
@@ -88,7 +88,7 @@ PRIVATE HTAAUser *decompose_auth_string ARGS2(char *,		authstring,
     else {   /* Just uudecode */
 	int bytes_decoded;
 	int len = strlen(authstring) + 1;
-	
+
 	if (!(cleartext = (char*)malloc(len)))
 	    outofmem(__FILE__, "decompose_auth_string");
 	bytes_decoded = HTUU_decode(authstring, cleartext, len);
@@ -115,7 +115,7 @@ PRIVATE HTAAUser *decompose_auth_string ARGS2(char *,		authstring,
 ** Extract rest of the fields
 */
     if (scheme == HTAA_PUBKEY) {
-	if (                          !(inet_addr   =strchr(password, ':')) || 
+	if (                          !(inet_addr   =strchr(password, ':')) ||
 	    (*(inet_addr++)   ='\0'), !(timestamp   =strchr(inet_addr,':')) ||
 	    (*(timestamp++)   ='\0'), !(browsers_key=strchr(timestamp,':')) ||
 	    (*(browsers_key++)='\0')) {
@@ -162,7 +162,7 @@ PRIVATE HTAAUser *decompose_auth_string ARGS2(char *,		authstring,
 		    username, password, inet_addr, timestamp, browsers_key);
     }
 #endif
-    
+
     return user;
 }
 

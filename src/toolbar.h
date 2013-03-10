@@ -1,6 +1,6 @@
 /* Toolbar Stuff -- BJS */
 
-struct toolbar 
+struct toolbar
 {
     Widget w;
     int gray;
@@ -26,7 +26,7 @@ struct tool {
     int toolset;           /* toolset it belongs too (0=always on) */
     int kioskok;           /* allowed in kiosk mode */
     char *unused;
-    
+
 };
 
 int mo_tool_state(struct toolbar *t,int state, int index);

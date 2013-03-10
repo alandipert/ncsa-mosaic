@@ -447,7 +447,7 @@ int my_strncasecmp(char *str1, char *str2, int n)
 	return -1;
       if(str1[i]+offset1>str2[i]+offset2)
 	return 1;
-/* 
+/*
       if (toupper(str1[i])<toupper(str2[i])) {
         return(-1);
       }

@@ -71,7 +71,7 @@ ReadProxies(char *filename)
 	struct Proxy *head, *cur, *next, *p;
 	struct ProxyDomain *pCurList, *pNewDomain;
 	extern void FreeProxy();
-		
+
 	if ((fp = fopen(filename,"r")) == NULL)
 		return NULL;
 
@@ -86,7 +86,7 @@ ReadProxies(char *filename)
 	while (fgets(buf, BUFLEN, fp) != 0) {
 
 		p = (struct Proxy *)calloc(1,sizeof(struct Proxy));
-		
+
 		p->next = NULL;
 		p->prev = NULL;
 
@@ -181,7 +181,7 @@ ReadNoProxies(char *filename)
 	char buf[BUFLEN], *psb;
 	struct Proxy *head, *cur, *next, *p;
 	extern void FreeProxy();
-		
+
 	if ((fp = fopen(filename,"r")) == NULL)
 		return NULL;
 
@@ -196,7 +196,7 @@ ReadNoProxies(char *filename)
 	while (fgets(buf, BUFLEN, fp) != 0) {
 
 		p = (struct Proxy *)calloc(1, sizeof(struct Proxy));
-		
+
 		p->next = NULL;
 		p->prev = NULL;
 

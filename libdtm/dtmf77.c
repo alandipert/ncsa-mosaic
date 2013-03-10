@@ -39,7 +39,7 @@
  *
  * Revision 1.7  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.6  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
@@ -58,7 +58,7 @@
  *
  * Revision 1.1  90/11/08  16:31:46  jefft
  * Initial revision
- * 
+ *
 
 #endif
 
@@ -112,7 +112,7 @@ int DTMGPA(p, s, len)
   int	*p, *len;
   _fcd	s;
 #endif
-{  
+{
   char	portaddr[128];
 
 
@@ -120,7 +120,7 @@ int DTMGPA(p, s, len)
     return DTMERROR;
 
   if (strlen(portaddr) > *len)  {
-    strncpy(_fcdtocp(s), portaddr, *len); 
+    strncpy(_fcdtocp(s), portaddr, *len);
     return DTMERROR;
     }
 
@@ -204,7 +204,7 @@ int DTMBW(p, header, size)
   len = _fcdlen(header);
   strncpy(buffer, _fcdtocp(header), len);
   buffer[len] = '\0';
-  
+
   return DTMbeginWrite(*p, buffer, len+1);
 }
 

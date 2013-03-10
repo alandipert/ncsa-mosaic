@@ -40,7 +40,7 @@ extern int www2Trace;
 
 struct _HTStream {
 	WWW_CONST HTStreamClass *	isa;
-	
+
 	FILE *			fp;
         char * fnam;
 	char * 			end_command;
@@ -121,7 +121,7 @@ PRIVATE void HTFWriter_write ARGS3(HTStream *, me, WWW_CONST char*, s, int, l)
   if (me->write_error)
     return;
 
-  rv = fwrite(s, 1, l, me->fp); 
+  rv = fwrite(s, 1, l, me->fp);
   if (rv != l)
     {
       HTProgress ("Error writing to temporary file.");
@@ -194,7 +194,7 @@ PRIVATE void HTFWriter_free ARGS1(HTStream *, me)
       free (cmd);
 */
 /*ddt*/unlink(me->fnam);
-      
+
       HTProgress ("Insufficient temporary disk space; could not transfer data.");
 
       free (me->fnam);
@@ -397,7 +397,7 @@ PRIVATE void HTFWriter_handle_interrupt ARGS1(HTStream *, me)
   if (www2Trace)
     fprintf (stderr, "*** HTFWriter interrupted; killed '%s'\n", me->fnam);
 #endif
-  
+
  outtahere:
   me->interrupted = 1;
 
@@ -409,14 +409,14 @@ PRIVATE void HTFWriter_handle_interrupt ARGS1(HTStream *, me)
 **	-----------------------
 */
 PRIVATE WWW_CONST HTStreamClass HTFWriter = /* As opposed to print etc */
-{		
+{
 	"FileWriter",
 	HTFWriter_free,
 	HTFWriter_end_document,
 	HTFWriter_put_character, 	HTFWriter_put_string,
 	HTFWriter_write,
         HTFWriter_handle_interrupt
-}; 
+};
 
 
 /*	Take action using a system command
@@ -439,11 +439,11 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
 {
   char *command;
   WWW_CONST char * suffix;
-  
+
   HTStream* me;
 
   me = (HTStream*)malloc(sizeof(*me));
-  me->isa = &HTFWriter;  
+  me->isa = &HTFWriter;
   me->interrupted = 0;
   me->write_error = 0;
   me->fnam = NULL;
@@ -466,20 +466,20 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
     fprintf (stderr, "[HTSaveAndExecute] me->compressed is '%d'\n",
              me->compressed);
 #endif
-  
+
   /* Save the file under a suitably suffixed name */
-  
+
   if (!force_dump_to_file)
     {
       extern char *mo_tmpnam (char *);
 
       suffix = HTFileSuffix(pres->rep);
-      
+
       me->fnam = mo_tmpnam(anchor->address);
-      if (suffix) 
+      if (suffix)
         {
           char *freeme = me->fnam;
-         
+
           me->fnam = (char *)malloc (strlen (me->fnam) + strlen (suffix) + 8);
           strcpy(me->fnam, freeme);
           strcat(me->fnam, suffix);
@@ -492,7 +492,7 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
     }
 
   me->fp = fopen (me->fnam, "w");
-  if (!me->fp) 
+  if (!me->fp)
     {
       HTProgress("Can't open temporary file -- serious problem.");
       me->write_error = 1;
@@ -515,15 +515,15 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
               strstr (pres->command, "mosaic-internal"))
             {
               /* Make command to process file */
-              command = (char *)malloc 
-                ((strlen (pres->command) + 10 + 3*strlen(me->fnam)) * 
+              command = (char *)malloc
+                ((strlen (pres->command) + 10 + 3*strlen(me->fnam)) *
                  sizeof (char));
-              
+
               /* Cute.  pres->command will be something like "xv %s"; me->fnam
                  gets filled in as many times as appropriate.  */
               sprintf (command, pres->command, me->fnam, me->fnam, me->fnam);
-              
-              me->end_command = (char *)malloc 
+
+              me->end_command = (char *)malloc
                 ((strlen (command) + 32 + strlen(me->fnam)) * sizeof (char));
               sprintf (me->end_command, "(%s ; /bin/rm -f %s) &",
                        command, me->fnam);
@@ -534,8 +534,8 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
             {
               /* Make command to process file -- but we have to cat
                  to the viewer's stdin. */
-              me->end_command = (char *)malloc 
-                ((strlen (pres->command) + 64 + (2 * strlen(me->fnam))) * 
+              me->end_command = (char *)malloc
+                ((strlen (pres->command) + 64 + (2 * strlen(me->fnam))) *
                  sizeof (char));
               sprintf (me->end_command, "((cat %s | %s); /bin/rm -f %s) &",
                        me->fnam, pres->command, me->fnam);
@@ -550,6 +550,6 @@ PUBLIC HTStream* HTSaveAndExecute ARGS5(
           sprintf (me->end_command, "<%s \"%s\">\n", "mosaic-internal-reference", me->fnam);
         }
     }
-  
+
   return me;
 }

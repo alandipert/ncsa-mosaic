@@ -465,20 +465,20 @@ MakeImage(dsp, data, width, height, depth, img_info, clip)
 		bit_data = (unsigned char *)malloc(width * height * 2);
 		bitp = bit_data;
 		datap = data;
-    
+
 		theVisual = DefaultVisual(dsp, DefaultScreen(dsp));
 		rshift = 15 - highbit(theVisual->red_mask);
 		gshift = 15 - highbit(theVisual->green_mask);
 		bshift = 15 - highbit(theVisual->blue_mask);
 		bmap_order = BitmapBitOrder(dsp);
-     
+
 		for (w = (width * height); w > 0; w--)
 		{
-			temp = (((img_info->reds[(int)*datap] >> rshift) & 
+			temp = (((img_info->reds[(int)*datap] >> rshift) &
 				 theVisual->red_mask) |
-				((img_info->greens[(int)*datap] >> gshift) & 
+				((img_info->greens[(int)*datap] >> gshift) &
 				 theVisual->green_mask) |
-				((img_info->blues[(int)*datap] >> bshift) & 
+				((img_info->blues[(int)*datap] >> bshift) &
 				 theVisual->blue_mask));
 			if (bmap_order == MSBFirst)
 			{

@@ -31,7 +31,7 @@
 */
 
 struct _HTStream {
-	WWW_CONST HTStreamClass *		isa;	
+	WWW_CONST HTStreamClass *		isa;
 	HTStream * 			target;
 	HTStreamClass			targetClass;	/* COPY for speed */
 };
@@ -169,14 +169,14 @@ PRIVATE void PlainToHTML_end_document ARGS1(HTStructured *, me)
 **	-----------------------
 */
 PRIVATE WWW_CONST HTStructuredClass HTMLGeneration = /* As opposed to print etc */
-{		
+{
 	"text/html",
 	HTMLGen_free,
 	HTMLGen_end_document, HTMLGen_handle_interrupt,
 	HTMLGen_put_character, 	HTMLGen_put_string, HTMLGen_write,
 	HTMLGen_start_element, 	HTMLGen_end_element,
 	HTMLGen_put_entity
-}; 
+};
 
 
 /*	Subclass-specific Methods
@@ -187,7 +187,7 @@ PUBLIC HTStructured * HTMLGenerator ARGS1(HTStream *, output)
 {
     HTStructured* me = (HTStructured*)malloc(sizeof(*me));
     if (me == NULL) outofmem(__FILE__, "HTMLGenerator");
-    me->isa = &HTMLGeneration;       
+    me->isa = &HTMLGeneration;
 
     me->target = output;
     me->targetClass = *me->target->isa; /* Copy pointers to routines for speed*/
@@ -203,10 +203,10 @@ PUBLIC HTStructured * HTMLGenerator ARGS1(HTStream *, output)
 **	This is just the easiest way of typecasting all the routines.
 */
 PRIVATE WWW_CONST HTStructuredClass PlainToHTMLConversion =
-{		
+{
 	"plaintexttoHTML",
-	HTMLGen_free,	
-	PlainToHTML_end_document,	
+	HTMLGen_free,
+	PlainToHTML_end_document,
         HTMLGen_handle_interrupt,
 	HTMLGen_put_character,
 	HTMLGen_put_string,
@@ -214,7 +214,7 @@ PRIVATE WWW_CONST HTStructuredClass PlainToHTMLConversion =
 	NULL,		/* Structured stuff */
 	NULL,
 	NULL
-}; 
+};
 
 
 /*	HTConverter from plain text to HTML Stream
@@ -223,18 +223,18 @@ PRIVATE WWW_CONST HTStructuredClass PlainToHTMLConversion =
 
 PUBLIC HTStream* HTPlainToHTML ARGS5(
 	HTPresentation *,	pres,
-	HTParentAnchor *,	anchor,	
+	HTParentAnchor *,	anchor,
 	HTStream *,		sink,
         HTFormat,               format_in,
         int,                    compressed)
 {
     HTStream* me = (HTStream*)malloc(sizeof(*me));
-    me->isa = (HTStreamClass*) &PlainToHTMLConversion;       
+    me->isa = (HTStreamClass*) &PlainToHTMLConversion;
 
     me->target = sink;
     me->targetClass = *me->target->isa;
     	/* Copy pointers to routines for speed*/
-	
+
     PUTS("<BODY>\n<PRE>\n");
     return me;
 }

@@ -298,7 +298,7 @@ int size;
         }
         else if (c1 & 0x60) {                   /* denormalized value */
           register int shft;
-    
+
           shft = (c1 & 0x40) ? 1 : 2;           /* shift needed to normalize */
             /* shift mantissa */
             /* note last bit of exp set to 1 implicitly */
@@ -533,7 +533,7 @@ int size;
          }
          else if (c1 & 0x0c) {                  /* denormalized value */
             register int shft;
-    
+
             shft = (c1 & 0x08) ? 1 : 2;         /* shift needed to normalize */
             /* shift mantissa */
             /* note last bit of exp set to 1 implicitly */

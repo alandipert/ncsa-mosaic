@@ -41,7 +41,7 @@ PUBLIC HTAtom * HTAtom_for(string)
     /* Bug hack. */
     if (!string || !*string)
       string = strdup ("blargh");
-    
+
     /*		First time around, clear hash table
     */
     if (!initialised) {
@@ -50,13 +50,13 @@ PUBLIC HTAtom * HTAtom_for(string)
 	    hash_table[i] = (HTAtom *) 0;
 	initialised = YES;
     }
-    
+
     /*		Generate hash function
     */
     for(p=string, hash=0; *p; p++) {
         hash = (hash * 3 + *p) % HASH_SIZE;
     }
-    
+
     /*		Search for the string in the list
     */
     for (a=hash_table[hash]; a; a=a->next) {
@@ -68,7 +68,7 @@ PUBLIC HTAtom * HTAtom_for(string)
 	    return a;				/* Found: return it */
 	}
     }
-    
+
     /*		Generate a new entry
     */
     a = (HTAtom *)malloc(sizeof(*a));
@@ -95,17 +95,17 @@ PUBLIC HTAtom * HTAtom_exists(string)
     int hash;
     WWW_CONST char * p;
     HTAtom * a;
-    
+
     if (!initialised) {
       return NULL;
     }
-    
+
     /*		Generate hash function
     */
     for(p=string, hash=0; *p; p++) {
         hash = (hash * 3 + *p) % HASH_SIZE;
     }
-    
+
     /*		Search for the string in the list
     */
     for (a=hash_table[hash]; a; a=a->next) {
@@ -113,6 +113,6 @@ PUBLIC HTAtom * HTAtom_exists(string)
 	    return a;				/* Found: return it */
 	}
     }
-    
+
     return NULL;
 }

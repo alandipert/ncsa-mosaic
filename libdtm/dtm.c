@@ -64,7 +64,7 @@
  *
  * Revision 1.46  92/05/05  22:27:50  jplevyak
  * Corrected X interface code.
- * 
+ *
  * Revision 1.45  1992/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
  *
@@ -81,7 +81,7 @@
  *
  * Revision 1.41  92/03/18  22:25:44  jplevyak
  * Fix DTMEOF bug with absolute addressed.
- * 
+ *
  * Revision 1.40  1992/03/16  20:38:36  creiman
  * Added #include "arch.h"
  *
@@ -119,7 +119,7 @@
  *
  * Revision 1.29  92/01/25  14:44:04  jplevyak
  * Fixed minor bug with DTM_ASYNC and another in AvailWrite
- * 
+ *
  * Revision 1.28  1992/01/14  19:40:09  creiman
  * #ifndef macintosh for accept_read_connections call to dtm_sigio
  *
@@ -170,7 +170,7 @@
  *
  * Revision 1.13  91/10/14  16:46:18  jplevyak
  * Added loop for detecting dropped connections during beginRead.
- * 
+ *
  * Revision 1.12  1991/10/11  20:21:50  jplevyak
  * Fixed bug with multiple senders one receiver.
  * Added function DTMcheckRoute.
@@ -182,7 +182,7 @@
  * Revision 1.10  91/09/26  20:22:43  jplevyak
  * First stage of reorganization.  Use external/internal port mapping.
  * Use repackaged dtm_get_nlist and select_one.  Fix bugs with availWrite.
- * 
+ *
  * Revision 1.9  1991/09/13  17:34:10  sreedhar
  * changes for DTMSYNC, DTMNOSYNC quality of service
  *
@@ -204,7 +204,7 @@
  *
  * Revision 1.1  90/11/08  16:12:20  jefft
  * Initial revision
- * 
+ *
  */
 
 /*
@@ -216,33 +216,33 @@
 
 	3. Sender awaits "ack from seq start" from the receiver.
 	   Receipt of ack by sender guarantees the sender that
-	   receiver will definitely accept at least the first user message 
+	   receiver will definitely accept at least the first user message
 	   sent by the sender.  Sender can then send as many user messages
 	   as it wants to ( they would be accepted by receiver ).
 
-	4. Sender sends the user's header message and user data messages. 
+	4. Sender sends the user's header message and user data messages.
 
-	3. Receiver will keep accepting user messages on current 
+	3. Receiver will keep accepting user messages on current
 	   connection unless a new connection request is received, which
 	   would be accepted after bumping the current connection.
 
 	4. Sender would send "Messages over" message after it sends all user
 	   messages.  Receiver would accept same.
 
-	Graphic picture 
+	Graphic picture
 
 	Sender			Receiver
 
-		Connect request			
-		-------------->			
+		Connect request
+		-------------->
 
 		Sequence starts		|
 		-------------->		|
 					|
 		Ack for seq start	|
 		<----------------	|
-					|	
-		User header		|	
+					|
+		User header		|
 		-------------->		|
 					|	--> a sequence of
 					|	    BEGINWRITE,
@@ -263,13 +263,13 @@
 		...............
 
 
-	A "sequence starts" message can be sent in availWrite or 
-	beginWrite. 
+	A "sequence starts" message can be sent in availWrite or
+	beginWrite.
 
 	When no "Ack for header" is received or a write fails.
 
 	Note that the "ack for header", "message over" and "sequence starts"
-	messages are called called "ack" in DTM terminology ( send_ack, 
+	messages are called called "ack" in DTM terminology ( send_ack,
 	recv_ack calls used for all these ).
 */
 
@@ -438,12 +438,12 @@ static	int make_out_connections( pp )
 
 	FOR_EACH_OUT_PORT( pcur, pp ) {
 		if( pcur->connfd == DTM_NO_CONNECTION) {
-			if( dtm_connect( &pcur->sockaddr, &pcur->connfd ) 
+			if( dtm_connect( &pcur->sockaddr, &pcur->connfd )
 					== DTMERROR ) {
 				DBGFLOW( "make_out_connections: dtm_connect fails \n" );
 				return DTMERROR;
 			}
-		} 
+		}
 	}
 	return DTM_OK;
 }
@@ -457,7 +457,7 @@ static  int clear_write_flags(DTMPORT *pp )
 #else
 static	int clear_write_flags( pp )
 	DTMPORT	*pp;
-#endif	
+#endif
 {
 	Outport	* pcur;
 
@@ -471,7 +471,7 @@ static	int clear_write_flags( pp )
 /*
 	verify_out_connections()
 	Ensure that their is a connection on each out port.
-*/	
+*/
 #ifdef DTM_PROTOTYPES
 static  int verify_out_connections(DTMPORT *pp )
 #else
@@ -485,7 +485,7 @@ static	int verify_out_connections( pp )
 		if( pcur->connfd == DTM_NO_CONNECTION) {
 			DTMerrno = DTMPORTINIT;
 			return DTMERROR;
-		} 
+		}
 	}
 	return DTM_OK;
 }
@@ -510,7 +510,7 @@ static	int check_header_write_ack( pp )
 		if ( pcur->connfd == DTM_NO_CONNECTION ) continue;
 		if( !( pcur->availwrite ) ) {
 			int32	tmp;
-			if( (pp->qservice == DTM_SYNC) || ((pp->qservice == DTM_ASYNC) && 
+			if( (pp->qservice == DTM_SYNC) || ((pp->qservice == DTM_ASYNC) &&
 				  (dtm_select( pcur->connfd, &tmp, 0 ) == TRUE && tmp >= 4))) {
 				do {
 					int temp;
@@ -524,7 +524,7 @@ static	int check_header_write_ack( pp )
 						*/
 					}
 				} while ( dtm_select( pcur->connfd, &tmp, 0 ) == TRUE &&
-					tmp >= 4);	
+					tmp >= 4);
 				pcur->availwrite = TRUE;
 			}
 		}
@@ -546,7 +546,7 @@ static	int check_header_write_ack( pp )
 static void make_write_iov(IOV_BUF *iov,int fStartSeq,int fEndSeq,char *hdr,
 		int hdrsize,VOIDPTR data,int datasize )
 #else
-static void make_write_iov( iov, fStartSeq, fEndSeq, hdr, hdrsize, 
+static void make_write_iov( iov, fStartSeq, fEndSeq, hdr, hdrsize,
 		data, datasize )
 	IOV_BUF			*iov;
 	int				fStartSeq;
@@ -567,7 +567,7 @@ static void make_write_iov( iov, fStartSeq, fEndSeq, hdr, hdrsize,
 
 	if ( fStartSeq ) {
 		DBGMSG( "make_write_iov: making start seq\n" );
-		iov->rts_data = DTM_RTS;	
+		iov->rts_data = DTM_RTS;
 		STDINT( iov->rts_data );
 		iov->iovec[ i ].iov_base = (char *)&iov->rts_data ;
 #define	SEQ_START_LEN	4
@@ -581,7 +581,7 @@ static void make_write_iov( iov, fStartSeq, fEndSeq, hdr, hdrsize,
 	if ( hdrsize != 0 ) {
 		DBGMSG( "make_write_iov: making header\n" );
 		iov->hdr_size = hdrsize ;
-		STDINT( iov->hdr_size ); 
+		STDINT( iov->hdr_size );
 		iov->iovec[ i ].iov_base = (char *)&iov->hdr_size ;
 		iov->iovec[ i ].iov_len = 4 ;
 		i += 1 ;
@@ -612,8 +612,8 @@ static void make_write_iov( iov, fStartSeq, fEndSeq, hdr, hdrsize,
 		DBGMSG( "make_write_iov: making endseq\n" );
 		iov->end_data = DTM_EOT ;
 		STDINT( iov->end_data );
-		iov->iovec[ i ].iov_base = (char *)&iov->end_data ; 
-		iov->iovec[ i ].iov_len = 4 ; 
+		iov->iovec[ i ].iov_base = (char *)&iov->end_data ;
+		iov->iovec[ i ].iov_len = 4 ;
 		i += 1 ;
 		iov->iovsize += 4;
 	}
@@ -646,27 +646,27 @@ static int	writev_buffer( pp, iov_buf, fStartSeq )
 
 		if ( fStartSeq ) {
 			if (pcur->availwrite || pcur->seqstart ) {
-				DBGMSG1( "writev: dropping start seq = %x\n", 
+				DBGMSG1( "writev: dropping start seq = %x\n",
 						(pcur->availwrite?1:0) | (pcur->seqstart?10:0));
 				/* we have already sent the sequence start, skip it */
 				iov++;
 				iovsize -= SEQ_START_LEN;
 				iovlen -= 1;
-			} 
-			pcur->seqstart = TRUE;	
+			}
+			pcur->seqstart = TRUE;
 		}
 		DBGMSG1( "writev_buffer: iovlen = %d\n", iovlen );
 		DBGMSG1( "writev_buffer: iovsize = %d\n", iovsize );
 		DBGMSG1( "writev_buffer: ptr iov = %X\n", iov );
 		DBGMSG1( "writev_buffer: first ptr word = %X\n", iov[0].iov_base );
-		DBGMSG1( "writev_buffer: first word = %d\n", 
+		DBGMSG1( "writev_buffer: first word = %d\n",
 				*(int *)((iov[0]).iov_base));
 		status = dtm_writev_buffer( pcur->connfd, iov, iovlen, iovsize,
 				NULL, 0);
 
-		DBGINT( "writev_buffer - status = %d\n", status); 
+		DBGINT( "writev_buffer - status = %d\n", status);
 
-		if( status < 0 ) {		
+		if( status < 0 ) {
 			DBGINT( "dtm_writev_buffer - errno = %d\n", errno );
 			if( DTMerrno == DTMEOF ) {
 				CHECK_ERR( destroy_out_port(  pp, &pcur ));
@@ -702,16 +702,16 @@ static int32  select_one( connfd )
 	FD_SET( connfd, &readmask );
 
 #ifdef __hpux
-	ret = select( FD_SETSIZE, (int *)&readmask, (int *)0, (int *)0, 
+	ret = select( FD_SETSIZE, (int *)&readmask, (int *)0, (int *)0,
 #else
-  	ret = select( FD_SETSIZE, &readmask, (fd_set *)0, (fd_set *)0, 
+  	ret = select( FD_SETSIZE, &readmask, (fd_set *)0, (fd_set *)0,
 #endif
-				&timeout );	
+				&timeout );
 	if ( ret > 0 ) {
 		int32		count;
 		ioctl( connfd, FIONREAD, &count );
 		DBGMSG1(  "select_one: got count = %d\n", count );
-		ret = count; 
+		ret = count;
 	}
 	return ret;
 }
@@ -735,11 +735,11 @@ static int  select_one_connection( connfd )
 	FD_SET( connfd, &readmask );
 
 #ifdef __hpux
-	return select( FD_SETSIZE, (int *)&readmask, (int *)0, (int *)0, 
+	return select( FD_SETSIZE, (int *)&readmask, (int *)0, (int *)0,
 #else
-  	return select( FD_SETSIZE, &readmask, (fd_set *)0, (fd_set *)0, 
+  	return select( FD_SETSIZE, &readmask, (fd_set *)0, (fd_set *)0,
 #endif
-				&timeout );	
+				&timeout );
 }
 
 /*
@@ -749,15 +749,15 @@ static int  select_one_connection( connfd )
 #ifdef DTM_PROTOTYPES
 static Inport *  new_in_port(DTMPORT *pp,int fd )
 #else
-static Inport *  new_in_port( pp, fd ) 
+static Inport *  new_in_port( pp, fd )
 	DTMPORT *	pp;
 	int			fd;
-#endif	
+#endif
 {
 	Inport * inp;
 
 	if ( (inp = (Inport *) malloc( sizeof(Inport) )) == NULL ) {
-		DTMerrno = DTMMEM;	
+		DTMerrno = DTMMEM;
 		return (Inport *) DTMERROR;
 	}
 	memset(inp,0,sizeof(Inport));
@@ -775,14 +775,14 @@ static Inport *  new_in_port( pp, fd )
 #ifdef PUT_NEW_IN_PORTS_AT_END
 	{
 		Inport	* endp;
-		endp = pp->in;	
-		if ( endp == NULL )	
+		endp = pp->in;
+		if ( endp == NULL )
 			pp->in = inp;
 		else {
 			while ( endp->next != NULL ) endp = endp->next;
 			endp->next = inp;
-		}	
-	}	
+		}
+	}
 #else
 	inp->next 		= pp->in;
 	pp->in			= inp;
@@ -794,8 +794,8 @@ static Inport *  new_in_port( pp, fd )
 void	dtm_handle_in( caddr_t client_data, int * fd, void * id)
 #else
 void	dtm_handle_in( client_data, fd, id )
-	caddr_t		client_data; 
-	int *		fd; 
+	caddr_t		client_data;
+	int *		fd;
 	void *		id;
 #endif
 {
@@ -812,10 +812,10 @@ void	dtm_handle_in( client_data, fd, id )
 	dtm_set_Xcallback
 
 	This function may seem a little strange, after all why have a variable
-	(pp->XaddInput) which has only one valid value (XtAddInput).  
-	The problem is that we don't want to include the X libraries 
-	unless we have to.  By using this variable which is only set 
-	if the function that will cause this function to get called 
+	(pp->XaddInput) which has only one valid value (XtAddInput).
+	The problem is that we don't want to include the X libraries
+	unless we have to.  By using this variable which is only set
+	if the function that will cause this function to get called
 	is included... which causes the inclusion of the X libraries, we
 	avoid the undefined external error.
 */
@@ -835,7 +835,7 @@ void dtm_set_Xcallback( pp, inp )
 	/* you didn't see this */
 	int	p; for ( p = 0; p < DTMptCount ; p++ ) if ( pp == DTMpt[p] ) break;
 	if ( pp->porttype == INPORTTYPE && pp->XaddInput ) {
-		inp->XinputId = pp->XaddInput( inp->fd, XtInputReadMask, 
+		inp->XinputId = pp->XaddInput( inp->fd, XtInputReadMask,
 				dtm_handle_in, (caddr_t) p);
 	}
 }
@@ -855,7 +855,7 @@ int  dtm_accept_read_connections(DTMPORT *pp,int fWait )
 #else
 int	dtm_accept_read_connections( pp, fWait )
 	DTMPORT *	pp;
-	int			fWait;	
+	int			fWait;
 #endif
 {
 	struct	timeval	timeout ;
@@ -878,16 +878,16 @@ int	dtm_accept_read_connections( pp, fWait )
 
 		/* No connection yet, await one and accept */
 
-		DBGINT(  "dtm_accept_read_connection: pp -> sockfd = %d\n", 
+		DBGINT(  "dtm_accept_read_connection: pp -> sockfd = %d\n",
 			pp -> sockfd );
-		if( (fd = dtm_accept( pp->sockfd, &pp->sockaddr, fWait ? &timeout : 0)) 
+		if( (fd = dtm_accept( pp->sockfd, &pp->sockaddr, fWait ? &timeout : 0))
 				== DTMERROR ) {
 			if ( !fWait ) return DTM_OK;
 			DTMerrno = DTMTIMEOUT ;
 			return DTMERROR;
 		}
 		DBGINT(  "dtm_accept_read_connection: got fd = %d\n", fd );
-		CHECK_ERR( inp = new_in_port( pp, fd )); 
+		CHECK_ERR( inp = new_in_port( pp, fd ));
 #ifndef _ARCH_MACOS
 		if ( pp->callback ) dtm_sigio( fd );
 		if ( pp->Xcallback ) dtm_set_Xcallback( pp, inp );
@@ -904,13 +904,13 @@ int	dtm_accept_read_connections( pp, fWait )
 
 /*
 	DTMselectRead()
-	Function to test 
-	a) for existence of a new connection or a new 
+	Function to test
+	a) for existence of a new connection or a new
 	   message header to be read on a set of DTM ports OR
-	b) for whether data is available to be read on a 
+	b) for whether data is available to be read on a
 	   set of sockets.
 
-	Return	values	:	
+	Return	values	:
 			DTM_PORT_READY		if at least a DTM port or
 								socket has something to be
 								read.
@@ -920,7 +920,7 @@ int	dtm_accept_read_connections( pp, fWait )
 								error.
 
 			Each port has status field. Possible values
-			for status field are - 
+			for status field are -
 
 			DTM_PORT_READY		something available to be read.
 			DTM_PORT_NOT_READY	nothing available to be read.
@@ -963,14 +963,14 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 		/*	Set up DTM ports to be selected on	*/
 
 		for( p1 = dtmset, index = 0 ; index < dtmnum ; index++, p1++ ) {
-			reg	DTMPORT	*pp ; 
-			int	port_internal; 
+			reg	DTMPORT	*pp ;
+			int	port_internal;
 			reg	Inport	*inp;
 
-			/* Select status is error if port entry is 
-					not initialised. 
+			/* Select status is error if port entry is
+					not initialised.
 			*/
-			if( (port_internal = dtm_map_port_internal( p1->port )) 
+			if( (port_internal = dtm_map_port_internal( p1->port ))
 						== DTMERROR ) {
 				p1->status = DTMERROR ;
 				continue ;
@@ -981,11 +981,11 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 
 			/* look for new connection request */
 
-			FD_SET( pp -> sockfd, fchk );     	
+			FD_SET( pp -> sockfd, fchk );
 
 			/* look for data in existing connection (if it exists) */
 			FOR_EACH_IN_PORT( inp, pp ) {
-				FD_SET( inp->fd, fchk );	
+				FD_SET( inp->fd, fchk );
 			}
 			p1->status = DTM_PORT_NOT_READY ;
 		}
@@ -994,21 +994,21 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 
 		for( p2 = sockset, index = 0 ; index < socknum ; index++, p2++ ) {
 			FD_SET( p2 -> sockfd, fchk );
-			p2 -> status = DTM_PORT_NOT_READY ; 
-		} 
+			p2 -> status = DTM_PORT_NOT_READY ;
+		}
 #ifdef __hpux
-		nf = select( FD_SETSIZE, (int *)fchk, (int *)0, (int *)0, 
+		nf = select( FD_SETSIZE, (int *)fchk, (int *)0, (int *)0,
 #else
-  		nf = select( FD_SETSIZE, fchk, (fd_set *)0, (fd_set *)0, 
+  		nf = select( FD_SETSIZE, fchk, (fd_set *)0, (fd_set *)0,
 #endif
 			period < 0 ? NULL : &timeout );
 
-		/* Select returns error	*/ 
+		/* Select returns error	*/
 
-		if( nf < 0 ) { 
-			DBGINT( "DTMselectRead: select error %d \n", errno  ); 
-			DTMerrno = DTMSELECT ; 
-			return DTMERROR ; 
+		if( nf < 0 ) {
+			DBGINT( "DTMselectRead: select error %d \n", errno  );
+			DTMerrno = DTMSELECT ;
+			return DTMERROR ;
 		}
 
 		/* None of the DTM ports or sockets have anything to be read	*/
@@ -1016,7 +1016,7 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 		if( nf == 0 ) {
 			DBGFLOW( "DTMselectRead: Nothing to read\n" );
 			return DTM_PORT_NOT_READY ;
-		} 
+		}
 
 		/*	Check whether any DTM port has something to be read */
 
@@ -1027,14 +1027,14 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 
 			if ((port_internal= dtm_map_port_internal( p1->port )) == DTMERROR)
 				continue;
-					
+
 			pp = DTMpt[ port_internal ];
 			if (pp->porttype == INPORTTYPE) {
 				fNewConnections = fNewConnections ||
 					(select_one_connection( pp->sockfd ) > 0);
 				p1->status = DTM_PORT_NOT_READY;
 			} else {
-				if (select_one_connection( pp->sockfd ) > 0) 
+				if (select_one_connection( pp->sockfd ) > 0)
 					fReady = p1->status = DTM_PORT_READY;
 				else p1->status = DTM_PORT_NOT_READY;
 				continue;
@@ -1049,7 +1049,7 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 						continue;
 					}
 					p1->status = DTM_PORT_READY;
-				}	
+				}
 				inp = inp->next;
 			}
 			if ( p1->status == DTM_PORT_READY ) fReady = DTM_PORT_READY;
@@ -1058,14 +1058,14 @@ int	DTMselectRead( dtmset, dtmnum, sockset, socknum, period )
 		/*	Check whether any socket has something to be read */
 
 		for( p2 = sockset, index = 0 ; index < socknum ; index++, p2++ ) {
-			p2 -> status = FD_ISSET( p2 -> sockfd, fchk ) ? 
+			p2 -> status = FD_ISSET( p2 -> sockfd, fchk ) ?
 				DTM_PORT_READY : DTM_PORT_NOT_READY ;
 			if ( p2->status == DTM_PORT_READY ) fReady = DTM_PORT_READY;
 		}
 
 		DBGFLOW( "DTMselectRead done loop\n" );
 
-	} while (!fReady && (fNewConnections || fFalsePositive));	
+	} while (!fReady && (fNewConnections || fFalsePositive));
 
 	return fReady ;
 }
@@ -1076,7 +1076,7 @@ static Inport * inc_in_port(DTMPORT *pp,Inport *inp )
 static Inport *	inc_in_port( pp, inp )
 	DTMPORT	* 	pp;
 	Inport	* 	inp;
-#endif	
+#endif
 {
 	if ( inp == NULL || inp->next == NULL )
 		return pp->in;
@@ -1089,7 +1089,7 @@ static void inc_nextToRead(DTMPORT *pp )
 static void inc_nextToRead( pp )
 	DTMPORT * 	pp;
 #endif
-{ 
+{
 	pp->nextToRead = inc_in_port( pp, pp->nextToRead );
 }
 
@@ -1106,7 +1106,7 @@ int dtm_destroy_in_port( inp, pp )
 	if ( pp->Xcallback ) pp->XremoveInput( inp->XinputId );
 
 	close( inp->fd );
-	
+
 	if ( pp->nextToRead == inp )
 		inc_nextToRead( pp );
 	if ( pp->nextToRead == inp )
@@ -1136,7 +1136,7 @@ int dtm_destroy_in_port( inp, pp )
 	return DTM_OK;
 }
 
-			
+
 
 /*
 	send_cts()
@@ -1148,7 +1148,7 @@ static int send_cts(DTMPORT *pp,int fWait )
 static int send_cts( pp, fWait )
 	DTMPORT * 	pp;
 	int			fWait;
-#endif	
+#endif
 {
 	Inport * 	inp = pp->nextToRead;
 	Inport * 	endp;
@@ -1157,7 +1157,7 @@ static int send_cts( pp, fWait )
 	DBGMSG( "send_cts: <[\n" );
 
 	/*
-		If we have no ports return OK 
+		If we have no ports return OK
 	*/
 	if ( inp == NULL ) inp = pp->in;
 	if ( inp == NULL ) return DTM_OK;
@@ -1171,7 +1171,7 @@ static int send_cts( pp, fWait )
 		if ( inp == endp ) {
 			if ( !fWait ) return DTM_OK;
 				else break;
-		}	
+		}
 	}
 	pp->nextToRead = inp;
 
@@ -1186,7 +1186,7 @@ static int send_cts( pp, fWait )
 		if ( !inp->fCTSsent && ((fWait && (iSent == 1 )) ||
 				 (dtm_select( inp->fd, &tmp, 0 ) == TRUE && tmp >= 4))) {
 			if ( dtm_send_ack( inp->fd, DTM_CTS ) == DTMERROR) {
-				CHECK_ERR( dtm_destroy_in_port( inp, pp )); 
+				CHECK_ERR( dtm_destroy_in_port( inp, pp ));
 				/*
 					Never hurts to start at the top.
 				*/
@@ -1202,9 +1202,9 @@ static int send_cts( pp, fWait )
 				iSent = 0;
 				continue;
 			}
-			inp->fCTSsent = TRUE;	
+			inp->fCTSsent = TRUE;
 			inp->blocklen = DTM_NEW_DATASET;
-		}	
+		}
 		inp = inc_in_port( pp, inp );
 	}
 	DBGMSG( "send_cts: ]>\n" );
@@ -1216,7 +1216,7 @@ static  int accept_one_header(DTMPORT *pp,void *header,int size )
 #else
 static	int	accept_one_header( pp, header, size )
 	DTMPORT	*	pp;
-	void *		header;		
+	void *		header;
 	int			size;
 #endif
 {
@@ -1227,23 +1227,23 @@ static	int	accept_one_header( pp, header, size )
 	if ( inp == NULL || !inp->fCTSsent || inp->fGotHeader ) {
 		DTMerrno = DTMCALL;
 		return DTMERROR;
-	}	
+	}
 
 	DBGMSG1( "Accepting RTS on %d\n", inp->fd );
 	if (dtm_recv_ack( inp->fd, &ack ) == DTMERROR ) {
-		dtm_destroy_in_port( inp, pp ); 
+		dtm_destroy_in_port( inp, pp );
 		return DTMERROR;
 	}
 	if( ack != DTM_RTS ) {
 		DTMerrno = DTMBADACK;
 		DBGMSG1( "Something other than RTS received %d\n", ack );
-		dtm_destroy_in_port( inp, pp ); 
+		dtm_destroy_in_port( inp, pp );
 		return DTMERROR;
 	}
 #if 0
 	/*	There are no header ack */
 	if ( dtm_send_ack( inp->fd, DTM_CTS ) == DTMERROR) {
-		dtm_destroy_in_port( inp, pp ); 
+		dtm_destroy_in_port( inp, pp );
 		return DTMERROR;
 	}
 #endif
@@ -1262,7 +1262,7 @@ static	int	accept_one_header( pp, header, size )
 /*
 	DTMcheckRoute()
 	Check whether new routing information has come in.
-	Returns: 
+	Returns:
 */
 #ifdef DTM_PROTOTYPES
 int DTMcheckRoute(int port )
@@ -1289,16 +1289,16 @@ int	DTMcheckRoute( port )
 	Function to test for existence of a new connection or
 	a new message header to be read on a given DTM port.
 
-	Return	values	:	TRUE		if either new connection 
-						request or something new 
+	Return	values	:	TRUE		if either new connection
+						request or something new
 						to be read is available on
 						given port.
-				DTMERROR	on select error.	
+				DTMERROR	on select error.
 				FALSE		otherwise.
 
 	Notes	:
 
-		DTMavailRead is basically call to DTMselectRead for 
+		DTMavailRead is basically call to DTMselectRead for
 		given port with 0 timeout.
 */
 #ifdef DTM_PROTOTYPES
@@ -1318,7 +1318,7 @@ int	DTMavailRead( p )
 	DTMerrno = DTMNOERR;
 
 	/* Note: the port here is an external port since that
-			is what selectRead expects 						
+			is what selectRead expects
 	*/
 	dtmnum 		= 1 ;
 	dtmset.port = p ;
@@ -1331,7 +1331,7 @@ int	DTMavailRead( p )
             DBGMSG1( "DTMavailRead send_cts returned error %d\n", DTMerrno );
 			if ( DTMerrno == DTMEOF ) fAnyReady = FALSE ;
 				else return DTMERROR;
-		}	
+		}
 	}
 	DBGMSG( "DTMavailRead done\n" );
 	return fAnyReady;
@@ -1386,7 +1386,7 @@ int DTMgetConnectionCount(port, n_connections)
 	message is read.
 
 	Return	values	:	>= 0 		on success.
-						DTMERROR	on some error.	
+						DTMERROR	on some error.
 */
 #ifdef DTM_PROTOTYPES
 int DTMbeginRead(int p,VOIDPTR header,int size )
@@ -1406,8 +1406,8 @@ int	DTMbeginRead( p, header, size )
 
 	CHECK_ERR( p = dtm_map_port_internal( p ));
 	pp = DTMpt[p];
-		
-	while ( TRUE ) { 
+
+	while ( TRUE ) {
 		CHECK_ERR( dtm_accept_read_connections( pp, DTM_WAIT));
 		if ( send_cts( pp, DTM_WAIT ) == DTMERROR) {
 			if ( DTMerrno == DTMEOF ) continue;
@@ -1415,8 +1415,8 @@ int	DTMbeginRead( p, header, size )
 		}
 		if ( pp->nextToRead == NULL ) continue;
 		DBGFLOW( "DTMbeginRead before accept_one_header.\n" );
-		if (( count = accept_one_header( pp, header, size )) == DTMERROR ) { 
-			if ( DTMerrno == DTMEOF ) continue;	
+		if (( count = accept_one_header( pp, header, size )) == DTMERROR ) {
+			if ( DTMerrno == DTMEOF ) continue;
 			return DTMERROR;
 		}
 		break;
@@ -1428,7 +1428,7 @@ int	DTMbeginRead( p, header, size )
 
 /*
 	DTMreadDataset()
-	Function to read user messages. 
+	Function to read user messages.
 
 	Return	values	: 	number of bytes read,	on success
 				DTMERROR		on error
@@ -1466,7 +1466,7 @@ int DTMreadDataset(p, ds, size, type)
   	/* fill buffer from network */
 
 	/*
-		Assume that the caller has checked for EOT 
+		Assume that the caller has checked for EOT
 	*/
 	CHECK_ERR( size = dtm_read_buffer( inp->fd, &inp->blocklen, ds, size));
 
@@ -1512,22 +1512,22 @@ int DTMendRead( p )
       		dtm_discard, DISCARDSIZE) > 0 );
 	inp->fCTSsent = FALSE;
 	inp->fGotHeader = FALSE;
-  	return DTM_OK ; 
+  	return DTM_OK ;
 }
 
 /*
 	Function to combine reading of header/data.
-	
+
 	Return	values	:	number of bytes read,	on success
-				DTMERROR		on error	
+				DTMERROR		on error
 
 	Notes	: This function is really there for completeness
 		  sake ( it complements DTMwriteMsg ). It is not
 		  very clear how a user can use it effectively
 		  ( since he has to know data size beforehand,
 		    in which case he need not have a header ).
-		
-		  Hence, implementation of this function is to 
+
+		  Hence, implementation of this function is to
 		  just call beginRead, readDataset and endRead
 		  in that order.
 */
@@ -1565,7 +1565,7 @@ int	DTMreadMsg( p, hdr, hdrsize, data, datasize, datatype )
 
 	Return	values	: 	TRUE		if subsequent write will
 									succeed.
-						FALSE		subsequent write will wait/fail.	
+						FALSE		subsequent write will wait/fail.
 						DTMERROR	if port is not initialised or
 							server ( UDP/TCP ) port not
 							yet acquired etc.
@@ -1603,12 +1603,12 @@ int	DTMavailWrite( port )
 	err_count = 0 ;
 	rstatus = DTM_PORT_READY ;
 
-	FOR_EACH_OUT_PORT( pcur, pp ) { 
+	FOR_EACH_OUT_PORT( pcur, pp ) {
 
 		/* Connect to all new active sockets 	*/
 
 		if( pcur->connfd == DTM_NO_CONNECTION ) {
-			if( dtm_quick_connect( &pcur->sockaddr, &pcur->connfd ) 
+			if( dtm_quick_connect( &pcur->sockaddr, &pcur->connfd )
 					== DTMERROR ) {
 				++err_count ;
 				continue ;
@@ -1628,14 +1628,14 @@ int	DTMavailWrite( port )
 				/* send RTS to new sockets */
 
 				if( dtm_send_ack( pcur->connfd, DTM_RTS ) == DTMERROR ) {
-					if( DTMerrno == DTMEOF ) 
+					if( DTMerrno == DTMEOF )
 						CHECK_ERR( destroy_out_port( pp, &pcur ));
 					++err_count ;
 					continue ;
-				} 
+				}
 				pcur->seqstart = TRUE ;
 			}
-		
+
 			nf = select_one( pcur->connfd );
 
 			if( nf < 0 ) {
@@ -1648,10 +1648,10 @@ int	DTMavailWrite( port )
 			/* No ack yet	*/
 
 			if( nf == 0 ) {
-				if( pp->qservice == DTM_SYNC ) 
+				if( pp->qservice == DTM_SYNC )
 					rstatus = DTM_PORT_NOT_READY ;
 				continue ;
-			} 
+			}
 
 			/* Receive ack */
 
@@ -1661,7 +1661,7 @@ int	DTMavailWrite( port )
 				CHECK_ERR( destroy_out_port(  pp, &pcur ));
 				++err_count ;
 				continue ;
-			}	
+			}
 
 			/* port is available for write */
 
@@ -1674,7 +1674,7 @@ int	DTMavailWrite( port )
 		At some future point we may want to send the status
 		of err_count to the server.
 	*/
-	pp->fLastWasSuccessfulAvailWrite = ( err_count == 0 ) 
+	pp->fLastWasSuccessfulAvailWrite = ( err_count == 0 )
 			&& ( rstatus == DTM_PORT_READY );
 	return ( err_count != 0 ) ? DTM_PORT_NOT_READY : rstatus ;
 }
@@ -1688,7 +1688,7 @@ int	DTMavailWrite( port )
 int DTMbeginWrite(int port,VOIDPTR header,int size )
 #else
 int	DTMbeginWrite( port, header, size )
-	int		port ; 
+	int		port ;
 	VOIDPTR	header;
 	int		size ;
 #endif
@@ -1702,8 +1702,8 @@ int	DTMbeginWrite( port, header, size )
 	if ( pp->fDiscard ) {
 		CHECK_ERR( dtm_check_server( pp, DTM_DONT_WAIT ));
 		if ( pp->fDiscard ) return DTM_OK;
-	}	
-	if ( !pp->fLastWasSuccessfulAvailWrite ) 
+	}
+	if ( !pp->fLastWasSuccessfulAvailWrite )
 		CHECK_ERR( dtm_check_server( pp, DTM_WAIT ));
 	CHECK_ERR( make_out_connections( pp ));
 	make_write_iov( &iov_buf, START_SEQ, NO_END_SEQ, header, size, NULL, 0 );
@@ -1734,7 +1734,7 @@ int DTMwriteDataset(p, ds, size, type)
 	IOV_BUF	iov_buf;
 
 	CHECK_ERR( p = dtm_map_port_internal( p ));
-	pp = DTMpt[p]; 
+	pp = DTMpt[p];
 	if ( pp->fDiscard ) return DTM_OK;
 	CHECK_ERR( verify_out_connections( pp ));
 	size = (*DTMconvertRtns[(int)type]) ( DTMSTD, ds, size );
@@ -1760,12 +1760,12 @@ int DTMendWrite( port )
 	reg Outport	*	pcur ;
 
 	CHECK_ERR( port = dtm_map_port_internal( port ));
-	pp = DTMpt[port]; 
+	pp = DTMpt[port];
 	/*
 		Check for endWrite before begin
 	*/
-	FOR_EACH_OUT_PORT( pcur, pp ) { 
-		if( pcur->connfd == DTM_NO_CONNECTION ) continue; 
+	FOR_EACH_OUT_PORT( pcur, pp ) {
+		if( pcur->connfd == DTM_NO_CONNECTION ) continue;
 		if ((pp->qservice == DTM_SYNC && !pcur->availwrite)  ||
 				!pcur->seqstart ) {
 			DTMerrno = DTMCALL;
@@ -1774,7 +1774,7 @@ int DTMendWrite( port )
 	}
 	if ( pp->fDiscard ) return DTM_OK;
 	CHECK_ERR( verify_out_connections( pp ));
-	make_write_iov( &iov_buf, NO_START_SEQ, END_SEQ, NULL, 0, NULL, 0 ); 
+	make_write_iov( &iov_buf, NO_START_SEQ, END_SEQ, NULL, 0, NULL, 0 );
 	CHECK_ERR( writev_buffer( pp, &iov_buf, NO_START_SEQ ));
 	CHECK_ERR( clear_write_flags( pp ));
 	return DTM_OK;
@@ -1820,8 +1820,8 @@ int	DTMwriteMsg( p, hdr, hdrsize, data, datasize, datatype )
 	if ( pp->fDiscard ) {
 		CHECK_ERR( dtm_check_server( pp, DTM_DONT_WAIT ));
 		if ( pp->fDiscard ) return DTM_OK;
-	}	
-	if ( !pp->fLastWasSuccessfulAvailWrite ) 
+	}
+	if ( !pp->fLastWasSuccessfulAvailWrite )
 		CHECK_ERR( dtm_check_server( pp, DTM_WAIT ));
 	CHECK_ERR( make_out_connections( pp ));
 	CHECK_ERR( verify_out_connections( pp ));

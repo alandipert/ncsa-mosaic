@@ -2,7 +2,7 @@
  * NCSA Mosaic for the X Window System                                      *
  * Software Development Group                                               *
  * National Center for Supercomputing Applications                          *
- * University of Illinois at Urbana-Champaign                               * 
+ * University of Illinois at Urbana-Champaign                               *
  * 605 E. Springfield, Champaign IL 61820                                   *
  * mosaic@ncsa.uiuc.edu                                                     *
  *                                                                          *
@@ -76,7 +76,7 @@
 
 #define MAX_BUF 512
 
-void gui_news_post_subgroupwin (mo_window *win) 
+void gui_news_post_subgroupwin (mo_window *win)
 {
   Widget w, f, b, s;
   XmString str;
@@ -184,7 +184,7 @@ void gui_news_showGroups (mo_window *win)
 
 void gui_news_showReadGroups (mo_window *win)
 {
-  HTSetNewsConfig (-1,-1,0,1,-1,-1,-1,-1); 
+  HTSetNewsConfig (-1,-1,0,1,-1,-1,-1,-1);
   gui_news_updateprefs (win);
   mo_load_window_text (win, "news:*", NULL);
 }
@@ -193,14 +193,14 @@ void gui_news_showAllArticles (mo_window *win)
 {
   char buf[512+1];
 
-  HTSetNewsConfig (-1,1,-1,-1,-1,-1,-1,-1); 
+  HTSetNewsConfig (-1,1,-1,-1,-1,-1,-1,-1);
   gui_news_updateprefs (win);
 
   if (!NewsGroup && !NewsGroupS)
     return;
   if (NewsGroupS)
     sprintf (buf, "news:%s", NewsGroupS->name);
-  else 
+  else
     sprintf (buf, "news:%s", NewsGroup);
   mo_load_window_text (win, buf, NULL);
 }
@@ -209,14 +209,14 @@ void gui_news_showArticles (mo_window *win)
 {
   char buf[512+1];
 
-  HTSetNewsConfig (-1,0,-1,-1,-1,-1,-1,-1); 
+  HTSetNewsConfig (-1,0,-1,-1,-1,-1,-1,-1);
   gui_news_updateprefs (win);
 
   if (!NewsGroup && !NewsGroupS)
     return;
   if (NewsGroup)
     sprintf (buf, "news:%s", NewsGroup);
-  else 
+  else
     sprintf (buf, "news:%s", NewsGroupS->name);
   mo_load_window_text (win, buf, NULL);
 }
@@ -275,7 +275,7 @@ void gui_news_index(mo_window *win)
   newsrc_flush ();
   strcpy(url,win->current_node->url);
   news_index(url);
-  if(url[0]) 
+  if(url[0])
     mo_load_window_text(win,url,NULL);
 }
 
@@ -324,7 +324,7 @@ static XmxCallback (include_fsb_cb)
 
   XtUnmanageChild (win->news_fsb_win);
   fname = (char *)malloc (128 * sizeof (char));
-  
+
   XmStringGetLtoR (((XmFileSelectionBoxCallbackStruct *)call_data)->value,
                    XmSTRING_DEFAULT_CHARSET,
                    &fname);
@@ -347,8 +347,8 @@ static XmxCallback (include_fsb_cb)
 
 	sprintf(final,"\nUnable to Open Include File:\n   %s\n\nOpen Error:\n   %s\n" ,(!efname || !*efname?" ":efname),buf);
 
-	XmxMakeErrorDialog (win->news_win, 
-                          final, 
+	XmxMakeErrorDialog (win->news_win,
+                          final,
                           "News Include Error" );
 	XtManageChild (Xmx_w);
 
@@ -358,14 +358,14 @@ static XmxCallback (include_fsb_cb)
 	}
       return;
     }
-  
+
   while (1)
     {
       long pos;
       status = fgets (line, MO_LINE_LENGTH, fp);
       if (!status || !(*line))
         goto done;
-      
+
       XmTextInsert (win->news_text,
                     pos = XmTextGetInsertionPosition (win->news_text),
                     line);
@@ -431,7 +431,7 @@ static XmxCallback (news_win_cb)
       break;
     case 2: /* HELP */
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("help-on-news.html"),
          NULL, NULL);
       break;
@@ -445,13 +445,13 @@ static XmxCallback (news_win_cb)
 	} else {
 	    XmFileSelectionDoSearch (win->news_fsb_win, NULL);
 	}
-	
+
 	XmxManageRemanage (win->news_fsb_win);
-	
+
 	break;
     case 4: /* QUOTE */
 	break;
-	
+
 
     }
 
@@ -480,7 +480,7 @@ static XmxCallback (follow_win_cb)
       if (msg[0] == '\0')
         return;
 
-      NNTPpost(from, subj, win->newsfollow_ref, group, msg); 
+      NNTPpost(from, subj, win->newsfollow_ref, group, msg);
 
       free(msg);
       free(from);
@@ -489,12 +489,12 @@ static XmxCallback (follow_win_cb)
 
     case 1: /* DISMISS */
 
-      if(win->newsfollow_ref) free(win->newsfollow_ref);    
-      if(win->newsfollow_grp) free(win->newsfollow_grp);    
-      if(win->newsfollow_subj) free(win->newsfollow_subj);    
-      if(win->newsfollow_from) free(win->newsfollow_from);    
-      if(win->newsfollow_artid) free(win->newsfollow_artid);    
-      
+      if(win->newsfollow_ref) free(win->newsfollow_ref);
+      if(win->newsfollow_grp) free(win->newsfollow_grp);
+      if(win->newsfollow_subj) free(win->newsfollow_subj);
+      if(win->newsfollow_from) free(win->newsfollow_from);
+      if(win->newsfollow_artid) free(win->newsfollow_artid);
+
       XtUnmanageChild (win->news_win);
 	/* since we're going to re-use this in different configs
 	   we'll destroy it */
@@ -505,7 +505,7 @@ static XmxCallback (follow_win_cb)
       break;
     case 2: /* HELP */
       mo_open_another_window
-        (win, 
+        (win,
          mo_assemble_help_url ("help-on-news.html"),
          NULL, NULL);
       break;
@@ -519,9 +519,9 @@ static XmxCallback (follow_win_cb)
 	} else {
 	    XmFileSelectionDoSearch (win->news_fsb_win, NULL);
 	}
-	
+
 	XmxManageRemanage (win->news_fsb_win);
-	
+
 	break;
     case 4: /* QUOTE */
 	line = malloc(strlen(win->newsfollow_from)+30);
@@ -530,7 +530,7 @@ static XmxCallback (follow_win_cb)
 	XmTextInsert(win->news_text,
 		     pos = XmTextGetInsertionPosition (win->news_text),
 		     line);
-	/* move insertion position to past this line to avoid 
+	/* move insertion position to past this line to avoid
 	   inserting the lines in reverse order */
 	XmTextSetInsertionPosition (win->news_text, pos+strlen(line));
 
@@ -539,7 +539,7 @@ static XmxCallback (follow_win_cb)
 		XmTextInsert(win->news_text,
 			     pos = XmTextGetInsertionPosition (win->news_text),
 			     line);
-		/* move insertion position to past this line to avoid 
+		/* move insertion position to past this line to avoid
 		   inserting the lines in reverse order */
 		XmTextSetInsertionPosition (win->news_text, pos+strlen(line));
 	    } while (line = NNTPgetquoteline(NULL));
@@ -553,7 +553,7 @@ static XmxCallback (follow_win_cb)
 
 mo_status mo_post_news_win (mo_window *win)
 {
-    return mo_post_generic_news_win(win,0); 
+    return mo_post_generic_news_win(win,0);
 }
 
 mo_status mo_post_follow_win (mo_window *win)
@@ -562,16 +562,16 @@ mo_status mo_post_follow_win (mo_window *win)
 
     if(strncmp("news:",win->current_node->url,5))
         return mo_fail; /* fix me */
-    
 
-    NNTPgetarthdrs(&(win->current_node->url)[5], 
-		   &(win->newsfollow_ref), 
-		   &(win->newsfollow_grp), 
-		   &(win->newsfollow_subj), 
+
+    NNTPgetarthdrs(&(win->current_node->url)[5],
+		   &(win->newsfollow_ref),
+		   &(win->newsfollow_grp),
+		   &(win->newsfollow_subj),
 		   &(win->newsfollow_from));
-    
+
     /* add a re: if needed*/
-    if(strncmp("Re: ",win->newsfollow_subj,4) && 
+    if(strncmp("Re: ",win->newsfollow_subj,4) &&
        strncmp("re: ",win->newsfollow_subj,4)){
 	s = malloc(strlen(win->newsfollow_subj)+5); /* this sucks -bjs*/
 	sprintf(s,"Re: %s",win->newsfollow_subj);
@@ -593,7 +593,7 @@ mo_status mo_post_follow_win (mo_window *win)
 	free(win->newsfollow_ref);
 	win->newsfollow_ref = s;
     }
-    return mo_post_generic_news_win(win,1); 
+    return mo_post_generic_news_win(win,1);
 }
 
 mo_status mo_post_generic_news_win(mo_window *win, int follow)
@@ -605,25 +605,25 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
   FILE *fp;
   long pos;
 
-  sprintf (namestr, "%s <%s>", 
+  sprintf (namestr, "%s <%s>",
            get_pref_string(eDEFAULT_AUTHOR_NAME),
            get_pref_string(eDEFAULT_AUTHOR_EMAIL));
-  
+
   if (!win->news_win)
     {
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
 
       Xmx_n = 0;
-      win->news_win = XmxMakeFormDialog 
+      win->news_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: News" );
       dialog_frame = XmxMakeFrame (win->news_win, XmxShadowOut);
 
       /* Constraints for base. */
-      XmxSetConstraints 
-        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM, 
+      XmxSetConstraints
+        (dialog_frame, XmATTACH_FORM, XmATTACH_FORM,
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
-      
+
       /* Main form. */
       news_form = XmxMakeForm (dialog_frame);
 
@@ -651,7 +651,7 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
       XmxSetArg (XmNcolumns, 65);
       XmxSetArg (XmNeditable, False);
       win->news_text_from = XmxMakeText (news_form);
-      
+
       XmxSetArg (XmNscrolledWindowMarginWidth, 10);
       XmxSetArg (XmNscrolledWindowMarginHeight, 10);
       XmxSetArg (XmNcursorPositionVisible, True);
@@ -659,21 +659,21 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
       XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
       XmxSetArg (XmNrows, 30);
       XmxSetArg (XmNcolumns, 80);
-      XmxSetArg (XmNwordWrap, True); 
-      XmxSetArg (XmNscrollHorizontal, False); 
+      XmxSetArg (XmNwordWrap, True);
+      XmxSetArg (XmNscrollHorizontal, False);
       win->news_text = XmxMakeScrolledText (news_form);
-      
+
       dialog_sep = XmxMakeHorizontalSeparator (news_form);
-      
+
       if(follow)
 	  buttons_form = XmxMakeFormAndFiveButtons
-	      (news_form, follow_win_cb, 
-	       "Post" , "Quote" , "Include File..." , "Dismiss" , "Help..." , 
+	      (news_form, follow_win_cb,
+	       "Post" , "Quote" , "Include File..." , "Dismiss" , "Help..." ,
 	       0, 4, 3, 1, 2);
       else
 	  buttons_form = XmxMakeFormAndFourButtons
-	      (news_form, news_win_cb, 
-	       "Post" , "Include File..." , "Dismiss" , "Help..." , 
+	      (news_form, news_win_cb,
+	       "Post" , "Include File..." , "Dismiss" , "Help..." ,
 	       0, 3, 1, 2);
 
 
@@ -682,14 +682,14 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 
       XmxSetOffsets (yap_label, 10, 20, 0, 0);
       XmxSetConstraints
-        (yap_label, 
+        (yap_label,
 	 XmATTACH_FORM, XmATTACH_NONE ,XmATTACH_FORM, XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
 
 
       XmxSetOffsets (win->news_text_from, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->news_text_from, 
+	(win->news_text_from,
 	 XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
 	 yap_label, NULL, f_label, NULL);
 
@@ -701,7 +701,7 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 
       XmxSetOffsets (win->news_text_subj, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->news_text_subj, 
+	(win->news_text_subj,
 	 XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
 	 win->news_text_from, NULL, s_label, NULL);
 
@@ -713,7 +713,7 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 
       XmxSetOffsets (win->news_text_group, 10, 10, 10, 10);
       XmxSetConstraints
-	(win->news_text_group, 
+	(win->news_text_group,
 	 XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
 	 win->news_text_subj, NULL, g_label, NULL);
 
@@ -725,23 +725,23 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 
       XmxSetOffsets (XtParent (win->news_text), 10, 0, 3, 3);
       XmxSetConstraints
-        (XtParent (win->news_text), 
+        (XtParent (win->news_text),
 	 XmATTACH_WIDGET, XmATTACH_WIDGET,XmATTACH_FORM, XmATTACH_FORM,
          win->news_text_group, dialog_sep, NULL, NULL);
 
       XmxSetArg (XmNtopOffset, 10);
-      XmxSetConstraints 
-        (dialog_sep, 
+      XmxSetConstraints
+        (dialog_sep,
 	 XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          NULL, buttons_form, NULL, NULL);
 
-      XmxSetConstraints 
-        (buttons_form, 
+      XmxSetConstraints
+        (buttons_form,
 	 XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM, XmATTACH_FORM,
          NULL, NULL, NULL, NULL);
 
       XmxTextSetString (win->news_text, "");
-      
+
           /* tack signature on the end if it exists - code from Martin Hamilton */
       if (get_pref_string(eSIGNATURE)) {
           XmxTextSetString (win->news_text, "\n\n");
@@ -758,10 +758,10 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
           } else {
               XmxTextSetString (win->news_text, "");
           }
-          
+
       }
       XmTextSetInsertionPosition (win->news_text, 0);
-      
+
       if(follow){
 	  XmxTextSetString (win->news_text_group, win->newsfollow_grp);
 	  XmxTextSetString (win->news_text_subj, win->newsfollow_subj);
@@ -772,8 +772,8 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 	  XmxTextSetString (win->news_text_from, namestr);
 
     }
-	 
+
   XmxManageRemanage (win->news_win);
-  
+
   return mo_succeed;
 }

@@ -61,7 +61,7 @@ PUBLIC char *HTAA_getAclFilename ARGS1(WWW_CONST char *, pathname)
 	*filename = '\0'; /* Truncate filename off from directory path */
 	filename++;	  /* and the filename begins from the next character */
     }
-    
+
     StrAllocCopy(acl_path, directory);	/* Also frees acl_path */
                                         /* from previous call. */
     StrAllocCat(acl_path, "/");
@@ -156,7 +156,7 @@ PUBLIC GroupDef *HTAA_getAclEntry ARGS3(FILE *,		acl_file,
     char *buf;
 
     if (!acl_file) return NULL;		/* ACL doesn't exist */
-    
+
     if (group_def) {
 	GroupDef_delete(group_def);	/* From previous call */
 	group_def = NULL;
@@ -170,7 +170,7 @@ PUBLIC GroupDef *HTAA_getAclEntry ARGS3(FILE *,		acl_file,
 
     if (!(buf = (char*)malloc((strlen(filename)+2)*sizeof(char))))
 	outofmem(__FILE__, "HTAA_getAuthorizedGroups");
-    
+
     while (EOF != HTAAFile_readField(acl_file, buf, len+1)) {
 	if (HTAA_templateMatch(buf, filename)) {
 	    HTList *methods = HTList_new();
@@ -180,7 +180,7 @@ PUBLIC GroupDef *HTAA_getAclEntry ARGS3(FILE *,		acl_file,
 		fprintf(stderr,
 			"Filename '%s' matched template '%s', allowed methods:",
 			filename, buf);
-	    }	
+	    }
 #endif
 	    if (HTAAMethod_inList(method, methods)) {	/* right method? */
 #ifndef DISABLE_TRACE

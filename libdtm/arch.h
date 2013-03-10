@@ -21,7 +21,7 @@
 
 /*********************************************************************
 **
-**  $Header: /X11/mosaic/cvsroot/xmosaic3/libdtm/arch.h,v 1.5 1996/06/06 19:47:12 spowers Exp $ 
+**  $Header: /X11/mosaic/cvsroot/xmosaic3/libdtm/arch.h,v 1.5 1996/06/06 19:47:12 spowers Exp $
 **
 **********************************************************************/
 
@@ -46,7 +46,7 @@
  *
  * Revision 1.7  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.6  1992/04/14  22:59:57  jefft
  * included sys/limits.h instead of sys/limit.h
  *
@@ -56,7 +56,7 @@
  * Revision 1.4  92/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
- * 
+ *
  * Revision 1.3  1992/03/10  16:52:43  jefft
  * modified convex define to __convex__
  *
@@ -70,8 +70,8 @@
 
 /*
 	The intent of this file is to provide a standard set of
-	architecturally descriptive preprocessor definitions by 
-	examining the preprocessor identifiers that are defined 
+	architecturally descriptive preprocessor definitions by
+	examining the preprocessor identifiers that are defined
 	in the native compiler running in the default mode.
 
 	Please feel free to add to or correct this file.
@@ -87,21 +87,21 @@
 		SUN		- generally any machine by Sun Microsystems
 		SGI		- Silicon Graphics
 		CRAY	- Cray Research
-		CONVEX	- Convex	
+		CONVEX	- Convex
 		CM		- Connection Machine
-		IBM	
-		APPLE	
-		HP		
+		IBM
+		APPLE
+		HP
 		DEC
 		COMMODORE
-	  General OS 
-		DOS	
+	  General OS
+		DOS
 		UNIX
 		MACOS
-		AMIGA	
-		VMS	
+		AMIGA
+		VMS
 		OS2
-	  General Processor 
+	  General Processor
 		SPARC
 		MIPS
 		68000
@@ -110,8 +110,8 @@
 		80386
 		VAX
 		PA		- HP Percision Architecture
-		RS6000	
-	  Specific Interesting Qualities 
+		RS6000
+	  Specific Interesting Qualities
 		BIG_ENDIAN
 		LITTLE_ENDIAN
 		WORD_SIZE	-	values include 16, 32, 64 (bits)
@@ -121,12 +121,12 @@
 
 	( possible interesting definitions )
 		mc68k unix unixpc (hp 68k ?)
-		mc68000 
+		mc68000
 		_I386 i386 AIX _AIX  (PS2 running AIX)
 		alliant (68000 unix)
-		vax mc68k32 PORTAR (altos? 30068) 
+		vax mc68k32 PORTAR (altos? 30068)
 		apollo aegis unix (??) (apollo)
-		i80386 (compac?) BSD 
+		i80386 (compac?) BSD
 		convex unix	 (32 bit)
 		__convex_c1__
 		__convex_c2__
@@ -196,7 +196,7 @@
 # else
 	/* assume */
 #  define _ARCH_BIG_ENDIAN
-#  define _ARCH_68000	
+#  define _ARCH_68000
 # endif
 #elif defined( NEXT )
 # define _ARCH_NEXT
@@ -209,7 +209,7 @@
 # define _ARCH_CRAY
 # define _ARCH_UNIX
 # define _ARCH_SYSV				/* A rough approximation */
-# define _ARCH_BIG_ENDIAN		/* ?? */	
+# define _ARCH_BIG_ENDIAN		/* ?? */
 # define _ARCH_WORD_SIZE	64
 #elif defined(vax)
 # define _ARCH_DEC
@@ -230,7 +230,7 @@
 #define _ARCH_WORD_SIZE       32
 #define _ARCH_LITTLE_ENDIAN
 #define	_ARCH_PROTO
-#elif defined( _IBMR2 ) 
+#elif defined( _IBMR2 )
 #define	_ARCH_IBM
 #define	_ARCH_RS6000
 #elif defined( AMIGA )
@@ -238,7 +238,7 @@
 # define _ARCH_COMMODORE
 # define _ARCH_AMIGA
 # define _ARCH_BIG_ENDIAN
-# define _ARCH_68000	
+# define _ARCH_68000
 # define _ARCH_WORD_SIZE	32
 #elif defined ( MS_DOS ) || defined(__TURBOC__)
 # define _ARCH_MSDOS
@@ -256,14 +256,14 @@
 #elif defined ( THINK_C ) || defined( applec )
 # define _ARCH_APPLE
 # define _ARCH_MACOS
-# define _ARCH_68000	
+# define _ARCH_68000
 # define _ARCH_BIG_ENDIAN
 # define _ARCH_WORD_SIZE	32
 # define _ARCH_PROTO
 #elif defined( alliant )
 	/* ?? */
 # define _ARCH_UNIX
-# define _ARCH_68000	
+# define _ARCH_68000
 # define _ARCH_BIG_ENDIAN
 # define _ARCH_WORD_SIZE	32
 #elif defined( __convex__ ) || defined( __convex_c1__ ) || defined( __convex_c2__ )
@@ -278,13 +278,13 @@
 */
 #if !defined( _ARCH_UNIX ) && !defined( _ARCH_MSDOS ) && !defined( _ARCH_VMS ) \
  && !defined( _ARCH_MACOS ) && !defined( _ARCH_AMIGA ) && !defined( _ARCH_OS2)
-# if defined( unix ) 
+# if defined( unix )
 #  define _ARCH_UNIX
 # endif
 #endif
 
 #if !defined( _ARCH_BSD ) && !defined( _ARCH_SYSV ) && defined( _ARCH_UNIX )
-# if defined( USG ) 
+# if defined( USG )
 #  define _ARCH_SYSV
 # endif
 #endif
@@ -294,7 +294,7 @@
 	|| defined( mc68020 ) || defined( mc68010 )
 #  define _ARCH_68000
 #  if !defined( _ARCH_BIG_ENDIAN )
-#   define _ARCH_BIG_ENDIAN 
+#   define _ARCH_BIG_ENDIAN
 #  endif
 # endif
 #endif

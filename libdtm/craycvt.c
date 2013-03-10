@@ -45,7 +45,7 @@
  *
  * Revision 1.4  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.3  1991/06/11  15:21:41  sreedhar
  * disclaimer added
  *
@@ -55,7 +55,7 @@
  *
  * Revision 1.1  90/11/08  16:29:13  jefft
  * Initial revision
- * 
+ *
 
 #endif
 

@@ -169,24 +169,24 @@ PUBLIC int HTParseInet ARGS2(SockA *,sin, WWW_CONST char *,str)
   struct hostent  *phost;	/* Pointer to host - See netdb.h */
   int numeric_addr;
   char *tmp;
-  
+
   static char *cached_host = NULL;
   static char *cached_phost_h_addr = NULL;
   static int cached_phost_h_length = 0;
 
   strcpy(host, str);		/* Take a copy we can mutilate */
-  
-  /* Parse port number if present */    
-  if (port=strchr(host, ':')) 
+
+  /* Parse port number if present */
+  if (port=strchr(host, ':'))
     {
       *port++ = 0;		/* Chop off port */
-      if (port[0]>='0' && port[0]<='9') 
+      if (port[0]>='0' && port[0]<='9')
         {
           sin->sin_port = htons(atol(port));
 	}
     }
-  
-  /* Parse host number if present. */  
+
+  /* Parse host number if present. */
   numeric_addr = 1;
   for (tmp = host; *tmp; tmp++)
     {
@@ -197,13 +197,13 @@ PUBLIC int HTParseInet ARGS2(SockA *,sin, WWW_CONST char *,str)
           goto found_non_numeric_or_done;
         }
     }
-  
+
  found_non_numeric_or_done:
-  if (numeric_addr) 
+  if (numeric_addr)
     {   /* Numeric node address: */
       sin->sin_addr.s_addr = inet_addr(host); /* See arpa/inet.h */
-    } 
-  else 
+    }
+  else
     {		    /* Alphanumeric node name: */
       if (cached_host && (strcmp (cached_host, host) == 0))
         {
@@ -220,12 +220,12 @@ PUBLIC int HTParseInet ARGS2(SockA *,sin, WWW_CONST char *,str)
           fprintf (stderr, "=+= Fetching on '%s'\n", host);
 #endif
           phost = gethostbyname (host);
-          if (!phost) 
+          if (!phost)
             {
 #ifndef DISABLE_TRACE
-              if (www2Trace) 
+              if (www2Trace)
                 fprintf
-                  (stderr, 
+                  (stderr,
                    "HTTPAccess: Can't find internet node name `%s'.\n",host);
 #endif
               return -1;  /* Fail? */
@@ -253,10 +253,10 @@ PUBLIC int HTParseInet ARGS2(SockA *,sin, WWW_CONST char *,str)
           memcpy(&sin->sin_addr, phost->h_addr, phost->h_length);
         }
     }
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
-    fprintf(stderr,  
+  if (www2Trace)
+    fprintf(stderr,
             "TCP: Parsed address as port %d, IP address %d.%d.%d.%d\n",
             (int)ntohs(sin->sin_port),
             (int)*((unsigned char *)(&sin->sin_addr)+0),
@@ -264,7 +264,7 @@ PUBLIC int HTParseInet ARGS2(SockA *,sin, WWW_CONST char *,str)
             (int)*((unsigned char *)(&sin->sin_addr)+2),
             (int)*((unsigned char *)(&sin->sin_addr)+3));
 #endif
-  
+
   return 0;	/* OK */
 }
 
@@ -289,7 +289,7 @@ PRIVATE void get_host_details()
     struct hostent * phost;		/* Pointer to host -- See netdb.h */
 #endif
     int namelength = sizeof(name);
-    
+
     if (hostname) return;		/* Already done */
     gethostname(name, namelength);	/* Without domain */
 
@@ -305,7 +305,7 @@ PRIVATE void get_host_details()
     phost=gethostbyname(name);		/* See netdb.h */
     if (!phost) {
 #ifndef DISABLE_TRACE
-	if (www2Trace) fprintf(stderr, 
+	if (www2Trace) fprintf(stderr,
 		"TCP: Can't find my own internet node address for `%s'!!\n",
 		name);
 #endif
@@ -344,7 +344,7 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
   /* Set up defaults: */
   sin->sin_family = AF_INET;
   sin->sin_port = htons(default_port);
-  
+
   /* Get node name and optional port number: */
   {
     char line[256];
@@ -355,7 +355,7 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
     HTProgress (line);
 
     status = HTParseInet(sin, p1);
-    if (status) 
+    if (status)
       {
         sprintf (line, "Unable to locate remote host %s.", p1);
         HTProgress(line);
@@ -368,7 +368,7 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
     free (p1);
   }
 
-  /* Now, let's get a socket set up from the server for the data: */      
+  /* Now, let's get a socket set up from the server for the data: */
   *s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 #ifdef SOCKS
@@ -403,7 +403,7 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
     int ret;
     int val = 1;
     char line[256];
-    
+
     ret = ioctl(*s, FIONBIO, &val);
     if (ret == -1)
       {
@@ -452,11 +452,11 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
 	{
           fd_set writefds;
           int intr;
-          
+
           FD_ZERO(&writefds);
           FD_SET(*s, &writefds);
 
-	  /* linux (and some other os's, I think) clear timeout... 
+	  /* linux (and some other os's, I think) clear timeout...
 	     let's reset it every time. bjs */
 	  timeout.tv_sec = 0;
 	  timeout.tv_usec = 100000;
@@ -539,7 +539,7 @@ PUBLIC int HTDoConnect (char *url, char *protocol, int default_port, int *s)
       int ret;
       int val = 0;
       char line[256];
-      
+
       ret = ioctl(*s, FIONBIO, &val);
       if (ret == -1)
 	{
@@ -574,7 +574,7 @@ int HTDoRead (int fildes, void *buf, unsigned nbyte)
         FD_ZERO(&readfds);
         FD_SET(fildes, &readfds);
 
-	  /* linux (and some other os's, I think) clear timeout... 
+	  /* linux (and some other os's, I think) clear timeout...
 	     let's reset it every time. bjs */
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 100000;

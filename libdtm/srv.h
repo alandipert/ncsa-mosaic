@@ -17,11 +17,11 @@
 #define SRV_FUNC_LOCK_REQUEST	7
 
 /**************************************************************
- * 
+ *
  * for a connect message:
  *	SRVclass SRVid SRV_FUNC_CONNECT SRVInPort SRVVString SRVnumber
  * for a disconnect message:
- *	SRVclass SRVid SRV_FUNC_DISCONNECT SRVInPort 
+ *	SRVclass SRVid SRV_FUNC_DISCONNECT SRVInPort
  * for a lock:
  *	SRVclass SRVid SRV_FUNC_LOCK SRVLock
  * for a lock:
@@ -31,7 +31,7 @@
  * for a user leaving:
  *	SRVclass SRVid SRV_FUNC_REMOVE_USER SRVInPort
  */
- 
+
 
 /* SRVsetClass(char *header,char *title) */
 /* SRVcompareClass(char *header,char *title, int maxTitleLength) */

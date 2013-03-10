@@ -52,14 +52,14 @@
  *
  * Revision 1.28  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.27  1992/04/06  15:58:49  jplevyak
  * Fixed minor problems for machines little Endian machines.
  *
  * Revision 1.26  92/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
- * 
+ *
  * Revision 1.25  1992/02/28  03:40:24  jplevyak
  * int/long confict fix (no diff on workstations)
  * ,
@@ -100,13 +100,13 @@
  *
  * Revision 1.14  91/09/26  20:21:55  jplevyak
  * Cosmetics
- * 
+ *
  * Revision 1.13  91/09/18  15:33:08  jplevyak
  * Added additional parameter to dtm_socket_init
- * 
+ *
  * Revision 1.12  91/09/13  20:28:52  sreedhar
  * accept :9900 change
- * 
+ *
  * Revision 1.11  1991/09/13  20:13:35  sreedhar
  * take current host as default
  *
@@ -131,14 +131,14 @@
  *
  * Revision 1.3  90/11/21  12:43:15  jefft
  * Fixed portibility problem with dtm_get_ipaddr.
- * 
+ *
  * Revision 1.2  90/11/21  10:54:18  jefft
  * Added new routine, dtm_get_ipaddr.  It returns an ascii string of the
  * current hosts IP address.
- * 
+ *
  * Revision 1.1  90/11/08  16:39:40  jefft
  * Initial revision
- * 
+ *
  */
 
 /*
@@ -197,7 +197,7 @@ static int	buf_size = DTM_BUFF_SIZE;
 /*
 	dtm_parse_ipaddr()
 	Check whetherer given address string is in dotted
-	decimal notation and if so, to return the address in network byte 
+	decimal notation and if so, to return the address in network byte
 	order.
 
 	Return	values	:	TRUE, if in dotted decimal notation.
@@ -282,9 +282,9 @@ int dtm_select( s, count, time )
   	FD_SET( s, &filedes );
 
 #ifdef __hpux
-  	if( (*count = select( 32, (int *)&filedes, (int *)NULL, (int *)NULL, 
+  	if( (*count = select( 32, (int *)&filedes, (int *)NULL, (int *)NULL,
 #else
-    	if( (*count = select( 32, &filedes, (fd_set *)NULL, (fd_set *)NULL, 
+    	if( (*count = select( 32, &filedes, (fd_set *)NULL, (fd_set *)NULL,
 #endif
 			&timeout ) )) {
 		ioctl( s, FIONREAD, count );
@@ -312,8 +312,8 @@ int dtm_accept( s, sn, timeout )
   	DBGFLOW( "dtm_accept called.\n");
 	DBGMSG1( "dtm_accept: sockfd = %d\n", s );
 
-	/*	
-		Await connect for specified time period only.	
+	/*
+		Await connect for specified time period only.
 
 		if timeout == NULL, it means just goahead and accept,
 		else wait for specified period and accept only if
@@ -321,12 +321,12 @@ int dtm_accept( s, sn, timeout )
 	*/
 
 	if ( timeout ) {
-		fd_set	readmask ;		
+		fd_set	readmask ;
 		fd_set	*fchk = &readmask ;
 		int	nf ;
 
 		FD_ZERO( fchk );
-		FD_SET( s, fchk ); 
+		FD_SET( s, fchk );
 
 #ifdef __hpux
 		nf = select( FD_SETSIZE, (int *)fchk, (int *)0, (int *)0, timeout );
@@ -337,7 +337,7 @@ int dtm_accept( s, sn, timeout )
 			DBGINT( "dtm_accept: select errno %d\n", errno );
 			DTMerrno = DTMSELECT ;
 			return DTMERROR ;
-		} 
+		}
 
 		if ( nf == 0 ) {
 			/* No connect request in specified time	*/
@@ -376,9 +376,9 @@ int dtm_connect(sn, s)
 	int	refusedcount = 0;
 
   	DBGFLOW("dtm_connect called.\n");
-	DBGINT( "dtm_connect: s_addr = %x\n", 
+	DBGINT( "dtm_connect: s_addr = %x\n",
 		ntohl( sn -> sin_addr.s_addr ) );
-	DBGINT( "dtm_connect: sin_port = %d\n", 
+	DBGINT( "dtm_connect: sin_port = %d\n",
 			ntohs( sn -> sin_port ));
 
 	while (TRUE)  {
@@ -411,7 +411,7 @@ int dtm_connect(sn, s)
 		/* connect complete, set working socket to original socket */
 			*s = d;
 			setsockopt(*s, IPPROTO_TCP, TCP_NODELAY, (char *)&d, sizeof d);
-			setsockopt(*s, SOL_SOCKET, SO_SNDBUF, (char *)&buf_size, 
+			setsockopt(*s, SOL_SOCKET, SO_SNDBUF, (char *)&buf_size,
 					sizeof(int));
 			return DTM_OK;
 		}
@@ -492,11 +492,11 @@ int dtm_end_connect(s)
 
 
 /*
-	Return	values	:	
+	Return	values	:
 				On success,
 				Direct   - host address in network byte order.
-				Indirect - *ipaddr has host address in dotted 
-					   decimal notation.   
+				Indirect - *ipaddr has host address in dotted
+					   decimal notation.
 
 				On error, 0.
 	Notes:
@@ -553,7 +553,7 @@ unsigned long   dtm_get_ipaddr( ipaddrstr )
 	}
 
 	DBGINT( "dtm_get_ipaddr: dotted decimal address = '%s'\n", ipaddrstr  );
-  	return	inet_addr( ipaddrstr  ) ; 
+  	return	inet_addr( ipaddrstr  ) ;
 }
 
 /*
@@ -576,17 +576,17 @@ int dtm_socket_init( sockaddr, porttype, fLogicalName )
 	int		sockaddrsize = sizeof (struct sockaddr_in);
 	char	buf[128];
 
-	DBGMSG1( "dtm_socket_init: sockaddr -> s_addr = %x\n", 
+	DBGMSG1( "dtm_socket_init: sockaddr -> s_addr = %x\n",
 		ntohl( sockaddr -> sin_addr.s_addr) );
-	DBGMSG1( "dtm_socket_init: sockaddr -> sin_port = %d\n", 
+	DBGMSG1( "dtm_socket_init: sockaddr -> sin_port = %d\n",
 		ntohs( sockaddr -> sin_port) );
 
-	sockaddr -> sin_family = AF_INET ;	
+	sockaddr -> sin_family = AF_INET ;
 	if ( fLogicalName ) {
-		/* 
-			Logical name had been supplied for makeport. 
+		/*
+			Logical name had been supplied for makeport.
 			Assign port from system ( sin_port = 0 ), and accept
-			from all network interfaces for multi-homed host 
+			from all network interfaces for multi-homed host
 			( INADDR_ANY ).
 		*/
 		sockaddr -> sin_addr.s_addr = htonl( INADDR_ANY );
@@ -606,7 +606,7 @@ int dtm_socket_init( sockaddr, porttype, fLogicalName )
 	}
 
 	if( (sockfd = socket( sockaddr -> sin_family, type, protocol )) < 0 ) {
-		DTMerrno = DTMSOCK ; 	
+		DTMerrno = DTMSOCK ;
 		DBGINT( "dtm_socket_init: socket create error %d", errno );
 		return DTMERROR ;
 	}
@@ -623,27 +623,27 @@ int dtm_socket_init( sockaddr, porttype, fLogicalName )
 
 	DBGFLOW( "dtm_socket_init: Before bind\n" );
 	DBGINT( "dtm_socket_init: sockfd = %d\n", sockfd );
-	DBGINT( "dtm_socket_init: sockaddr -> family = %d\n", 
+	DBGINT( "dtm_socket_init: sockaddr -> family = %d\n",
 		sockaddr -> sin_family );
-	DBGINT( "dtm_socket_init: sockaddr -> s_addr = %x\n", 
+	DBGINT( "dtm_socket_init: sockaddr -> s_addr = %x\n",
 		ntohl( sockaddr -> sin_addr.s_addr) );
-	DBGINT( "dtm_socket_init: sockaddr -> sin_port = %d\n", 
+	DBGINT( "dtm_socket_init: sockaddr -> sin_port = %d\n",
 		ntohs( sockaddr -> sin_port) );
 
-	if( bind( sockfd, (struct sockaddr *)sockaddr, 
+	if( bind( sockfd, (struct sockaddr *)sockaddr,
 			sizeof( struct sockaddr_in ) ) < 0 ) {
 		DTMerrno = DTMSOCK ;
-		DBGMSG1( "dtm_socket_init: could not bind to sockaddr, errno = %d\n", 
+		DBGMSG1( "dtm_socket_init: could not bind to sockaddr, errno = %d\n",
 				errno );
 		return DTMERROR;
 	}
 
 	/* 	Listen at socket for TCP port, buffer for 5 pending connections */
 
-	if( porttype == INPORTTYPE ) 
+	if( porttype == INPORTTYPE )
 		listen( sockfd, 5 );
 
-	/*	
+	/*
 		Get the actual assigned (port) address ( netid/hostid/portid )
 		- netid/hostid from dtm_get_ipaddr(),portid from getsockname().
 
@@ -667,9 +667,9 @@ int dtm_socket_init( sockaddr, porttype, fLogicalName )
 	}
 
 	DBGFLOW( "dtm_socket_init: Verify nethostid/portid\n" );
-	DBGINT( "dtm_socket_init: Nethostid = %x\n", 
-			ntohl( sockaddr -> sin_addr.s_addr ) ); 
-	DBGINT( "dtm_socket_init: Portid = %d \n", 
+	DBGINT( "dtm_socket_init: Nethostid = %x\n",
+			ntohl( sockaddr -> sin_addr.s_addr ) );
+	DBGINT( "dtm_socket_init: Portid = %d \n",
 			ntohs( sockaddr -> sin_port ) );
 
 	DBGINT( "dtm_socket_init: exit sockfd = %d\n", sockfd );
@@ -719,7 +719,7 @@ int dtm_init_sockaddr( sockaddr, portname, pfLogicalName )
 	DBGFLOW( "dtm_init_sockaddr called\n" );
 
 	if( lportname[0] == ':' ) {
-		host = NULL ; 
+		host = NULL ;
 		port = lportname + 1;
 	} else {
 		if( (port = strchr( lportname,  ':' )) == NULL ) {
@@ -728,7 +728,7 @@ int dtm_init_sockaddr( sockaddr, portname, pfLogicalName )
 			sockaddr -> sin_port = htons( 0 );
 			sockaddr -> sin_addr.s_addr = htonl(0);
 			*pfLogicalName = TRUE;
-			DBGINT( "dtm_init_sockaddr: sin_port = %d\n", 
+			DBGINT( "dtm_init_sockaddr: sin_port = %d\n",
 				ntohs( sockaddr->sin_port ));
 			return DTM_OK;
 		}
@@ -737,15 +737,15 @@ int dtm_init_sockaddr( sockaddr, portname, pfLogicalName )
 	}
 	*pfLogicalName = FALSE;
 
-	/* 
-		Physical format - hostname is either in dotted decimal 
+	/*
+		Physical format - hostname is either in dotted decimal
 			          notation ( call ipaddr() ) or direct or missing.
 	*/
 
 	if( host == NULL ) {
 		gethostname( hostname, sizeof hostname );
 		host = hostname ;
-	}	
+	}
 	DBGINT( "dtm_init_sockaddr: host %s\n", host );
 	DBGINT( "dtm_init_sockaddr: port %s\n", port );
 
@@ -768,7 +768,7 @@ int dtm_init_sockaddr( sockaddr, portname, pfLogicalName )
 	/* Fill in port id */
 	sockaddr -> sin_port = htons((unsigned short)atol( port ));
 
-	DBGINT( "dtm_init_sockaddr: nethostid = %x\n", 
+	DBGINT( "dtm_init_sockaddr: nethostid = %x\n",
 			ntohl( sockaddr -> sin_addr.s_addr ));
 	DBGINT( "dtm_init_sockaddr: portid = %d\n", ntohs( sockaddr -> sin_port) );
 

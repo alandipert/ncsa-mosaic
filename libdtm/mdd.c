@@ -22,7 +22,7 @@
 /************************************************************************
 **
 **  mdd.c - Multi-Dimensional Data set routines
-**	
+**
 *************************************************************************/
 
 /*********************************************************************
@@ -53,7 +53,7 @@
  *
  * Revision 1.5  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.4  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
@@ -185,7 +185,7 @@ int MDDgetMinMax(h, min, max)
 
   h = strchr(h, ' ') + 1;
   *max = (float)atof(h);
-  
+
   return 0;
 }
 

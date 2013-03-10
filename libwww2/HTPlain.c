@@ -74,8 +74,8 @@ PRIVATE void HTPlain_free ARGS1(HTStream *, me)
     {
 #ifndef DISABLE_TRACE
       if (www2Trace)
-        fprintf 
-          (stderr, 
+        fprintf
+          (stderr,
            "[HTPlain_free] OK, we're going to decompress HText\n");
 #endif
       HTCompressedHText (me->text, me->compressed, 1);
@@ -103,13 +103,13 @@ PRIVATE void HTPlain_handle_interrupt ARGS1(HTStream *, me)
 **		-----------------------
 */
 PUBLIC WWW_CONST HTStreamClass HTPlain =
-{		
+{
 	"SocketWriter",
 	HTPlain_free,
 	HTPlain_end_document,
 	HTPlain_put_character, 	HTPlain_put_string, HTPlain_write,
         HTPlain_handle_interrupt
-}; 
+};
 
 
 /*		New object
@@ -117,18 +117,18 @@ PUBLIC WWW_CONST HTStreamClass HTPlain =
 */
 PUBLIC HTStream* HTPlainPresent ARGS5(
 	HTPresentation *,	pres,
-	HTParentAnchor *,	anchor,	
+	HTParentAnchor *,	anchor,
 	HTStream *,		sink,
         HTFormat,               format_in,
         int,                    compressed)
 {
   HTStream* me = (HTStream*)malloc(sizeof(*me));
-  me->isa = &HTPlain;       
-  
+  me->isa = &HTPlain;
+
 #ifndef DISABLE_TRACE
   if (www2Trace)
     fprintf (stderr, "[HTPlainPresent] here we are; format_in is '%s' and compressed is %d\n", HTAtom_name (format_in), compressed);
-#endif  
+#endif
   me->text = HText_new();
   me->compressed = compressed;
 

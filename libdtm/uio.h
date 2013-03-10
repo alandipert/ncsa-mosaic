@@ -21,7 +21,7 @@
 
 /*********************************************************************
 **
-* $Header: /X11/mosaic/cvsroot/xmosaic3/libdtm/uio.h,v 1.3 1995/01/12 02:33:40 spowers Exp $ 
+* $Header: /X11/mosaic/cvsroot/xmosaic3/libdtm/uio.h,v 1.3 1995/01/12 02:33:40 spowers Exp $
 **
 **********************************************************************/
 
@@ -34,7 +34,7 @@
  *
  * Revision 1.2  92/04/30  20:27:37  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.1  1992/03/06  22:51:22  jplevyak
  * Initial revision
  *

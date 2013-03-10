@@ -75,15 +75,15 @@ static int HtLoadHTTPANN(char *arg, char *data, int len, char *com);
 /****************************************************************************
  * name:    HtLoadHTTPANN (PRIVATE)
  * purpose: Issue a command to a group annotation server.
- * inputs:  
+ * inputs:
  *   - char  *arg:
  *   - char *data:
  *   - int    len:
  *   - char  *com:
- * returns: 
- *   
- * remarks: 
- *   
+ * returns:
+ *
+ * remarks:
+ *
  ****************************************************************************/
 static int
 HtLoadHTTPANN(char *arg, char *data, int len, char *com)

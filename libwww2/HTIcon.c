@@ -7,7 +7,7 @@
 ** the format or from the default, then the unknown icon is returned.
 **
 ** Note: This routine gurantee's to return something!
-** 
+**
 */
 #include "../config.h"
 #include "HTFile.h"
@@ -37,34 +37,34 @@ char *HTgeticonname(HTFormat format, char *defaultformat)
   int count;
   char *ptr;
   char subtype[128];
-  
+
   if(format != NULL)
     {
       strcpy(subtype, format->name);
-      
+
       ptr=strchr(subtype,'/');
-      
-      if(ptr != NULL) 
+
+      if(ptr != NULL)
         *ptr = '\0';
     }
   else
     {
       subtype[0] = '\0';
     }
-  
+
   ptr = NULL;
-  
+
   for(count = 0;strcmp(type_map[count].image,"EOFEOF") != 0; count++)
     {
       if(strcmp(type_map[count].format, subtype) == 0)
         return type_map[count].image;
-      
+
       if(strcmp(type_map[count].format, defaultformat) == 0)
         ptr = type_map[count].image;
     }
-  
-  if(ptr != NULL) 
+
+  if(ptr != NULL)
     return ptr;
-  
+
   return "internal-gopher-unknown";
 }

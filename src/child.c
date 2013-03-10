@@ -123,7 +123,7 @@ ProcessHandle *p;
 
 }
 
-/* terminate the children... 
+/* terminate the children...
    you may want to remove SIGCHLD signal handler before calling this routine
 */
 void KillAllChildren(void)

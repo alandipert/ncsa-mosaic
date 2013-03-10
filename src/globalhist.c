@@ -246,7 +246,7 @@ static void add_url_to_bucket (int buck, char *url, char *lastdate)
 
   l->cached_data = NULL;
   l->next = NULL;
-  
+
   if (bkt->head == NULL)
     bkt->head = l;
   else
@@ -283,7 +283,7 @@ static int been_here_before (char *url)
           return 1;
 	}
       }
-  
+
   return 0;
 }
 
@@ -295,12 +295,12 @@ static int been_here_before (char *url)
 /****************************************************************************
  * name:    mo_been_here_before_huh_dad
  * purpose: Predicate to determine if we've visited this URL before.
- * inputs:  
+ * inputs:
  *   - char *url: The URL.
- * returns: 
+ * returns:
  *   mo_succeed if we've been here before; mo_fail otherwise
- * remarks: 
- *   We canonicalize the URL (stripping out the target anchor, 
+ * remarks:
+ *   We canonicalize the URL (stripping out the target anchor,
  *   if one exists).
  ****************************************************************************/
 mo_status mo_been_here_before_huh_dad (char *url)
@@ -321,12 +321,12 @@ mo_status mo_been_here_before_huh_dad (char *url)
 /****************************************************************************
  * name:    mo_here_we_are_son
  * purpose: Add a URL to the global history, if it's not already there.
- * inputs:  
+ * inputs:
  *   - char *url: URL to add.
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
- *   We canonicalize the URL (stripping out the target anchor, 
+ * remarks:
+ *   We canonicalize the URL (stripping out the target anchor,
  *   if one exists).
  ****************************************************************************/
 mo_status mo_here_we_are_son (char *url)
@@ -345,7 +345,7 @@ mo_status mo_here_we_are_son (char *url)
 
   if (!been_here_before (curl))
     add_url_to_bucket (hash_url (curl), curl, ts);
-  
+
   free (curl);
 
   return mo_succeed;
@@ -355,12 +355,12 @@ mo_status mo_here_we_are_son (char *url)
  * name:    mo_read_global_history (PRIVATE)
  * purpose: Given a filename, read the file's contents into the
  *          global history hash table.
- * inputs:  
+ * inputs:
  *   - char *filename: The file to read.
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 static void mo_read_global_history (char *filename)
 {
@@ -387,7 +387,7 @@ static void mo_read_global_history (char *filename)
   status = fgets (line, MO_LINE_LENGTH, fp);
   if (!status || !(*line))
     goto screwed_with_file;
-  
+
   /* See if it's our format. */
   if (strncmp (line, NCSA_HISTORY_FORMAT_COOKIE_ONE,
                strlen (NCSA_HISTORY_FORMAT_COOKIE_ONE))) {
@@ -407,17 +407,17 @@ static void mo_read_global_history (char *filename)
   status = fgets (line, MO_LINE_LENGTH, fp);
   if (!status || !(*line))
     goto screwed_with_file;
-  
+
   /* Start grabbing url's. */
   while (1)
     {
       char *url;
       char *lastdate;
-      
+
       status = fgets (line, MO_LINE_LENGTH, fp);
       if (!status || !(*line))
         goto done;
-      
+
       url = strtok (line, " ");
       if (!url)
         goto screwed_with_file;
@@ -432,7 +432,7 @@ static void mo_read_global_history (char *filename)
 	add_url_to_bucket (hash_url (url), url, lastdate);
       }
     }
-  
+
  screwed_with_file:
  done:
   fclose (fp);
@@ -447,12 +447,12 @@ static void mo_read_global_history (char *filename)
 /****************************************************************************
  * name:    mo_init_global_history
  * purpose: Initialize the global history hash table.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_status mo_init_global_history (void)
 {
@@ -472,11 +472,11 @@ mo_status mo_init_global_history (void)
 /****************************************************************************
  * name:    mo_wipe_global_history
  * purpose: Wipe out the current global history.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
+ * remarks:
  *   Huge memory hole here.  However, we now call
  *   mo_flush_image_cache to at least clear out the image structures.
  ****************************************************************************/
@@ -496,12 +496,12 @@ mo_status mo_wipe_global_history (mo_window *win)
  * purpose: Called on program startup to do the global history
  *          initialization stuff, including figuring out where the
  *          global history file is and reading it.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 static char *cached_global_hist_fname = NULL;
 mo_status mo_setup_global_history (void)
@@ -516,8 +516,8 @@ mo_status mo_setup_global_history (void)
   /* This shouldn't happen. */
   if (!home)
     home = "/tmp";
-  
-  filename = (char *)malloc 
+
+  filename = (char *)malloc
     ((strlen (home) +
       strlen (get_pref_string(eHISTORY_FILE)) +
       8) * sizeof (char));
@@ -545,7 +545,7 @@ mo_status mo_setup_global_history (void)
   mo_read_global_history (filename);
 
   free(filename);
-  filename = (char *)malloc 
+  filename = (char *)malloc
     ((strlen (home) +
       strlen (get_pref_string(eHISTORY_FILE)) +
       8) * sizeof (char));
@@ -560,11 +560,11 @@ mo_status mo_setup_global_history (void)
 /****************************************************************************
  * name:    mo_write_global_history
  * purpose: Write the global history file out to disk.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   mo_succeed (usually)
- * remarks: 
+ * remarks:
  *   This assigns last-read times to all the entries in the history,
  *   which is a bad thing.
  *   ---Not anymore --- SWP
@@ -584,7 +584,7 @@ mo_status mo_write_global_history (void)
     return mo_fail;
 
   fprintf (fp, "%s\n%s\n", NCSA_HISTORY_FORMAT_COOKIE_TWO, "Global");
-  
+
   for (i = 0; i < HASH_TABLE_SIZE; i++)
     {
       for (l = hash_table[i].head; l != NULL; l = l->next)
@@ -592,9 +592,9 @@ mo_status mo_write_global_history (void)
           fprintf (fp, "%s %s\n", l->url, (isdigit(*(l->lastdate))?l->lastdate:ts));
         }
     }
-  
+
   fclose (fp);
-  
+
   return mo_succeed;
 }
 
@@ -602,11 +602,11 @@ mo_status mo_write_global_history (void)
 /****************************************************************************
  * name:    mo_fetch_cached_image_data
  * purpose: Retrieve a piece of cached data associated with a URL.
- * inputs:  
+ * inputs:
  *   - char *url: The URL.
- * returns: 
+ * returns:
  *   The piece of cached data (void *).
- * remarks: 
+ * remarks:
  *   We do *not* do anything to the URL.  If there is a target
  *   anchor in it, fine with us.  This means the target anchor
  *   should have been stripped out someplace else if it needed to be.
@@ -642,7 +642,7 @@ void *mo_fetch_cached_image_data (char *url)
               }
           }
       }
-  
+
   return NULL;
 }
 
@@ -650,11 +650,11 @@ void *mo_fetch_cached_image_data (char *url)
 /****************************************************************************
  * name:    mo_fetch_cached_local_name
  * purpose: Retrieve a piece of cached data associated with a URL.
- * inputs:  
+ * inputs:
  *   - char *url: The URL.
- * returns: 
+ * returns:
  *   The piece of cached data (void *).
- * remarks: 
+ * remarks:
  *   We do *not* do anything to the URL.  If there is a target
  *   anchor in it, fine with us.  This means the target anchor
  *   should have been stripped out someplace else if it needed to be.
@@ -675,7 +675,7 @@ void *mo_fetch_cached_local_name (char *url)
               return NULL;
           }
       }
-  
+
   return NULL;
 }
 
@@ -683,7 +683,7 @@ void *mo_fetch_cached_local_name (char *url)
 /****************************************************************************
  * name:    mo_cache_data
  * purpose: Cache a piece of data associated with a given URL.
- * inputs:  
+ * inputs:
  *   - char  *url: The URL.
  *   - void *info: The piece of data to cache (currently either
  *                 an ImageInfo struct for an image named as SRC
@@ -691,9 +691,9 @@ void *mo_fetch_cached_local_name (char *url)
  *                 local copy of a remote HDF file).
  *   - int   type: The type of data to cache (currently either
  *                 0 for an ImageInfo struct or 1 for a local name).
- * returns: 
+ * returns:
  *   mo_succeed, unless something goes badly wrong
- * remarks: 
+ * remarks:
  *   We do *not* do anything to the URL.  If there is a target
  *   anchor in it, fine with us.  This means the target anchor
  *   should have been stripped out someplace else if it needed to be.
@@ -720,7 +720,7 @@ mo_status mo_cache_data (char *url, void *info, int type)
         if (!strcmp (l->url, url))
           goto found;
       }
-  
+
   return mo_fail;
 
  found:
@@ -782,12 +782,12 @@ mo_status mo_zap_cached_images_here (mo_window *win)
 
 /****************************************************************************
  * name:    mo_flush_image_cache
- * purpose: 
- * inputs:  
+ * purpose:
+ * inputs:
  *   - mo_window *win: The current window.
- * returns: 
+ * returns:
  *   nuthin
- * remarks: 
+ * remarks:
  ****************************************************************************/
 mo_status mo_flush_image_cache (mo_window *win)
 {
@@ -846,7 +846,7 @@ static mo_status mo_dump_cached_cd_array (void)
       if (cached_cd_array[i])
 	if (cacheTrace) {
 		fprintf (stderr, "  %02d data 0x%08x last_access %d\n", i,
-			 cached_cd_array[i]->image_data, 
+			 cached_cd_array[i]->image_data,
 			 cached_cd_array[i]->last_access);
 	}
       else
@@ -868,8 +868,8 @@ static mo_status mo_dump_cached_cd_array (void)
 static mo_status mo_init_cached_cd_array (void)
 {
 /*  int i;*/
-  
-  cached_cd_array = (cached_data **)malloc (sizeof (cached_data *) * 
+
+  cached_cd_array = (cached_data **)malloc (sizeof (cached_data *) *
                                             CHUNK_OF_IMAGES);
   size_of_cached_cd_array += CHUNK_OF_IMAGES;
 
@@ -880,7 +880,7 @@ static mo_status mo_init_cached_cd_array (void)
              size_of_cached_cd_array);
 #endif
 
-/*  bzero ((char *)cached_cd_array, 
+/*  bzero ((char *)cached_cd_array,
          CHUNK_OF_IMAGES * sizeof (cached_cd_array[0]));*/
   memset((char *)cached_cd_array, 0,
          CHUNK_OF_IMAGES * sizeof (cached_cd_array[0]));
@@ -891,18 +891,18 @@ static mo_status mo_init_cached_cd_array (void)
 static mo_status mo_grow_cached_cd_array (void)
 {
 /*  int i;*/
-  
-  cached_cd_array = (cached_data **)realloc 
+
+  cached_cd_array = (cached_data **)realloc
     (cached_cd_array,
      sizeof (cached_data *) * (size_of_cached_cd_array + CHUNK_OF_IMAGES));
 
 #ifndef DISABLE_TRACE
   if (cacheTrace)
     fprintf (stderr, "[grow] cached_cd_array 0x%08x, size_of_cached_cd_array 0x%08x, sum 0x%08x\n",
-             cached_cd_array, size_of_cached_cd_array, 
+             cached_cd_array, size_of_cached_cd_array,
              cached_cd_array + size_of_cached_cd_array);
 #endif
-/*  bzero ((char *)(cached_cd_array + size_of_cached_cd_array), 
+/*  bzero ((char *)(cached_cd_array + size_of_cached_cd_array),
          CHUNK_OF_IMAGES * sizeof (cached_cd_array[0]));*/
   memset((char *)(cached_cd_array + size_of_cached_cd_array), 0,
          CHUNK_OF_IMAGES * sizeof (cached_cd_array[0]));
@@ -964,22 +964,22 @@ static mo_status mo_sort_cached_cd_array (void)
     }
 #endif
 
-  qsort 
-    ((void *)cached_cd_array, size_of_cached_cd_array, 
+  qsort
+    ((void *)cached_cd_array, size_of_cached_cd_array,
      sizeof (cached_cd_array[0]), mo_sort_cd_for_qsort);
 
 #ifndef DISABLE_TRACE
   if (cacheTrace)
     mo_dump_cached_cd_array ();
 #endif
-  
+
   return mo_succeed;
 }
 
 static mo_status mo_remove_cd_from_cached_cd_array (cached_data *cd)
 {
   int i/*, num = -1*/, freed_kbytes = 0;
-  
+
   if (!cached_cd_array)
     return mo_fail;
 
@@ -989,12 +989,12 @@ static mo_status mo_remove_cd_from_cached_cd_array (cached_data *cd)
         {
 #ifndef DISABLE_TRACE
           if (cacheTrace)
-            fprintf 
-              (stderr, 
-               "[mo_remove_cd_from_cached_cd_array] Found data 0x%08x, location %d\n", 
+            fprintf
+              (stderr,
+               "[mo_remove_cd_from_cached_cd_array] Found data 0x%08x, location %d\n",
                cached_cd_array[i]->image_data, i);
 #endif
-          freed_kbytes = mo_kbytes_in_image_data 
+          freed_kbytes = mo_kbytes_in_image_data
             (cached_cd_array[i]->image_data);
           mo_free_image_data (cached_cd_array[i]->image_data);
           cached_cd_array[i] = NULL;
@@ -1008,7 +1008,7 @@ static mo_status mo_remove_cd_from_cached_cd_array (cached_data *cd)
 #endif
 
   return mo_fail;
-  
+
  done:
   num_in_cached_cd_array--;
   kbytes_cached -= freed_kbytes;
@@ -1019,7 +1019,7 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
 {
   int i, num;
   int kbytes_in_new_image = mo_kbytes_in_image_data (cd->image_data);
-  
+
 #ifndef DISABLE_TRACE
   if (cacheTrace)
     fprintf (stderr, "[mo_add_cd] New image is %d kbytes.\n",
@@ -1051,14 +1051,14 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
       int num_to_remove = 0;
 #ifndef DISABLE_TRACE
       if (cacheTrace)
-        fprintf (stderr, "[mo_add_cd] Going to sort 0x%08x...\n", 
+        fprintf (stderr, "[mo_add_cd] Going to sort 0x%08x...\n",
                  cached_cd_array);
 #endif
       mo_sort_cached_cd_array ();
 #ifndef DISABLE_TRACE
       if (cacheTrace)
         {
-          fprintf (stderr, 
+          fprintf (stderr,
                    "[mo_add_to] Just sorted in preparation for purging...\n");
 	  mo_dump_cached_cd_array ();
         }
@@ -1069,7 +1069,7 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
         {
 #ifndef DISABLE_TRACE
           if (cacheTrace)
-            fprintf 
+            fprintf
               (stderr, "[mo_add_cd] Trying to free another image (%d > %d).\n",
                (kbytes_cached + kbytes_in_new_image),
                get_pref_int(eIMAGE_CACHE_SIZE));
@@ -1118,7 +1118,7 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
         }
     }
  removed_em_all:
-  
+
   if (num_in_cached_cd_array == size_of_cached_cd_array)
     {
 #ifndef DISABLE_TRACE
@@ -1141,8 +1141,8 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
         }
 #ifndef DISABLE_TRACE
       if (cacheTrace)
-        fprintf 
-          (stderr, 
+        fprintf
+          (stderr,
            "[mo_add_cd_to_cached_cd_array] UH OH couldn't find empty slot\n");
 #endif
       /* Try to grow array -- flow of control should never reach here,
@@ -1150,7 +1150,7 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
       num = size_of_cached_cd_array;
       mo_grow_cached_cd_array ();
     }
-  
+
  got_num:
   cached_cd_array[num] = cd;
   num_in_cached_cd_array++;
@@ -1160,11 +1160,11 @@ static mo_status mo_add_cd_to_cached_cd_array (cached_data *cd)
 #ifndef DISABLE_TRACE
   if (cacheTrace)
     {
-      fprintf 
-        (stderr, 
+      fprintf
+        (stderr,
          "[mo_add_cd_to_cached_cd_array] Added cd, data 0x%08x, num %d\n",
          cd->image_data, num);
-      fprintf 
+      fprintf
         (stderr,
          "[mo_add_cd_to_cached_cd_array] Now cached %d kbytes.\n", kbytes_cached);
       mo_dump_cached_cd_array ();
@@ -1193,7 +1193,7 @@ static int mo_kbytes_in_image_data (void *image_data)
 
   if (kbytes == 0)
     kbytes = 1;
-  
+
   return kbytes;
 }
 

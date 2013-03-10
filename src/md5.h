@@ -54,7 +54,7 @@
 
 /* Author: DXP */
 
-/* most of this stuff was taken from the original code from RSA Data Security, Inc. 
+/* most of this stuff was taken from the original code from RSA Data Security, Inc.
    The appropriate header comments will be included where appropriate */
 
 /**************************************************/

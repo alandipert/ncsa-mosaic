@@ -94,8 +94,8 @@ int newsNoNewsRC = 0;
    Expects: ng -- newsgroup
             art -- article number
    Returns: 0 if not read, 1 if read
-   
-   Notes:  
+
+   Notes:
 */
 int isread (newsgroup_t *ng, long art)
 {
@@ -114,8 +114,8 @@ int isread (newsgroup_t *ng, long art)
    Expects: ng -- newsgroup
             art -- article number
    Returns: nothing
-   
-   Notes:  
+
+   Notes:
 */
 void markread (newsgroup_t *ng, long art)
 {
@@ -140,8 +140,8 @@ void markread (newsgroup_t *ng, long art)
    Expects: ng -- newsgroup
             art -- article number
    Returns: nothing
-   
-   Notes:  
+
+   Notes:
 */
 void markunread (newsgroup_t *ng, long art)
 {
@@ -202,7 +202,7 @@ void markrangeunread (newsgroup_t *ng, long start, long stop)
 /* issubscribed ()
    Expects: name -- name of newsgroup
    Returns: pointer to group or NULL if not subscribed
-   
+
    Notes:
 */
 newsgroup_t *issubscribed (char *name)
@@ -231,7 +231,7 @@ newsgroup_t *subscribegroup (char *name)
 
   if (!ng) {
     sprintf (junk, "%s: ", name);
-    if (ng = addgroup (junk, 0, 0, 0)) { 
+    if (ng = addgroup (junk, 0, 0, 0)) {
       ng->attribs |= naUPDATE;
       ng->attribs |= naSUBSCRIBED;
       ng->attribs |= naSHOWME;
@@ -251,7 +251,7 @@ newsgroup_t *subscribegroup (char *name)
    Expects: name -- group name
    Returns: pointer to unsubed group
 
-   Notes:  
+   Notes:
 */
 newsgroup_t *unsubscribegroup (char *name)
 {
@@ -270,7 +270,7 @@ newsgroup_t *unsubscribegroup (char *name)
 /* dumpgroup ()
    Expects: ng -- newsgroup to dump
    Returns: nothing
-   
+
    Notes: Displays some useful info on the given group
 */
 void dumpgroup (newsgroup_t *ng)
@@ -282,7 +282,7 @@ void dumpgroup (newsgroup_t *ng)
     return;
   }
 
-  printf ("Name: %s [%ld %ld] %ld %c%c%c\n", 
+  printf ("Name: %s [%ld %ld] %ld %c%c%c\n",
 	  ng->name?ng->name: "NULL",
 	  ng->minart,
 	  ng->maxart,
@@ -298,7 +298,7 @@ void dumpgroup (newsgroup_t *ng)
 /* dumphash ()
    Expects: nothing
    Returns: nothing
-   
+
    Notes: Displays some useful info on the hash table
 */
 void dumphash ()
@@ -345,7 +345,7 @@ int hashgroup (char *name)
    Expects: name -- name of the group
    Returns: pointer to group info, NULL if it is not in the table
 
-   Notes: 
+   Notes:
 */
 newsgroup_t *findgroup (char *name)
 {
@@ -372,7 +372,7 @@ newsgroup_t *findgroup (char *name)
 
    Notes:  Returns the first group in the hash table with the given attribute.
 */
-newsgroup_t *firstgroup (int mask) 
+newsgroup_t *firstgroup (int mask)
 {
   int i;
   newsgroup_t *n;
@@ -395,7 +395,7 @@ newsgroup_t *firstgroup (int mask)
 
    Notes:  Returns the next group in the hash table with the suggested attribute.
 */
-newsgroup_t *nextgroup (newsgroup_t *ng) 
+newsgroup_t *nextgroup (newsgroup_t *ng)
 {
   int i;
   newsgroup_t *n;
@@ -406,13 +406,13 @@ newsgroup_t *nextgroup (newsgroup_t *ng)
   for (i=ng->h; i<ACTIVE_BINS; i++) {
     n = newsrc_groups[i];
     if (i == ng->h) {
-      while (n && n!=ng) 
+      while (n && n!=ng)
 	n=n->next;
-      if (!n) 
+      if (!n)
 	continue;
       n=n->next;
     }
-    if (!n) 
+    if (!n)
       continue;
     while (n) {
       if (newsrc_smask == -1 || n->attribs & newsrc_smask) {
@@ -435,7 +435,7 @@ newsgroup_t *nextgroup (newsgroup_t *ng)
 
    Notes:  Adds a group to the active table
 */
-newsgroup_t *addgroup (char *nline, long min, long max, int dri) 
+newsgroup_t *addgroup (char *nline, long min, long max, int dri)
 {
   char *name;
   int hash;
@@ -449,8 +449,8 @@ newsgroup_t *addgroup (char *nline, long min, long max, int dri)
 
   /* Pull out the name */
   name = nline;
-  while (*nline && *nline != ' ' && *nline != '\t' && *nline != ':' && *nline != '!' 
-	 && *nline != '\n') 
+  while (*nline && *nline != ' ' && *nline != '\t' && *nline != ':' && *nline != '!'
+	 && *nline != '\n')
     nline++;
 
   if (*nline == ':')
@@ -487,9 +487,9 @@ newsgroup_t *addgroup (char *nline, long min, long max, int dri)
     /* pull out bitarray info from newsrc */
     if (nline && *nline)
       setseq (ng, nline);
-    
+
     /* Do some checks to make sure numbers are valid */
-    if (ng->newsrcmin < ng->minart) 
+    if (ng->newsrcmin < ng->minart)
       ng->newsrcmin = ng->minart;
     if (ng->newsrcmax > ng->maxart)
       ng->newsrcmax = ng->maxart;
@@ -513,10 +513,10 @@ newsgroup_t *addgroup (char *nline, long min, long max, int dri)
    Expects: ng -- newsgroup struct
             str -- active articles string
    Returns: nothing
-   
+
    Notes: Updates the newsgroup read article bit array for the newgroup in ng
-          according to the sequence info in the newsrc line passed in str.  If 
-	  the sequence info specifies nonavailable articles in the read bitarray, 
+          according to the sequence info in the newsrc line passed in str.  If
+	  the sequence info specifies nonavailable articles in the read bitarray,
 	  the info is ignored.
 */
 void setseq (newsgroup_t *ng, char *str)
@@ -536,7 +536,7 @@ void setseq (newsgroup_t *ng, char *str)
     while (*str && (*str < '0' || *str > '9')) str++;
     if (!(*str)) /* Done */
       break;
-    
+
     /* Chomp out a number */
     tok = str;
     while (*str && (*str >= '0' && *str <= '9')) str++;
@@ -603,14 +603,14 @@ void allocminmax (newsgroup_t *ng, long min, long max)
 
   if (!ng)
     return;
-  
+
   if (max<min)
     return;
 
   if ((tr = malloc ((max-min+7)/8+1)) == NULL) {
     return;
   }
-  
+
   memset (tr, 0, ((max-min+7)/8)+1);
   if (ng->read)
     free (ng->read);
@@ -628,7 +628,7 @@ void allocminmax (newsgroup_t *ng, long min, long max)
    Returns: nothing
 
    Notes:  re-allocates the read bitarray for a newsgroup.
-           This is slightly slower than etching the new array in 
+           This is slightly slower than etching the new array in
 	   stone with a small hammer and a large peanut butter sandwich.
 */
 void setminmax (newsgroup_t *ng, long min, long max)
@@ -643,7 +643,7 @@ void setminmax (newsgroup_t *ng, long min, long max)
   if ((tr = malloc (s)) == NULL ) {
     return;
   }
-  
+
   memset (tr, 0, s);
   lo = (min>ng->minart)? min : ng->minart; /* max (min, ng->min); */
   hi = (max<ng->maxart)? max : ng->maxart; /* min (max, ng->max); */
@@ -672,7 +672,7 @@ void setminmax (newsgroup_t *ng, long min, long max)
    Expects: buffer -- buffer to read line into
    Returns: 0 if valid line, nonzero on error
 
-   Notes:  Reads the next valid line of the newsrc.  
+   Notes:  Reads the next valid line of the newsrc.
            Skips comments (as first character) and blank lines.
 	   Line still has \n on end.
 */
@@ -682,15 +682,15 @@ int newsrc_readline (char *buffer)
 
   /* get a valid line, i.e. non blank, non comment */
   while (1) {
-    if (!fgets (tbuf, MAX_BUF, newsrc_fp)) 
+    if (!fgets (tbuf, MAX_BUF, newsrc_fp))
       return 1;
-    
+
     newsrc_line++;
     tp = tbuf;
-    while ( (*tp) && ((*tp == ' ') || (*tp == '\t')) ) 
+    while ( (*tp) && ((*tp == ' ') || (*tp == '\t')) )
       tp++;
 
-    if (!(*tp) || (*tp == '#') || (*tp == '\n')) 
+    if (!(*tp) || (*tp == '#') || (*tp == '\n'))
       continue;
 
     /* Good line */
@@ -722,7 +722,7 @@ char *newsrc_getseq (char *name, char *buf)
     while (*c && !strchr (" :!\t\n", *c)) c++;
     d = *c;
     *c = 0;
-    if (strcmp (b, name)) 
+    if (strcmp (b, name))
       continue;
     c++;
     strcpy (buf, c);
@@ -734,7 +734,7 @@ char *newsrc_getseq (char *name, char *buf)
 }
 
 
-/* newsrc_backup () 
+/* newsrc_backup ()
    Expects: Nothing
    Returns: Nothing
 
@@ -755,7 +755,7 @@ void newsrc_backup ()
     return;
   }
 
-  while (fgets (b,MAX_BUF,new)) 
+  while (fgets (b,MAX_BUF,new))
     fprintf (old, b);
 
   fclose (old);
@@ -788,7 +788,7 @@ long findnextrun (newsgroup_t *n, long art)
    Expects: ng -- newsgroup to write info for
             buf -- a buffer to put string into
    Returns: a pointer to the buffer
-   
+
    Notes:  Writes out the sequence information for ng
 */
 char *newsrc_writeseq (newsgroup_t *ng, char *buf, int max)
@@ -800,11 +800,11 @@ char *newsrc_writeseq (newsgroup_t *ng, char *buf, int max)
   s = buf;
   while (lo = findnextrun (ng,hi+1)) {
     hi = findendrun (ng,lo);
-    if (lo==hi) 
-      sprintf (b, "%ld, ", lo); 
-    else 
-      sprintf (b, "%ld-%ld, ", lo, hi); 
-    
+    if (lo==hi)
+      sprintf (b, "%ld, ", lo);
+    else
+      sprintf (b, "%ld-%ld, ", lo, hi);
+
     strcat (s, b);
     s += strlen (b);
     len += strlen (b);
@@ -813,9 +813,9 @@ char *newsrc_writeseq (newsgroup_t *ng, char *buf, int max)
       return buf;
     }
   }
-  
+
   /* Remove the trailing comma */
-  if ((s = strrchr (buf,',')) != NULL) 
+  if ((s = strrchr (buf,',')) != NULL)
     *s = 0;
   return buf;
 }
@@ -824,7 +824,7 @@ char *newsrc_writeseq (newsgroup_t *ng, char *buf, int max)
 /* newsrc_flush ()
    Expects: Nothing
    Returns: 0 if ok, nonzero otherwise
-   
+
    Notes:  Writes out the data for the current groups hash table, updating the
            current newsrc as it goes.
 */
@@ -848,7 +848,7 @@ int newsrc_flush ()
 
     return 1;
   }
-  
+
   n = firstgroup (-1);
   while (n) {
     seq[0] = 0;
@@ -862,7 +862,7 @@ int newsrc_flush ()
   fclose (new);
   newsrc_flushit = 0;
   newsNoNewsRC = 0;
-  
+
   if (newsrc_timer) {
     del = get_pref_int (eBACKGROUNDFLUSHTIME);
     newsrc_ti = XtAppAddTimeOut (app_context, 1000L*del, newsrc_flushcb, NULL);
@@ -906,7 +906,7 @@ void newsrc_initflush ()
 /* newsrc_kill ()
    Expects: Nothing
    Returns: 0 if ok, nonzero otherwise
-   
+
    Notes:  Does any cleanup for the currently active newsrc.
            Runs through hash table and writes out any groups that need to be updated.
 	   Frees hash table entries.
@@ -947,7 +947,7 @@ int newsrc_kill (void)
 /* newsrc_init ()
    Expects: newshost -- name of newshost to open the newsrc for.
    Returns: 0 if ok, nonzero otherwise
-   
+
    Notes:  Does any onetime initialization for the newsrc stuff for the given host.
            Opens .mosaic-newsrc-newshost and initializes hash table.
 */
@@ -966,7 +966,7 @@ int newsrc_init (char *newshost)
     return 1;
 
   /* If they want to reinit the current system, they have to do it the hard way */
-  if (newsrc_active) 
+  if (newsrc_active)
     return 0;
 
   sprintf (buf, "Initializing newsrc for %s", newshost);
@@ -987,7 +987,7 @@ int newsrc_init (char *newshost)
   spref = get_pref_boolean (eUSESHORTNEWSRC);
   sprintf (newsrc_filename, "%s/%s%s%s", home, npref, spref?"":"-",spref?"":newshost);
   if ((newsrc_fp = fopen (newsrc_filename, "r")) == NULL) {
-    sprintf (buf, "News file %s/%s%s%s does not exist", 
+    sprintf (buf, "News file %s/%s%s%s does not exist",
 	     home, npref, spref?"":"-",spref?"":newshost);
     HTProgress (buf);
     newsNoNewsRC = 1;
@@ -997,13 +997,13 @@ int newsrc_init (char *newshost)
 
   newsrc_line = 0;
   while (newsrc_readline (buf) == 0) {
-    if (strchr (buf, ':')) 
+    if (strchr (buf, ':'))
       addgroup (buf, 0, -1, 0) ;
   }
   fclose (newsrc_fp);
-  
+
   if (get_pref_boolean (eUSEBACKGROUNDFLUSH)) {
-    newsrc_ti = XtAppAddTimeOut (app_context, 
+    newsrc_ti = XtAppAddTimeOut (app_context,
 			       1000L*get_pref_int (eBACKGROUNDFLUSHTIME),
 			       newsrc_flushcb, NULL);
     newsrc_timer = 1;

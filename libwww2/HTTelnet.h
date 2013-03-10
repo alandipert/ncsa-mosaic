@@ -1,6 +1,6 @@
 /*                 /Net/dxcern/userd/timbl/hypertext/WWW/Library/Implementation/HTTelnet.html
                             TELNET AND SIMILAR ACCESS METHODS
-                                             
+
  */
 
 #ifndef HTTELNET_H

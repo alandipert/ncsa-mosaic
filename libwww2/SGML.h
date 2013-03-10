@@ -1,6 +1,6 @@
 /*                     /Net/dxcern/userd/timbl/hypertext/WWW/Library/Implementation/SGML.html
                                SGML AND STRUCTURED STREAMS
-                                             
+
    The SGML parser is a state machine. It is called for every
    character of the input stream. The DTD data structure contains
    pointers to functions which are called to implement the actual
@@ -9,12 +9,12 @@
    function is passed a pointer to the curent tag structure, and an
    "element stack" which represents the state of nesting within SGML
    elements.
-   
+
    The following aspects are from Dan Connolly's suggestions: Binary
    search, Strcutured object scheme basically, SGML content enum type.
-   
+
    (c) Copyright CERN 1991 - See Copyright.html
-   
+
  */
 #ifndef SGML_H
 #define SGML_H
@@ -124,29 +124,29 @@ typedef struct _HTStructuredClass{
 
         void (*end_document) PARAMS((
                 HTStructured*   me));
-                
+
         void (*handle_interrupt) PARAMS((
                 HTStructured*   me));
-                
+
         void (*put_character) PARAMS((
                 HTStructured*   me,
                 char            ch));
-                                
+
         void (*put_string) PARAMS((
                 HTStructured*   me,
                 WWW_CONST char *    str));
-                
+
         void (*write) PARAMS((
                 HTStructured*   me,
                 WWW_CONST char *    str,
                 int             len));
-                
+
         void (*start_element) PARAMS((
                 HTStructured*   me,
                 int             element_number,
                 WWW_CONST BOOL*             attribute_present,
                 WWW_CONST char**            attribute_value));
-                
+
         void (*end_element) PARAMS((
                 HTStructured*   me,
                 int             element_number));
@@ -154,7 +154,7 @@ typedef struct _HTStructuredClass{
         void (*put_entity) PARAMS((
                 HTStructured*   me,
                 int             entity_number));
-                
+
 }HTStructuredClass;
 
 

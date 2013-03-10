@@ -168,7 +168,7 @@ char *s, *end, *tmp_end, *w_id;
   if (!strcmp(command, MCCI_BACK))
 	mo_back_node(win);
   else if (!strcmp(command, MCCI_FORWARD))
-	mo_forward_node(win);	
+	mo_forward_node(win);
   else if (!strcmp(command, MCCI_HOME))
 	mo_access_document (win, home_document);
   else if (!strcmp(command, MCCI_RELOAD))
@@ -229,7 +229,7 @@ char *s, *end, *tmp_end, *w_id;
 		status = mo_save_window(win, filename, 0);
 	else if (!strcmp(format, MCCI_FORMATTEDTEXT))
 		status = mo_save_window(win, filename, 1);
-	else if (!strcmp(format, MCCI_HTML)) 
+	else if (!strcmp(format, MCCI_HTML))
 		status = mo_save_window(win, filename, 2);
 	else if (!strcmp(format, MCCI_POSTSCRIPT))
 		status = mo_save_window(win, filename, 4);
@@ -254,7 +254,7 @@ char *s, *end, *tmp_end, *w_id;
 
   else if (!strcmp(command, MCCI_FINDINCURRENT)){
     /* need to get search_string and CASE|NOCASE */
-    char *s_string, *c;   
+    char *s_string, *c;
     mo_status found;
 
 	/* s is pointed pass the window id part */
@@ -270,7 +270,7 @@ char *s, *end, *tmp_end, *w_id;
 	if (tmp_end) *tmp_end = '\0';
 
 	GetWordFromString(s,&c,&end); /* Get command */
-	if ((!c) || (c == end) ){ 
+	if ((!c) || (c == end) ){
 		*retCode = MCCIR_DOCOMMAND_FAILED;
 		strcpy(retText, "You Need to Specify CASE");
 		if (s_string) free(s_string);
@@ -334,7 +334,7 @@ char *s, *end, *tmp_end, *w_id;
 		status = mo_print_window(win, 0, printCommand);
 	else if (!strcmp(format, MCCI_FORMATTEDTEXT))
 		status = mo_print_window(win, 1, printCommand);
-	else if (!strcmp(format, MCCI_HTML)) 
+	else if (!strcmp(format, MCCI_HTML))
 		status = mo_print_window(win, 2, printCommand);
 	else if (!strcmp(format, MCCI_POSTSCRIPT))
 		status = mo_print_window(win, 4, printCommand);
@@ -443,7 +443,7 @@ char *s, *end, *tmp_end, *w_id;
 		XmxSetArg (WbNdelayImageLoads, True);
 		XmxSetValues (win->scrolled_win);
 */
-		XmxRSetSensitive (win->menubar, mo_expand_images_current, 
+		XmxRSetSensitive (win->menubar, mo_expand_images_current,
 			win->delay_image_loads?XmxSensitive:XmxNotSensitive);
 		}
 	else if (!strcmp(on_off, MCCI_OFF)){
@@ -454,9 +454,9 @@ char *s, *end, *tmp_end, *w_id;
 		XmxSetArg (WbNdelayImageLoads, False);
 		XmxSetValues (win->scrolled_win);
 */
-		XmxRSetSensitive (win->menubar, mo_expand_images_current, 
+		XmxRSetSensitive (win->menubar, mo_expand_images_current,
 			win->delay_image_loads?XmxSensitive:XmxNotSensitive);
-		} 
+		}
 	else{
 		*retCode = MCCIR_DOCOMMAND_FAILED;
 		strcpy(retText, "You Need to Specify ON|OFF");
@@ -592,7 +592,7 @@ mo_status moStatus;
 	switch (output) {
 	    case MCCI_OUTPUT_CURRENT:
 		/* turn flag on so mosaic will know to do a get*/
-		cci_get = 1; 	
+		cci_get = 1;
 
 		moStatus = mo_load_window_text (current_win, url, NULL);
 		if (moStatus == mo_succeed) {
@@ -608,7 +608,7 @@ mo_status moStatus;
 		cci_get = 0;  	/* done with get, turn flag off */
 	    case MCCI_OUTPUT_NEW:
 		/* turn flag on so mosaic will know to do a get*/
-		cci_get = 1; 	
+		cci_get = 1;
 
 		if (!mo_open_another_window(current_win,url,NULL,NULL)) {
 			*retCode = MCCIR_GET_FAILED;
@@ -804,7 +804,7 @@ int length;
 		case MCCI_OUTPUT_NONE:
 			/* do not display output of post, but send the
 			   output back through the cci to the client */
-			response = mo_post_pull_er_over(url, 
+			response = mo_post_pull_er_over(url,
 				contentType, postData, &textHead);
 
 			/* send response back through cci */
@@ -825,7 +825,7 @@ int length;
 					*retCode = MCCI_FAIL;
 					}
 				}
-			
+
 			break;
 		case MCCI_OUTPUT_NEW:
 			/* open a new window and display posting... */
@@ -835,12 +835,12 @@ int length;
 		case MCCI_OUTPUT_CURRENT:
 		default:
 			/* display in current window */
-			response = mo_post_pull_er_over(url, 
+			response = mo_post_pull_er_over(url,
 				contentType, postData, &textHead);
 			/*mo_decode_internal_reference(url,response,url);*/
 			mo_do_window_text(current_win,url,
 						response,response,1,url,0,0);
-			
+
 			break;
 		}
 
@@ -898,10 +898,10 @@ char *new_url;
 			ref = strdup(url);
 			new_url = strdup(url);
 			if (strcmp(contentType, "text/html") == 0)
-				mo_do_window_text(current_win, new_url, 
+				mo_do_window_text(current_win, new_url,
 					displayData, displayData, 1, ref, current_win->current_node->last_modified, current_win->current_node->expires);
 			else
-				strcpy(retText, "Display text/html only");	
+				strcpy(retText, "Display text/html only");
 			break;
 		}
 
@@ -927,8 +927,8 @@ char *url;
 int type;
 {
   *retDataLength = 0;
-  
-  if ((type == MCCI_PRIVATE_ANNOTATION) || 
+
+  if ((type == MCCI_PRIVATE_ANNOTATION) ||
       (type == MCCI_ALL_ANNOTATION)) {
     if ((*retData) = mo_fetch_personal_annotations(url)) {
       *retCode = MCCIR_PRIVATE_ANNOTATION;
@@ -945,7 +945,7 @@ int type;
     *retCode = MCCIR_NO_ANNOTATION;
     strcpy(retText,"Only Private annotations currently supported");
   }
-  
+
   return;
 }
 
@@ -977,7 +977,7 @@ char *url;
 		}
 	else {
 		strcpy(retText,"No URL for given file name");
-		*retCode = MCCIR_NO_URL_FOR_FILE; 
+		*retCode = MCCIR_NO_URL_FOR_FILE;
 		}
 }
 

@@ -775,7 +775,7 @@ ReadImage(FILE *fd, int len, int height, XColor *colrs, int cmapSize,
 		unsigned char cmap[3][MAXCOLORMAPSIZE], int gray,
 		int interlace, int ignore)
 {
-	unsigned char	*dp, c;	
+	unsigned char	*dp, c;
 	int		v;
 	int		xpos = 0, ypos = 0/*, pass = 0*/;
 	unsigned char 	*image;

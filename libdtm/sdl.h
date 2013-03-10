@@ -22,7 +22,7 @@
 /**************************************************************************
 **
 **  Surface Description Language include file - contains constants used
-**     with the SDL header type.  
+**     with the SDL header type.
 **
 **
 **
@@ -46,13 +46,13 @@
  *
  * Revision 1.13  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.12  1992/04/03  12:39:42  dweber
  * Fixed SDLbounds bug.
  *
  * Revision 1.11  92/04/03  12:33:23  dweber
  * Added bounding box functions.
- * 
+ *
  * Revision 1.10  1992/02/25  20:36:35  dweber
  * Fixed another prototyping clash, SDLgetPrimitive.
  *
@@ -64,10 +64,10 @@
  *
  * Revision 1.7  91/11/01  10:10:28  dweber
  * Added SDLtristrip
- * 
+ *
  * Revision 1.6  91/09/10  15:07:55  jefft
  * cleaned-up message class macros.
- * 
+ *
  * Revision 1.5  1991/07/25  22:22:27  jefft
  * Added transformation triplet enum types
  *
@@ -83,7 +83,7 @@
  *
  * Revision 1.1  90/11/08  16:38:51  jefft
  * Initial revision
- * 
+ *
  */
 
 #ifndef SDL_INC

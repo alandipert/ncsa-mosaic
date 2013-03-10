@@ -47,71 +47,71 @@ struct _HTStream {
 **	This MUST match exactly the table referred to in the DTD!
 */
 static char * ISO_Latin1[] = {
-  	"\306",	/* capital AE diphthong (ligature) */ 
-  	"\301",	/* capital A, acute accent */ 
-  	"\302",	/* capital A, circumflex accent */ 
-  	"\300",	/* capital A, grave accent */ 
-  	"\305",	/* capital A, ring */ 
-  	"\303",	/* capital A, tilde */ 
-  	"\304",	/* capital A, dieresis or umlaut mark */ 
-  	"\307",	/* capital C, cedilla */ 
-  	"\320",	/* capital Eth, Icelandic */ 
-  	"\311",	/* capital E, acute accent */ 
-  	"\312",	/* capital E, circumflex accent */ 
-  	"\310",	/* capital E, grave accent */ 
-  	"\313",	/* capital E, dieresis or umlaut mark */ 
-  	"\315",	/* capital I, acute accent */ 
-  	"\316",	/* capital I, circumflex accent */ 
-  	"\314",	/* capital I, grave accent */ 
-  	"\317",	/* capital I, dieresis or umlaut mark */ 
-  	"\321",	/* capital N, tilde */ 
-  	"\323",	/* capital O, acute accent */ 
-  	"\324",	/* capital O, circumflex accent */ 
-  	"\322",	/* capital O, grave accent */ 
-  	"\330",	/* capital O, slash */ 
-  	"\325",	/* capital O, tilde */ 
-  	"\326",	/* capital O, dieresis or umlaut mark */ 
-  	"\336",	/* capital THORN, Icelandic */ 
-  	"\332",	/* capital U, acute accent */ 
-  	"\333",	/* capital U, circumflex accent */ 
-  	"\331",	/* capital U, grave accent */ 
-  	"\334",	/* capital U, dieresis or umlaut mark */ 
-  	"\335",	/* capital Y, acute accent */ 
-  	"\341",	/* small a, acute accent */ 
-  	"\342",	/* small a, circumflex accent */ 
-  	"\346",	/* small ae diphthong (ligature) */ 
-  	"\340",	/* small a, grave accent */ 
-  	"\046",	/* ampersand */ 
-  	"\345",	/* small a, ring */ 
-  	"\343",	/* small a, tilde */ 
-  	"\344",	/* small a, dieresis or umlaut mark */ 
-  	"\347",	/* small c, cedilla */ 
-  	"\351",	/* small e, acute accent */ 
-  	"\352",	/* small e, circumflex accent */ 
-  	"\350",	/* small e, grave accent */ 
-  	"\360",	/* small eth, Icelandic */ 
-  	"\353",	/* small e, dieresis or umlaut mark */ 
-  	"\076",	/* greater than */ 
-  	"\355",	/* small i, acute accent */ 
-  	"\356",	/* small i, circumflex accent */ 
-  	"\354",	/* small i, grave accent */ 
-  	"\357",	/* small i, dieresis or umlaut mark */ 
-  	"\074",	/* less than */ 
-  	"\361",	/* small n, tilde */ 
-  	"\363",	/* small o, acute accent */ 
-  	"\364",	/* small o, circumflex accent */ 
-  	"\362",	/* small o, grave accent */ 
-  	"\370",	/* small o, slash */ 
-  	"\365",	/* small o, tilde */ 
-  	"\366",	/* small o, dieresis or umlaut mark */ 
-  	"\337",	/* small sharp s, German (sz ligature) */ 
-  	"\376",	/* small thorn, Icelandic */ 
-  	"\372",	/* small u, acute accent */ 
-  	"\373",	/* small u, circumflex accent */ 
-  	"\371",	/* small u, grave accent */ 
-  	"\374",	/* small u, dieresis or umlaut mark */ 
-  	"\375",	/* small y, acute accent */ 
-  	"\377",	/* small y, dieresis or umlaut mark */ 
+  	"\306",	/* capital AE diphthong (ligature) */
+  	"\301",	/* capital A, acute accent */
+  	"\302",	/* capital A, circumflex accent */
+  	"\300",	/* capital A, grave accent */
+  	"\305",	/* capital A, ring */
+  	"\303",	/* capital A, tilde */
+  	"\304",	/* capital A, dieresis or umlaut mark */
+  	"\307",	/* capital C, cedilla */
+  	"\320",	/* capital Eth, Icelandic */
+  	"\311",	/* capital E, acute accent */
+  	"\312",	/* capital E, circumflex accent */
+  	"\310",	/* capital E, grave accent */
+  	"\313",	/* capital E, dieresis or umlaut mark */
+  	"\315",	/* capital I, acute accent */
+  	"\316",	/* capital I, circumflex accent */
+  	"\314",	/* capital I, grave accent */
+  	"\317",	/* capital I, dieresis or umlaut mark */
+  	"\321",	/* capital N, tilde */
+  	"\323",	/* capital O, acute accent */
+  	"\324",	/* capital O, circumflex accent */
+  	"\322",	/* capital O, grave accent */
+  	"\330",	/* capital O, slash */
+  	"\325",	/* capital O, tilde */
+  	"\326",	/* capital O, dieresis or umlaut mark */
+  	"\336",	/* capital THORN, Icelandic */
+  	"\332",	/* capital U, acute accent */
+  	"\333",	/* capital U, circumflex accent */
+  	"\331",	/* capital U, grave accent */
+  	"\334",	/* capital U, dieresis or umlaut mark */
+  	"\335",	/* capital Y, acute accent */
+  	"\341",	/* small a, acute accent */
+  	"\342",	/* small a, circumflex accent */
+  	"\346",	/* small ae diphthong (ligature) */
+  	"\340",	/* small a, grave accent */
+  	"\046",	/* ampersand */
+  	"\345",	/* small a, ring */
+  	"\343",	/* small a, tilde */
+  	"\344",	/* small a, dieresis or umlaut mark */
+  	"\347",	/* small c, cedilla */
+  	"\351",	/* small e, acute accent */
+  	"\352",	/* small e, circumflex accent */
+  	"\350",	/* small e, grave accent */
+  	"\360",	/* small eth, Icelandic */
+  	"\353",	/* small e, dieresis or umlaut mark */
+  	"\076",	/* greater than */
+  	"\355",	/* small i, acute accent */
+  	"\356",	/* small i, circumflex accent */
+  	"\354",	/* small i, grave accent */
+  	"\357",	/* small i, dieresis or umlaut mark */
+  	"\074",	/* less than */
+  	"\361",	/* small n, tilde */
+  	"\363",	/* small o, acute accent */
+  	"\364",	/* small o, circumflex accent */
+  	"\362",	/* small o, grave accent */
+  	"\370",	/* small o, slash */
+  	"\365",	/* small o, tilde */
+  	"\366",	/* small o, dieresis or umlaut mark */
+  	"\337",	/* small sharp s, German (sz ligature) */
+  	"\376",	/* small thorn, Icelandic */
+  	"\372",	/* small u, acute accent */
+  	"\373",	/* small u, circumflex accent */
+  	"\371",	/* small u, grave accent */
+  	"\374",	/* small u, dieresis or umlaut mark */
+  	"\375",	/* small y, acute accent */
+  	"\377",	/* small y, dieresis or umlaut mark */
 };
 
 
@@ -138,7 +138,7 @@ PUBLIC void HTMLUseCharacterSet ARGS1(HTMLCharacterSet, i)
 */
 PRIVATE void HTML_put_character ARGS2(HTStructured *, me, char, c)
 {
-  if (!me->text) 
+  if (!me->text)
     {
       me->text = HText_new();
       HText_beginAppend(me->text);
@@ -156,7 +156,7 @@ PRIVATE void HTML_put_character ARGS2(HTStructured *, me, char, c)
 */
 PRIVATE void HTML_put_string ARGS2(HTStructured *, me, WWW_CONST char*, s)
 {
-  if (!me->text) 
+  if (!me->text)
     {
       me->text = HText_new();
       HText_beginAppend(me->text);
@@ -185,17 +185,17 @@ PRIVATE void HTML_start_element ARGS4(
 	WWW_CONST BOOL*,	 	present,
 	WWW_CONST char **,	value)
 {
-  if (!me->text) 
+  if (!me->text)
     {
       me->text = HText_new();
       HText_beginAppend(me->text);
     }
-  switch (element_number) 
+  switch (element_number)
     {
     case HTML_A:
       {
         char *href = NULL;
-        if (present[HTML_A_HREF]) 
+        if (present[HTML_A_HREF])
           {
             StrAllocCopy(href, value[HTML_A_HREF]);
             HTSimplify(href);
@@ -204,7 +204,7 @@ PRIVATE void HTML_start_element ARGS4(
         free (href);
       }
       break;
-      
+
     case HTML_TITLE:
       HText_appendText(me->text, "<TITLE>");
       break;
@@ -253,7 +253,7 @@ PRIVATE void HTML_start_element ARGS4(
     case HTML_IMG:
       {
         char *href = NULL;
-        if (present[HTML_A_HREF]) 
+        if (present[HTML_A_HREF])
           {
             StrAllocCopy(href, value[HTML_A_HREF]);
             HTSimplify(href);
@@ -291,7 +291,7 @@ PRIVATE void HTML_start_element ARGS4(
     case HTML_BLOCKQUOTE:
       HText_appendText(me->text, "<BLOCKQUOTE>");
       break;
-    
+
     case HTML_TT:			/* Physical character highlighting */
     case HTML_B:			/* Currently ignored */
     case HTML_I:
@@ -308,7 +308,7 @@ PRIVATE void HTML_start_element ARGS4(
 
     default:
       break;
-      
+
     } /* end switch */
 }
 
@@ -319,7 +319,7 @@ PRIVATE void HTML_start_element ARGS4(
 */
 PRIVATE void HTML_end_element ARGS2(HTStructured *, me, int , element_number)
 {
-  switch(element_number) 
+  switch(element_number)
     {
     case HTML_A:
       HText_endAnchor(me->text);
@@ -403,14 +403,14 @@ PRIVATE void HTML_put_entity ARGS2(HTStructured *, me, int, entity_number)
    of document, so we don't.
 **
 **	If non-interactive, everything is freed off.   No: crashes -listrefs
-**	Otherwise, the interactive object is left.	
+**	Otherwise, the interactive object is left.
 */
 PUBLIC void HTML_free ARGS1(HTStructured *, me)
 {
   if (me->text)
     HText_endAppend(me->text);
-  
-  if (me->target) 
+
+  if (me->target)
     {
       (*me->targetClass.end_document)(me->target);
       (*me->targetClass.free)(me->target);
@@ -423,8 +423,8 @@ PUBLIC void HTML_handle_interrupt ARGS1(HTStructured *, me)
 {
   if (me->text)
     HText_doAbort (me->text);
-  
-  if (me->target) 
+
+  if (me->target)
     {
       (*me->targetClass.handle_interrupt)(me->target);
     }
@@ -442,14 +442,14 @@ PRIVATE void HTML_end_document ARGS1(HTStructured *, me)
 **	-----------------------
 */
 PUBLIC WWW_CONST HTStructuredClass HTMLPresentation = /* As opposed to print etc */
-{		
+{
 	"text/html",
 	HTML_free,
 	HTML_end_document, HTML_handle_interrupt,
 	HTML_put_character, 	HTML_put_string,  HTML_write,
 	HTML_start_element, 	HTML_end_element,
 	HTML_put_entity
-}; 
+};
 
 
 /*		New Structured Text object
@@ -465,7 +465,7 @@ PUBLIC HTStructured* HTML_new ARGS3(
 {
 
     HTStructured * me;
-    
+
 #if 0
     if (format_out != WWW_PLAINTEXT && format_out != WWW_PRESENT) {
         HTStream * intermediate = HTStreamStack(WWW_HTML, format_out, 0,
@@ -485,9 +485,9 @@ PUBLIC HTStructured* HTML_new ARGS3(
     me->node_anchor =  anchor;
     me->text = 0;
     me->target = stream;
-    if (stream) 
+    if (stream)
       me->targetClass = *stream->isa;	/* Copy pointers */
-    
+
     return (HTStructured*) me;
 }
 
@@ -521,5 +521,5 @@ PUBLIC int HTLoadError ARGS3(
     return -number;
 #endif
     return -1;
-} 
+}
 

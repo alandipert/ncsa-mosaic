@@ -22,8 +22,8 @@ extern char *ParseMarkTag();
 extern int htmlwTrace;
 #endif
 
-/* Allocate a TableField and initialize to default values 
- * return 0 on failure 
+/* Allocate a TableField and initialize to default values
+ * return 0 on failure
  */
 static TableField *NewTableField()
 {
@@ -39,7 +39,7 @@ TableField *tf;
 	tf->contHoriz = False;
 	tf->maxWidth = DEFAULT_FIELD_WIDTH;
 	tf->minWidth = DEFAULT_FIELD_WIDTH;
-	tf->maxHeight = DEFAULT_FIELD_HEIGHT; 
+	tf->maxHeight = DEFAULT_FIELD_HEIGHT;
 	tf->minHeight = DEFAULT_FIELD_HEIGHT;
 	tf->header = False;
 
@@ -87,11 +87,11 @@ char *end;
 
 
 
-/* PourText() this routine pours a text string of a particular font into a 
-   rectangular area of specified dimensions.  The return value is a list of 
+/* PourText() this routine pours a text string of a particular font into a
+   rectangular area of specified dimensions.  The return value is a list of
    text lines that will fit within the given width.
    If a height is specified, then text will be truncated if necessary to fit.
-   If height is 0, then all of the text is in the list. 
+   If height is 0, then all of the text is in the list.
    The actual pixel height of the text is returned in variable height.
 */
 int PourText(text,font,width,height,percentVertSpace,formattedText,numberOfLines)
@@ -131,7 +131,7 @@ int y;
 		*numberOfLines = 0;
 		return(0);
 		}
-	
+
 	textList = ListCreate();
         stringWidth = XTextWidth(font,text,strlen(text));
 	if (stringWidth < width) {
@@ -154,7 +154,7 @@ int y;
 		GetWord(textPtr,&wordStart,&wordEnd);
 		wordLength = (int) (wordEnd - wordStart);
 		wordWidth = XTextWidth(font,wordStart, wordLength);
-		if ((builtWidth + spaceWidth + wordWidth)  < width) { 
+		if ((builtWidth + spaceWidth + wordWidth)  < width) {
 						/* then add to line */
 			if (builtWidth) {
 				/* only add space if something on line already*/
@@ -164,7 +164,7 @@ int y;
 			strncat(tmpBuff, wordStart, wordLength);
 			builtWidth += wordWidth;
 			}
-		else if (wordWidth < width) { 
+		else if (wordWidth < width) {
 			/* start new line */
 			ListAddEntry(textList, strdup(tmpBuff));
 			*tmpBuff = '\0';
@@ -174,10 +174,10 @@ int y;
 			strncat(tmpBuff, wordStart, wordLength);
 			builtWidth += wordWidth;
 			}
-		else { 
+		else {
 			/* word is too big to fit on a line */
 			/* so break up word */
-	
+
 			/* start new line */
 			ListAddEntry(textList, strdup(tmpBuff));
 			*tmpBuff = '\0';
@@ -190,10 +190,10 @@ int y;
 			while ((*wordEnd) && (width > wordWidth)) {
 				wordEnd++;
 				wordLength = (int) (wordEnd - wordStart);
-				wordWidth = XTextWidth(font,wordStart, 
+				wordWidth = XTextWidth(font,wordStart,
 							wordLength);
 				}
-			
+
 			strncat(tmpBuff, wordStart, wordLength);
 			builtWidth += wordWidth;
 
@@ -244,7 +244,7 @@ int y;
 	*numberOfLines = numLines;
 
 	return(numLines);
-	
+
 } /* PourText() */
 
 
@@ -331,7 +331,7 @@ int x,y;
 
 
 	/* move 2D link list table to an array for speed */
-	if (!(t->table = (TableField *) malloc(sizeof(TableField) 
+	if (!(t->table = (TableField *) malloc(sizeof(TableField)
 				* t->numColumns * t->numRows))) {
 		return(0); /* out of memory */
 		}
@@ -341,7 +341,7 @@ int x,y;
 		x = 0;
 		field = (TableField *) ListHead(rowList);
 		while (field) {
-			memcpy(&(t->table[y * t->numColumns + x]), field, 
+			memcpy(&(t->table[y * t->numColumns + x]), field,
 						sizeof(TableField));
 			x++;
 			field = (TableField *) ListNext(rowList);
@@ -349,10 +349,10 @@ int x,y;
 		y++;
 		rowList = (List) ListNext(tableList);
 		}
-	
+
 
 	return(1);
-	
+
 }
 
 /* return the number of connected fields */
@@ -422,7 +422,7 @@ int maxWidthOfColumn;
 int maxHeightOfRow;
 int sumMinWidth;	/* summation of max widths */
 int maxWidthOfRow;
-int minWidthOfRow;	
+int minWidthOfRow;
 int numAdjacent;
 float percentToShrink;
 int accumulateColWidth;
@@ -455,9 +455,9 @@ int accumulateColWidth;
 		minWidthOfRow += field->minWidth;
 		}
 	    /* save the length of the longest and shortest row */
-	    sumMaxWidth = (sumMaxWidth > maxWidthOfRow) ? 
+	    sumMaxWidth = (sumMaxWidth > maxWidthOfRow) ?
 						sumMaxWidth : maxWidthOfRow;
-	    sumMinWidth = (sumMinWidth > minWidthOfRow) ? 
+	    sumMinWidth = (sumMinWidth > minWidthOfRow) ?
 						sumMinWidth : minWidthOfRow;
 	    }
 
@@ -508,15 +508,15 @@ int accumulateColWidth;
 			/* find widest field in column */
 			maxWidthOfColumn = 0;
 			for (y = 0; y < t->numRows; y++ ) {
-			    maxWidthOfColumn = 
-				(maxWidthOfColumn > 
+			    maxWidthOfColumn =
+				(maxWidthOfColumn >
 				t->table[y * t->numColumns + x].maxWidth)?
-					maxWidthOfColumn : 
+					maxWidthOfColumn :
 					t->table[y * t->numColumns+x].maxWidth;
 			    }
 			/* assign uniform width to column */
 			for (y = 0; y < t->numRows; y++) {
-			        t->table[y*t->numColumns + x].colWidth 
+			        t->table[y*t->numColumns + x].colWidth
 						= maxWidthOfColumn
 						+ 2 * FIELD_BORDER_SPACE;
 				}
@@ -525,10 +525,10 @@ int accumulateColWidth;
 			/* find highest of minimum heights */
 			maxHeightOfRow = 0;
 			for (x=0; x < t->numColumns; x++) {
-				maxHeightOfRow = 
-				    (maxHeightOfRow > 
+				maxHeightOfRow =
+				    (maxHeightOfRow >
 				    t->table[y * t->numColumns + x].minHeight)?
-					maxHeightOfRow: 
+					maxHeightOfRow:
 					t->table[y * t->numColumns+x].minHeight;
 				}
 			/* assign uniform height to row */
@@ -575,7 +575,7 @@ int accumulateColWidth;
 			/* format it */
 			for (y = 0; y < t->numRows; y++) {
 				field = &(t->table[y*t->numColumns+x]);
-				field->colWidth = (int) (percentToShrink * 
+				field->colWidth = (int) (percentToShrink *
 				     ((float) CalculateMaxWidthOfColumn(t,x)));
 				field->rowHeight = 0;
 				numAdjacent = TableHowManyConnectedHorizFields
@@ -587,7 +587,7 @@ int accumulateColWidth;
 					(percentToShrink *
                                         ((float) CalculateMaxWidthOfColumn(t,xx))));
 				    }
-				
+
 #ifndef DISABLE_TRACE
 				if (htmlwTrace) {
 					fprintf(stderr,"About to call PourText\n");
@@ -653,17 +653,17 @@ int accumulateColWidth;
 				}
 			/* assign height */
 			for (x = 0; x < t->numColumns; x++) {
-				t->table[y * t->numColumns + x].rowHeight = 
+				t->table[y * t->numColumns + x].rowHeight =
 					maxHeightOfRow;
 				}
 			}
 
 		/* make sure all widths in a column are the same size */
 		for (x = 0; x < t->numColumns; x++) {
-		    maxWidthOfColumn = 0; 
+		    maxWidthOfColumn = 0;
 		    /* find biggest Width for this column */
 		    for (y = 0; y < t->numRows; y++) {
-			maxWidthOfColumn = (maxWidthOfColumn > 
+			maxWidthOfColumn = (maxWidthOfColumn >
 				t->table[y*t->numColumns+x].colWidth)?
 				maxWidthOfColumn:
 				t->table[y*t->numColumns+x].colWidth;
@@ -673,7 +673,7 @@ int accumulateColWidth;
 			t->table[y*t->numColumns+x].colWidth = maxWidthOfColumn;
 			}
 		    }
-		
+
 		}
 
 
@@ -740,7 +740,7 @@ Boolean expandedSomething;
 	/* check for and take care of previous rowspans */
 	if (rowCount > 1) {
 		/* get field above this one */
-		previousRow = (List) ListGetIndexedEntry(tableList, 
+		previousRow = (List) ListGetIndexedEntry(tableList,
 					rowCount - 2);/*zero indexed*/
 		aboveField =(TableField *)ListGetIndexedEntry(previousRow,
 					*columnCount);
@@ -837,7 +837,7 @@ Boolean fixed;
 		    }
 		m = m->next;
 		}
-	
+
 	if (field->header) {
 		field->font = hw->html.plainbold_font;
 		}
@@ -904,7 +904,7 @@ char *tptr;
 			while(TableExpandFields(tableList, rowList,
 						rowCount, &columnCount));
 
-			/* if: is this the first container <tr> or the 
+			/* if: is this the first container <tr> or the
 			       separator */
 			if (ListHead(ListHead(tableList))) {
 				rowList = ListCreate();
@@ -1111,8 +1111,8 @@ int yy;
 					break;
 			}
 /*
-		placeY = y + height/2 + 
-	   			(field->font->max_bounds.ascent 
+		placeY = y + height/2 +
+	   			(field->font->max_bounds.ascent
 				- field->font->max_bounds.descent)/2;
 */
 
@@ -1158,7 +1158,7 @@ int x,y;
 	x++;
 	if (x < t->numColumns) {
 		/* do width */
-		while ((x < t->numColumns) && 
+		while ((x < t->numColumns) &&
 				t->table[y * t->numColumns + x].contHoriz) {
 			(*expandWidth) += t->table[y * t->numColumns + x].colWidth;
 			x++;
@@ -1169,14 +1169,14 @@ int x,y;
 	y++;
 	if (y < t->numRows) {
 		/* do height */
-		while ((y < t->numRows) && 
+		while ((y < t->numRows) &&
 				t->table[y * t->numColumns + x].contVert) {
 			(*expandHeight) += t->table[y * t->numColumns+x].rowHeight;
 			y++;
 			}
 		}
-	
-	
+
+
 }
 
 
@@ -1216,7 +1216,7 @@ int expandedWidth,expandedHeight;
 	if (eptr->table_data->borders){
 	  /*
 		XDrawRectangle(XtDisplay(hw), XtWindow(hw->html.view),
-			hw->html.drawGC, 
+			hw->html.drawGC,
 			x+(eptr->table_data->borders/2),y+eptr->table_data->borders,
 			eptr->table_data->bwidth,
 			eptr->table_data->bheight);
@@ -1237,14 +1237,14 @@ int expandedWidth,expandedHeight;
 			/* draw field borders */
 			if (eptr->table_data->borders){
 			    if (!field->contVert) { /* draw above line */
-				XDrawLine(XtDisplay(hw), 
+				XDrawLine(XtDisplay(hw),
 					XtWindow(hw->html.view),
                         		hw->html.drawGC,
 					/*hw->manager.bottom_shadow_GC,*/
 					vertMarker, horizMarker,
 					vertMarker + colWidth, horizMarker);
 /*
-				XDrawLine(XtDisplay(hw), 
+				XDrawLine(XtDisplay(hw),
 					XtWindow(hw->html.view),
 					hw->manager.top_shadow_GC,
 					vertMarker, horizMarker+1,
@@ -1252,7 +1252,7 @@ int expandedWidth,expandedHeight;
 */
 				}
 			    if (!field->contHoriz) { /* draw left side*/
-				XDrawLine(XtDisplay(hw), 
+				XDrawLine(XtDisplay(hw),
 					XtWindow(hw->html.view),
                         		hw->html.drawGC,
 					vertMarker, horizMarker,
@@ -1272,10 +1272,10 @@ int expandedWidth,expandedHeight;
 
 			vertMarker += colWidth;
 			field++;
-			}		
+			}
 
 		horizMarker += rowHeight;
-		}	
+		}
 
 	XSetLineAttributes(XtDisplay(hw),
 			   hw->html.drawGC,

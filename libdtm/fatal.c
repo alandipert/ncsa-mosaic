@@ -48,7 +48,7 @@
  *
  * Revision 1.8  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.7  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
@@ -64,10 +64,10 @@
  * Added several new errors, changed the DTMerrmsg function to detect
  * and return 'unknown error:' errors.  Generally encorporated the
  * good features of sherr (from the libtest directory).
- * 
+ *
  * Revision 1.3  91/06/25  20:13:28  creiman
  * Removed varargs and dtm_fatal.
- * 
+ *
  * Revision 1.2  1991/06/11  15:19:57  sreedhar
  * disclaimer added
  *
@@ -133,11 +133,11 @@ char *DTMerrmsg(quiet)
 	int	quiet;
 #endif
 {
-	char	* 	strUnknown = "unknown error: %d"; 
+	char	* 	strUnknown = "unknown error: %d";
 	char		strOut[60];
 	char	*	strErr;
 
-	if ( DTMerrno < (sizeof(err_msg)/sizeof(char *))) 
+	if ( DTMerrno < (sizeof(err_msg)/sizeof(char *)))
 		strErr = err_msg[(int)DTMerrno];
 	else {
 		sprintf( strOut, strUnknown, DTMerrno);
@@ -145,7 +145,7 @@ char *DTMerrmsg(quiet)
 	}
 
 	if (!quiet)
-		fprintf(stderr, "\nDTMerrno = %d: %s\n", DTMerrno, 
+		fprintf(stderr, "\nDTMerrno = %d: %s\n", DTMerrno,
 					strErr);
 	return strErr;
 }

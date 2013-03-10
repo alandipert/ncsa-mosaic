@@ -118,7 +118,7 @@ char **ParseCommaList();
 void FreeCommaList();
 char *MapOptionReturn();
 
-static char traversal_table[] = 
+static char traversal_table[] =
 "\
 ~Shift ~Meta ~Ctrl <Key> Tab:  traversal_forward()\n\
 Shift ~Meta ~Ctrl <Key> Tab:   traversal_back()\n\
@@ -524,7 +524,7 @@ CollectSubmitInfo(fptr, name_list, value_list)
 				    cbdata.attribute_count--;
 				}
 				break;
- 
+
 		       /*** cvarela@ncsa.uiuc.edu:  August 17, 1994
 		            Adding multiple submit buttons support ***/
 				/* mods 3/11/95  -- amb */
@@ -1478,7 +1478,7 @@ PrepareFormEnd(hw, w, fptr)
 	FormInfo *fptr;
 {
 #ifdef MOTIF
-	XtAddCallback(w, XmNactivateCallback, 
+	XtAddCallback(w, XmNactivateCallback,
                       (XtCallbackProc)CBSubmitForm, (caddr_t)fptr);
 #else
 	XtAddCallback(w, XtNcallback,
@@ -1494,7 +1494,7 @@ PrepareFormReset(hw, w, fptr)
 	FormInfo *fptr;
 {
 #ifdef MOTIF
-	XtAddCallback(w, XmNactivateCallback, 
+	XtAddCallback(w, XmNactivateCallback,
                       (XtCallbackProc)CBResetForm, (caddr_t)fptr);
 #else
 	XtAddCallback(w, XtNcallback,
@@ -2256,9 +2256,9 @@ MakeWidget(hw, text, x, y, id, fptr)
 
 			if(!hw->html.focus_follows_mouse)
 			  {
-			    XtOverrideTranslations(w, 
+			    XtOverrideTranslations(w,
 				    XtParseTranslationTable(traversal_table));
-			    XtOverrideTranslations(w, 
+			    XtOverrideTranslations(w,
 				    XtParseTranslationTable("<Btn1Down>: Arm() traversal_current()"));
 			  }
 
@@ -2324,7 +2324,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			w = XmCreateToggleButton(hw->html.view, widget_name,
 				arg, argcnt);
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 				  XtParseTranslationTable(traversal_table));
 
 			XtSetMappedWhenManaged(w, False);
@@ -2362,7 +2362,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			w = XmCreatePushButton(hw->html.view, widget_name,
 				arg, argcnt);
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 				  XtParseTranslationTable(traversal_table));
 			XtSetMappedWhenManaged(w, False);
 			XtManageChild(w);
@@ -2400,7 +2400,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			w = XmCreatePushButton(hw->html.view, widget_name,
 				arg, argcnt);
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 				  XtParseTranslationTable(traversal_table));
 			XtSetMappedWhenManaged(w, False);
 			XtManageChild(w);
@@ -2432,7 +2432,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			w = XmCreatePushButton(hw->html.view, widget_name,
 				arg, argcnt);
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 				  XtParseTranslationTable(traversal_table));
 			XtSetMappedWhenManaged(w, False);
 			XtManageChild(w);
@@ -2655,7 +2655,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 					XtManageChild(button);
 					XmStringFree(label);
 					if(!hw->html.focus_follows_mouse)
-					  XtOverrideTranslations(button, 
+					  XtOverrideTranslations(button,
 				            XtParseTranslationTable(traversal_table));
 					if ((vlist_cnt > 0)&&
 						(vlist[0] != NULL)&&
@@ -2688,9 +2688,9 @@ MakeWidget(hw, text, x, y, id, fptr)
 				XtSetArg(arg[argcnt], XmNx, x); argcnt++;
 				XtSetArg(arg[argcnt], XmNy, y); argcnt++;
 				/* kill margins */
-				XtSetArg(arg[argcnt], XmNmarginWidth, 0); 
+				XtSetArg(arg[argcnt], XmNmarginWidth, 0);
 				argcnt++;
-				XtSetArg(arg[argcnt], XmNmarginHeight, 0); 
+				XtSetArg(arg[argcnt], XmNmarginHeight, 0);
 				argcnt++;
 				XtSetArg(arg[argcnt], XmNsubMenuId, pulldown);
 					argcnt++;
@@ -2714,12 +2714,12 @@ MakeWidget(hw, text, x, y, id, fptr)
 					widget_name, arg, argcnt);
 				if(!hw->html.focus_follows_mouse)
 				  {
-				    XtOverrideTranslations(w, 
+				    XtOverrideTranslations(w,
 				     XtParseTranslationTable(traversal_table));
-				    XtOverrideTranslations(pulldown, 
+				    XtOverrideTranslations(pulldown,
 				     XtParseTranslationTable(traversal_table));
 				  }
-				
+
                                 argcnt = 0;
 
 				xmstr = XmStringCreateSimple ("");
@@ -2822,10 +2822,10 @@ MakeWidget(hw, text, x, y, id, fptr)
 				w = XmCreateList(scroll, widget_name,
 					arg, argcnt);
 				if(!hw->html.focus_follows_mouse)
-				  XtOverrideTranslations(w, 
+				  XtOverrideTranslations(w,
 				     XtParseTranslationTable(traversal_table));
 				XtManageChild(w);
-				
+
 				w = scroll;
 
 				for (i=0; i<list_cnt; i++)
@@ -2903,10 +2903,10 @@ MakeWidget(hw, text, x, y, id, fptr)
 			w = XmCreateTextField(hw->html.view, widget_name,
 				arg, argcnt);
 			XtOverrideTranslations(w, XtParseTranslationTable(text_translations));
-									 
+
 
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 				  XtParseTranslationTable(traversal_table));
 /*
  * The proper order here is XtSetMappedWhenManaged, XtManageChild.  But a bug
@@ -3012,9 +3012,9 @@ MakeWidget(hw, text, x, y, id, fptr)
 			XtOverrideTranslations(w, XtParseTranslationTable(text_translations));
 
 			if(!hw->html.focus_follows_mouse)
-			  XtOverrideTranslations(w, 
+			  XtOverrideTranslations(w,
 		       	     XtParseTranslationTable(traversal_table));
-			
+
 
 			w = scroll;
 
@@ -3061,7 +3061,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 				type = W_TEXTAREA;
 				cols = atoi(list[0]);
 				rows = atoi(list[1]);
-				
+
 				/* be a textfield if only one row */
 				if(rows==1)
 				  type=W_TEXTFIELD;
@@ -3117,7 +3117,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 					widget_name, arg, argcnt);
 				XtOverrideTranslations(w, XtParseTranslationTable(text_translations));
 				if(!hw->html.focus_follows_mouse)
-				  XtOverrideTranslations(w, 
+				  XtOverrideTranslations(w,
 				     XtParseTranslationTable(traversal_table));
 			}
 			/*
@@ -3158,7 +3158,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 				XtManageChild(w);
 				XtOverrideTranslations(w, XtParseTranslationTable(text_translations));
 				if(!hw->html.focus_follows_mouse)
-				  XtOverrideTranslations(w, 
+				  XtOverrideTranslations(w,
 				     XtParseTranslationTable(traversal_table));
 
 
@@ -3216,7 +3216,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			height = 0;
 		}
 
-		wptr = AddNewWidget(hw, fptr, w, type, id, x, y, width, 
+		wptr = AddNewWidget(hw, fptr, w, type, id, x, y, width,
 			height, name, value, mapping, checked);
 	}
 	else
@@ -3280,7 +3280,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 	WidgetInfo *wptr;
 	Dimension width, height;
 
-        
+
 	wlist = hw->html.widget_list;
 	while (wlist != NULL)
 	{
@@ -4148,13 +4148,13 @@ unsigned long bp=BlackPixel(XtDisplay(hw),DefaultScreen(XtDisplay(hw)));
 
 void traversal_forward(Widget w, XEvent *event,
 	       String *params, Cardinal *num_params)
-{ 
+{
   HTMLTraverseTabGroups(w, XmTRAVERSE_NEXT_TAB_GROUP);
 }
 
 void traversal_back(Widget w, XEvent *event,
 	       String *params, Cardinal *num_params)
-{ 
+{
   HTMLTraverseTabGroups(w, XmTRAVERSE_PREV_TAB_GROUP);
 }
 
@@ -4227,7 +4227,7 @@ void HTMLTraverseTabGroups(Widget w, int how)
   top = (Widget) hw;
   while(!XtIsTopLevelShell(top))
     top = XtParent(top);
-  
+
   switch(how)
     {
     case XmTRAVERSE_NEXT_TAB_GROUP:
@@ -4251,7 +4251,7 @@ void HTMLTraverseTabGroups(Widget w, int how)
       }
 
       /* automagickly scroll */
-      if(XtIsManaged(hw->html.vbar) && 
+      if(XtIsManaged(hw->html.vbar) &&
 	 (lptr->y > (hw->html.view_height+hw->html.scroll_y-10)))
 	{
 	  int val, ss, in, pg_in, amount;
@@ -4273,7 +4273,7 @@ void HTMLTraverseTabGroups(Widget w, int how)
 	  Widget text;
 	  XtVaGetValues(lptr->w, XmNworkWindow, &text, NULL);
 	  XtSetKeyboardFocus(top, text);
-	} 
+	}
       else
 	XtSetKeyboardFocus(top, lptr->w);
       break;
@@ -4298,7 +4298,7 @@ void HTMLTraverseTabGroups(Widget w, int how)
       }
 
       /* automagickly scroll */
-      if(XtIsManaged(hw->html.vbar) && 
+      if(XtIsManaged(hw->html.vbar) &&
 	 (lptr->y < hw->html.scroll_y+10))
 	{
 	  int val, ss, in, pg_in, amount;
@@ -4329,9 +4329,9 @@ void HTMLTraverseTabGroups(Widget w, int how)
       break;
     case XmTRAVERSE_CURRENT:
       lptr = hw->html.widget_list;
-      
+
       /* check parent to allow for text areas (lptr->w would be scroll) */
-      while(lptr!=NULL) 
+      while(lptr!=NULL)
 	{
 	  if((lptr->w == w) || (lptr->w == XtParent(w)))
 	    break;

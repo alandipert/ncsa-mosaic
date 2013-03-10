@@ -173,7 +173,7 @@ PRIVATE int parse_menu ARGS2 (
   PUTS("<H1>Gopher Menu</H1>\n");
 
   START(HTML_DL);
-  while ((ch=HTGetCharacter ()) != (char)EOF) 
+  while ((ch=HTGetCharacter ()) != (char)EOF)
     {
       if (interrupted_in_htgetcharacter)
         {
@@ -184,45 +184,45 @@ PRIVATE int parse_menu ARGS2 (
           (*targetClass.handle_interrupt)(target);
           return HT_INTERRUPTED;
         }
-      if (ch != LF) 
+      if (ch != LF)
         {
           *p = ch;		/* Put character in line */
           if (p< &line[BIG-1]) p++;
-        } 
-      else 
+        }
+      else
         {
           *p++ = 0;		/* Terminate line */
           p = line;		/* Scan it to parse it */
           port = 0;		/* Flag "not parsed" */
 #ifndef DISABLE_TRACE
-          if (www2Trace) 
+          if (www2Trace)
             fprintf(stderr, "HTGopher: Menu item: %s\n", line);
 #endif
           gtype = *p++;
-          
+
           /* Break on line with a dot by itself */
-          if ((gtype=='.') && ((*p=='\r') || (*p==0))) 
+          if ((gtype=='.') && ((*p=='\r') || (*p==0)))
             break;
-          
-          if (gtype && *p) 
+
+          if (gtype && *p)
             {
               name = p;
               selector = strchr(name, TAB);
               START(HTML_DD);
-              if (selector) 
+              if (selector)
                 {
                   *selector++ = 0;	/* Terminate name */
                   host = strchr(selector, TAB);
-                  if (host) 
+                  if (host)
                     {
                       *host++ = 0;	/* Terminate selector */
                       port = strchr(host, TAB);
-                      if (port) 
+                      if (port)
                         {
                           char *junk;
                           port[0] = ':';	/* delimit host a la W3 */
                           junk = strchr(port, TAB);
-                          if (junk) 
+                          if (junk)
                             *junk++ = 0;	/* Chop port */
                           if ((port[1]=='0') && (!port[2]))
                             port[0] = 0;	/* 0 means none */
@@ -230,39 +230,39 @@ PRIVATE int parse_menu ARGS2 (
 		    } /* host ok */
 		} /* selector ok */
 	    } /* gtype and name ok */
-          
-          if (gtype == GOPHER_WWW) 
+
+          if (gtype == GOPHER_WWW)
             {	/* Gopher pointer to W3 */
               write_anchor(name, selector, "internal-gopher-text");
-	    } 
-          else if (port) 
+	    }
+          else if (port)
             {		/* Other types need port */
-              if (gtype == GOPHER_TELNET) 
+              if (gtype == GOPHER_TELNET)
                 {
-                  if (*selector) 
+                  if (*selector)
                     sprintf(address, "telnet://%s@%s/",
                             selector, host);
-                  else 
+                  else
                     sprintf(address, "telnet://%s/", host);
-                } 
-              else if (gtype == GOPHER_TN3270) 
+                }
+              else if (gtype == GOPHER_TN3270)
                 {
-                  if (*selector) 
+                  if (*selector)
                     sprintf(address, "tn3270://%s@%s/",
                             selector, host);
-                  else 
+                  else
                     sprintf(address, "tn3270://%s/", host);
                 }
-              else 
+              else
                 {			/* If parsed ok */
                   char *q;
                   unsigned char *p;
                   sprintf(address, "//%s/%c", host, gtype);
                   q = address+ strlen(address);
-                  for(p=(unsigned char *)selector; *p; p++) 
+                  for(p=(unsigned char *)selector; *p; p++)
                     {	/* Encode selector string */
                       if (acceptable[*p]) *q++ = *p;
-                      else 
+                      else
                         {
                           *q++ = HEX_ESCAPE;	/* Means hex coming */
                           *q++ = hex[(*p) >> 4];
@@ -325,8 +325,8 @@ PRIVATE int parse_menu ARGS2 (
                   /* Good error handling??? */
                   PUTS(line);
                 }
-	    } 
-          else 
+	    }
+          else
             { /* parse error */
 #ifndef DISABLE_TRACE
               if (www2Trace) fprintf(stderr,
@@ -346,13 +346,13 @@ PRIVATE int parse_menu ARGS2 (
       (*targetClass.handle_interrupt)(target);
       return HT_INTERRUPTED;
     }
-  
+
   END(HTML_DL);
   END_TARGET;
   FREE_TARGET;
 
   HTProgress ("Retrieved Gopher menu.");
-  
+
   return 1;
 }
 
@@ -414,7 +414,7 @@ PRIVATE int parse_cso ARGS2 (WWW_CONST char *,	arg,
   PUTS("<H1>CSO Search Results</H1>\n<PRE>");
 
   /* start grabbing chars from the network */
-  while ((ch=HTGetCharacter ()) != (char)EOF) 
+  while ((ch=HTGetCharacter ()) != (char)EOF)
     {
       if (interrupted_in_htgetcharacter)
         {
@@ -425,25 +425,25 @@ PRIVATE int parse_cso ARGS2 (WWW_CONST char *,	arg,
           (*targetClass.handle_interrupt)(target);
           return HT_INTERRUPTED;
         }
-      if (ch != '\n') 
+      if (ch != '\n')
         {
           *p = ch;		/* Put character in line */
           if (p< &line[BIG-1]) p++;
-        } 
-      else 
+        }
+      else
         {
           *p++ = 0;		/* Terminate line */
           p = line;		/* Scan it to parse it */
 
 	/* OK we now have a line in 'p' lets parse it and print it */
-          
+
           /* Break on line that begins with a 2. It's the end of
            * data.
 	   */
           if (*p == '2')
 		break;
 
-	  /*  lines beginning with 5 are errors, 
+	  /*  lines beginning with 5 are errors,
 	   *  print them and quit
 	   */
           if (*p == '5') {
@@ -455,11 +455,11 @@ PRIVATE int parse_cso ARGS2 (WWW_CONST char *,	arg,
 
 	  if(*p == '-') {
 	     /*  data lines look like  -200:#:
-              *  where # is the search result number and can be multiple 
+              *  where # is the search result number and can be multiple
 	      *  digits (infinate?)
               *  find the second colon and check the digit to the
               *  left of it to see if they are diferent
-              *  if they are then a different person is starting. 
+              *  if they are then a different person is starting.
 	      *  make this line an <h2>
               */
 
@@ -504,7 +504,7 @@ PRIVATE int parse_cso ARGS2 (WWW_CONST char *,	arg,
 	     } /* end if second_colon */
 	  } /* end if *p == '-' */
         } /* if end of line */
-      
+
     } /* Loop over characters */
   if (interrupted_in_htgetcharacter)
     {
@@ -515,7 +515,7 @@ PRIVATE int parse_cso ARGS2 (WWW_CONST char *,	arg,
       (*targetClass.handle_interrupt)(target);
       return HT_INTERRUPTED;
     }
-  
+
   /* end the text block */
   PUTS("\n<PRE>");
   END_TARGET;
@@ -544,7 +544,7 @@ PRIVATE void de_escape ARGS2(char *, command, WWW_CONST char *, selector)
 
   p = strdup (selector);
   HTUnEscape (p);
-  
+
   strcpy (command, p);
 
   free (p);
@@ -576,33 +576,33 @@ PUBLIC int HTLoadGopher ARGS4(
   char gtype;				/* Gopher Node type */
   char * selector;			/* Selector string */
   int rv = 0;
-  
+
   if (!acceptable_inited) init_acceptable();
-  
-  if (!arg) 
+
+  if (!arg)
     return -3;		/* Bad if no name sepcified	*/
-  if (!*arg) 
+  if (!*arg)
     return -2;		/* Bad if name had zero length	*/
-  
+
 #ifndef DISABLE_TRACE
   if (www2Trace) fprintf(stderr, "HTGopher: Looking for %s\n", arg);
 #endif
-  
+
   /* Get entity type, and selector string.
-   */        
+   */
   {
     char * p1 = HTParse(arg, "", PARSE_PATH|PARSE_PUNCTUATION);
     gtype = '1';		/* Default = menu */
     selector = p1;
-    if ((*selector++=='/') && (*selector)) 
+    if ((*selector++=='/') && (*selector))
       {	/* Skip first slash */
         gtype = *selector++;			/* Pick up gtype */
       }
-    if (gtype == GOPHER_INDEX) 
+    if (gtype == GOPHER_INDEX)
       {
         char * query;
         query = strchr(selector, '?');	/* Look for search string */
-        if (!query || !query[1]) 
+        if (!query || !query[1])
           {		/* No search required */
             target = HTML_new(anAnchor, format_out, sink);
             targetClass = *target->isa;
@@ -612,17 +612,17 @@ PUBLIC int HTLoadGopher ARGS4(
         *query++ = 0;			/* Skip '?' 	*/
         HTUnEscape (query);
         command = malloc(strlen(selector)+ 1 + strlen(query)+ 2 + 1);
-        
+
         de_escape(command, selector);
-        
+
         strcat(command, "\t");
         strcat(command, query);
-      } 
-    else if (gtype == GOPHER_CSO) 
+      }
+    else if (gtype == GOPHER_CSO)
       {
         char * query;
         query = strchr(selector, '?');      /* Look for search string */
-        if (!query || !query[1]) 
+        if (!query || !query[1])
           {          /* No search required */
             target = HTML_new(anAnchor, format_out, sink);
             targetClass = *target->isa;
@@ -632,20 +632,20 @@ PUBLIC int HTLoadGopher ARGS4(
         *query++ = 0;                       /* Skip '?'     */
         HTUnEscape (query);
         command = malloc(strlen("query")+ 1 + strlen(query)+ 2 + 1);
-        
+
         de_escape(command, selector);
-        
+
         strcpy(command, "query ");
         strcat(command, query);
-      } 
-    else 
+      }
+    else
       {				/* Not index */
         command = malloc(strlen(selector)+2+1);
         de_escape(command, selector);
       }
     free(p1);
   }
-  
+
   /* Patch security hole. */
   {
     char *tmp;
@@ -680,24 +680,24 @@ PUBLIC int HTLoadGopher ARGS4(
   if (status<0)
     {
 #ifndef DISABLE_TRACE
-      if (www2Trace) 
-        fprintf(stderr, 
+      if (www2Trace)
+        fprintf(stderr,
                 "HTTPAccess: Unable to connect to remote host for `%s'.\n",
                 arg);
 #endif
       free(command);
       return HT_NOT_LOADED;
     }
-  
+
   HTInitInput(s);		/* Set up input buffering */
-  
+
 #ifndef DISABLE_TRACE
-  if (www2Trace) 
-    fprintf(stderr, 
-            "HTGopher: Connected, writing command `%s' to socket %d\n", 
+  if (www2Trace)
+    fprintf(stderr,
+            "HTGopher: Connected, writing command `%s' to socket %d\n",
             command, s);
 #endif
-  
+
   status = NETWRITE(s, command, (int)strlen(command));
   free(command);
   if (status<0)
@@ -708,14 +708,14 @@ PUBLIC int HTLoadGopher ARGS4(
       NETCLOSE (s);
       return HT_NOT_LOADED;
     }
-  
-  /* Now read the data from the socket: */    
-  switch (gtype) 
+
+  /* Now read the data from the socket: */
+  switch (gtype)
     {
       int compressed;
       HTAtom *enc;
       extern int tweak_gopher_types;
-            
+
     case GOPHER_MENU:
     case GOPHER_INDEX:
       target = HTML_new(anAnchor, format_out, sink);
@@ -728,7 +728,7 @@ PUBLIC int HTLoadGopher ARGS4(
       targetClass = *target->isa;
       rv = parse_cso(arg, anAnchor);
       break;
-      
+
     case GOPHER_MACBINHEX:
     case GOPHER_PCBINHEX:
     case GOPHER_UUENCODED:
@@ -744,10 +744,10 @@ PUBLIC int HTLoadGopher ARGS4(
     case GOPHER_IMAGE:
     case GOPHER_PLUS_IMAGE:
       if (!tweak_gopher_types)
-        rv = HTParseSocket(HTAtom_for ("image/gif"), 
+        rv = HTParseSocket(HTAtom_for ("image/gif"),
                            format_out, anAnchor, s, sink, 0);
       else
-        rv = HTParseSocket(HTFileFormat (arg, &enc, HTAtom_for ("image/gif"), 
+        rv = HTParseSocket(HTFileFormat (arg, &enc, HTAtom_for ("image/gif"),
                                          &compressed),
                            format_out, anAnchor, s, sink, 0);
       break;
@@ -755,11 +755,11 @@ PUBLIC int HTLoadGopher ARGS4(
     case GOPHER_SOUND:
     case GOPHER_PLUS_SOUND:
       if (!tweak_gopher_types)
-        rv = HTParseSocket(HTAtom_for ("audio/basic"), 
+        rv = HTParseSocket(HTAtom_for ("audio/basic"),
                            format_out, anAnchor, s, sink, 0);
       else
-        rv = HTParseSocket(HTFileFormat (arg, &enc, 
-                                         HTAtom_for ("audio/basic"), 
+        rv = HTParseSocket(HTFileFormat (arg, &enc,
+                                         HTAtom_for ("audio/basic"),
                                          &compressed),
                            format_out, anAnchor, s, sink, 0);
       break;
@@ -767,11 +767,11 @@ PUBLIC int HTLoadGopher ARGS4(
     case GOPHER_PLUS_MOVIE:
       /* Sigh..... */
       if (!tweak_gopher_types)
-        rv = HTParseSocket(HTAtom_for ("video/mpeg"), 
+        rv = HTParseSocket(HTAtom_for ("video/mpeg"),
                            format_out, anAnchor, s, sink, 0);
       else
-        rv = HTParseSocket(HTFileFormat (arg, &enc, 
-                                         HTAtom_for ("video/mpeg"), 
+        rv = HTParseSocket(HTFileFormat (arg, &enc,
+                                         HTAtom_for ("video/mpeg"),
                                          &compressed),
                            format_out, anAnchor, s, sink, 0);
       break;
@@ -783,7 +783,7 @@ PUBLIC int HTLoadGopher ARGS4(
         rv = HTParseSocket(HTFileFormat (arg, &enc, WWW_HTML, &compressed),
                            format_out, anAnchor, s, sink, 0);
       break;
-      
+
     case GOPHER_TEXT:
     default:			/* @@ parse as plain text */
       if (!tweak_gopher_types)
@@ -794,7 +794,7 @@ PUBLIC int HTLoadGopher ARGS4(
            format_out, anAnchor, s, sink, 0);
       break;
     } /* switch(gtype) */
-  
+
   NETCLOSE(s);
   if (rv == HT_INTERRUPTED)
     {

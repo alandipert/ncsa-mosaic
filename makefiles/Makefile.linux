@@ -17,9 +17,9 @@ RANLIB = ranlib
 
 #CC = cc
 #### On Sun's, this should be gcc (ANSI required).
-CC = gcc
+CC = clang
 
-#### Linker Flags 
+#### Linker Flags
 ldflags =
 
 #### For a few files in the source, some compilers may need to be kicked
@@ -35,7 +35,7 @@ knrflag =
 #### For NeXT, do -DNEXT
 #### For HP/UX, do -Aa -D_HPUX_SOURCE
 #### For Dell SVR4, do -DSVR4
-#### For Solaris, do -DSVR4 
+#### For Solaris, do -DSVR4
 #### For Esix 4.0.4 and Solaris x86 2.1, do -DSVR4
 #### For Convex whatever, do -DCONVEX
 #### For SCO ODT 3.0, do -DSCO -DSVR4 -DMOTIF1_2
@@ -156,10 +156,10 @@ jpegflags = -DHAVE_JPEG
 
 #### KERBEROS SUPPORT
 ####
-#### If you want Mosaic to support Kerberos authentication, set the 
+#### If you want Mosaic to support Kerberos authentication, set the
 #### following flags appropriately.  You can support Kerberos V4 and/or V5,
 #### although it's most likely that your realm supports one or the other.
-#### To enable DES-encryption of HTTP messages via Kerberos key exchange, 
+#### To enable DES-encryption of HTTP messages via Kerberos key exchange,
 #### define the KRB-ENCRYPT flag.
 
 ##krb4dir   = /usr/athena
@@ -174,7 +174,7 @@ jpegflags = -DHAVE_JPEG
 
 #Do not comment out.
 krbflags  = $(krb4flags) $(krb5flags)
-krblibs   = $(krb4libs) $(krb5libs) 
+krblibs   = $(krb4libs) $(krb5libs)
 
 
 #### DIRECT WAIS SUPPORT
@@ -184,7 +184,7 @@ krblibs   = $(krb4libs) $(krb5libs)
 #### recommend linking with CNIDR's freeWAIS 0.5 distribution; other
 #### WAIS distributions may work but we have not tested them with
 #### Mosaic.  freeWAIS 0.5 can currently (Sept.1995) be found at
-#### ftp://sunsite.unc.edu/pub/wais/servers/freeWAIS 
+#### ftp://sunsite.unc.edu/pub/wais/servers/freeWAIS
 
 #### If you do not wish to link to the WAIS libraries, then comment
 #### the following lines out.  Mosaic will then communicate with WAIS
@@ -206,7 +206,7 @@ krblibs   = $(krb4libs) $(krb5libs)
 #### . If you want to define the default Mosaic documentation directory
 ####   (should be a URL), set -DDOCS_DIRECTORY_DEFAULT=\\\"url\\\"
 #### . Other things you can define are spelled out in src/mosaic.h.
-customflags =
+customflags = -O3 -DHOME_PAGE_DEFAULT=\\\"about:blank\\\"
 
 
 

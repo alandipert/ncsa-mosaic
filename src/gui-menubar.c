@@ -133,7 +133,7 @@ static XmxCallback (exit_confirm_cb)
     mo_exit ();
   else
     XtUnmanageChild (w);
-  
+
   return;
 }
 
@@ -470,7 +470,7 @@ mo_status mo_set_underlines (mo_window *win, int choice)
                      WbNanchorUnderlines, &(win->underlines),
                      WbNvisitedAnchorUnderlines, &(win->visited_underlines),
                      WbNdashedAnchorUnderlines, &(win->dashed_underlines),
-                     WbNdashedVisitedAnchorUnderlines, 
+                     WbNdashedVisitedAnchorUnderlines,
                      &(win->dashed_visited_underlines),
                      NULL);
       win->underlines_snarfed = 1;
@@ -482,7 +482,7 @@ mo_status mo_set_underlines (mo_window *win, int choice)
       XmxSetArg (WbNanchorUnderlines, win->underlines);
       XmxSetArg (WbNvisitedAnchorUnderlines, win->visited_underlines);
       XmxSetArg (WbNdashedAnchorUnderlines, win->dashed_underlines);
-      XmxSetArg (WbNdashedVisitedAnchorUnderlines, 
+      XmxSetArg (WbNdashedVisitedAnchorUnderlines,
                  win->dashed_visited_underlines);
       XmxSetValues (win->scrolled_win);
       break;
@@ -519,7 +519,7 @@ mo_status mo_set_underlines (mo_window *win, int choice)
   XmxRSetToggleState (win->menubar, win->underlines_state, XmxNotSet);
   XmxRSetToggleState (win->menubar, choice, XmxSet);
   win->underlines_state = choice;
-  
+
   return mo_succeed;
 }
 
@@ -528,7 +528,7 @@ mo_status mo_set_underlines (mo_window *win, int choice)
 static XmxCallback (clear_history_confirm_cb)
 {
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  
+
   if (XmxExtractToken ((int)client_data))
     {
       mo_window *w = NULL;
@@ -539,7 +539,7 @@ static XmxCallback (clear_history_confirm_cb)
     }
   else
     XtUnmanageChild (w);
-  
+
   return;
 }
 
@@ -558,9 +558,9 @@ static mo_status mo_do_delete_annotation (mo_window *win)
     {
       mo_grok_pan_pieces (win->current_node->url,
                           win->current_node->text,
-                          &title, &author, &text, 
+                          &title, &author, &text,
                           &id, &fname);
-      
+
       mo_delete_annotation (win, id);
     }
   else if (win->current_node->annotation_type == mo_annotation_workgroup)
@@ -580,10 +580,10 @@ static XmxCallback (delete_annotation_confirm_cb)
 
   if (!mo_is_editable_annotation (win, win->current_node->text))
     return;
-  
+
   if (XmxExtractToken ((int)client_data))
     mo_do_delete_annotation (win);
-  
+
   return;
 }
 
@@ -611,7 +611,7 @@ int i = XmxExtractToken ((int)client_data);
 	mo_set_agents(win,i);
 	return;
 }
-  
+
 
 /* ------------------------------ menubar_cb ------------------------------ */
 
@@ -630,7 +630,7 @@ XmxCallback (menubar_cb)
       win = current_win;
       eptr = acst->eptr;
     }
-  
+
   switch (i)
     {
     case mo_reload_document:
@@ -749,7 +749,7 @@ XmxCallback (menubar_cb)
       mo_access_document (win, NETWORK_STARTING_POINTS_DEFAULT);
       break;
     case mo_internet_metaindex:
-      if (cci_event) 
+      if (cci_event)
 	MoCCISendEventOutput(NAVIGATE_INTERNET_RESOURCES_META_INDEX);
       mo_access_document (win, INTERNET_METAINDEX_DEFAULT);
       break;
@@ -810,7 +810,7 @@ XmxCallback (menubar_cb)
 	}
 	mo_rbm_myself_to_death(win,0);
 	break;
-/* removed 5/17/96 - bjs 
+/* removed 5/17/96 - bjs
     case mo_fancy_selections:
       win->pretty = 1 - win->pretty;
       mo_set_fancy_selections_toggle (win);
@@ -848,8 +848,8 @@ XmxCallback (menubar_cb)
         (win->binary_transfer ? 0 : 1);
       if (cci_event)
       {
-	if (win->binary_transfer) 
-		MoCCISendEventOutput(OPTIONS_LOAD_TO_LOCAL_DISK_ON);  
+	if (win->binary_transfer)
+		MoCCISendEventOutput(OPTIONS_LOAD_TO_LOCAL_DISK_ON);
 	else
 		MoCCISendEventOutput(OPTIONS_LOAD_TO_LOCAL_DISK_OFF);
       }
@@ -975,17 +975,17 @@ XmxCallback (menubar_cb)
       break;
     case mo_help_faq:
       if (cci_event) MoCCISendEventOutput(HELP_ON_FAQ);
-      mo_open_another_window (win, mo_assemble_help_url ("mosaic-faq.html"), 
+      mo_open_another_window (win, mo_assemble_help_url ("mosaic-faq.html"),
                               NULL, NULL);
       break;
     case mo_help_html:
       if (cci_event) MoCCISendEventOutput(HELP_ON_HTML);
-      mo_open_another_window (win, HTMLPRIMER_PAGE_DEFAULT, 
+      mo_open_another_window (win, HTMLPRIMER_PAGE_DEFAULT,
                               NULL, NULL);
       break;
     case mo_help_url:
       if (cci_event) MoCCISendEventOutput(HELP_ON_URLS);
-      mo_open_another_window (win, URLPRIMER_PAGE_DEFAULT, 
+      mo_open_another_window (win, URLPRIMER_PAGE_DEFAULT,
                               NULL, NULL);
       break;
 #ifndef PRERELEASE
@@ -995,18 +995,18 @@ XmxCallback (menubar_cb)
 	CommentCard(win);
       break;
 #endif
-    case mo_techsupport:        
+    case mo_techsupport:
         if (cci_event) MoCCISendEventOutput(HELP_MAIL_TECH_SUPPORT);
 
         {
             char subj[128];
-            
+
             sprintf (subj, "User Feedback -- NCSA Mosaic %s on %s.",
                      MO_VERSION_STRING, MO_MACHINE_TYPE);
-      
+
             mo_post_mailto_win(MO_DEVELOPER_ADDRESS,subj);
         }
-        
+
 /*      mo_post_techsupport_win (win);*/
       break;
     case mo_annotate:
@@ -1101,7 +1101,7 @@ XmxCallback (menubar_cb)
       sprintf (buf, "news:*");
       mo_load_window_text (win, buf, NULL);
       break;
-      
+
     case mo_news_mread:
       gui_news_markGroupRead (win);
       break;
@@ -1182,21 +1182,21 @@ XmxCallback (menubar_cb)
         {
           char *author, *title, *text, *fname;
           int id;
-          
+
           if (win->current_node->annotation_type == mo_annotation_private)
             {
               mo_grok_pan_pieces (win->current_node->url,
                                   win->current_node->text,
-                                  &title, &author, &text, 
+                                  &title, &author, &text,
                                   &id, &fname);
-              
+
               mo_post_annotate_win (win, 1, id, title, author, text, fname);
             }
           else if (win->current_node->annotation_type == mo_annotation_workgroup)
             {
               mo_grok_grpan_pieces (win->current_node->url,
                                     win->current_node->text,
-                                    &title, &author, &text, 
+                                    &title, &author, &text,
                                     &id, &fname);
               mo_post_annotate_win (win, 1, id, title, author, text, fname);
             }
@@ -1779,13 +1779,13 @@ char buf[BUFSIZ];
 
 /* -------------------- mo_make_document_view_menubar --------------------- */
 
-/* We now allow a single customizable menu.  
+/* We now allow a single customizable menu.
 
    First choice for the spec file is the value of the resource
    documentsMenuSpecfile.
    If that doesn't exist, second choice is the value of the
    environment variable MOSAIC_DOCUMENTS_MENU_SPECFILE.
-   If *that* doesn't exist, third choice is specified in 
+   If *that* doesn't exist, third choice is specified in
    #define DOCUMENTS_MENU_SPECFILE. */
 
 static mo_status mo_file_exists (char *filename)
@@ -1793,7 +1793,7 @@ static mo_status mo_file_exists (char *filename)
   struct stat buf;
   int r;
 
-  r = stat (filename, &buf); 
+  r = stat (filename, &buf);
   if (r != -1)
     return mo_succeed;
   else
@@ -1814,10 +1814,10 @@ static void mo_grok_menubar (char *filename)
 /*    goto screwed_no_file;*/
 
   /* Make the menu. */
-  menu = (XmxMenubarStruct *) malloc 
+  menu = (XmxMenubarStruct *) malloc
     (MAX_DOCUMENTS_MENU_ITEMS * sizeof (XmxMenubarStruct));
   count = 0;
-  
+
   /* File consists of alternating titles and URL's.
      A title consisting of at least two leading dashes
      is a separator. */
@@ -1849,17 +1849,17 @@ static void mo_grok_menubar (char *filename)
           menu[count].func = (void (*)())menubar_cb;
           menu[count].data = count + DOCUMENTS_MENU_COUNT_OFFSET;
           menu[count].sub_menu = 0;
-          
+
           status = fgets (line, MO_LINE_LENGTH, fp);
           if (!status || !(*line))
             {
               /* Oops, something went wrong. */
               menu[count].namestr = 0;
-              
+
 /*              goto done;*/
 		break;
             }
-          
+
           /* There's a URL. */
           urllist[count] = strdup (line);
           urllist[count][strlen(line)-1] = '\0';
@@ -1908,7 +1908,7 @@ static void mo_grok_menubar (char *filename)
 static void mo_try_to_grok_menubar (void)
 {
   char *filename = get_pref_string(eDOCUMENTS_MENU_SPECFILE);
-  
+
   if (filename && mo_file_exists (filename))
     {
       mo_grok_menubar (filename);
@@ -1948,7 +1948,7 @@ XmxMenuRecord *toBeReturned;
       mo_try_to_grok_menubar ();
     }
 
-  toBeReturned = XmxRMakeMenubar(form, 
+  toBeReturned = XmxRMakeMenubar(form,
 				 get_pref_boolean(eSIMPLE_INTERFACE) ?
 				 simple_menuspec : menuspec);
 

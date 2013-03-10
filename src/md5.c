@@ -318,7 +318,7 @@ unsigned char block[64];
     state[1] += b;
     state[2] += c;
     state[3] += d;
-    
+
         /* Zeroize sensitive information.*/
 
     MD5_memset ((POINTER)x, 0, sizeof (x));
@@ -378,7 +378,7 @@ int value;
 unsigned int len;
 {
     unsigned int i;
-    
+
     for (i = 0; i < len; i++)
 	((char *)output)[i] = (char)value;
 }
@@ -402,7 +402,7 @@ void MD5Mem(unsigned char *mem, long len, unsigned char *result) {
     MD5Init (&context);
     MD5Update (&context, mem, len);
     MD5Final (digest, &context);
-    
+
     memcpy(result, digest, 16);
 
 }
@@ -420,7 +420,7 @@ void MD5File(char *filename, unsigned char *result) {
     MD5_CTX context;
     int len;
     unsigned char buffer[1024], digest[16];
-    
+
     if ((file = fopen (filename, "rb")) == NULL)
 	printf ("%s can't be opened\n", filename);
 
@@ -431,7 +431,7 @@ void MD5File(char *filename, unsigned char *result) {
 	MD5Final (digest, &context);
 
 	fclose (file);
-	
+
 	memcpy(result, digest, 16);
     }
 

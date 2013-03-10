@@ -1,5 +1,5 @@
 /*                                ACCESS CONTROL LIST ROUTINES
-                                             
+
  */
 
 #ifndef HTACL_H

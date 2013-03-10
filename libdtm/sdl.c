@@ -22,7 +22,7 @@
 /************************************************************************
 **
 **  sdl.c - Surface Description Language
-**	
+**
 *************************************************************************/
 
 /*
@@ -43,20 +43,20 @@
  *
  * Revision 1.9  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.8  1992/04/06  15:58:56  jplevyak
  * Fixed levels of indirection on some arguments for non-prototype
  * machines.
  *
  * Revision 1.7  92/04/03  12:39:33  dweber
  * Fixed SDLbounds bug.
- * 
+ *
  * Revision 1.6  92/04/03  12:33:10  dweber
  * Added bounding box functions.
- * 
+ *
  * Revision 1.5  91/09/10  15:09:00  jefft
  * I removed all functionality from this file, HA!
- * 
+ *
  * Revision 1.4  1991/07/18  16:29:15  jefft
  * corrected the spelling of "primitive"
  *
@@ -68,7 +68,7 @@
  *
  * Revision 1.1  90/11/08  16:38:33  jefft
  * Initial revision
- * 
+ *
  */
 
 

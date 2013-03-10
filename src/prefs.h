@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/* 
+/*
  * Created: Wed Dec 20 11:08:12 CDT 1995
  * Author: Dan Pape
  *
@@ -73,77 +73,77 @@ typedef struct
 /* anchors */
 
     Boolean track_visited_anchors;
-    Boolean display_urls_not_titles;      
+    Boolean display_urls_not_titles;
     Boolean track_pointer_motion;
     Boolean track_full_url_names;
 
 /* annotations */
-    
+
     Boolean annotations_on_top;
     Boolean confirm_delete_annotation;
     char *annotation_server;
-    
+
 /* audio */
 
     char *record_command_location;
     char *record_command;
-    
+
 /* cache */
 
     Boolean reload_pragma_no_cache;
 
 /* strings (command names, file names) */
-    
+
     char *sendmail_command;
     char *edit_command;
     char *xterm_command;
     char *mail_filter_command;
-       
+
 /* directories */
 
     char *private_annotation_directory;
 
 /* document */
-    
-    char *home_document;                  
+
+    char *home_document;
     char *tmp_directory;
     char *docs_directory;
-    
+
 /* fonts */
-    
+
     char *default_font_choice;
-    
+
 /* history */
-    
+
     char *global_history_file;
     char *history_file;
-    Boolean use_global_history;           
-  
+    Boolean use_global_history;
+
 /* hotlist */
-    
+
     char *default_hotlist_file;
     char *default_hot_file;
     char *documents_menu_specfile;
     Boolean addHotlistAddsRBM;
     Boolean addRBMAddsRBM;
-    
+
 /* images */
-    
+
     int colors_per_inlined_image;
     int image_cache_size;
     Boolean reload_reloads_images;
     Boolean reverse_inlined_bitmap_colors;
     Boolean delay_image_loads;
-    
+
 /* mail */
-    
+
     char *default_author_name;
     char *default_author_email;
     char *signature;
     char *mail_mode;
-    
+
 /* MIME */
-    
+
     char *print_command;
     char *uncompress_command;
     char *gunzip_command;
@@ -157,23 +157,23 @@ typedef struct
 
 /* layout info form main gui */
     char *gui_layout;
-    
+
 /* news */
-    
+
 /* printing */
-    
+
     char *print_mode;
     Boolean print_banners;
     Boolean print_footnotes;
     Boolean print_us;
-    
+
 /* proxy */
-    
+
     char *proxy_specfile;
     char *noproxy_specfile;
-    
+
 /* services */
-    
+
     int cciPort;
     int max_num_of_cci_connections;
     int max_wais_responses;
@@ -182,15 +182,15 @@ typedef struct
     Boolean kioskNoExit;
     Boolean keepAlive;
     int ftp_timeout_val;
-    
+
 /* tables */
-    
+
     Boolean enable_tables;
-    
+
 /* window */
-    
-    int default_width;                    
-    int default_height;                   
+
+    int default_width;
+    int default_height;
     Boolean auto_place_windows;
     Boolean initial_window_iconic;
     Boolean titleIsWindowTitle;
@@ -203,15 +203,15 @@ typedef struct
 /* Save file stuff */
 
     char *save_mode;
-    
+
 /* HDF stuff */
-    
+
     int hdf_max_image_dimension;
     int hdf_max_displayed_datasets;
     int hdf_max_displayed_attributes;
     Boolean hdf_power_user;
     Boolean hdflongname;
-    
+
 /* miscellaneous */
 
     char *full_hostname;
@@ -219,12 +219,12 @@ typedef struct
     Boolean edit_command_use_xterm;
     Boolean confirm_exit;
     Boolean default_fancy_selections;
-    Boolean catch_prior_and_next; 
-    Boolean simple_interface; 
-    Boolean protect_me_from_myself;      
-    Boolean gethostbyname_is_evil;  
+    Boolean catch_prior_and_next;
+    Boolean simple_interface;
+    Boolean protect_me_from_myself;
+    Boolean gethostbyname_is_evil;
     Boolean useAFSKlog;
-    
+
 #ifdef __sgi
     Boolean debugging_malloc;
 #endif
@@ -275,8 +275,8 @@ typedef struct
     Boolean imageViewInternal;
     int urlExpired;
     int popupCascadeMappingDelay;
-    Boolean frame_hack;  
-    
+    Boolean frame_hack;
+
   /* newest in 2.7 (ha top that) */
     Boolean newsNoThreadJumping;
     Boolean newsShowAllArticles;
@@ -353,7 +353,7 @@ void mo_preferences_dialog(mo_window *win);
   4) Add an enumeration for the varuable in the prefs_defs.h file.
 
   (the rest of the changes are in prefs.c)
-  
+
   5) Add a write_pref_* function call to the list in
      write_preferences_file() so that your preference will be added to the
      new prefs file.

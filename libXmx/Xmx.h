@@ -248,14 +248,14 @@ extern Widget XmxMakeRadioBox (Widget);
 extern Widget XmxMakeOptionBox (Widget);
 extern Widget XmxMakeToggleButton (Widget, String, XtCallbackProc, int);
 extern void XmxSetToggleButton (Widget button, int set_state);
-extern Widget XmxMakeScale (Widget, XtCallbackProc, int, String, 
+extern Widget XmxMakeScale (Widget, XtCallbackProc, int, String,
                             int, int, int, int);
 extern void XmxAdjustScale (Widget, int);
 extern Widget XmxMakeFrame (Widget, int);
 extern Widget XmxMakeForm (Widget);
 extern void XmxSetPositions (Widget, int, int, int, int);
 extern void XmxSetOffsets (Widget, int, int, int, int);
-extern void XmxSetConstraints (Widget, int, int, int, int, Widget, Widget, 
+extern void XmxSetConstraints (Widget, int, int, int, int, Widget, Widget,
                                Widget, Widget);
 extern Widget XmxMakeVerticalRowColumn (Widget);
 extern Widget XmxMakeHorizontalRowColumn (Widget);
@@ -272,13 +272,13 @@ extern Widget XmxMakeNamedLabel (Widget, String, String);
 extern Widget XmxMakeBlankLabel (Widget);
 extern Widget XmxMakeErrorDialog (Widget, String, String);
 extern Widget XmxMakeInfoDialog (Widget, String, String);
-extern Widget XmxMakeQuestionDialog (Widget, String, String, XtCallbackProc, 
+extern Widget XmxMakeQuestionDialog (Widget, String, String, XtCallbackProc,
                                      int, int);
 extern XmString XmxMakeXmstrFromFile (String);
 extern XmString XmxMakeXmstrFromString (String);
 extern Widget XmxMakeBboardDialog (Widget, String);
 extern Widget XmxMakeFormDialog (Widget, String);
-extern Widget XmxMakeFileSBDialog (Widget, String, String, XtCallbackProc, 
+extern Widget XmxMakeFileSBDialog (Widget, String, String, XtCallbackProc,
                                    int);
 extern Widget XmxMakeHelpDialog (Widget, XmString, String);
 extern Widget XmxMakeHelpTextDialog (Widget, String, String, Widget *);
@@ -298,7 +298,7 @@ extern void XmxAddCallbackToText (Widget, XtCallbackProc, int);
 #if 0
 
 #ifdef __sgi
-extern Widget XmxMakeDrawingVolume 
+extern Widget XmxMakeDrawingVolume
   (Widget, int, int, GLXconfig *, XtCallbackProc, XtCallbackProc,
    XtCallbackProc);
 extern void XmxInstallColormaps (Widget, Widget);
@@ -307,7 +307,7 @@ extern void XmxWinset (Widget);
 #endif
 
 #ifdef _IBMR2
-extern Widget XmxMakeDrawingVolume 
+extern Widget XmxMakeDrawingVolume
   (Widget, int, int, XtCallbackProc, XtCallbackProc,
    XtCallbackProc);
 extern void XmxInstallColormaps (Widget, Widget);
@@ -316,22 +316,22 @@ extern void XmxWinset (Widget);
 
 #endif /* if 0 */
 
-extern void XmxApplyBitmapToLabelWidget (Widget, String, unsigned int, 
+extern void XmxApplyBitmapToLabelWidget (Widget, String, unsigned int,
                                          unsigned int);
 extern Pixmap XmxCreatePixmapFromBitmap (Widget, String, unsigned int,
                                          unsigned int);
 extern void XmxApplyPixmapToLabelWidget (Widget, Pixmap);
 
 extern Widget XmxMakeFormAndOneButton (Widget, XtCallbackProc, String, int);
-extern Widget XmxMakeFormAndTwoButtons (Widget, XtCallbackProc, String, 
+extern Widget XmxMakeFormAndTwoButtons (Widget, XtCallbackProc, String,
                                         String, int, int);
-extern Widget XmxMakeFormAndTwoButtonsSqueezed (Widget, XtCallbackProc, String, 
+extern Widget XmxMakeFormAndTwoButtonsSqueezed (Widget, XtCallbackProc, String,
                                                 String, int, int);
-extern Widget XmxMakeFormAndThreeButtons (Widget, XtCallbackProc, String, 
+extern Widget XmxMakeFormAndThreeButtons (Widget, XtCallbackProc, String,
                                           String, String, int, int, int);
-extern Widget XmxMakeFormAndThreeButtonsSqueezed (Widget, XtCallbackProc, String, 
+extern Widget XmxMakeFormAndThreeButtonsSqueezed (Widget, XtCallbackProc, String,
                                                   String, String, int, int, int);
-extern Widget XmxMakeFormAndFourButtons (Widget, XtCallbackProc, String, 
+extern Widget XmxMakeFormAndFourButtons (Widget, XtCallbackProc, String,
                                          String, String, String, int, int, int, int);
 extern Widget XmxMakeFormAndFiveButtons (Widget, XtCallbackProc, String,
                                          String, String, String, String,
@@ -340,11 +340,11 @@ extern Widget XmxMakeFormAndFiveButtons (Widget, XtCallbackProc, String,
 extern int XmxModalYesOrNo (Widget parent, XtAppContext app,
                             char *questionstr, char *yesstr,
                             char *nostr);
-extern char *XmxModalPromptForString (Widget parent, XtAppContext app, 
-                                      char *questionstr, char *yesstr, 
+extern char *XmxModalPromptForString (Widget parent, XtAppContext app,
+                                      char *questionstr, char *yesstr,
                                       char *nostr);
-extern char *XmxModalPromptForPassword (Widget parent, XtAppContext app, 
-                                        char *questionstr, char *yesstr, 
+extern char *XmxModalPromptForPassword (Widget parent, XtAppContext app,
+                                        char *questionstr, char *yesstr,
                                         char *nostr);
 
 /* Xmx2.c */
@@ -355,9 +355,9 @@ extern void XmxRSetOptionMenuHistory (XmxMenuRecord *, int);
 extern void XmxRSetValues (XmxMenuRecord *, int);
 extern Widget XmxRGetWidget (XmxMenuRecord *, int);
 
-extern XmxMenuRecord *XmxRMakeOptionMenu (Widget, String, XtCallbackProc, 
+extern XmxMenuRecord *XmxRMakeOptionMenu (Widget, String, XtCallbackProc,
                                           XmxOptionMenuStruct *);
-extern XmxMenuRecord *XmxRMakeToggleMenu (Widget, int, XtCallbackProc, 
+extern XmxMenuRecord *XmxRMakeToggleMenu (Widget, int, XtCallbackProc,
                                           XmxToggleMenuStruct *);
 extern XmxMenuRecord *XmxRMakeMenubar (Widget, XmxMenubarStruct *);
 

@@ -66,20 +66,20 @@ static XtResource resources[] = {
   /* default font choice from Options menu choices */
   { "defaultFontChoice", "DefaultFontChoice", XtRString, sizeof (char *),
     offset (default_font_choice), XtRString, "TimesRegular" },
-  { "kiosk", "Kiosk", XtRBoolean, sizeof (Boolean), 
+  { "kiosk", "Kiosk", XtRBoolean, sizeof (Boolean),
       offset (kiosk), XtRString, "False" },
-  { "kioskPrint", "KioskPrint", XtRBoolean, sizeof (Boolean), 
+  { "kioskPrint", "KioskPrint", XtRBoolean, sizeof (Boolean),
       offset (kioskPrint), XtRString, "False" },
   { "kioskNoExit", "KioskNoExit", XtRBoolean, sizeof (Boolean),
       offset (kioskNoExit), XtRString, "False" },
-  /* Whether Mosaic reads and writes global history from 
+  /* Whether Mosaic reads and writes global history from
      ~/.mosaic-global-history
      and thus provides persistent history tracking. */
   { "useGlobalHistory", "UseGlobalHistory", XtRBoolean, sizeof (Boolean),
     offset (use_global_history), XtRString, "True" },
   /* Whether titles will be displayed wherever URL\'s are normally
      displayed. */
-  { "displayURLsNotTitles", "DisplayURLsNotTitles", XtRBoolean, 
+  { "displayURLsNotTitles", "DisplayURLsNotTitles", XtRBoolean,
     sizeof (Boolean),
     offset (display_urls_not_titles), XtRString, "False" },
   /* Default width for a Document View window.  This will change as windows
@@ -91,7 +91,7 @@ static XtResource resources[] = {
       offset (default_height), XtRString, "700" },
   /* Startup document. */
   { "homeDocument", "HomeDocument", XtRString, sizeof (char *),
-      offset (home_document), XtRString, 
+      offset (home_document), XtRString,
       HOME_PAGE_DEFAULT },
   { "confirmExit", "ConfirmExit", XtRBoolean, sizeof (Boolean),
       offset (confirm_exit), XtRString, "True" },
@@ -120,38 +120,38 @@ static XtResource resources[] = {
       offset (edit_command_use_xterm), XtRString, "True" },
 #ifdef _AIX
   { "xtermCommand", "XtermCommand", XtRString, sizeof (char *),
-      offset (xterm_command), XtRString, 
+      offset (xterm_command), XtRString,
       "aixterm -v",
     },
 #else /* not _AIX */
   { "xtermCommand", "XtermCommand", XtRString, sizeof (char *),
-      offset (xterm_command), XtRString, 
+      offset (xterm_command), XtRString,
       "xterm",
     },
 #endif /* not _AIX */
-  { "globalHistoryFile", "GlobalHistoryFile", XtRString, 
+  { "globalHistoryFile", "GlobalHistoryFile", XtRString,
       sizeof (char *),
 	offset (global_history_file), XtRString, ".mosaic/global-history" }, // SAM
-  { "historyFile", "HistoryFile", XtRString, 
+  { "historyFile", "HistoryFile", XtRString,
       sizeof (char *),
 	offset (history_file), XtRString, ".mosaic/x-history" }, // SAM
-  { "defaultHotlistFile", "DefaultHotlistFile", XtRString, 
+  { "defaultHotlistFile", "DefaultHotlistFile", XtRString,
       sizeof (char *),
 	offset (default_hotlist_file), XtRString, ".mosaic/hotlist-default" }, // SAM
-  { "defaultHotFile", "DefaultHotFile", XtRString, 
+  { "defaultHotFile", "DefaultHotFile", XtRString,
       sizeof (char *),
 	offset (default_hot_file), XtRString, ".mosaic/hot.html" }, // SAM
   { "addHotlistAddsRBM", "AddHotlistAddsRBM", XtRBoolean, sizeof (Boolean),
       offset (addHotlistAddsRBM), XtRString, "True" },
   { "addRBMAddsRBM", "AddRBMAddsRBM", XtRBoolean, sizeof (Boolean),
       offset (addRBMAddsRBM), XtRString, "True" },
-  { "personalAnnotationDirectory", "PersonalAnnotationDirectory", XtRString, 
+  { "personalAnnotationDirectory", "PersonalAnnotationDirectory", XtRString,
       sizeof (char *),
-      offset (private_annotation_directory), XtRString, 
+      offset (private_annotation_directory), XtRString,
 	".mosaic/personal-annotations" }, // SAM
   /* Whether selections should be fancy, by default. */
   { "fancySelections", "FancySelections", XtRBoolean,
-      sizeof (Boolean), offset (default_fancy_selections), 
+      sizeof (Boolean), offset (default_fancy_selections),
       XtRString, "False" },
   { "defaultAuthorName", "DefaultAuthorName", XtRString, sizeof (char *),
       offset (default_author_name), XtRString, NULL },
@@ -167,27 +167,27 @@ static XtResource resources[] = {
   { "trackVisitedAnchors", "TrackVisitedAnchors", XtRBoolean, sizeof (Boolean),
       offset (track_visited_anchors), XtRString, "True" },
 
-  { "uncompressCommand", "UncompressCommand", XtRString, sizeof (char *), 
+  { "uncompressCommand", "UncompressCommand", XtRString, sizeof (char *),
       offset (uncompress_command), XtRString, "uncompress" },
-  { "gunzipCommand", "GunzipCommand", XtRString, 
+  { "gunzipCommand", "GunzipCommand", XtRString,
       sizeof (char *), offset (gunzip_command), XtRString, "gunzip -f -n" },
 
 #if defined(__hpux)
-  { "recordCommandLocation", "RecordCommandLocation", XtRString, 
+  { "recordCommandLocation", "RecordCommandLocation", XtRString,
       sizeof (char *), offset (record_command_location), XtRString,
       "/usr/audio/bin/srecorder" },
 #else
 #if defined(__sgi)
-  { "recordCommandLocation", "RecordCommandLocation", XtRString, 
+  { "recordCommandLocation", "RecordCommandLocation", XtRString,
       sizeof (char *), offset (record_command_location), XtRString,
       "/usr/sbin/recordaiff" },
 #else
 #if defined (sun)
-  { "recordCommandLocation", "RecordCommandLocation", XtRString, 
+  { "recordCommandLocation", "RecordCommandLocation", XtRString,
       sizeof (char *), offset (record_command_location), XtRString,
       "/usr/demo/SOUND/record" },
 #else
-  { "recordCommandLocation", "RecordCommandLocation", XtRString, 
+  { "recordCommandLocation", "RecordCommandLocation", XtRString,
       sizeof (char *), offset (record_command_location), XtRString,
       "/bin/true" },
 #endif /* if sun */
@@ -235,7 +235,7 @@ static XtResource resources[] = {
   { "reverseInlinedBitmapColors", "ReverseInlinedBitmapColors", XtRBoolean,
       sizeof (Boolean),
       offset (reverse_inlined_bitmap_colors), XtRString, "False" },
-  { "confirmDeleteAnnotation", "ConfirmDeleteAnnotation", 
+  { "confirmDeleteAnnotation", "ConfirmDeleteAnnotation",
       XtRBoolean, sizeof (Boolean),
       offset (confirm_delete_annotation), XtRString, "True"},
   { "tweakGopherTypes", "TweakGopherTypes", XtRBoolean, sizeof (Boolean),
@@ -262,7 +262,7 @@ static XtResource resources[] = {
       offset (docs_directory), XtRString, NULL },
 
   { "documentsMenuSpecfile", "DocumentsMenuSpecfile", XtRString, sizeof (char *),
-      offset (documents_menu_specfile), XtRString, 
+      offset (documents_menu_specfile), XtRString,
       "/usr/local/lib/mosaic/documents.menu" },
 
   { "reloadReloadsImages", "ReloadReloadsImages", XtRBoolean, sizeof (Boolean),
@@ -282,40 +282,40 @@ static XtResource resources[] = {
   { "disableMiddleButton", "DisableMiddleButton", XtRBoolean, sizeof(Boolean),
       offset(disableMiddleButton), XtRString, "False"},
 
-  { "useDefaultExtensionMap", "UseDefaultExtensionMap", 
+  { "useDefaultExtensionMap", "UseDefaultExtensionMap",
       XtRBoolean, sizeof (Boolean),
       offset (use_default_extension_map), XtRString, "True" },
-  { "globalExtensionMap", "GlobalExtensionMap", 
+  { "globalExtensionMap", "GlobalExtensionMap",
       XtRString, sizeof (char *),
       offset (global_extension_map), XtRString, GLOBAL_EXTENSION_MAP },
-  { "personalExtensionMap", "PersonalExtensionMap", 
+  { "personalExtensionMap", "PersonalExtensionMap",
       XtRString, sizeof (char *),
       offset (personal_extension_map), XtRString, ".mime.types" },
 
-  { "useDefaultTypeMap", "UseDefaultTypeMap", 
+  { "useDefaultTypeMap", "UseDefaultTypeMap",
       XtRBoolean, sizeof (Boolean),
       offset (use_default_type_map), XtRString, "True" },
-  { "globalTypeMap", "GlobalTypeMap", 
+  { "globalTypeMap", "GlobalTypeMap",
       XtRString, sizeof (char *),
       offset (global_type_map), XtRString, GLOBAL_TYPE_MAP },
-  { "personalTypeMap", "PersonalTypeMap", 
+  { "personalTypeMap", "PersonalTypeMap",
       XtRString, sizeof (char *),
       offset (personal_type_map), XtRString, ".mailcap" },
 
-  { "twirlingTransferIcon", "TwirlingTransferIcon", 
+  { "twirlingTransferIcon", "TwirlingTransferIcon",
       XtRBoolean, sizeof (Boolean),
       offset (twirling_transfer_icon), XtRString, "True" },
   { "twirlIncrement", "TwirlIncrement", XtRInt, sizeof (int),
       offset (twirl_increment), XtRString, "4096" },
 
-  { "securityIcon", "securityIcon", 
+  { "securityIcon", "securityIcon",
       XtRBoolean, sizeof (Boolean),
       offset (securityIcon), XtRString, "True" },
 
   { "imageCacheSize", "ImageCacheSize", XtRInt, sizeof (int),
       offset (image_cache_size), XtRString, "2048" },
 
-  { "protectMeFromMyself", "ProtectMeFromMyself", 
+  { "protectMeFromMyself", "ProtectMeFromMyself",
       XtRBoolean, sizeof (Boolean),
       offset (protect_me_from_myself), XtRString, "False" },
 
@@ -476,29 +476,29 @@ static XtResource resources[] = {
       offset (useTextButtonBar), XtRString, "True" },
 
   { "proxySpecfile", "ProxySpecfile", XtRString, sizeof (char *),
-      offset (proxy_specfile), XtRString, 
+      offset (proxy_specfile), XtRString,
       "/usr/local/lib/mosaic/proxy" },
 
   { "noproxySpecfile", "NoproxySpecfile", XtRString, sizeof (char *),
-      offset (noproxy_specfile), XtRString, 
+      offset (noproxy_specfile), XtRString,
       "/usr/local/lib/mosaic/no_proxy" },
-  
+
   { "useScreenGamma", "UseScreenGamma", XtRBoolean, sizeof (Boolean),
       offset (useScreenGamma), XtRString, "False" },
 
   { "screenGamma", "ScreenGamma", XtRFloat, sizeof (float),
       offset (screen_gamma), XtRString, "2.2" },
 
-  { "popupCascadeMappingDelay", "PopupCascadeMappingDelay", XtRInt, 
+  { "popupCascadeMappingDelay", "PopupCascadeMappingDelay", XtRInt,
     sizeof(int), offset(popupCascadeMappingDelay), XtRString, "500" },
 
   { "frameHack", "FrameHack", XtRBoolean, sizeof (Boolean),
     offset (frame_hack), XtRString, "False" },
-  
+
   /* New news stuff in B4 */
   { "newsUseThreadView", "NewsUseThreadView", XtRBoolean,
     sizeof(Boolean), offset(newsConfigView), XtRString, "True" },
-  
+
   { "newsNoThreadJumping", "NewsNoThreadJumping", XtRBoolean,
     sizeof(Boolean), offset(newsNoThreadJumping), XtRString, "True" },
 
@@ -541,7 +541,7 @@ static XtResource resources[] = {
 
   { "sessionHistoryOnRBM", "SessionHistoryOnRBM", XtRBoolean,
     sizeof(Boolean), offset(sessionHistoryOnRBM), XtRString, "True" },
-  
+
   { "numberOfItemsInRBMHistory", "NumberOfItemsInRBMHistory", XtRInt,
     sizeof(int), offset(numberOfItemsInRBMHistory), XtRString, "12" },
 
@@ -568,7 +568,7 @@ static XrmOptionDescRec options[] = {
   {"-i",      "*initialWindowIconic", XrmoptionNoArg,  "True"},
   /* New in 1.1 */
   /* -nd isn't documented since defaults in the widget still take effect,
-     so the benefits of using it are kinda iffy (as if they weren't 
+     so the benefits of using it are kinda iffy (as if they weren't
      anyway)... */
   {"-nd",     "*nothingUseful",       XrmoptionNoArg,  "True"},
   {"-tmpdir", "*tmpDirectory",        XrmoptionSepArg, NULL},
@@ -614,7 +614,7 @@ static String color_resources[] = {
   "*XmList*fontList:	-*-helvetica-medium-r-normal-*-14-*-iso8859-1",
   "*XmText.fontList:      -*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1",
   "*XmTextField.fontList: -*-lucidatypewriter-medium-r-normal-*-14-*-iso8859-1",
-  
+
   "*optionmenu*marginHeight: 	0",
   "*optionmenu*marginTop: 		5",
   "*optionmenu*marginBottom: 	5",
@@ -654,7 +654,7 @@ static String color_resources[] = {
   "*highlightThickness:	                0",
   /* "*geometry:                           +400+200", */
   /*  "*keyboardFocusPolicy:                pointer",*/
-  
+
   "*TitleFont: -adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1",
   "*Font: -adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1",
   "*ItalicFont: -adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1",
@@ -700,7 +700,7 @@ static String color_resources[] = {
   "*XmText*TopShadowColor:              #dfdfdfdfdfdf",
   "*XmSelectionBox*TopShadowColor:      #dfdfdfdfdfdf",
   "*XmMessageBox*TopShadowColor:        #dfdfdfdfdfdf",
-  
+
   "*visitedAnchorColor:                 #272705055b5b",
   "*anchorColor:                        #00000000b0b0",
   "*activeAnchorFG:                     #ffff00000000",
@@ -727,7 +727,7 @@ static String color_resources[] = {
   "*XmText*TopShadowColor:              #e7e7e7e7e7e7",
   "*XmSelectionBox*TopShadowColor:      #e7e7e7e7e7e7",
   "*XmMessageBox*TopShadowColor:        #e7e7e7e7e7e7",
-  
+
   "*TroughColor:                        #646464646464",
   "*SelectColor:			#ffffffff0000",
   "*HighlightColor:		 	#bfbfbfbfbfbf",
@@ -741,7 +741,7 @@ static String color_resources[] = {
   /* Disable Motif Drag-N-Drop - BJS */
   "*dragInitiatorProtocolStyle: XmDRAG_NONE",
   "*dragReceiverProtocolStyle:  XmDRAG_NONE",
- 
+
   NULL,
 };
 
@@ -848,7 +848,7 @@ static String mono_resources[] = {
   /* Disable Motif Drag-N-Drop - BJS */
   "*dragInitiatorProtocolStyle: XmDRAG_NONE",
   "*dragReceiverProtocolStyle:  XmDRAG_NONE",
-  
+
   NULL,
 };
 

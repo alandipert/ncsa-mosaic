@@ -189,11 +189,11 @@ static void frame_hack()
   }
 /*
   start = strstr(HTMainText->htmlSrc, "<frameset");
-  
+
   if(!start)
     start = strstr(HTMainText->htmlSrc, "<FRAMESET");
 */
-  
+
   if(!start)
     return;
 
@@ -203,7 +203,7 @@ static void frame_hack()
     {
       url = ParseMarkTag(tmp, "FRAME", "SRC");
       if (url) {
-	frame_anchors[num_frames] = malloc(strlen(url)*2 + 
+	frame_anchors[num_frames] = malloc(strlen(url)*2 +
 					 strlen("<LI> <A HREF=  > </A> ")+4);
 	sprintf(frame_anchors[num_frames], "<LI> <A HREF=\"%s\"> %s </A>", url, url);
 	new_size += strlen(frame_anchors[num_frames])+1;
@@ -222,7 +222,7 @@ static void frame_hack()
   new_src[strlen(HTMainText->htmlSrc) - strlen(start)]='\0';
 
   sprintf(new_src, "%s <H2> Frame Index: </H2> <UL>", new_src);
-  
+
   for(i=0;i<num_frames;i++)
     {
       sprintf(new_src, "%s%s", new_src, frame_anchors[i]);
@@ -243,12 +243,12 @@ static void frame_hack()
  * name:    hack_htmlsrc (PRIVATE)
  * purpose: Do really nasty things to a stream of HTML that just got
  *          pulled over from a server.
- * inputs:  
+ * inputs:
  *   - none (global HTMainText is assumed to contain current
  *           HText object)
- * returns: 
+ * returns:
  *   - HTMainText->htmlSrc (char *)
- * remarks: 
+ * remarks:
  *   This is ugly but it gets the job done.
  *   The job is this:
  *     - Filter out repeated instances of <PLAINTEXT>.
@@ -277,7 +277,7 @@ static char *hack_htmlsrc (void)
 
   /* Keep pointer to real head of htmlSrc memory block. */
   HTMainText->htmlSrcHead = HTMainText->htmlSrc;
-  
+
   if (HTMainText->htmlSrc && HTMainText->srclen > 30)
     {
       if (!strncmp (HTMainText->htmlSrc, "<plaintext>", 11) ||
@@ -308,7 +308,7 @@ static char *hack_htmlsrc (void)
               HTMainText->htmlSrc += 12;
             }
         }
-      if (!strncmp (HTMainText->htmlSrc, 
+      if (!strncmp (HTMainText->htmlSrc,
                     "<TITLE>Document</TITLE>\n<PLAINTEXT>", 35))
         {
           if (!strncmp (HTMainText->htmlSrc + 35, "\n<title>", 8) ||
@@ -325,12 +325,12 @@ static char *hack_htmlsrc (void)
 /****************************************************************************
  * name:    doit (PRIVATE)
  * purpose: Given a URL, go fetch information.
- * inputs:  
+ * inputs:
  *   - char       *url: The URL to fetch.
  *   - char **texthead: Return pointer for the head of the allocated
  *                      text block (which may be different than the
  *                      return text intended for display).
- * returns: 
+ * returns:
  *   The text intended for display (char *).
  ****************************************************************************/
 static char *doit (char *url, char **texthead)
@@ -384,11 +384,11 @@ static char *doit (char *url, char **texthead)
     }
 
    /*
-   ** Just because we errored out, doesn't mean there isn't markup to 
+   ** Just because we errored out, doesn't mean there isn't markup to
    ** look at.  For example, an FTP site that doesn't let a user in because
    ** the maximum number of users has been reached often has a message
    ** telling about other mirror sites.  The failed FTP connection returns
-   ** a message that is taken care of below.  
+   ** a message that is taken care of below.
    */
    if (HTMainText) {
 	char *txt = hack_htmlsrc();
@@ -399,10 +399,10 @@ static char *doit (char *url, char **texthead)
 			return txt;
 		else
 			/* take care of failed local access */
-			txt = strdup("<H1>ERROR</H1>"); 
+			txt = strdup("<H1>ERROR</H1>");
 	}
 	return txt;
-		
+
    }
 
   /* Return proper error message if we experienced redirection. */
@@ -419,13 +419,13 @@ static char *doit (char *url, char **texthead)
 /****************************************************************************
  * name:    mo_pull_er_over
  * purpose: Given a URL, pull 'er over.
- * inputs:  
+ * inputs:
  *   - char       *url: The URL to pull over.
  *   - char **texthead: Return pointer to head of allocated block.
- * returns: 
+ * returns:
  *   Text to display (char *).
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 char *mo_pull_er_over (char *url, char **texthead)
 {
@@ -459,7 +459,7 @@ char *mo_pull_er_over (char *url, char **texthead)
 }
 
 
-char *mo_post_pull_er_over (char *url, char *content_type, char *data, 
+char *mo_post_pull_er_over (char *url, char *content_type, char *data,
                             char **texthead)
 {
   char *rv;
@@ -489,7 +489,7 @@ char *mo_post_pull_er_over (char *url, char *content_type, char *data,
   do_post = 0;
 
   return rv;
-}  
+}
 
 
 
@@ -498,12 +498,12 @@ char *mo_post_pull_er_over (char *url, char *content_type, char *data,
  * purpose: Given a URL, pull 'er over in such a way that no format
  *          handling takes place and the data gets dumped in the filename
  *          of the calling routine's choice.
- * inputs:  
+ * inputs:
  *   - char  *url: The URL to pull over.
  *   - char *fnam: Filename in which to dump the received data.
- * returns: 
+ * returns:
  *   mo_succeed on success; mo_fail otherwise.
- * remarks: 
+ * remarks:
  *   This routine is called when we know there's data out there we
  *   want to get and we know we just want it dumped in a file, no
  *   questions asked, by the WWW library.  Appropriate global flags
@@ -660,7 +660,7 @@ void HText_appendCharacter (HText *text, char ch)
 {
   if (text->srcalloc < text->srclen + 1)
     new_chunk (text);
-  
+
   text->htmlSrc[text->srclen++] = ch;
 
   return;
@@ -691,7 +691,7 @@ void HText_appendBlock (HText *text, char *data, int len)
 {
   if (!data)
     return;
-  
+
   while (text->srcalloc < text->srclen + len + 1)
     new_chunk (text);
 
@@ -770,11 +770,11 @@ BOOL HText_select (HText *text)
  * purpose: Given a string, checks to see if it can stat it. If so, it is
  *   assumed the user expects to open the file, not a web site. If not, we
  *   assume it is supposed to be a server and prepend the default protocol.
- * inputs:  
+ * inputs:
  *   - char    *url: URL to canonicalize.
- * returns: 
+ * returns:
  *   The canonical representation of the URL.
- * remarks: 
+ * remarks:
  *   Written by spowers@ncsa.uiuc.edu
  ****************************************************************************/
 char *fileOrServer(char *url) {
@@ -790,7 +790,7 @@ char *xurl;
 	if (!stat(url,&buf)) { /*its a file and we have access*/
 		xurl=mo_url_canonicalize_local(url);
 	}
-	else if (!(get_pref_string(eDEFAULT_PROTOCOL)) || 
+	else if (!(get_pref_string(eDEFAULT_PROTOCOL)) ||
 		 !*(get_pref_string(eDEFAULT_PROTOCOL))) {
 		xurl=(char *)calloc(strlen(url)+15,sizeof(char));
 		sprintf(xurl,"http://%s",url);
@@ -807,11 +807,11 @@ char *xurl;
 /****************************************************************************
  * name:    mo_url_prepend_protocol
  * purpose: To prepend the proper protocol to the url if it is not present.
- * inputs:  
+ * inputs:
  *   - char    *url: URL to canonicalize.
- * returns: 
+ * returns:
  *   The canonical representation of the URL.
- * remarks: 
+ * remarks:
  *   Contributed by martin@gizmo.lut.ac.uk, modified by spowers@ncsa.uiuc.edu
  ****************************************************************************/
 char *mo_url_prepend_protocol(char *url) {
@@ -870,14 +870,14 @@ char *xurl;
 /****************************************************************************
  * name:    mo_url_canonicalize
  * purpose: Turn a URL into its canonical form, based on the previous
- *          URL in this context (if appropriate).  
+ *          URL in this context (if appropriate).
  *          INTERNAL ANCHORS ARE STRIPPED OFF.
- * inputs:  
+ * inputs:
  *   - char    *url: URL to canonicalize.
  *   - char *oldurl: The previous URL in this context.
- * returns: 
+ * returns:
  *   The canonical representation of the URL.
- * remarks: 
+ * remarks:
  *   All we do is call HTParse.
  ****************************************************************************/
 char *mo_url_canonicalize (char *url, char *oldurl)
@@ -892,14 +892,14 @@ char *mo_url_canonicalize (char *url, char *oldurl)
 /****************************************************************************
  * name:    mo_url_canonicalize_keep_anchor
  * purpose: Turn a URL into its canonical form, based on the previous
- *          URL in this context (if appropriate).  
+ *          URL in this context (if appropriate).
  *          INTERNAL ANCHORS ARE *NOT* STRIPPED OFF.
- * inputs:  
+ * inputs:
  *   - char    *url: URL to canonicalize.
  *   - char *oldurl: The previous URL in this context.
- * returns: 
+ * returns:
  *   The canonical representation of the URL.
- * remarks: 
+ * remarks:
  *   All we do is call HTParse.
  ****************************************************************************/
 char *mo_url_canonicalize_keep_anchor (char *url, char *oldurl)
@@ -926,12 +926,12 @@ char *mo_url_canonicalize_keep_anchor (char *url, char *oldurl)
  *          URL's, etc.  Generally this will be the URL without the
  *          target anchor, except for automatically generated representations
  *          of internal parts of HDF files.
- * inputs:  
+ * inputs:
  *   - char *url: The URL.
- * returns: 
+ * returns:
  *   URL corresponding to a unique document.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 char *mo_url_to_unique_document (char *url)
 {
@@ -953,12 +953,12 @@ char *mo_url_to_unique_document (char *url)
  * name:    mo_url_extract_anchor
  * purpose: Given a URL (presumably in canonical form), extract
  *          the internal anchor, if any.
- * inputs:  
+ * inputs:
  *   - char *url: URL to use.
- * returns: 
+ * returns:
  *   Internal anchor, if one exists in the URL; else NULL.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 char *mo_url_extract_anchor (char *url)
 {
@@ -970,12 +970,12 @@ char *mo_url_extract_anchor (char *url)
  * name:    mo_url_extract_access
  * purpose: Given a URL (presumably in canonical form), extract
  *          the access method, if any.
- * inputs:  
+ * inputs:
  *   - char *url: URL to use.
- * returns: 
+ * returns:
  *   Access method, if one exists in the URL; else NULL.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 char *mo_url_extract_access (char *url, char *oldurl)
 {
@@ -1001,7 +1001,7 @@ char *mo_url_canonicalize_local (char *url)
   tmp = (char *)malloc ((strlen (url) +
                          strlen (cwd) + 32));
   if (url[0] == '/')
-    sprintf (tmp, "file://localhost%s", 
+    sprintf (tmp, "file://localhost%s",
              url);
   else
     sprintf (tmp, "file://localhost%s/%s",
@@ -1012,7 +1012,7 @@ char *mo_url_canonicalize_local (char *url)
 #ifndef CONVEX
   free (cwd);
 #endif
-  
+
   return tmp;
 }
 
@@ -1020,11 +1020,11 @@ char *mo_url_canonicalize_local (char *url)
 /****************************************************************************
  * name:    mo_tmpnam
  * purpose: Make a temporary, unique filename.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   The new temporary filename.
- * remarks: 
+ * remarks:
  *   We call tmpnam() to get the actual filename, and use the value
  *   of Rdata.tmp_directory, if any, for the directory.
  * added code for url=NULL, bjs, 2/7/96
@@ -1058,13 +1058,13 @@ char *mo_tmpnam (char *url)
           if (oldtmp[i] == '/')
             goto found_it;
         }
-      
+
       /* No luck, just punt. */
       if(url) MoCCIAddFileURLToList(tmp,url);
       return tmp;
 
     found_it:
-      tmp = (char *)malloc (sizeof (char) * (strlen (tmp_dir) + 
+      tmp = (char *)malloc (sizeof (char) * (strlen (tmp_dir) +
                                              strlen (&(oldtmp[i])) + 8));
       if (tmp_dir[strlen(tmp_dir)-1] == '/')
         {
@@ -1204,7 +1204,7 @@ char *mo_escape_part (char *part)
     return NULL;
 
   escaped = (char *)malloc (strlen (part) * 3 + 1);
-  
+
   for (q = escaped, p = part; *p != '\0'; p++)
     {
       /*
@@ -1227,17 +1227,17 @@ char *mo_escape_part (char *part)
           *q++ = MO_HEX(c % 16);
         }
     }
-  
+
   *q=0;
-  
+
   return escaped;
 }
 
 
 static char mo_from_hex (char c)
 {
-  return ((c >= '0' && c <= '9') ? (c - '0') : 
-          ((c >= 'A' && c <= 'F') ? (c - 'A' + 10) : 
+  return ((c >= '0' && c <= '9') ? (c - '0') :
+          ((c >= 'A' && c <= 'F') ? (c - 'A' + 10) :
            (c - 'a' + 10)));
 }
 
@@ -1245,7 +1245,7 @@ char *mo_unescape_part (char *str)
 {
   char *p = str, *q = str;
 
-  while (*p) 
+  while (*p)
     {
       /* Plus's turn back into spaces. */
       if (*p == '+')
@@ -1253,21 +1253,21 @@ char *mo_unescape_part (char *str)
           *q++ = ' ';
           p++;
         }
-      else if (*p == '%') 
+      else if (*p == '%')
         {
           p++;
-          if (*p) 
+          if (*p)
             *q = mo_from_hex(*p++) * 16;
-          if (*p) 
+          if (*p)
             *q += mo_from_hex(*p++);
           q++;
-	} 
-      else 
+	}
+      else
         {
-          *q++ = *p++; 
+          *q++ = *p++;
 	}
     }
-  
+
   *q++ = 0;
   return str;
 }
@@ -1364,10 +1364,10 @@ char buf[512];
 static struct tms tbuf;
 static int gtime;
 
-void StartClock (void) 
+void StartClock (void)
 {
   gtime = times (&tbuf);
-  
+
   return;
 }
 
@@ -1393,7 +1393,7 @@ void StopClock ()
 
 static FILE *_fp = NULL;
 
-FILE *mo_start_sending_mail_message (char *to, char *subj, 
+FILE *mo_start_sending_mail_message (char *to, char *subj,
                                      char *content_type, char *url)
 {
   char cmd[2048];
@@ -1408,7 +1408,7 @@ FILE *mo_start_sending_mail_message (char *to, char *subj,
 #ifdef OLD
   if (get_pref_string(eMAIL_FILTER_COMMAND))
     {
-      sprintf (cmd, "%s | %s -t", get_pref_string(eMAIL_FILTER_COMMAND), 
+      sprintf (cmd, "%s | %s -t", get_pref_string(eMAIL_FILTER_COMMAND),
                get_pref_string(eSENDMAIL_COMMAND));
     }
   else
@@ -1424,7 +1424,7 @@ FILE *mo_start_sending_mail_message (char *to, char *subj,
   if (get_pref_string(eMAIL_FILTER_COMMAND) && content_type &&
       strcmp (content_type, "application/postscript"))
     {
-      sprintf (cmd, "%s | %s %s", get_pref_string(eMAIL_FILTER_COMMAND), 
+      sprintf (cmd, "%s | %s %s", get_pref_string(eMAIL_FILTER_COMMAND),
                get_pref_string(eSENDMAIL_COMMAND), to);
     }
   else
@@ -1443,15 +1443,15 @@ FILE *mo_start_sending_mail_message (char *to, char *subj,
   fprintf (_fp, "Reply-To: %s <%s>\n",get_pref_string(eDEFAULT_AUTHOR_NAME),get_pref_string(eDEFAULT_AUTHOR_EMAIL));
   fprintf (_fp, "Content-Type: %s\n", content_type);
   fprintf (_fp, "Mime-Version: 1.0\n");
-  fprintf (_fp, "X-Mailer: NCSA Mosaic %s on %s\n", 
+  fprintf (_fp, "X-Mailer: NCSA Mosaic %s on %s\n",
            MO_VERSION_STRING, MO_MACHINE_TYPE);
   if (url)
     fprintf (_fp, "X-URL: %s\n", url);
 
-  fprintf (_fp, "\n"); 
-  
+  fprintf (_fp, "\n");
+
   /* Stick in BASE tag as appropriate. */
-  if (url && content_type && 
+  if (url && content_type &&
       strcmp (content_type, "text/x-html") == 0)
     fprintf (_fp, "<base href=\"%s\">\n", url);
 
@@ -1470,7 +1470,7 @@ mo_status mo_finish_sending_mail_message (void)
 
 /* ------------------------------------------------------------------------ */
 
-mo_status mo_send_mail_message (char *text, char *to, char *subj, 
+mo_status mo_send_mail_message (char *text, char *to, char *subj,
                                 char *content_type, char *url)
 {
   FILE *fp;
@@ -1485,7 +1485,7 @@ mo_status mo_send_mail_message (char *text, char *to, char *subj,
   } else {
       fputs (text, fp);
   }
-  
+
   mo_finish_sending_mail_message ();
 
   return mo_succeed;
@@ -1513,7 +1513,7 @@ char *rv;
 	do_put=do_post=0;
 
 	return(rv);
-}  
+}
 
 
 int upload(mo_window *win,FILE *fp, char *fname) {
@@ -1675,7 +1675,7 @@ int res;
 #endif
 	}
 
-	
+
 	if (!(fp=fopen(efname,"r"))) {
 
 		char *buf, *final, tmpbuf[80];
@@ -1726,7 +1726,7 @@ mo_window *win = mo_fetch_window_by_id(XmxExtractUniqid ((int)client_data));
 	mo_busy();
 
 	XtUnmanageChild(win->upload_win);
-  
+
 	XmStringGetLtoR(((XmFileSelectionBoxCallbackStruct *)call_data)->value,
 			XmSTRING_DEFAULT_CHARSET,
 			&fname);
@@ -1736,7 +1736,7 @@ mo_window *win = mo_fetch_window_by_id(XmxExtractUniqid ((int)client_data));
 	mo_not_busy();
 
 	free(fname);
-  
+
 	return;
 }
 
@@ -1768,7 +1768,7 @@ mo_status mo_post_upload_window (mo_window *win) {
 		XmFileSelectionDoSearch(win->upload_win,
 					NULL);
 	}
-  
+
 	XmxManageRemanage (win->upload_win);
 
 	return mo_succeed;

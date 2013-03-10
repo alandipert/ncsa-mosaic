@@ -66,7 +66,7 @@
 
 #include "HTFormat.h"
 
-static Boolean cciAccepting = 0; 
+static Boolean cciAccepting = 0;
 static int listenPortNumber=0;
 static XtInputId connectInputID;
 static List listOfConnections;
@@ -80,7 +80,7 @@ static List listOfForm;		/* list of form submitted by application */
 /* ADC ugly hack below  ZZZZZ */
 extern int CCIprotocol_handler_found;
 extern int MCCIanchorcached;
- 
+
 extern XtAppContext app_context;
 /***/ extern HTStream* CCIPresent();
 extern char *machine_with_domain; /* host name */
@@ -110,7 +110,7 @@ struct FormSubmit{
 	MCCIPort client;
 	char *actionID;
 	int valid;
-}; 
+};
 
 cciStat *cciStatListFindEntry(MCCIPort findMe)
 {
@@ -128,12 +128,12 @@ cciStat *cciStatListFindEntry(MCCIPort findMe)
     }
   return current;
 }
-  
+
 
 cciStat *cciStatListDeleteEntry(MCCIPort deleteMe)
 {
   cciStat *current;
-  
+
   if (current = cciStatListFindEntry(deleteMe))
     {
       ListDeleteEntry(listOfSendAnchorTo,current);
@@ -146,18 +146,18 @@ cciStat *cciStatListDeleteEntry(MCCIPort deleteMe)
 void cciStatPreventSendAnchor(MCCIPort client, char *url)
 {
   /* this sets the flag that is checked for in cciSafeToSend, but
-   * only if sendAnchor is on for this client. 
+   * only if sendAnchor is on for this client.
    */
-  
+
   cciStat *current;
 
   if ((current = cciStatListFindEntry(client)) && (url != NULL))
     current->url = strdup(url);
 }
-  
+
 int cciSafeToSend(cciStat *current, char *url)
 {
-/* ensures that Mosaic does not send an ANCHOR in response to a GET 
+/* ensures that Mosaic does not send an ANCHOR in response to a GET
  * if SEND ANCHOR is turned on.
  *
  * INPUTS:
@@ -167,7 +167,7 @@ int cciSafeToSend(cciStat *current, char *url)
  *                      1 if flag is not set for (client,url) pair
  *			(safe to send)
  */
-  
+
   int rc = 1;
 
   if (current->url != NULL)
@@ -177,7 +177,7 @@ int cciSafeToSend(cciStat *current, char *url)
       current->url = NULL;
     }
   return rc;
-} 
+}
 
 void cciStatFree(cciStat *i)
 {
@@ -197,7 +197,7 @@ cciStat *cciStatNew(MCCIPort client, int status)
     }
   return new;
 }
-  
+
 void MoCCISendAnchor(client,sendIt)
 /* set the state of sending anchors */
 MCCIPort client;
@@ -255,9 +255,9 @@ int beforeAfter;
  ***************************************************************/
 {
   cciStat *client;
-  
+
   client = (cciStat *) ListHead(listOfSendAnchorTo);
-  while(client) 
+  while(client)
     {
       if (cciSafeToSend(client, url)) /* test flag */
 	switch (beforeAfter)
@@ -382,7 +382,7 @@ int registered = 0;
 				sendForm = (struct FormSubmit *)
 					ListCurrent(listOfForm);
 #if 0
-				sendForm->valid = 0; 
+				sendForm->valid = 0;
 #endif
 				}
 			else{
@@ -457,19 +457,19 @@ int retVal;
 		  /* Write port number to .mosaiccciport */
     		char *home = getenv ("HOME"), *fnam;
     		FILE *fp;
-		
+
     		if (!home)
       			home = "/tmp";
-		
+
     		fnam = (char *)malloc (strlen (home) + 32);
     		sprintf (fnam, "%s/.mosaic/cciport", home); // SAM
-		
+
     		fp = fopen (fnam, "w");
     		if (fp) {
 			fprintf(fp,"%s:%d\n",machine_with_domain,portNumber);
         		fclose (fp);
       			}
-		
+
     		free (fnam);
   		}
 	return(retVal);
@@ -496,7 +496,7 @@ struct SendWhatToWhom *sendOutput;
 			ListDeleteEntry(listOfSendOutput,sendOutput);
 			FREE(sendOutput->contentType);
 			FREE(sendOutput);
-		  
+
 			sendOutput = (struct SendWhatToWhom *)
 				ListCurrent(listOfSendOutput);
 			}
@@ -534,7 +534,7 @@ struct SendWhatToWhom *sendOutput;
 			  sendOutput = (struct SendWhatToWhom *)
 			    ListNext(listOfSendOutput);
 			}
-			    
+
 			ListDeleteEntry(listOfConnections,con);
 			con = (struct Connection *)
 					ListCurrent(listOfConnections);
@@ -555,9 +555,9 @@ int source;
 }
 
 void MoCCINewConnection(app_context,source,inputID)
-XtAppContext app_context;  
+XtAppContext app_context;
 int *source;
-XtInputId *inputID; 
+XtInputId *inputID;
 {
 MCCIPort client;
 struct Connection *con;
@@ -580,8 +580,8 @@ struct Connection *con;
 	}
 #endif
 
-/*	
-	this determines wether there is one or many cci clients connecting 
+/*
+	this determines wether there is one or many cci clients connecting
 	XtRemoveInput(*inputID);
 */
 
@@ -616,9 +616,9 @@ char buff[256];
 		if (cciAccepting != XmToggleButtonGetState
 						(win->cci_accept_toggle)) {
 			/* reset toggle state */
-			XmxSetToggleButton(win->cci_accept_toggle, 
+			XmxSetToggleButton(win->cci_accept_toggle,
 							cciAccepting);
-			XmxSetToggleButton(win->cci_off_toggle, 
+			XmxSetToggleButton(win->cci_off_toggle,
 							!cciAccepting);
 			}
 		XtUnmanageChild(win->cci_win);
@@ -646,9 +646,9 @@ char buff[256];
 			XtManageChild (Xmx_w);
 			cciAccepting = False;
 			listenPortNumber = 0;
-			XmxSetToggleButton(win->cci_accept_toggle, 
+			XmxSetToggleButton(win->cci_accept_toggle,
 							cciAccepting);
-			XmxSetToggleButton(win->cci_off_toggle, 
+			XmxSetToggleButton(win->cci_off_toggle,
 							!cciAccepting);
 			return;
 		}
@@ -667,9 +667,9 @@ char buff[256];
 		else {
 			cciAccepting = False;
 			listenPortNumber = 0;
-			XmxSetToggleButton(win->cci_accept_toggle, 
+			XmxSetToggleButton(win->cci_accept_toggle,
 							cciAccepting);
-			XmxSetToggleButton(win->cci_off_toggle, 
+			XmxSetToggleButton(win->cci_off_toggle,
 							!cciAccepting);
 			/* Can't accept on this port...*/
                         XmxMakeErrorDialog (win->cci_win,
@@ -704,7 +704,7 @@ Widget buttonBox;
 
 	if (!win->cci_win) {
 		XmxSetUniqid (win->id);
-		win->cci_win = XmxMakeFormDialog(win->base, 
+		win->cci_win = XmxMakeFormDialog(win->base,
 						 "NCSA Mosaic: Common Client Interface" );
 		dialogFrame = XmxMakeFrame(win->cci_win, XmxShadowOut);
 		XmxSetConstraints
@@ -716,7 +716,7 @@ Widget buttonBox;
 		label = XmxMakeLabel(cciForm, "CCI Port Address: " );
 		XmxSetArg(XmNcolumns, 25);
 			win->cci_win_text= XmxMakeText (cciForm);
-			XmxAddCallbackToText (win->cci_win_text, 
+			XmxAddCallbackToText (win->cci_win_text,
 			MoCCIWindowCallBack, 0);
 
 		toggleBox = XmxMakeRadioBox(cciForm);
@@ -738,25 +738,25 @@ Widget buttonBox;
 
 		XmxSetOffsets (label, 13, 0, 10, 0);
 		XmxSetConstraints
-			(label, XmATTACH_FORM, XmATTACH_NONE, 
+			(label, XmATTACH_FORM, XmATTACH_NONE,
 			XmATTACH_FORM, XmATTACH_NONE, NULL, NULL, NULL, NULL);
 
 		XmxSetOffsets (win->cci_win_text, 10, 0, 5, 8);
 		XmxSetConstraints
-		        (win->cci_win_text, XmATTACH_FORM, XmATTACH_NONE, 
+		        (win->cci_win_text, XmATTACH_FORM, XmATTACH_NONE,
 			XmATTACH_WIDGET,
 			XmATTACH_FORM, NULL, NULL, label, NULL);
 
-		XmxSetConstraints (toggleBox, XmATTACH_WIDGET, 
+		XmxSetConstraints (toggleBox, XmATTACH_WIDGET,
 			XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_NONE,
 			win->cci_win_text, NULL, label, NULL);
 		XmxSetOffsets (toggleBox, 8, 0, 2, 0);
 
-		XmxSetConstraints (dialogSeparator, XmATTACH_WIDGET, 
+		XmxSetConstraints (dialogSeparator, XmATTACH_WIDGET,
 			XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
 			toggleBox, NULL, NULL, NULL);
 
-		XmxSetConstraints (buttonBox, XmATTACH_WIDGET, 
+		XmxSetConstraints (buttonBox, XmATTACH_WIDGET,
 			XmATTACH_FORM, XmATTACH_FORM, XmATTACH_FORM,
 			dialogSeparator, NULL, NULL, NULL);
 	}
@@ -803,7 +803,7 @@ struct SendWhatToWhom *sendOutput;
 			}
 		sendOutput=(struct SendWhatToWhom *)ListNext(listOfSendOutput);
 		}
-	
+
 	return;
 
 }
@@ -832,13 +832,13 @@ int found = 0;
 	if (send){
 	  send = 0;
 	  sendForm=(struct FormSubmit *) ListHead(listOfForm);
-	  while(sendForm) 
+	  while(sendForm)
 	  {
 		if ( !strcmp(actionID, sendForm->actionID))
 		/* found correct client */
 		{
 			if (sendForm->valid)
-				MCCIFormQueryToClient(sendForm->client, 
+				MCCIFormQueryToClient(sendForm->client,
 				  actionID, query, contentType, post_data);
 			found = 1;
 		}
@@ -854,7 +854,7 @@ void MoCCISendOutput(MCCIPort client,Boolean sendIt,char *contentType)
 struct SendWhatToWhom *sendOutput;
 
 	if (sendIt) {
-		if (!(sendOutput = (struct SendWhatToWhom *) 
+		if (!(sendOutput = (struct SendWhatToWhom *)
 		    MALLOC(sizeof(struct SendWhatToWhom)))) {
 			return /*mem error*/;
 			}
@@ -891,7 +891,7 @@ struct SendWhatToWhom *sendOutput;
 						ListNext(listOfSendOutput);
 				}
 			}
-		
+
 		}
 }
 
@@ -907,7 +907,7 @@ int port;
                         (XtPointer) XtInputReadMask,
                         (XtInputCallbackProc) MoCCINewConnection,
 			app_context);
-		cciAccepting = True; 
+		cciAccepting = True;
 		listenPortNumber = port;
 /*
 		XmxMakeInfoDialog(w,"Mosaic CCI port is listening",
@@ -1014,7 +1014,7 @@ char *data;
         if (stat(filename,&fileInfo)) { /* get the length of the file */
                 return(MCCI_FAIL);
                 }
-	
+
 
 	if (!(fp = fopen(filename,"r"))) {
                 return(MCCI_FAIL);
@@ -1058,7 +1058,7 @@ char *fileName;
 char *url;
 {
 struct FileURL *fileURL;
-	
+
 #ifndef DISABLE_TRACE
 	if (cciTrace) {
 		fprintf(stderr,"MoCCIAddFileURLToList():fileName=\"%s\", url=\"%s\"\n",(fileName?fileName:"NULL"),(url?url:"NULL"));
@@ -1087,7 +1087,7 @@ char *fileName;
 struct FileURL *fileURL;
 
 	fileURL = (struct FileURL *) ListHead(listOfFileToURLs);
-	while (fileURL){ 
+	while (fileURL){
 		if (!strncmp(fileURL->fileName,fileName,
 			     strlen(fileURL->fileName))) {
 			return(fileURL->url);
@@ -1097,7 +1097,7 @@ struct FileURL *fileURL;
 	return(NULL);
 }
 /* this rplaces a vanilla url name with the name it was actually called with,
-   which is what is needed by external apps.  It is indeed a huge hack, and 
+   which is what is needed by external apps.  It is indeed a huge hack, and
    should be fixed
 */
 void MoCCIAddAnchorToURL(url, urlAndAnchor)
@@ -1112,4 +1112,4 @@ char *urlAndAnchor;
   }
 }
 
-	
+

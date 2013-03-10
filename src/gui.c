@@ -315,7 +315,7 @@ static void BalloonHelpMe(Widget w, XEvent *event)
 {
     char *info;
 
-    XtVaGetValues(w, XmNuserData, (XtPointer) &info, NULL);    
+    XtVaGetValues(w, XmNuserData, (XtPointer) &info, NULL);
     mo_gui_notify_progress(info);
 }
 
@@ -331,7 +331,7 @@ static XtActionsRec balloon_action[] = {
     {"UnBalloonHelpMe", (XtActionProc)UnBalloonHelpMe}
 };
 
-/* to use balloon help, add these bits to your widget ...  BJS 2/7/96 
+/* to use balloon help, add these bits to your widget ...  BJS 2/7/96
  *    XmNtranslations, XtParseTranslationTable(xlattab),
  *    XmNuserData, (xtpointer) "Balloon Help String!",
  */
@@ -465,7 +465,7 @@ extern Pixmap securityKerberos4, securityBasic, securityMd5, securityNone,
 
 extern char *HTDescribeURL (char *);
 extern mo_status mo_post_access_document (mo_window *win, char *url,
-                                          char *content_type, 
+                                          char *content_type,
                                           char *post_data);
 XmxCallbackPrototype (menubar_cb);
 
@@ -565,7 +565,7 @@ mo_status mo_remove_window_from_list (mo_window *win)
         }
       prev = w;
     }
-   
+
   /* Couldn't find it. */
   return mo_fail;
 }
@@ -578,9 +578,9 @@ mo_status mo_remove_window_from_list (mo_window *win)
  * name:    mo_check_for_proxy
  * purpose: Return the location of the proxy gateway for the passed access
  *	    method.
- * inputs:  
+ * inputs:
  *   - char *access: access string from the URL (http, gopher, ftp, etc)
- * returns: 
+ * returns:
  *   The proxy gateway to use. (http://proxy.ncsa.uiuc.edu:911/)
  * remarks: This should really be open-ended configurable.
  ****************************************************************************/
@@ -628,11 +628,11 @@ char *mo_check_for_proxy (char *access)
 /****************************************************************************
  * name:    mo_assemble_help_url
  * purpose: Make a temporary, unique filename.
- * inputs:  
+ * inputs:
  *   - char *file: Filename to be appended to Rdata.docs_directory.
- * returns: 
+ * returns:
  *   The desired help url (a malloc'd string).
- * remarks: 
+ * remarks:
  ****************************************************************************/
 char *mo_assemble_help_url (char *file)
 {
@@ -655,7 +655,7 @@ char *mo_assemble_help_url (char *file)
       /* No trailing slash. */
       sprintf (tmp, "%s/%s", docs_directory, file);
     }
-  
+
   return tmp;
 }
 
@@ -674,7 +674,7 @@ mo_status mo_not_busy (void)
 void stopBusyAnimation() {
 
 mo_window *win = NULL;
-  
+
 	if (busy) {
 		XUndefineCursor (dsp, XtWindow (toplevel));
 		while (win = mo_next_window (win)) {
@@ -686,7 +686,7 @@ mo_window *win = NULL;
 			if (win->searchindex_win)
 				XUndefineCursor (dsp, XtWindow (win->searchindex_win));
 		}
-      
+
 		XFlush (dsp);
 		busy = 0;
 	}
@@ -878,7 +878,7 @@ mo_status mo_busy (void) {
 	if (!busy) {
 	}
 */
-  
+
 	return mo_succeed;
 }
 
@@ -892,7 +892,7 @@ mo_status mo_set_dtm_menubar_functions (mo_window *win)
     {
       /* If we've got an active outport, then we can send a document
          but not open another outport. */
-      XmxRSetSensitive 
+      XmxRSetSensitive
         (win->menubar, mo_dtm_open_outport, XmxNotSensitive);
       XmxRSetSensitive
         (win->menubar, mo_dtm_send_document, XmxSensitive);
@@ -901,7 +901,7 @@ mo_status mo_set_dtm_menubar_functions (mo_window *win)
     {
       /* If we don't have an active outport, then we can't send a document
          but we can open an outport. */
-      XmxRSetSensitive 
+      XmxRSetSensitive
         (win->menubar, mo_dtm_open_outport, XmxSensitive);
       XmxRSetSensitive
         (win->menubar, mo_dtm_send_document, XmxNotSensitive);
@@ -916,12 +916,12 @@ mo_status mo_set_dtm_menubar_functions (mo_window *win)
  * name:    mo_redisplay_window
  * purpose: Cause the current window's HTML widget to be refreshed.
  *          This causes the anchors to be reexamined for visited status.
- * inputs:  
+ * inputs:
  *   - mo_window *win: Current window.
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_status mo_redisplay_window (mo_window *win)
 {
@@ -1016,7 +1016,7 @@ static XmxCallback (url_field_cb)
 
   if(!get_pref_boolean(eFOCUS_FOLLOWS_MOUSE))
     XtSetKeyboardFocus(win->base, win->view);
-    
+
   if (cci_event) MoCCISendEventOutput(MOSAIC_URL_TEXT_FIELD);
 
   url = XmxTextGetString (win->url_text);
@@ -1035,18 +1035,18 @@ static XmxCallback (url_field_cb)
   }
 
   if (cci_event) MoCCISendEventOutput(LINK_LOADED);
-  
+
   return;
 }
 
 /****************************************************************************
  * name:    anchor_cb
  * purpose: Callback for triggering anchor in HTML widget.
- * inputs:  
+ * inputs:
  *   - as per XmxCallback
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
+ * remarks:
  *   This is too complex and should be broken down.
  *   We look at the button event passed in through the callback;
  *   button1 == same window, button2 == new window.
@@ -1059,7 +1059,7 @@ static XmxCallback (anchor_cb)
 /*  char *access;*/
   static char *referer = NULL;
   mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
-  XButtonReleasedEvent *event = 
+  XButtonReleasedEvent *event =
     (XButtonReleasedEvent *)(((WbAnchorCallbackData *)call_data)->event);
   int force_newwin = (event->button == Button2 ? 1 : 0);
   int old_binx_flag;
@@ -1074,9 +1074,9 @@ static XmxCallback (anchor_cb)
   if ( (event->state & ShiftMask) == ShiftMask)
     win->binary_transfer = 1;
 
-  if (get_pref_boolean(eKIOSK) || 
-      get_pref_boolean(eKIOSKNOEXIT) || 
-      get_pref_boolean(eDISABLEMIDDLEBUTTON)) { 
+  if (get_pref_boolean(eKIOSK) ||
+      get_pref_boolean(eKIOSKNOEXIT) ||
+      get_pref_boolean(eDISABLEMIDDLEBUTTON)) {
     /* disable new window if in kiosk mode*/
     force_newwin = 0;
     /* disable load to disk in kiosk */
@@ -1085,7 +1085,7 @@ static XmxCallback (anchor_cb)
 
   if (get_pref_boolean(ePROTECT_ME_FROM_MYSELF))
     {
-      int answer = XmxModalYesOrNo 
+      int answer = XmxModalYesOrNo
         (win->base, app_context,
 	 "BEWARE: Despite our best and most strenuous intentions to the contrary,\nabsolutely anything could be on the other end of this hyperlink,\nincluding -- quite possibly -- pornography, or even nudity.\n\nNCSA disclaims all responsibility regarding your emotional and mental health\nand specifically all responsibility for effects of viewing salacious material via Mosaic.\n\nWith that in mind, are you *sure* you want to follow this hyperlink???" , "Yup, I'm sure, really." ,
          "Ack, no!  Get me outta here." );
@@ -1109,7 +1109,7 @@ static XmxCallback (anchor_cb)
     }
   else
     HTReferer = NULL;
-  
+
   if (((WbAnchorCallbackData *)call_data)->href)
     href = strdup (((WbAnchorCallbackData *)call_data)->href);
   else
@@ -1126,7 +1126,7 @@ static XmxCallback (anchor_cb)
   else
     {
       char *target = mo_url_extract_anchor (href);
-      char *url = 
+      char *url =
         mo_url_canonicalize_keep_anchor (href, win->current_node->url);
       /* @@@ should we be keeping the anchor here??? */
       if (strncmp (url, "telnet:", 7) && strncmp (url, "tn3270:", 7) &&
@@ -1157,12 +1157,12 @@ static XmxCallback (anchor_cb)
  * name:    anchor_visited_predicate (PRIVATE)
  * purpose: Called by the HTML widget to determine whether a given URL
  *          has been previously visited.
- * inputs:  
+ * inputs:
  *   - Widget   w: HTML widget that called this routine.
  *   - char *href: URL to test.
- * returns: 
+ * returns:
  *   1 if href has been visited previously; 0 otherwise.
- * remarks: 
+ * remarks:
  *   All this does is canonicalize the URL and call
  *   mo_been_here_before_huh_dad() to figure out if we've been
  *   there before.
@@ -1192,13 +1192,13 @@ static void pointer_motion_callback (Widget w, char *href)
 
   if (!get_pref_boolean(eTRACK_POINTER_MOTION))
     return;
-  
+
   while (win = mo_next_window (win))
     if (win->scrolled_win == w)
       break;
   if (win == NULL)
     return;
-  
+
   if (href && *href) {
       href = mo_url_canonicalize_keep_anchor (href, win->cached_url);
       to_free = href;
@@ -1215,7 +1215,7 @@ static void pointer_motion_callback (Widget w, char *href)
           href = HTDescribeURL (href);
           to_free_2 = href;
       }
-  } else 
+  } else
     href = " ";
 
   xmstr = XmStringCreateSimple (href);
@@ -1229,7 +1229,7 @@ static void pointer_motion_callback (Widget w, char *href)
     free (to_free);
   if (to_free_2)
     free (to_free_2);
-  
+
   return;
 }
 
@@ -1250,10 +1250,10 @@ XmxCallback (submit_form_callback)
   while (win = mo_next_window (win))
     if (win->scrolled_win == w)
       goto foundit;
-  
+
   /* Shit outta luck. */
   return;
-  
+
  foundit:
 
   mo_busy ();
@@ -1359,9 +1359,9 @@ XmxCallback (submit_form_callback)
               char *c = mo_escape_part (cbdata->attribute_names[i]);
               strcat (query, c);
               free (c);
-              
+
               strcat (query, "=");
-              
+
               if (cbdata->attribute_values[i])
                 {
                   char *c = mo_escape_part (cbdata->attribute_values[i]);
@@ -1377,7 +1377,7 @@ XmxCallback (submit_form_callback)
 	if (!my_strcasecmp(method,"cciPOST"))
 		MoCCIFormToClient(NULL, NULL, NULL,NULL,1);
 
-      	mo_post_access_document (win, url, 
+      	mo_post_access_document (win, url,
 				 (plaintext?"text/plain":
 				  "application/x-www-form-urlencoded"),
 				 query);
@@ -1386,7 +1386,7 @@ XmxCallback (submit_form_callback)
     {
       mo_access_document (win, query);
     }
-  
+
   if (query) free (query);
 
   return;
@@ -1450,9 +1450,9 @@ void UpdateButtons (Widget w)
 {
   XEvent event;
   Display * display = XtDisplay(w);
-  
+
   XSync (display, 0);
-  
+
   while (XCheckMaskEvent(display, (ButtonPressMask|ButtonReleaseMask),
                          &event))
     {
@@ -1526,7 +1526,7 @@ static int current=HTAA_NONE;
 	if ((char *)pix != NULL) {
 		DrawSecurityPixmap (win->security, pix);
 	}
-  
+
 	UpdateButtons (win->base);
 	XmUpdateDisplay (win->base);
 
@@ -1578,7 +1578,7 @@ int mo_gui_check_icon (int twirl)
 			logo_count = 0;
 	}
   }
-  
+
   UpdateButtons (win->base);
   XmUpdateDisplay (win->base);
 
@@ -1647,11 +1647,11 @@ void mo_presentation_mode(mo_window *win) {
  * purpose: This is the event handler for the HTML widget and associated
  *          scrolled window; it handles keypress events and enables the
  *          hotkey support.
- * inputs:  
+ * inputs:
  *   - as per XmxEventHandler
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
+ * remarks:
  *   Hotkeys and their actions are currently hardcoded.  This is probably
  *   a bad idea, and Eric hates it.
  ****************************************************************************/
@@ -1670,26 +1670,26 @@ static XmxEventHandler (mo_view_keypress_handler)
     return;
 
   /* Go get ascii translation. */
-  _count = XLookupString (&(event->xkey), _buffer, _bufsize, 
+  _count = XLookupString (&(event->xkey), _buffer, _bufsize,
                           &_key, &_cs);
 
   /* I don't know why this is necessary but for some reason the rbm was making
      the above function return 0 as the _key, this fixes it -- TPR */
   if(!_key)
     _key = XKeycodeToKeysym(XtDisplay(win->view), event->xkey.keycode, 0);
-  
+
   /* Insert trailing Nil. */
   _buffer[_count] = '\0';
 
   params[0] = "0";
-  
+
   switch(_key){
   case XK_Prior: /* Page up. */
   case XK_KP_Prior:
       if(!get_pref_boolean(eCATCH_PRIOR_AND_NEXT)) break;
   case XK_BackSpace:
   case XK_Delete:
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)) {
           XtCallActionProc (sb, "PageUpOrLeft", event, params, 1);
@@ -1701,7 +1701,7 @@ static XmxEventHandler (mo_view_keypress_handler)
       if(!get_pref_boolean(eCATCH_PRIOR_AND_NEXT)) break;
   case XK_Return:
   case XK_space:
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)) {
           XtCallActionProc (sb, "PageDownOrRight", event, params, 1);
@@ -1720,7 +1720,7 @@ static XmxEventHandler (mo_view_keypress_handler)
 	   HTMLTraverseTabGroups(win->scrolled_win, XmTRAVERSE_NEXT_TAB_GROUP);
        }
     break;
-      
+
   case XK_Home: /* Home -- Top */
       HTMLGotoId(win->scrolled_win, 0, 0);
       break;
@@ -1731,7 +1731,7 @@ static XmxEventHandler (mo_view_keypress_handler)
 
   case XK_Down:
   case XK_KP_Down:
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)) {
           XtCallActionProc (sb, "IncrementDownOrRight", event, params, 1);
@@ -1741,7 +1741,7 @@ static XmxEventHandler (mo_view_keypress_handler)
   case XK_Right:
   case XK_KP_Right:
       params[0] = "1";
-      XtVaGetValues (win->scrolled_win, XmNhorizontalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNhorizontalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)) {
           XtCallActionProc (sb, "IncrementDownOrRight", event, params, 1);
@@ -1750,7 +1750,7 @@ static XmxEventHandler (mo_view_keypress_handler)
 
   case XK_Up:
   case XK_KP_Up:
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)){
           XtCallActionProc (sb, "IncrementUpOrLeft", event, params, 1);
@@ -1760,15 +1760,15 @@ static XmxEventHandler (mo_view_keypress_handler)
   case XK_Left:
   case XK_KP_Left:
       params[0] = "1";
-      
-      XtVaGetValues (win->scrolled_win, XmNhorizontalScrollBar, 
+
+      XtVaGetValues (win->scrolled_win, XmNhorizontalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb)) {
           XtCallActionProc (sb, "IncrementUpOrLeft", event, params, 1);
       }
       break;
   }
-  
+
 
   if (!(get_pref_boolean(eKIOSK) || get_pref_boolean(eKIOSKNOEXIT))) {
       switch(_key){
@@ -1791,10 +1791,10 @@ static XmxEventHandler (mo_view_keypress_handler)
           break;
 
       case XK_A: /* Annotate. */
-      case XK_a: 
+      case XK_a:
           mo_post_annotate_win (win, 0, 0, NULL, NULL, NULL, NULL);
           break;
-          
+
       case XK_B: /* Back. */
       case XK_b:
           mo_back_node (win);
@@ -1819,7 +1819,7 @@ static XmxEventHandler (mo_view_keypress_handler)
       case XK_f:
 	if(event->xkey.state & ControlMask)
 	  {
-	    if(XtIsManaged(win->slab[SLAB_URL]) && 
+	    if(XtIsManaged(win->slab[SLAB_URL]) &&
 	       !get_pref_boolean(eFOCUS_FOLLOWS_MOUSE))
 	      {
 		XmTextFieldSetString(win->url_text, "ftp://");
@@ -1830,7 +1830,7 @@ static XmxEventHandler (mo_view_keypress_handler)
 	else
           mo_forward_node (win);
           break;
-  
+
       case XK_H: /* Hotlist */
           mo_post_hotlist_win (win);
           break;
@@ -1838,7 +1838,7 @@ static XmxEventHandler (mo_view_keypress_handler)
       case XK_h: /* History */
 	if(event->xkey.state & ControlMask)
 	  {
-	    if(XtIsManaged(win->slab[SLAB_URL]) && 
+	    if(XtIsManaged(win->slab[SLAB_URL]) &&
 	       !get_pref_boolean(eFOCUS_FOLLOWS_MOUSE))
 	      {
 		XmTextFieldSetString(win->url_text, "http://");
@@ -1854,7 +1854,7 @@ static XmxEventHandler (mo_view_keypress_handler)
       case XK_l:
           mo_post_open_local_window (win);
           break;
-  
+
       case XK_M: /* Mailto */
       case XK_m:
           mo_post_mail_window (win);
@@ -1864,19 +1864,19 @@ static XmxEventHandler (mo_view_keypress_handler)
       case XK_n:
 	if(event->xkey.state & ControlMask)
 	  {
-	    if(XtIsManaged(win->slab[SLAB_URL]) && 
+	    if(XtIsManaged(win->slab[SLAB_URL]) &&
 	       !get_pref_boolean(eFOCUS_FOLLOWS_MOUSE))
 	      {
 		XtSetKeyboardFocus(win->base, win->url_text);
-		
+
 		XmTextFieldSetString(win->url_text, "news://");
 		XmTextSetInsertionPosition(win->url_text, 8);
 	      }
-	  }        
+	  }
 	else
 	  mo_open_another_window (win, home_document, NULL, NULL);
 	break;
-  
+
       case XK_O: /* Open */
       case XK_o:
           mo_post_open_window (win);
@@ -1898,16 +1898,16 @@ static XmxEventHandler (mo_view_keypress_handler)
       case XK_r: /* reload */
           mo_reload_window_text (win, 0);
           break;
-   
+
       case XK_R: /* Refresh */
           mo_refresh_window_text (win);
           break;
-          
+
       case XK_S: /* Search. */
       case XK_s:
           mo_post_search_window (win);
           break;
-          
+
 	/* Tag 'n Bag */
               /*
       case XK_T:
@@ -1926,13 +1926,13 @@ static XmxEventHandler (mo_view_keypress_handler)
 
       case XK_Z:
       case XK_z:
-	if(XtIsManaged(win->slab[SLAB_URL]) && 
+	if(XtIsManaged(win->slab[SLAB_URL]) &&
 	   !get_pref_boolean(eFOCUS_FOLLOWS_MOUSE))
 	  {
 	    char *str;
-	    
+
 	    str = XmTextFieldGetString(win->url_text);
-	    XmTextFieldSetSelection(win->url_text, 0, strlen(str), 
+	    XmTextFieldSetSelection(win->url_text, 0, strlen(str),
 				    event->xkey.time);
 
 	    XtSetKeyboardFocus(win->base, win->url_text);
@@ -1965,7 +1965,7 @@ static XmxEventHandler (mo_view_keypress_handler)
           break;
       }
   }
-  
+
   return;
 }
 
@@ -2060,14 +2060,14 @@ static void DrawMeter(Widget meter, XtPointer client, XtPointer call)
 		mask = GCFont;
 		XChangeGC(XtDisplay(meter), gc,  mask, &values);
 		XSetForeground( XtDisplay(meter),gc,win->meter_font_bg);
-		XDrawString(XtDisplay(meter), XtWindow(meter), gc, 
+		XDrawString(XtDisplay(meter), XtWindow(meter), gc,
 			    (win->meter_width/2-(win->meter_fontW*l)/2)+2,
-			    ((win->meter_height/2)+(win->meter_fontH/2)), 
+			    ((win->meter_height/2)+(win->meter_fontH/2)),
 			    ss, l);
 		XSetForeground( XtDisplay(meter),gc,win->meter_font_fg);
-		XDrawString(XtDisplay(meter), XtWindow(meter), gc, 
+		XDrawString(XtDisplay(meter), XtWindow(meter), gc,
 			    (win->meter_width/2-(win->meter_fontW*l)/2),
-			    ((win->meter_height/2)+(win->meter_fontH/2))-2, 
+			    ((win->meter_height/2)+(win->meter_fontH/2))-2,
 			    ss, l);
 	}
     }
@@ -2087,7 +2087,7 @@ static void ResizeMeter(Widget meter, XtPointer client, XtPointer call)
     }
 
     if(!XtWindow(meter)) return;
-    
+
     XGetWindowAttributes(XtDisplay(meter),XtWindow(meter),&wattr);
 
     win->meter_width = wattr.width;
@@ -2110,7 +2110,7 @@ void mo_gui_update_meter(int level, char *text)
     if(level<0) level = 0;
     if(level>100) level = 100;
     current_win->meter_level = level;
-                
+
     DrawMeter(current_win->meter,(XtPointer) current_win, NULL);
 }
 
@@ -2127,7 +2127,7 @@ int parse_slabinfo(char *s)
 
     for(p=s,i=0,done=0;!done;p++){
         if(!*p) done = 1;
-        
+
         if(!*p || (*p==',')){
             *p=0;
 
@@ -2152,8 +2152,8 @@ int parse_slabinfo(char *s)
             }
             fprintf(stderr,"layout: bad slab name \"%s\"\n",s);
             return 0;
-            
-          next1:          
+
+          next1:
             s = p+1;
             continue;
         }
@@ -2189,7 +2189,7 @@ int parse_slabinfo(char *s)
                     return 0;
                 }
             }
-            
+
         }
     }
     if(!done){
@@ -2213,9 +2213,9 @@ int parse_slabinfo(char *s)
     return 1;
 }
 
-    
 
-struct tool mo_tools[] = { 
+
+struct tool mo_tools[] = {
     {"<-","Back","Previous page",mo_back,&toolbarBack, &toolbarBackGRAY, moMODE_ALL, 1, NULL},
     {"->","Forward","Next page",mo_forward,&toolbarForward, &toolbarForwardGRAY, moMODE_ALL, 1, NULL},
     {"Rel","Reload","Reload this page",mo_reload_document,&toolbarReload,NULL, moMODE_ALL, 0, NULL},
@@ -2347,14 +2347,14 @@ void mo_tool_detach_cb(Widget wx, XtPointer cli, XtPointer call)
     XmxSetUniqid(win->id);
 
     XtUnmanageChild(XtParent(win->scrolled_win));
-    
+
     if(win->toolbardetached){
         win->toolbardetached = 0;
         XtUnmanageChild(win->toolbarwin);
         XtDestroyWidget(win->toolbarwin);
         win->toolbarwin = NULL;
         win->topform = win->slab[SLAB_TOOLS];
-        mo_fill_toolbar(win,win->topform,0,0);        
+        mo_fill_toolbar(win,win->topform,0,0);
         if(win->biglogo && !win->smalllogo){
             mo_make_globe(win, win->slab[SLAB_GLOBE], 0);
         }
@@ -2362,7 +2362,7 @@ void mo_tool_detach_cb(Widget wx, XtPointer cli, XtPointer call)
         win->toolbardetached = 1;
         XtUnmanageChild(win->button_rc);
         XtUnmanageChild(win->button2_rc);
-        
+
         XtDestroyWidget(win->button_rc);
         XtDestroyWidget(win->button2_rc);
 
@@ -2372,7 +2372,7 @@ void mo_tool_detach_cb(Widget wx, XtPointer cli, XtPointer call)
             XtUnmanageChild(win->security);
             XtDestroyWidget(win->security);
             XtUnmanageChild(win->encrypt);
-            XtDestroyWidget(win->encrypt);            
+            XtDestroyWidget(win->encrypt);
         }
         win->toolbarwin = XtVaCreatePopupShell
             ("ToolBox",
@@ -2390,7 +2390,7 @@ void mo_tool_detach_cb(Widget wx, XtPointer cli, XtPointer call)
         XtManageChild(win->toolbarwin);
         win->topform = XtVaCreateWidget
             ("slab_tools",
-             xmFormWidgetClass, win->toolbarwin, 
+             xmFormWidgetClass, win->toolbarwin,
              XmNminHeight, h,
              XmNminWidth, w,
              XmNmaxHeight, h,
@@ -2403,9 +2403,9 @@ void mo_tool_detach_cb(Widget wx, XtPointer cli, XtPointer call)
         WM_DELETE_WINDOW = XmInternAtom(dsp, "WM_DELETE_WINDOW", False);
         XmAddWMProtocolCallback(win->toolbarwin, WM_DELETE_WINDOW,
                                 mo_tool_detach_cb, (XtPointer)win);
-        
+
         XtPopup(win->toolbarwin, XtGrabNone);
-    }    
+    }
 
     XtManageChild(XtParent(win->scrolled_win));
 
@@ -2419,7 +2419,7 @@ void mo_switch_mode(mo_window *win)
             if(!(mo_tools[i].toolset & win->mode)) {
                 if(XtIsManaged(win->tools[i].w))
                     XtUnmanageChild(win->tools[i].w);
-            } else {   
+            } else {
                 if(!XtIsManaged(win->tools[i].w))
                     XtManageChild(win->tools[i].w);
             }
@@ -2428,7 +2428,7 @@ void mo_switch_mode(mo_window *win)
 }
 
 
-    
+
 mo_tool_state(struct toolbar *t,int state,int index)
 {
     if (use_tool[index]) {
@@ -2453,10 +2453,10 @@ void mo_extra_buttons(mo_window *win, Widget top)
                   XmNuserData, (XtPointer) "Security Stats Information",
 		  XmNtraversalOn, False,
 		  NULL);
-    
+
     XtOverrideTranslations(win->security,
                             XtParseTranslationTable(xlattab));
-    
+
     win->encrypt = XtVaCreateManagedWidget
         (" ", xmPushButtonWidgetClass,
          top,
@@ -2471,21 +2471,21 @@ void mo_extra_buttons(mo_window *win, Widget top)
          NULL);
 
     XmxApplyPixmapToLabelWidget (win->encrypt, enc_not_secure);
-    
+
     XtOverrideTranslations(win->encrypt,XtParseTranslationTable(xlattab));
-    
+
             /* insure we set the security icon! */
     if (win->current_node) {
         mo_gui_check_security_icon_in_win(win->current_node->authType,win);
     }
-    
+
 }
 
 
 void mo_make_globe(mo_window *win, Widget parent, int small)
 {
     int tmp = 25;
-    
+
     if(!small){
       IconPix = IconPixBig;
       IconWidth = IconHeight = 64;
@@ -2552,7 +2552,7 @@ void mo_make_globe(mo_window *win, Widget parent, int small)
                               XmNrightAttachment, XmATTACH_WIDGET,
                               XmNrightWidget, win->logo,
                               NULL);
-            }           
+            }
         }
     }
     XtVaSetValues(win->logo,
@@ -2611,7 +2611,7 @@ Widget mo_fill_toolbar(mo_window *win, Widget top, int w, int h)
          XmNtopAttachment, XmATTACH_FORM,
          XmNbottomAttachment, XmATTACH_FORM,
          NULL);
-    
+
 
     win->button_rc = XtVaCreateWidget
         ("buttonrc", xmRowColumnWidgetClass,
@@ -2647,7 +2647,7 @@ Widget mo_fill_toolbar(mo_window *win, Widget top, int w, int h)
 	 XmNfontList, tmpFontList,
 	 XmNtraversalOn, False,
          NULL);
-    
+
     XtOverrideTranslations(tearbutton,XtParseTranslationTable(xlattab));
 
     XtAddCallback(tearbutton,
@@ -2692,32 +2692,32 @@ Widget mo_fill_toolbar(mo_window *win, Widget top, int w, int h)
               XmxAddCallback(win->tools[i].w,
                            XmNactivateCallback, menubar_cb,
                            mo_tools[i].action);
-            
+
               if(!(mo_tools[i].toolset & win->mode))
-                XtUnmanageChild(win->tools[i].w);                    
+                XtUnmanageChild(win->tools[i].w);
 	    }
 	} else {
             win->tools[i].w=NULL;
             XtVaCreateManagedWidget
                 (" ",xmSeparatorWidgetClass,
                  win->button_rc,
-                 XmNorientation, vert?XmHORIZONTAL:XmVERTICAL, 
+                 XmNorientation, vert?XmHORIZONTAL:XmVERTICAL,
                  vert?XmNheight:XmNwidth, vert?3:4,
                  XmNseparatorType, XmNO_LINE,
 		 XmNtraversalOn, False,
                  NULL);
 	}
     }
-        
+
 
     if(!win->biglogo || (!win->smalllogo && win->toolbardetached)){
         mo_extra_buttons(win, win->button2_rc);
         mo_make_globe(win, win->button2_rc, 1);
-    }  
+    }
 
     XtManageChild(win->button2_rc);
     XtManageChild(win->button_rc);
-    
+
     return (win->topform);
 }
 
@@ -2725,14 +2725,14 @@ Widget mo_fill_toolbar(mo_window *win, Widget top, int w, int h)
 
 /****************************************************************************
  * name:    mo_fill_window (PRIVATE)
- * purpose: Take a new (empty) mo_window struct and fill in all the 
+ * purpose: Take a new (empty) mo_window struct and fill in all the
  *          GUI elements.
- * inputs:  
+ * inputs:
  *   - mo_window *win: The window.
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 static mo_status mo_fill_window (mo_window *win)
 {
@@ -2744,7 +2744,7 @@ static mo_status mo_fill_window (mo_window *win)
   char *s;
   static char *pres_slab=NULL;
   static char *kiosk_slab=NULL;
-  
+
   form = XtVaCreateManagedWidget("form0", xmFormWidgetClass, win->base, NULL);
 
   if (scount<0 && pres) {
@@ -2774,7 +2774,7 @@ static mo_status mo_fill_window (mo_window *win)
           /* go with the default layout */
       win->smalllogo = 0;
       win->texttools = 0;
-      
+
       win->slabcount = 6;
       win->slabpart[0] = SLAB_MENU;
       win->slabpart[1] = SLAB_GLOBE;
@@ -2795,7 +2795,7 @@ static mo_status mo_fill_window (mo_window *win)
   for(i=0;i<win->slabcount;i++){
       if(win->slabpart[i]==SLAB_GLOBE) win->biglogo=1;
   }
-  
+
       /* no active toolset, horiz, not detached */
   win->toolset = 0;
   win->toolbarorientation = 0;
@@ -2803,7 +2803,7 @@ static mo_status mo_fill_window (mo_window *win)
   win->toolbarwin = NULL;
 
 
-    
+
       /*********************** SLAB_GLOBE ****************************/
   if(win->biglogo){
     win->slab[SLAB_GLOBE] = XtVaCreateWidget("slab_globe",
@@ -2813,8 +2813,8 @@ static mo_status mo_fill_window (mo_window *win)
   } else {
       win->slab[SLAB_GLOBE] = NULL;
   }
-  
-  
+
+
       /*********************** SLAB_MENU ****************************/
   win->menubar = mo_make_document_view_menubar (form);
   win->slab[SLAB_MENU] = win->menubar->base;
@@ -2845,7 +2845,7 @@ static mo_status mo_fill_window (mo_window *win)
                                             XmNeditable, False,
                                             XmNcursorPositionVisible, False,
                                             NULL);
-  
+
 
       /*********************** SLAB_URL ****************************/
   win->slab[SLAB_URL] = XtVaCreateWidget("slab_url",
@@ -2911,7 +2911,7 @@ static mo_status mo_fill_window (mo_window *win)
  /* now that the htmlWidget is created we can do this  */
   mo_make_popup(win->view);
 
-  
+
       /*********************** SLAB_STATUS ****************************/
   win->slab[SLAB_STATUS] = XtVaCreateWidget("slab_status",
                                             xmFormWidgetClass, form, NULL);
@@ -2935,7 +2935,7 @@ static mo_status mo_fill_window (mo_window *win)
                     XmNtopAttachment, XmATTACH_FORM,
                     XmNbottomAttachment, XmATTACH_FORM,
                     NULL);
-        
+
       win->meter = XtVaCreateManagedWidget
           ("meter", xmDrawingAreaWidgetClass,
            win->meter_frame,
@@ -2945,19 +2945,19 @@ static mo_status mo_fill_window (mo_window *win)
            NULL);
       XtOverrideTranslations(win->meter,
                             XtParseTranslationTable(xlattab));
-      
+
       win->meter_level = 0;
       win->meter_width = -1;
-      
+
       XtAddCallback(win->meter, XmNexposeCallback,
                     DrawMeter, (XtPointer) win);
       XtAddCallback(win->meter, XmNresizeCallback,
                     ResizeMeter, (XtPointer) win);
-      
+
           /* grab some colors */
       {
           XColor ccell1,ccell2;
-          
+
           XAllocNamedColor(dsp,(installed_colormap ?
                                 installed_cmap :
                                 DefaultColormapOfScreen(XtScreen(win->base))),
@@ -3031,7 +3031,7 @@ static mo_status mo_fill_window (mo_window *win)
                    XmNtopAttachment, XmATTACH_NONE,
                    NULL);
           }
-          
+
       } else {
           if(win->slabpart[i] == SLAB_VIEW){
                   /* we change link dir here AND link this slab both ways*/
@@ -3061,7 +3061,7 @@ static mo_status mo_fill_window (mo_window *win)
                       } else {
                           up = win->slab[win->slabpart[(i-1)-(globe==2 ? 1 : 0)]];
                       }
-                      
+
                       topatt = XmATTACH_WIDGET;
                   }
                   dn = NULL;
@@ -3076,14 +3076,14 @@ static mo_status mo_fill_window (mo_window *win)
                   }
                   up = NULL;
                   topatt = XmATTACH_NONE;
-              }    
+              }
           }
 
               /*
           fprintf(stderr,"%s (0x%08X): up=0x%08X dn=0x%08X ta=%d ba=%d\n",
                   slab_words[win->slabpart[i]], win->slab[win->slabpart[i]],
                   up, dn, topatt, botatt);
-                  */  
+                  */
 
           XtVaSetValues(win->slab[win->slabpart[i]],
                         XmNleftOffset, 0,
@@ -3117,11 +3117,11 @@ static mo_status mo_fill_window (mo_window *win)
 /****************************************************************************
  * name:    mo_delete_window
  * purpose: Shut down a window.
- * inputs:  
+ * inputs:
  *   - mo_window *win: The window.
- * returns: 
+ * returns:
  *   mo_succeed
- * remarks: 
+ * remarks:
  *   This can be called, among other places, from the WM_DELETE_WINDOW
  *   handler.  By the time we get here, we must assume the window is already
  *   in the middle of being shut down.
@@ -3185,7 +3185,7 @@ mo_status mo_delete_window (mo_window *win)
       free (tofree);
     }
   win->history=NULL;
-  
+
   free (win->search_start);
   win->search_start=NULL;
   free (win->search_end);
@@ -3209,7 +3209,7 @@ int mo_get_font_size_from_res(char *userfontstr,int *fontfamily)
 
   for (x=0; x<strlen(userfontstr); x++)
     lowerfontstr[x]=tolower(userfontstr[x]);
-  
+
   *fontfamily = 0;
   if (strstr(lowerfontstr, "times")!=NULL)
     {
@@ -3255,7 +3255,7 @@ int mo_get_font_size_from_res(char *userfontstr,int *fontfamily)
       return mo_regular_lucidabright;
     }
   return mo_regular_fonts;
-}  
+}
 
 
 void kill_splash()
@@ -3289,11 +3289,11 @@ void mo_sync_windows(mo_window *win, mo_window *parent)
     imageViewInternal = win->image_view_internal = parent->image_view_internal;
     XmxRSetToggleState (win->menubar, mo_image_view_internal,
                       (win->image_view_internal ? XmxSet : XmxNotSet));
-    
+
     tableSupportEnabled = win->table_support = parent->table_support;
     XmxRSetToggleState (win->menubar, mo_table_support,
                         win->table_support ? XmxSet : XmxNotSet);
-    
+
     win->body_color = parent->body_color;
     XtVaSetValues(win->scrolled_win,
                   WbNbodyColors,
@@ -3322,14 +3322,14 @@ void mo_sync_windows(mo_window *win, mo_window *parent)
 /****************************************************************************
  * name:    mo_open_window_internal (PRIVATE)
  * purpose: Make a mo_window struct and fill up the GUI.
- * inputs:  
- *   - Widget       base: The dialog widget on which this window is 
+ * inputs:
+ *   - Widget       base: The dialog widget on which this window is
  *                        to be based.
  *   - mo_window *parent: The parent mo_window struct for this window,
  *                        if one exists; this can be NULL.
- * returns: 
+ * returns:
  *   The new window (mo_window *).
- * remarks: 
+ * remarks:
  *   This routine must set to 0 all elements in the mo_window struct
  *   that can be tested by various routines to see if various things
  *   have been done yet (popup windows created, etc.).
@@ -3347,7 +3347,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
 
   win->base = base;
   win->mode = moMODE_PLAIN;
-  
+
   win->source_win = 0;
   win->save_win = 0;
   win->upload_win = 0;
@@ -3419,7 +3419,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
   win->record_fnam = 0;
   win->record_pid = 0;
 #endif
-  
+
   win->print_text = 0;
   win->print_format = 0;
 
@@ -3433,7 +3433,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
   /* We don't know yet. */
   win->keyword_search_possible = -1;
 #endif
-  
+
 /*SWP 7/3/95*/
   if (get_pref_boolean(eSECURITYICON)) {
         if (win->current_node) {
@@ -3453,7 +3453,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
    newsShowAllArticles = get_pref_boolean (eSHOWALLARTICLES);
    newsNoThreadJumping = get_pref_boolean (eNOTHREADJUMPING);
    gui_news_updateprefs (win);
-   
+
   win->have_focus = False;
 
   win->binary_transfer = 0;
@@ -3482,7 +3482,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
       win->session_menu = NULL;
       win->num_session_items = 0;
   if(get_pref_boolean(eSESSION_HISTORY_ON_RBM))
-    win->session_items = malloc(sizeof(Widget) * 
+    win->session_items = malloc(sizeof(Widget) *
 				get_pref_int(eNUMBER_OF_ITEMS_IN_RBM_HISTORY));
     }
 
@@ -3490,7 +3490,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
   XtPopup (win->base, XtGrabNone);
   XFlush (dsp);
   XSync (dsp, False);
-  
+
   /* Register win with internal window list. */
   mo_add_window_to_list (win);
 
@@ -3514,7 +3514,7 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
 #endif
       mo_sync_windows(win,parent);
   }
-  
+
   return win;
 }
 
@@ -3522,11 +3522,11 @@ static mo_window *mo_open_window_internal (Widget base, mo_window *parent)
 /****************************************************************************
  * name:    delete_cb (PRIVATE)
  * purpose: Callback for the WM_DELETE_WINDOW protocol.
- * inputs:  
+ * inputs:
  *   - as per XmxCallback
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
+ * remarks:
  *   By the time we get called here, the window has already been popped
  *   down.  Just call mo_delete_window to clean up.
  ****************************************************************************/
@@ -3541,12 +3541,12 @@ static XmxCallback (delete_cb)
 /****************************************************************************
  * name:    mo_make_window (PRIVATE)
  * purpose: Make a new window from scratch.
- * inputs:  
+ * inputs:
  *   - Widget      parent: Parent for the new window shell.
  *   - mo_window *parentw: Parent window, if one exists (may be NULL).
- * returns: 
+ * returns:
  *   The new window (mo_window *).
- * remarks: 
+ * remarks:
  *   The 'parent window' parentw is the window being cloned, or the
  *   window in which the 'new window' command was triggered, etc.
  *   Some GUI properties are inherited from it, if it exists (fonts,
@@ -3571,7 +3571,7 @@ static mo_window *mo_make_window (Widget parent, mo_window *parentw)
                              toplevel, Xmx_wargs, Xmx_n);
   Xmx_n = 0;
 
-#ifdef EDITRES_SUPPORT  
+#ifdef EDITRES_SUPPORT
   XtAddEventHandler(base, (EventMask) 0, TRUE,
                     (XtEventHandler) _XEditResCheckMessages, NULL);
 #endif
@@ -3591,11 +3591,11 @@ static mo_window *mo_make_window (Widget parent, mo_window *parentw)
 /****************************************************************************
  * name:    mo_open_another_window_internal (PRIVATE)
  * purpose: Open a new window from an existing window.
- * inputs:  
+ * inputs:
  *   - mo_window *win: The old window.
- * returns: 
+ * returns:
  *   The new window (mo_window *).
- * remarks: 
+ * remarks:
  *   This routine handles (optional) autoplace of new windows.
  ****************************************************************************/
 static mo_window *mo_open_another_window_internal (mo_window *win)
@@ -3614,16 +3614,16 @@ static mo_window *mo_open_another_window_internal (mo_window *win)
   /* If not, deal with it... */
 
   /* Bug fix, thanks to Ken Shores <kss1376@pop.draper.com> */
-  
+
   /* the original test did not handle the case where the old window
    * was exactly the same size as the screen.  Also, it used a looping
    * algorithm which would infinite loop under such a case. */
-  
+
   if ((oldx+width) > (scrx-40))
     x = (scrx - (oldx + width));
   else
     x = oldx + 40;
-  
+
   if ((oldy+height) > (scry-40))
     y = (scry - (oldy + height));
   else
@@ -3631,7 +3631,7 @@ static mo_window *mo_open_another_window_internal (mo_window *win)
 
   if (x > scrx) x = 0;
   if (y > scry) y = 0;
-  
+
   XmxSetArg (XmNdefaultPosition, False);
   if (get_pref_boolean(eAUTO_PLACE_WINDOWS))
     {
@@ -3651,14 +3651,14 @@ static mo_window *mo_open_another_window_internal (mo_window *win)
 /****************************************************************************
  * name:    mo_open_window
  * purpose: Open a new window to view a given URL.
- * inputs:  
+ * inputs:
  *   - Widget      parent: The parent Widget for the new window's shell.
  *   - char          *url: The URL to view in the new window.
  *   - mo_window *parentw: The (optional) parent window of the new window.
- * returns: 
+ * returns:
  *   The new window.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_window *mo_open_window (Widget parent, char *url, mo_window *parentw)
 {
@@ -3677,12 +3677,12 @@ mo_window *mo_open_window (Widget parent, char *url, mo_window *parentw)
 /****************************************************************************
  * name:    mo_duplicate_window
  * purpose: Clone a existing window as intelligently as possible.
- * inputs:  
+ * inputs:
  *   - mo_window *win: The existing window.
- * returns: 
+ * returns:
  *   The new window.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_window *mo_duplicate_window (mo_window *win) {
 
@@ -3693,7 +3693,7 @@ mo_window *neww;
 	}
 
 	neww = mo_open_another_window_internal (win);
-  
+
 	mo_duplicate_window_text (win, neww);
 
 	mo_gui_update_meter(100,NULL);
@@ -3707,17 +3707,17 @@ mo_window *neww;
  * name:    mo_open_another_window
  * purpose: Open another window to view a given URL, unless the URL
  *          indicates that it's pointless to do so
- * inputs:  
+ * inputs:
  *   - mo_window      *win: The existing window.
  *   - char           *url: The URL to view in the new window.
  *   - char           *ref: The reference (hyperlink text contents) for this
  *                          URL; can be NULL.
  *   - char *target_anchor: The target anchor to view open opening the
  *                          window, if any.
- * returns: 
+ * returns:
  *   The new window.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_window *mo_open_another_window (mo_window *win, char *url, char *ref,
                                    char *target_anchor)
@@ -3742,7 +3742,7 @@ mo_window *mo_open_another_window (mo_window *win, char *url, char *ref,
      (it probably won't, now. */
   neww->target_anchor = target_anchor;
 
-  return_stat = mo_load_window_text (neww, url, ref); 
+  return_stat = mo_load_window_text (neww, url, ref);
 
   if ((cci_get) && (return_stat == mo_fail))
 	return (mo_window *) NULL;
@@ -3766,7 +3766,7 @@ static XmxCallback (blip)
   mo_dtm_poll_and_read ();
 
   XtAppAddTimeOut (app_context, 100, (XtTimerCallbackProc)blip, (XtPointer)True);
-  
+
   return;
 }
 #endif
@@ -3776,7 +3776,7 @@ mo_status mo_register_dtm_blip (void)
 {
   /* Set a timer that will poll DTM regularly. */
   XtAppAddTimeOut (app_context, 100, (XtTimerCallbackProc)blip, (XtPointer)True);
-  
+
   return mo_succeed;
 }
 #endif
@@ -3786,11 +3786,11 @@ mo_status mo_register_dtm_blip (void)
  * name:    fire_er_up (PRIVATE)
  * purpose: Callback from timer that actually starts up the application,
  *          i.e., opens the first window.
- * inputs:  
+ * inputs:
  *   - as per XmxCallback
- * returns: 
+ * returns:
  *   Nothing.
- * remarks: 
+ * remarks:
  *   This routine figures out what the home document should be
  *   and then calls mo_open_window().
  ****************************************************************************/
@@ -3885,7 +3885,7 @@ static XmxCallback (fire_er_up)
   if (get_pref_boolean(eINITIAL_WINDOW_ICONIC))
     XmxSetArg (XmNiconic, True);
 
-  win = mo_open_window 
+  win = mo_open_window
     (toplevel, startup_document ? startup_document : init_document, NULL);
 
 #if 0
@@ -3926,9 +3926,9 @@ static XmxCallback (fire_er_up)
  * name:    mo_open_initial_window
  * purpose: This routine is called when we know we want to open the
  *          initial Document View window.
- * inputs:  
+ * inputs:
  *   none
- * returns: 
+ * returns:
  *   mo_succeed
  * remarks: This routine is simply a stub that sets a timeout that
  *          calls fire_er_up() after 10 milliseconds, which does the
@@ -3937,7 +3937,7 @@ static XmxCallback (fire_er_up)
 mo_status mo_open_initial_window (void)
 {
   /* Set a timer that will actually cause the window to open. */
-  XtAppAddTimeOut (app_context, 10, 
+  XtAppAddTimeOut (app_context, 10,
                    (XtTimerCallbackProc)fire_er_up, (XtPointer)True);
 
   return mo_succeed;
@@ -3947,12 +3947,12 @@ mo_status mo_open_initial_window (void)
 /****************************************************************************
  * name:    mo_error_handler (PRIVATE)
  * purpose: Handle X errors.
- * inputs:  
+ * inputs:
  *   - Display       *dsp: The X display.
  *   - XErrorEvent *event: The error event to handle.
- * returns: 
+ * returns:
  *   0, if it doesn't force an exit.
- * remarks: 
+ * remarks:
  *   The main reason for this handler is to keep the application
  *   from crashing on BadAccess errors during calls to XFreeColors().
  ****************************************************************************/
@@ -3965,9 +3965,9 @@ static int mo_error_handler (Display *dsp, XErrorEvent *event)
   /* BadAlloc errors (on a XCreatePixmap() call)
      and BadAccess errors on XFreeColors are 'ignoreable' errors */
   if (event->error_code == BadAlloc ||
-      (event->error_code == BadAccess && event->request_code == 88)) 
+      (event->error_code == BadAccess && event->request_code == 88))
     return 0;
-  else 
+  else
     {
       /* All other errors are 'fatal'. */
       XGetErrorText (dsp, event->error_code, buf, 128);
@@ -3985,11 +3985,11 @@ static int mo_error_handler (Display *dsp, XErrorEvent *event)
  * name:    setup_imagekill
  * purpose: Read the imagekill file if it exists and fill in the
  *          imagekill_sites array
- * 
- * returns: 
+ *
+ * returns:
  *   nothing
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 #define IMAGESELECT_FILENAME ".mosaic/imageselect-sites" // SAM
 
@@ -4007,7 +4007,7 @@ void setup_imagekill(void) {
 		fprintf(stderr,"home: Could not get your home directory.\n");
 		return;
 	}
-    
+
     sprintf(imageselect_file_pathname, "%s/%s",
             home, IMAGESELECT_FILENAME);
 
@@ -4036,7 +4036,7 @@ void setup_imagekill(void) {
         else if(buf[0] == 'k' || buf[0] == 'K')
             num_kill_sites++;
     }
-    
+
     rewind(fp);
 
     imagekill_sites = (char **)malloc((num_kill_sites+1) * sizeof(char *));
@@ -4050,15 +4050,15 @@ void setup_imagekill(void) {
     }
 
     i=j=0;
-    
+
     while(!(fgets(buf, 512, fp) == NULL)) {
 
         int len;
-        
-        
+
+
         if(buf[0] == '#' || buf[0] == '\n')
             continue;
-        
+
         else if(buf[0] == 'd' || buf[0] == 'D') {
             len = strlen(buf) - 6 - 1; /* 6 == strlen("delay ") */
             imagedelay_sites[i] = NULL;
@@ -4067,9 +4067,9 @@ void setup_imagekill(void) {
             imagedelay_sites[i][len] = '\0';
             i++;
         }
-        
+
         else if(buf[0] == 'k' || buf[0] == 'K') {
-            
+
             len = strlen(buf) - 5 - 1; /* 5 == strlen("kill ") */
             imagekill_sites[j] = NULL;
             imagekill_sites[j] = (char *)malloc((len+1) * sizeof(char));
@@ -4078,15 +4078,15 @@ void setup_imagekill(void) {
             j++;
         }
     }
-        
+
     imagedelay_sites[i] = NULL;
     imagekill_sites[j] = NULL;
 
-    
+
     fclose(fp);
-    
+
     return;
-    
+
 }
 
 
@@ -4097,13 +4097,13 @@ void HT_SetExtraHeaders(char **headers);
 /****************************************************************************
  * name:    mo_do_gui
  * purpose: This is basically the real main routine of the application.
- * inputs:  
+ * inputs:
  *   - int    argc: Number of arguments.
  *   - char **argv: The argument vector.
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 void mo_do_gui (int argc, char **argv)
 {
@@ -4187,7 +4187,7 @@ void mo_do_gui (int argc, char **argv)
 
     if (no_defaults)
     {
-        toplevel = XtAppInitialize 
+        toplevel = XtAppInitialize
             (&app_context, "Mosaic", options, XtNumber (options),
              &argc, argv, NULL, Xmx_wargs, Xmx_n);
     }
@@ -4195,13 +4195,13 @@ void mo_do_gui (int argc, char **argv)
     {
         if (use_color)
         {
-            toplevel = XtAppInitialize 
+            toplevel = XtAppInitialize
                 (&app_context, "Mosaic", options, XtNumber (options),
                  &argc, argv, color_resources, Xmx_wargs, Xmx_n);
         }
         else
         {
-            toplevel = XtAppInitialize 
+            toplevel = XtAppInitialize
                 (&app_context, "Mosaic", options, XtNumber (options),
                  &argc, argv, mono_resources, Xmx_wargs, Xmx_n);
         }
@@ -4211,7 +4211,7 @@ void mo_do_gui (int argc, char **argv)
 
     dsp = XtDisplay (toplevel);
 
-        /* initialize the preferences stuff */  
+        /* initialize the preferences stuff */
     successful = preferences_genesis();
     if(!successful) { /* I should probably be generating an error here... */
         signal (SIGBUS, 0);
@@ -4295,8 +4295,8 @@ void mo_do_gui (int argc, char **argv)
     {
         XVisualInfo vinfo, *vptr;
         int cnt;
-    
-        vinfo.visualid = 
+
+        vinfo.visualid =
             XVisualIDFromVisual
             (DefaultVisual (dsp,
                             DefaultScreen (dsp)));
@@ -4304,19 +4304,19 @@ void mo_do_gui (int argc, char **argv)
         Vclass = vptr->class;
         XFree((char *)vptr);
     }
-  
+
         /* First get the hostname. */
     machine = (char *)malloc (sizeof (char) * 64);
     gethostname (machine, 64);
 
     uname(&mo_uname);
-    HTAppVersion = 
+    HTAppVersion =
         (char *)malloc (sizeof(char) * (
             strlen(MO_VERSION_STRING) +
-            strlen(mo_uname.sysname) + 
+            strlen(mo_uname.sysname) +
             strlen(mo_uname.release) +
             strlen(mo_uname.machine) + 20));
-    sprintf(HTAppVersion, "%s (X11;%s %s %s)", 
+    sprintf(HTAppVersion, "%s (X11;%s %s %s)",
             MO_VERSION_STRING,
             mo_uname.sysname,
             mo_uname.release,
@@ -4337,13 +4337,13 @@ splash_goto:
         GC gc;
         XGCValues values;
         XColor ccell1, ccell_fg;
-      
+
         int x,y;
         XWindowAttributes war;
         Widget sform, spixwid;
         XFontStruct *font;
         char s[64];
-      
+
         int l;
         int fontW, fontH;
 
@@ -4368,7 +4368,7 @@ splash_goto:
 
         fontW = font->max_bounds.rbearing;
         fontH = font->max_bounds.ascent + font->max_bounds.descent;
-      
+
         splash = XtVaCreatePopupShell
             ("Hello, World!",
              xmMenuShellWidgetClass,
@@ -4379,7 +4379,7 @@ splash_goto:
              XmNy, y,
              XmNallowShellResize, FALSE,
              NULL);
-      
+
         splash_cc=180;
         splashpix = LoadSplashXPM(splash,&splash_cc);
 	if (!splash_cc) {
@@ -4389,9 +4389,9 @@ splash_goto:
 	}
 
         sprintf(s,"version %s",MO_VERSION_STRING);
-      
+
         l = strlen(s);
-      
+
         sform = XtVaCreateManagedWidget("sform", xmRowColumnWidgetClass,
                                         splash,
                                         XmNheight, 320,
@@ -4413,20 +4413,20 @@ splash_goto:
 			     DefaultColormapOfScreen(XtScreen(splash))),
                         &ccell_fg))
             ccell_fg.pixel = WhitePixelOfScreen(XtScreen(splash));
-      
-        
+
+
         gc = XtGetGC( splash,0,NULL);
         values.font = font->fid;
         values.foreground = ccell_fg.pixel;
-      
+
         XChangeGC(dsp, gc, GCFont | GCForeground, &values);
-      
-        XDrawString(dsp, splashpix, gc, 
+
+        XDrawString(dsp, splashpix, gc,
                     320-(fontW*l/2),
-                    320-fontH/2, 
+                    320-fontH/2,
                     s, l);
-      
-      
+
+
         spixwid = XtVaCreateManagedWidget(" ", xmLabelWidgetClass,
                                           sform,
                                           XmNlabelType, XmPIXMAP,
@@ -4435,14 +4435,14 @@ splash_goto:
                                           XmNx, x,
                                           XmNy, y,
                                           NULL);
-      
+
         XFlush (dsp);
         XmUpdateDisplay (splash);
         XFlush (dsp);
         XSync (dsp, False);
         XtReleaseGC(splash,gc);
     }
-        
+
     XtAppAddActions(app_context, balloon_action, 2);
     XtAppAddActions(app_context, toplevel_actions, 1);
     XtAppAddActions(app_context, url_actions, 2);
@@ -4465,10 +4465,10 @@ splash_goto:
                 "Accept-Language: %s",
                 get_pref_string(eACCEPT_LANGUAGE_STR));
         extras[1] = NULL;
-      
+
         HT_SetExtraHeaders(extras);
     }
-          
+
     global_xterm_str = get_pref_string(eXTERM_COMMAND);
 
     uncompress_program = get_pref_string(eUNCOMPRESS_COMMAND);
@@ -4517,15 +4517,15 @@ splash_goto:
     if (get_pref_string(ePERSONAL_EXTENSION_MAP))
     {
         char *home = getenv ("HOME");
-      
+
         if (!home)
             home = "/tmp";
-      
-        personal_extension_map = (char *)malloc 
+
+        personal_extension_map = (char *)malloc
             (strlen (home) +
              strlen (get_pref_string(ePERSONAL_EXTENSION_MAP)) +
              8);
-        sprintf (personal_extension_map, "%s/%s", home, 
+        sprintf (personal_extension_map, "%s/%s", home,
                  get_pref_string(ePERSONAL_EXTENSION_MAP));
     }
     else
@@ -4536,15 +4536,15 @@ splash_goto:
     if (get_pref_string(ePERSONAL_TYPE_MAP))
     {
         char *home = getenv ("HOME");
-      
+
         if (!home)
             home = "/tmp";
-      
-        personal_type_map = (char *)malloc 
+
+        personal_type_map = (char *)malloc
             (strlen (home) +
              strlen (get_pref_string(ePERSONAL_TYPE_MAP)) +
              8);
-        sprintf (personal_type_map, "%s/%s", home, 
+        sprintf (personal_type_map, "%s/%s", home,
                  get_pref_string(ePERSONAL_TYPE_MAP));
     }
     else
@@ -4557,11 +4557,11 @@ splash_goto:
 #endif
 
     twirl_increment = get_pref_int(eTWIRL_INCREMENT);
-  
+
   /* Then make a copy of the hostname for shortmachine.
      Don't even ask. */
     shortmachine = strdup (machine);
-  
+
         /* Then find out the full name, if possible. */
     if (get_pref_string(eFULL_HOSTNAME))
     {
@@ -4571,7 +4571,7 @@ splash_goto:
     else if (!get_pref_boolean(eGETHOSTBYNAME_IS_EVIL))
     {
         struct hostent *phe;
-      
+
         phe = gethostbyname (machine);
         if (phe && phe->h_name)
         {
@@ -4580,7 +4580,7 @@ splash_goto:
         }
     }
         /* (Otherwise machine just remains whatever gethostname returned.) */
-  
+
     machine_with_domain = (strlen (machine) > strlen (shortmachine) ?
                            machine : shortmachine);
 
@@ -4589,7 +4589,7 @@ splash_goto:
         char *cc;
         char *default_author_name = get_pref_string(eDEFAULT_AUTHOR_NAME);
         char *default_author_email = get_pref_string(eDEFAULT_AUTHOR_EMAIL);
-      
+
         if(!default_author_name) {
 	    if (!pw || !pw->pw_gecos) {
 		default_author_name = strdup("Unknown");
@@ -4615,16 +4615,16 @@ splash_goto:
 			(char *) malloc(strlen(pw->pw_name)+strlen(machine)+2);
 		sprintf(default_author_email,"%s@%s",pw->pw_name,machine);
 	    }
-        }    
+        }
         set_pref(eDEFAULT_AUTHOR_NAME, (void *)default_author_name);
         set_pref(eDEFAULT_AUTHOR_EMAIL, (void *)default_author_email);
     }
-  
+
         /* If there's no tmp directory assigned by the X resource, then
      look at TMPDIR. */
     {
         char *tmp_dir = get_pref_string(eTMP_DIRECTORY);
-          
+
         if (!tmp_dir)
         {
             tmp_dir = getenv ("TMPDIR");
@@ -4639,7 +4639,7 @@ splash_goto:
      and then at hardcoded default. */
     {
         char *docs_dir = get_pref_string(eDOCS_DIRECTORY);
-              
+
         if (!docs_dir)
         {
             docs_dir = getenv ("MOSAIC_DOCS_DIRECTORY");
@@ -4675,35 +4675,35 @@ splash_goto:
   {
     char *home = getenv ("HOME"), *fnam;
     FILE *fp;
-    
+
         if (!home)
             home = "/tmp";
-    
+
         fnam = (char *)malloc (strlen (home) + 32);
         sprintf (fnam, "%s/.mosaic/mosaicpid", home); // SAM
-    
+
         fp = fopen (fnam, "w");
         if (fp)
         {
             fprintf (fp, "%d\n", getpid());
             fclose (fp);
         }
-    
+
         free (fnam);
     }
-  
+
     busy_cursor = XCreateFontCursor (dsp, XC_watch);
 
     XtRealizeWidget (toplevel);
 
         /* get the current geometry values */
-    XtVaGetValues(toplevel, 
-                  XmNwidth, &userWidth, 
-                  XmNheight, &userHeight, 
+    XtVaGetValues(toplevel,
+                  XmNwidth, &userWidth,
+                  XmNheight, &userHeight,
                   XmNx, &userX,
                   XmNy, &userY,
                   NULL);
-  
+
 
     gargv = argv;
     gargc = argc;
@@ -4739,7 +4739,7 @@ splash_goto:
 #endif
 
     if ((get_pref_int(eCCIPORT) > 1023 ) &&  (get_pref_int(eCCIPORT) < 65536))
-    {	
+    {
         MoCCIStartListening(toplevel,get_pref_int(eCCIPORT));
     }
 
@@ -4751,13 +4751,13 @@ splash_goto:
  * name:    mo_process_external_directive
  * purpose: Handle an external directive given to the application via
  *          a config file read in response to a SIGUSR1.
- * inputs:  
+ * inputs:
  *   - char *directive: The directive; either "goto" or "newwin".
  *   - char       *url: The URL corresponding to the directive.
- * returns: 
+ * returns:
  *   nothing
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 #define CLIP_TRAILING_NEWLINE(url) \
   if (url[strlen (url) - 1] == '\n') \
@@ -4796,7 +4796,7 @@ void mo_process_external_directive (char *directive, char *url)
     {
       CLIP_TRAILING_NEWLINE(url);
 
-      /* Force a new window to open. */ 
+      /* Force a new window to open. */
       mo_open_another_window (win, url, NULL, NULL);
 
       XmUpdateDisplay (win->base);
@@ -4805,10 +4805,10 @@ void mo_process_external_directive (char *directive, char *url)
     {
       Widget sb;
       String params[1];
-      
+
       params[0] = "0";
-      
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb))
         {
@@ -4825,7 +4825,7 @@ void mo_process_external_directive (char *directive, char *url)
 
       params[0] = "0";
 
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb))
         {
@@ -4838,10 +4838,10 @@ void mo_process_external_directive (char *directive, char *url)
     {
       Widget sb;
       String params[1];
-      
+
       params[0] = "0";
-      
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb))
         {
@@ -4857,7 +4857,7 @@ void mo_process_external_directive (char *directive, char *url)
 
       params[0] = "0";
 
-      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar, 
+      XtVaGetValues (win->scrolled_win, XmNverticalScrollBar,
                      (long)(&sb), NULL);
       if (sb && XtIsManaged (sb))
         {
@@ -4945,7 +4945,7 @@ void take_focus(Widget w, XEvent *event,
 
 void mo_flush_passwd_cache (mo_window *win)
 {
-  
+
   HTFTPClearCache ();
   HTAAServer_clear ();
   HTProgress ("Password cache flushed");

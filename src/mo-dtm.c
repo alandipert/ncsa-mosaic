@@ -64,7 +64,7 @@
 #include "libhtmlw/HTML.h" /* for ImageInfo */
 
 /* Creation of an input port implies done_init and done_register
-   as well as done_inport.  Creation of an output port implies 
+   as well as done_inport.  Creation of an output port implies
    all of these (since an input port is always created prior to
    creating an output port). */
 static int done_init     = 0;   /* called NetInit?? */
@@ -77,13 +77,13 @@ static int done_inport   = 0;   /* called NetCreateInPort?? */
 mo_status mo_dtm_in (char *path)
 {
   NetPort *inport;
-  
+
   if (!done_init)
     {
       NetInit ("Mosaic");
       done_init = 1;
     }
-  
+
   if (!done_register)
     {
 #if 0
@@ -95,7 +95,7 @@ mo_status mo_dtm_in (char *path)
 #endif
       done_register = 1;
     }
-  
+
   if (!done_inport)
     {
       inport = NetCreateInPort (path);
@@ -103,7 +103,7 @@ mo_status mo_dtm_in (char *path)
     }
 
   mo_register_dtm_blip ();
-  
+
   return mo_succeed;
 }
 
@@ -127,13 +127,13 @@ mo_status mo_dtm_out (char *port)
   if (!done_outport)
     {
       mo_dtm_in (":0");
-      
+
       /* Make the output port. */
       NetCreateOutPort (port);
 
       done_outport = 1;
     }
-  
+
   return mo_succeed;
 }
 
@@ -153,7 +153,7 @@ mo_status mo_dtm_poll_and_read ()
 {
   if (done_inport)
     NetClientPollAndRead ();
-  
+
   return mo_succeed;
 }
 
@@ -209,7 +209,7 @@ mo_status mo_dtm_send_image (void *data)
         }
     }
 
-  rv = NetSendRaster8Group 
+  rv = NetSendRaster8Group
     (NULL, "Mosaic Image", img->image_data,
      img->width, img->height, palette, TRUE, FALSE, NULL);
 
@@ -254,10 +254,10 @@ mo_status mo_dtm_send_dataset (void *spanker)
     Data *d = (Data *) spanker;
     int rv, i;
     char palette[768];
-    
+
     if (!mo_dtm_out_active_p ())
         return mo_fail;
-    
+
 /*
 
     for (i = 0; i < 256; i++)
@@ -276,8 +276,8 @@ mo_status mo_dtm_send_dataset (void *spanker)
                 }
         }
 */
-   
-#define COLLAGE_SUCKS 
+
+#define COLLAGE_SUCKS
 #ifdef COLLAGE_SUCKS
     rv = NetSendArray
         (NULL, d, TRUE, FALSE, NULL, (d->rank == 3 ? TRUE : FALSE));
@@ -285,7 +285,7 @@ mo_status mo_dtm_send_dataset (void *spanker)
     rv = NetSendArray
         (NULL, d, TRUE, FALSE, NULL, TRUE);
 #endif
-    
+
     return mo_succeed;
 
 }

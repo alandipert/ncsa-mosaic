@@ -167,20 +167,20 @@ PUBLIC void HTAASetup_clearall (HTList *s)
 ** On Exit:  password information is gone.
 **
 ** May 1996  PLB    Created.
-** 
+**
 */
 PUBLIC void HTAAServer_clear ()
 {
   HTList *n, *nn;
   HTAAServer *s;
-  
+
   n = server_table;
   while (n) {
     nn = n->next;
     s = (HTAAServer *)n->object;
     if (s) {
 #ifndef DISABLE_TRACE
-      if (www2Trace) 
+      if (www2Trace)
 	fprintf(stderr, "Clearing passwd info for %s\n", s->hostname?s->hostname:"NULL");
 #endif
       HTAARealm_clearall (s->realms);
@@ -192,9 +192,9 @@ PUBLIC void HTAAServer_clear ()
     n = nn;
   }
   server_table = NULL;
-  secret_key = NULL;	
-  current_setup = NULL;	
-  current_hostname = NULL;	
+  secret_key = NULL;
+  current_setup = NULL;
+  current_hostname = NULL;
   current_docname = NULL;
 }
 
@@ -231,7 +231,7 @@ PRIVATE HTAAServer *HTAAServer_new ARGS2(WWW_CONST char*,	hostname,
     if (hostname) StrAllocCopy(server->hostname, hostname);
 
     if (!server_table) server_table = HTList_new();
-    
+
     HTList_addObject(server_table, (void*)server);
 
     return server;
@@ -284,7 +284,7 @@ PRIVATE HTAAServer *HTAAServer_lookup ARGS2(WWW_CONST char *, hostname,
 
 
 
-/*************************** HTAASetup *******************************/    
+/*************************** HTAASetup *******************************/
 
 
 /* PRIVATE						HTAASetup_lookup()
@@ -306,7 +306,7 @@ PRIVATE HTAAServer *HTAAServer_lookup ARGS2(WWW_CONST char *, hostname,
 **			Otherwise, a HTAASetup structure representing
 **			the protected server setup on the corresponding
 **			document tree.
-**			
+**
 */
 PRIVATE HTAASetup *HTAASetup_lookup ARGS3(WWW_CONST char *, hostname,
 					  int,		portnumber,
@@ -453,7 +453,7 @@ PRIVATE void HTAASetup_updateSpecifics ARGS2(HTAASetup *,	setup,
 ** On Entry:
 **      realm_table     a list of realm objects
 **
-** On Exit: 
+** On Exit:
 **      returns: Nothing. realm_table is no longer valid.
 */
 PUBLIC void HTAARealm_clearall ARGS1(HTList *, realm_table)
@@ -468,10 +468,10 @@ PUBLIC void HTAARealm_clearall ARGS1(HTList *, realm_table)
     if (r) {
 
 #ifdef PAUL_IS_A_GIMP
-      if (www2Trace) 
+      if (www2Trace)
 	fprintf(stderr, "Clearing %s %s:%s\n",
-		r->realmname?r->realmname:"NULL", 
-		r->realmname?r->username:"NULL", 
+		r->realmname?r->realmname:"NULL",
+		r->realmname?r->username:"NULL",
 		r->realmname?r->password:"NULL");
 
 #endif
@@ -504,7 +504,7 @@ PRIVATE HTAARealm *HTAARealm_lookup ARGS2(HTList *,	realm_table,
     if (realm_table && realmname) {
 	HTList *cur = realm_table;
 	HTAARealm *realm;
-	
+
 	while (NULL != (realm = (HTAARealm*)HTList_nextObject(cur))) {
 	    if (0==strcmp(realm->realmname, realmname))
 		return realm;
@@ -624,11 +624,11 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
    /* for MD5 -- DXP */
     char *      nonce;          /* Server specified integer value */
     char *      opaque;         /* more random MD5 junk... */
- 
+
 
     FREE(result);	/* From previous call */
 
-    if ((scheme != HTAA_BASIC && scheme != HTAA_PUBKEY && scheme != HTAA_MD5) 
+    if ((scheme != HTAA_BASIC && scheme != HTAA_PUBKEY && scheme != HTAA_MD5)
 	|| !setup ||
 	!setup->scheme_specifics || !setup->scheme_specifics[scheme] ||
 	!setup->server  ||  !setup->server->realms)
@@ -675,7 +675,7 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
         if (!realm->password)
           return "";
     }
-    
+
     len = strlen(realm->username ? realm->username : "") +
 	  strlen(realm->password ? realm->password : "") + 3;
 
@@ -740,13 +740,13 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 	if (!opaque)
 	    return "";
 
-	if (!(A1 = (unsigned char*)malloc(strlen(realm->username) + 
-				 strlen(realm->realmname) + 
+	if (!(A1 = (unsigned char*)malloc(strlen(realm->username) +
+				 strlen(realm->realmname) +
 				 strlen(realm->password) + 3 + 1)))
 	    outofmem(__FILE__, "compose_auth_string");
 
 	if (!(A2 = (unsigned char*)malloc(4 + strlen(current_docname) + 1 + 1 )))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 
 	    /* make A1 */
 	*A1 = (unsigned char)0;
@@ -768,18 +768,18 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
 	strcat((char*)A2, "\0");
 
 	if (!(md5_cleartext = (unsigned char*)malloc(100 + 1)))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 	if (!(md5_ciphertext = (unsigned char*)malloc(100 + 1)))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 	if (!(hex1 = (unsigned char*)malloc(32 + 1)))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 	if (!(hex2 = (unsigned char*)malloc(32 + 1)))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 	if (!(digest1 = (unsigned char*)malloc(16)))
-	    outofmem(__FILE__, "compose_auth_string");	
+	    outofmem(__FILE__, "compose_auth_string");
 	if (!(digest2 = (unsigned char*)malloc(16)))
-	    outofmem(__FILE__, "compose_auth_string");	
-	
+	    outofmem(__FILE__, "compose_auth_string");
+
 	MD5Mem(A1, strlen((char*)A1), digest1);
 	MD5Mem(A2, strlen((char*)A2), digest2);
 
@@ -886,7 +886,7 @@ PUBLIC char *HTAA_composeAuth ARGS3(WWW_CONST char *,	hostname,
 
 #ifndef DISABLE_TRACE
     if (www2Trace)
-	fprintf(stderr, 
+	fprintf(stderr,
 		"Composing Authorization for %s:%d/%s\n",
 		hostname, portnumber, docname);
 #endif
@@ -900,7 +900,7 @@ PUBLIC char *HTAA_composeAuth ARGS3(WWW_CONST char *,	hostname,
 	retry = NO;
 
 	current_portnumber = portnumber;
-	
+
 	if (hostname) StrAllocCopy(current_hostname, hostname);
 	else FREE(current_hostname);
 
@@ -908,7 +908,7 @@ PUBLIC char *HTAA_composeAuth ARGS3(WWW_CONST char *,	hostname,
 	else FREE(current_docname);
     }
     else retry = YES;
-    
+
     if (!current_setup || !retry)
 	current_setup = HTAASetup_lookup(hostname, portnumber, docname);
 
@@ -974,7 +974,7 @@ PUBLIC char *HTAA_composeAuth ARGS3(WWW_CONST char *,	hostname,
 
 
 
-	    
+
 /* BROWSER PUBLIC				HTAA_shouldRetryWithAuth()
 **
 **		DETERMINES IF WE SHOULD RETRY THE SERVER
@@ -1034,7 +1034,7 @@ PUBLIC BOOL HTAA_shouldRetryWithAuth ARGS3(char *, start_of_headers,
 	    char *fieldname = HTNextField(&p);
 	    char *arg1 = HTNextField(&p);
 	    char *args = p;
-	    
+
 	    if (0==my_strcasecmp(fieldname, "WWW-Authenticate:")) {
 		if (HTAA_UNKNOWN != (scheme = HTAAScheme_enum(arg1))) {
 		    HTList_addObject(valid_schemes, (void*)scheme);
@@ -1087,7 +1087,7 @@ PUBLIC BOOL HTAA_shouldRetryWithAuth ARGS3(char *, start_of_headers,
 	/* So we have already tried with authorization.	*/
 	/* Either we don't have access or username or	*/
 	/* password was misspelled.			*/
-	    
+
 	/* Update scheme-specific parameters	*/
 	/* (in case they have expired by chance).	*/
 	HTAASetup_updateSpecifics(current_setup, scheme_specifics);
@@ -1115,7 +1115,7 @@ PUBLIC BOOL HTAA_shouldRetryWithAuth ARGS3(char *, start_of_headers,
 	}
 	if (!template)
 	    template = HTAA_makeProtectionTemplate(current_docname);
-	current_setup = HTAASetup_new(server, 
+	current_setup = HTAASetup_new(server,
 				      template,
 				      valid_schemes,
 				      scheme_specifics);

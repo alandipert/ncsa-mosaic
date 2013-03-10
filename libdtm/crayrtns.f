@@ -38,7 +38,7 @@ c Plugging DTM in...
 c
 c Revision 1.4  91/06/11  15:21:47  sreedhar
 c disclaimer added
-c 
+c
 c Revision 1.3  1991/05/16  04:40:13  jefft
 c Fixed bugs in TRIPLET conversion
 c
@@ -47,7 +47,7 @@ c Fixed bug in Cray floating point conversion routines.
 c
 c Revision 1.1  90/11/08  16:30:17  jefft
 c Initial revision
-c 
+c
 
 
 

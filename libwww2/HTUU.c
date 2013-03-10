@@ -109,7 +109,7 @@ PUBLIC int HTUU_encode ARGS3(unsigned char *,	bufin,
  *
  *  Decode an ASCII-encoded buffer back to its original binary form.
  *
- *    Entry    bufcoded    points to a uuencoded string.  It is 
+ *    Entry    bufcoded    points to a uuencoded string.  It is
  *                         terminated by any character not in
  *                         the printable character table six2pr, but
  *                         leading whitespace is stripped.
@@ -184,7 +184,7 @@ PUBLIC int HTUU_decode ARGS3(char *,		bufcoded,
    }
 
    bufin = (unsigned char *) bufcoded;
-   
+
    while (nprbytes > 0) {
       *(bufout++) = (unsigned char) (DEC(*bufin) << 2 | DEC(bufin[1]) >> 4);
       *(bufout++) = (unsigned char) (DEC(bufin[1]) << 4 | DEC(bufin[2]) >> 2);
@@ -192,7 +192,7 @@ PUBLIC int HTUU_decode ARGS3(char *,		bufcoded,
       bufin += 4;
       nprbytes -= 4;
    }
-   
+
    if(nprbytes & 03) {
       if(pr2six[bufin[-2]] > MAXVAL) {
          nbytesdecoded -= 2;

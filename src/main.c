@@ -102,7 +102,7 @@ MO_SIGHANDLER_RETURNTYPE ProcessExternalDirective (MO_SIGHANDLER_ARGS)
   char filename[64];
   char line[MO_LINE_LENGTH], *status, *directive, *url;
   FILE *fp;
-  
+
 
   signal (SIGUSR1, SIG_IGN);
 
@@ -127,7 +127,7 @@ MO_SIGHANDLER_RETURNTYPE ProcessExternalDirective (MO_SIGHANDLER_ARGS)
     url = strdup ("dummy");
   else
     url = strdup (line);
-  
+
   mo_process_external_directive (directive, url);
 
   free (directive);
@@ -138,7 +138,7 @@ MO_SIGHANDLER_RETURNTYPE ProcessExternalDirective (MO_SIGHANDLER_ARGS)
  done:
   signal (SIGUSR1, (void *)ProcessExternalDirective);
   return;
-}  
+}
 #endif
 
 static void RealFatal (void)
@@ -163,7 +163,7 @@ static MO_SIGHANDLER_RETURNTYPE FatalProblem
 #endif /* not __STDC__ */
 {
   fprintf (stderr, "\nCongratulations, you have found a bug in\n");
-  fprintf (stderr, "NCSA Mosaic %s on %s.\n\n", MO_VERSION_STRING, 
+  fprintf (stderr, "NCSA Mosaic %s on %s.\n\n", MO_VERSION_STRING,
            MO_MACHINE_TYPE);
   fprintf (stderr, "If a core file was generated in your directory,\n");
   fprintf (stderr, "please do one of the following:\n\n");
@@ -173,7 +173,7 @@ static MO_SIGHANDLER_RETURNTYPE FatalProblem
   fprintf (stderr, "  %% gdb /path/to/Mosaic /path/to/core\n");
   fprintf (stderr, "  gdb> where\n\n");
   fprintf (stderr, "Mail the results, and a description of what you were doing at the time,\n");
-  fprintf (stderr, "(include any URLs involved!) to %s.\n\nWe thank you for your support.\n\n", 
+  fprintf (stderr, "(include any URLs involved!) to %s.\n\nWe thank you for your support.\n\n",
            MO_DEVELOPER_ADDRESS);
   fprintf (stderr, "...exiting NCSA Mosaic now.\n\n");
 
@@ -200,7 +200,7 @@ main (int argc, char **argv, char **envp)
 		perror("uname");
 	}
 	else {
-		if (!strcmp(u.sysname,"SunOS") && 
+		if (!strcmp(u.sysname,"SunOS") &&
 		    (!strcmp(u.release,"5.0")
 		     || !strcmp(u.release,"5.1")
 		     || !strcmp(u.release,"5.2")

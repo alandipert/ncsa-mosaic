@@ -95,7 +95,7 @@ int numRead = 0;
 
 char *GetLine(s) /****** this routine needs an overhaul.... */
 MCCIPort s;
-/* This routine returns a line read in from the socket file descriptor. 
+/* This routine returns a line read in from the socket file descriptor.
  * The location of the string returned is good until the next call.
  * Limitation of this routine: A line read in must not be bigger than
  * the buffersize.
@@ -179,7 +179,7 @@ register int count;
 		s->numInBuffer += numBytes;
 		s->buffer[s->numInBuffer]='\0';
 		if (!(endptr = strstr(s->buffer, "\r\n"))) {
-			/* protocol error on server end 
+			/* protocol error on server end
 			   Everything sent should be terminated with
 			   a <CRLF>... just return for now */
 #ifndef DISABLE_TRACE
@@ -209,7 +209,7 @@ register int count;
 	memcpy(s->buffer,ptr,s->numInBuffer);
 
 	return(returnLine);
-	
+
 } /* NNTPGetLine() */
 
 

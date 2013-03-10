@@ -176,17 +176,17 @@ struct pixload_info {
     {lock_domain_xpm,&securityDomain,0},
     {lock_md5_xpm,&securityMd5,0},
     {lock_login_xpm,&securityLogin,0},
-        
-    {toolbar_back_1_xpm,&toolbarBack,0},        
-    {toolbar_forw_1_xpm,&toolbarForward,0},        
-    {toolbar_back_1_xpm,&toolbarBackGRAY,1},        
-    {toolbar_forw_1_xpm,&toolbarForwardGRAY,1},        
-    {toolbar_home_1_xpm,&toolbarHome,0},        
-    {toolbar_reload_1_xpm,&toolbarReload,0},        
-    {toolbar_open_1_xpm,&toolbarOpen,0},        
-    {toolbar_save_1_xpm,&toolbarSave,0},        
-    {toolbar_open_window_1_xpm,&toolbarNew,0},        
-    {toolbar_clone_window_1_xpm,&toolbarClone,0},        
+
+    {toolbar_back_1_xpm,&toolbarBack,0},
+    {toolbar_forw_1_xpm,&toolbarForward,0},
+    {toolbar_back_1_xpm,&toolbarBackGRAY,1},
+    {toolbar_forw_1_xpm,&toolbarForwardGRAY,1},
+    {toolbar_home_1_xpm,&toolbarHome,0},
+    {toolbar_reload_1_xpm,&toolbarReload,0},
+    {toolbar_open_1_xpm,&toolbarOpen,0},
+    {toolbar_save_1_xpm,&toolbarSave,0},
+    {toolbar_open_window_1_xpm,&toolbarNew,0},
+    {toolbar_clone_window_1_xpm,&toolbarClone,0},
     {toolbar_close_window_1_xpm,&toolbarClose,0},
     {toolbar_hotlist_1_xpm,&toolbarAddHotlist,0},
     {toolbar_news_groups_1_xpm,&toolbarNewsGroups,0},
@@ -207,20 +207,20 @@ struct pixload_info {
     {toolbar_print_1_xpm,&toolbarPrint,0},
     {toolbar_ftp_put_1_xpm,&toolbarFTPput,0},
     {toolbar_ftp_mkdir_1_xpm,&toolbarFTPmkdir,0},
-    
-    {tearv_xpm,&tearv,0},        
-    {tearh_xpm,&tearh,0},        
 
-    {xm_error_xpm,&dialogError,0},        
-    {xm_question_xpm,&dialogQuestion,0},        
-    {xm_information_xpm,&dialogInformation,0},        
-    {xm_warning_xpm,&dialogWarning,0},        
+    {tearv_xpm,&tearv,0},
+    {tearh_xpm,&tearh,0},
+
+    {xm_error_xpm,&dialogError,0},
+    {xm_question_xpm,&dialogQuestion,0},
+    {xm_information_xpm,&dialogInformation,0},
+    {xm_warning_xpm,&dialogWarning,0},
 
     {not_secure_xpm, &enc_not_secure, 0},
     {NULL, NULL,0}
 };
 
-    
+
 static GC DrawGC = NULL;
 int IconWidth = 0;
 int IconHeight = 0;
@@ -250,7 +250,7 @@ static char **LoadPixmapFile(char *file)
     char **pdata;
     char buf[256],*p;
     int j;
-    
+
     FILE *fp;
 
     int x,y,c,i;
@@ -266,21 +266,21 @@ static char **LoadPixmapFile(char *file)
     while(!feof(fp)) {
         if(!fgets(buf,PBUF,fp)) return NULL;
         if(buf[0]=='"') {
-            
+
             if(sscanf(&buf[1],"%d %d %d ",&x,&y,&c) != 3) {
                 fclose(fp);
                 return NULL;
             }
-            
+
 
             for(p=&buf[1];*p && *p!='"';p++);
             if(!*p) {
                 fclose(fp);
                 return NULL;
-            } else {  
+            } else {
                 *p=0;
             }
-            
+
             pdata = (char **) malloc(sizeof(char *) * (y+c+2));
             pdata[0] = strdup(&buf[1]);
 
@@ -289,12 +289,12 @@ static char **LoadPixmapFile(char *file)
                     fclose(fp);
                     return NULL;
                 }
-                
+
                 if(buf[0]=='"') {
                     for(p=&buf[1];*p && *p!='"';p++);
                     if(!*p) {
                         while(i<0) free(pdata[--i]);
-                        free(pdata);    
+                        free(pdata);
                         fclose(fp);
                         return NULL;
                     } else {
@@ -304,21 +304,21 @@ static char **LoadPixmapFile(char *file)
                 } else {
                     i--; /* skip comments, etc */
                 }
-                
+
             }
             pdata[y+c+1]=NULL; /*for ease of deletion - trust me. -bjs */
             fclose(fp);
-            
+
             return pdata;
         }
     }
     return NULL;
 }
 
-            
-                
-        
-                
+
+
+
+
 static XColor def_colrs[256];
 static int init_colors = 1;
 
@@ -455,7 +455,7 @@ highbit(unsigned long ul)
 	 * returns position of highest set bit in 'ul' as an integer (0-31),
 	 * or -1 if none.
 	 */
- 
+
 	int i;
 	for (i=31; ((ul&0x80000000) == 0) && i>=0;  i--, ul<<=1);
 	return i;
@@ -488,7 +488,7 @@ PixmapFromData(Widget wid, unsigned char *data, int width, int height,
 	unsigned long c;
 	int rshift, gshift, bshift;
 
-        
+
 	if (data == NULL)
 	{
 		return(0);
@@ -555,7 +555,7 @@ PixmapFromData(Widget wid, unsigned char *data, int width, int height,
                     datap++;
                 }
         }
-              
+
 	free((char *)data);
 	data = tmpdata;
 
@@ -756,7 +756,7 @@ void ReleaseSplashColors(Widget wid)
 		     DefaultColormapOfScreen(XtScreen(wid))),p,j,0);
 }
 
-    
+
 
 /* try to alloc *colorcount colors.
    set *colorcount to 1 if ok.
@@ -769,7 +769,7 @@ Pixmap LoadSplashXPM(Widget wid, int *colorcount)
     int indx, w, h, bg;
     XColor colrs[256];
     int i;
-    
+
     Pixmap r;
 
         /* try to grab *colorcount colors */
@@ -787,10 +787,10 @@ Pixmap LoadSplashXPM(Widget wid, int *colorcount)
             *colorcount = 1;
         else
             *colorcount = 0;
-    }   
-    
+    }
+
     InitHash();
-    
+
     data = ProcessXpm3Data(wid, splash_xpm, &w, &h, colrs, &bg);
     r = PixmapFromData(wid, data, w, h, colrs,0);
     init_colors = 1;
@@ -816,13 +816,13 @@ void MakePixmaps(Widget wid)
     int pix_count = get_pref_int(ePIX_COUNT);
     char *pix_basename = get_pref_string(ePIX_BASENAME);
     int number_of_frames = NUMBER_OF_FRAMES;
-    
+
 
     if (!been_here) {
-        been_here=1;        
+        been_here=1;
         InitHash();
     }
-    
+
         /* load pixmaps */
     for(i=0;pix_info[i].raw;i++) {
         data = ProcessXpm3Data(wid, pix_info[i].raw, &w, &h, colrs, &bg);
@@ -840,7 +840,7 @@ void MakePixmaps(Widget wid)
 
         IconPixBig = (Pixmap *) malloc(sizeof(Pixmap)*pix_count);
         fname = (char *) malloc(strlen(pix_basename)+8);
-        
+
         for (i=0; i<pix_count; i++) {
             sprintf(fname,"%s%d.xpm",pix_basename,i+1);
             if(!(pdata=LoadPixmapFile(fname))){
@@ -850,26 +850,26 @@ void MakePixmaps(Widget wid)
                 set_pref(ePIX_COUNT, (void *)&number_of_frames);
                 break;
             }
-            
+
             data = ProcessXpm3Data(wid, pdata, &w, &h, colrs, &bg);
             IconPixBig[i] = PixmapFromData(wid, data, w, h, colrs,0);
-            
-            if ((IconWidth == 0)||(IconHeight == 0)) { 
-                IconWidth = w; IconHeight = h; 
+
+            if ((IconWidth == 0)||(IconHeight == 0)) {
+                IconWidth = w; IconHeight = h;
             }
-            
+
                 /* delete the temp pixmap data */
             for(j=0;pdata[j];j++) free(pdata[j]);
             free(pdata);
         }
-        free(fname);   
+        free(fname);
     }
     else {
         set_pref(ePIX_COUNT, &number_of_frames);
     }
 
     IconPix = IconPixBig;
-       
+
 }
 
 

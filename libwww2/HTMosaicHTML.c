@@ -83,8 +83,8 @@ PRIVATE void HTMosaicHTML_free ARGS1(HTStream *, me)
     {
 #ifndef DISABLE_TRACE
       if (www2Trace)
-        fprintf 
-          (stderr, 
+        fprintf
+          (stderr,
            "[HTMosaicHTMLFree] OK, we're going to decompress HText\n");
 #endif
       HTCompressedHText (me->text, me->compressed, 0);
@@ -113,14 +113,14 @@ PRIVATE void HTMosaicHTML_handle_interrupt ARGS1(HTStream *, me)
 **		-----------------------
 */
 PUBLIC WWW_CONST HTStreamClass HTMosaicHTML =
-{		
+{
 	"SocketWriter",
 	HTMosaicHTML_free,
 	HTMosaicHTML_end_document,
-	HTMosaicHTML_put_character, 	HTMosaicHTML_put_string, 
+	HTMosaicHTML_put_character, 	HTMosaicHTML_put_string,
         HTMosaicHTML_write,
         HTMosaicHTML_handle_interrupt
-}; 
+};
 
 
 /*		New object
@@ -128,7 +128,7 @@ PUBLIC WWW_CONST HTStreamClass HTMosaicHTML =
 */
 PUBLIC HTStream* HTMosaicHTMLPresent ARGS5(
 	HTPresentation *,	pres,
-	HTParentAnchor *,	anchor,	
+	HTParentAnchor *,	anchor,
 	HTStream *,		sink,
         HTFormat,               format_in,
         int,                    compressed)
@@ -137,15 +137,15 @@ PUBLIC HTStream* HTMosaicHTMLPresent ARGS5(
 
 #ifndef DISABLE_TRACE
   if (www2Trace)
-    fprintf (stderr, "[HTMosaicHTMLPresent] Hi there!  Compressed is %d\n", 
+    fprintf (stderr, "[HTMosaicHTMLPresent] Hi there!  Compressed is %d\n",
              compressed);
 #endif
 
-  me->isa = &HTMosaicHTML;       
+  me->isa = &HTMosaicHTML;
   me->text = HText_new();
   me->interrupted = 0;
   me->compressed = compressed;
   HText_beginAppend(me->text);
-  
+
   return (HTStream*) me;
 }

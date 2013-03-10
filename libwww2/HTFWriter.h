@@ -1,9 +1,9 @@
 /*
                                       C FILE WRITER
-                                             
+
    It is useful to have both FWriter and Writer for environments in
    which fdopen() doesn't exist for example.
-   
+
  */
 #ifndef HTFWRITE_H
 #define HTFWRITE_H

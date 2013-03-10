@@ -564,7 +564,7 @@ CreateElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject = ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -691,7 +691,7 @@ CreateElement(hw, type, fp, x, y, edata, w, h, bw)
 			eptr->underline_number = 0;
 
 
-/* 
+/*
 			if (eptr->edata != NULL)
 			{
 				free((char *)eptr->edata);
@@ -728,7 +728,7 @@ CreateElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject= ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -773,7 +773,7 @@ CreateElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject = ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -963,7 +963,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject= ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -1226,7 +1226,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 					    ParseMarkTag(AnchorText,
 						MT_ANCHOR, AT_SUBJECT);
 					if (!eptr->anchorSubject) {
-						eptr->anchorSubject = 
+						eptr->anchorSubject =
 							ParseMarkTag(AnchorText,
 								     MT_ANCHOR, AT_TITLE);
 					}
@@ -1307,7 +1307,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject = ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -1466,7 +1466,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject= ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -1527,7 +1527,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 				eptr->anchorSubject= ParseMarkTag(AnchorText,
 					MT_ANCHOR, AT_SUBJECT);
 				if (!eptr->anchorSubject) {
-					eptr->anchorSubject = 
+					eptr->anchorSubject =
 						ParseMarkTag(AnchorText,
 							     MT_ANCHOR, AT_TITLE);
 				}
@@ -1591,7 +1591,7 @@ SetElement(hw, type, fp, x, y, edata, w, h, bw)
 
 
 /*
- * Change our drawing font 
+ * Change our drawing font
  */
 void
 NewFont(fp)
@@ -2206,7 +2206,7 @@ PreformatPlace(hw, mptr, x, y, width)
 					SetElement(hw, E_TEXT, currentFont,
 							line_x, *y, line, NULL, NULL, IMAGE_DEFAULT_BORDER);
 					/*
-					 * Save width here to avoid an 
+					 * Save width here to avoid an
 					 * XTextExtents call later.
 					 */
 					Current->width = *x - line_x + 1;
@@ -2270,7 +2270,7 @@ PreformatPlace(hw, mptr, x, y, width)
 		SetElement(hw, E_TEXT, currentFont,
 				line_x, *y, line, NULL, NULL, IMAGE_DEFAULT_BORDER);
 		/*
-		 * Save width here to avoid an 
+		 * Save width here to avoid an
 		 * XTextExtents call later.
 		 */
 		Current->width = *x - line_x + 1;
@@ -2498,7 +2498,7 @@ FormatPlace(hw, mptr, x, y, width)
 					SetElement(hw, E_TEXT, currentFont,
 							line_x, *y, line, NULL, NULL, IMAGE_DEFAULT_BORDER);
 					/*
-					 * Save width here to avoid an 
+					 * Save width here to avoid an
 					 * XTextExtents call later.
 					 */
 					Current->width = *x - line_x + 1;
@@ -2651,7 +2651,7 @@ FormatPlace(hw, mptr, x, y, width)
 					SetElement(hw, E_TEXT, currentFont,
 							line_x, *y, line, NULL, NULL, IMAGE_DEFAULT_BORDER);
 					/*
-					 * Save width here to avoid an 
+					 * Save width here to avoid an
 					 * XTextExtents call later.
 					 */
 					Current->width = *x - line_x + 1;
@@ -2679,7 +2679,7 @@ FormatPlace(hw, mptr, x, y, width)
 		SetElement(hw, E_TEXT, currentFont,
 				line_x, *y, line, NULL, NULL, IMAGE_DEFAULT_BORDER);
 		/*
-		 * Save width here to avoid an 
+		 * Save width here to avoid an
 		 * XTextExtents call later.
 		 */
 		Current->width = *x - line_x + 1;
@@ -2711,8 +2711,8 @@ int extra;
 
 	extra = 10;
 
-	LineFeed(hw, x, y); 
-	SetElement(hw, E_TABLE, currentFont, *x, *y, (char *) mptr, NULL, NULL, IMAGE_DEFAULT_BORDER); 
+	LineFeed(hw, x, y);
+	SetElement(hw, E_TABLE, currentFont, *x, *y, (char *) mptr, NULL, NULL, IMAGE_DEFAULT_BORDER);
 	if (!Current->table_data) {
 		/* no table */
 		return 0;
@@ -2724,7 +2724,7 @@ int extra;
 	BaseLine = Current->table_data->height;
 
 	*x += Current->width + 1;
-	LineFeed(hw, x, y); 
+	LineFeed(hw, x, y);
 }
 
 /*
@@ -2769,7 +2769,7 @@ ImagePlace(hw, mptr, x, y, width)
 		SetElement(hw, E_TEXT, currentFont,
 			*x, *y, tptr, NULL, NULL, IMAGE_DEFAULT_BORDER);
 		/*
-		 * Save width here to avoid an 
+		 * Save width here to avoid an
 		 * XTextExtents call later.
 		 */
 		Current->width = all.width;
@@ -2877,7 +2877,7 @@ ImagePlace(hw, mptr, x, y, width)
 	 * Yank out the name field, and stick it in text.
 	 * We may use this for ALT to at some later date.
 	 */
-	if (Current->pic_data != NULL) 
+	if (Current->pic_data != NULL)
 	{
 		tptr = ParseMarkTag(mptr->start, MT_IMAGE, "NAME");
 		/*temp******/
@@ -2895,7 +2895,7 @@ ImagePlace(hw, mptr, x, y, width)
 	 * change the size, or anchor status of the image, thus we MUST
 	 * doit before we muck with the Baseline and stuff.
 	 */
-	if (Current->pic_data != NULL) 
+	if (Current->pic_data != NULL)
 	{
 		/*
 		 * Handle the USEMAP attribute of IMG tags. This is used for
@@ -2949,7 +2949,7 @@ ImagePlace(hw, mptr, x, y, width)
 	 */
 	tptr = ParseMarkTag(mptr->start, MT_IMAGE, "ALIGN");
 	/*temp******/
-	if (!tptr) 
+	if (!tptr)
 	{
 		tptr = ParseMarkTag(mptr->start, MT_FIGURE, "ALIGN");
 	}
@@ -4865,7 +4865,7 @@ FormatChunk(hw, x, y)
 	 * Format all objects
 	 */
 	mptr = hw->html.html_objects;
-	Last = NULL;  
+	Last = NULL;
 	while (mptr != NULL)
 	{
 		TriggerMarkChanges(hw, &mptr, x, y);
@@ -5781,7 +5781,7 @@ XGCValues values;
 					eptr->pic_data, 0);
 				if (eptr->pic_data->transparent &&
 				    eptr->pic_data->clip==None) {
-					eptr->pic_data->clip = 
+					eptr->pic_data->clip =
 						XCreatePixmapFromBitmapData
 							(XtDisplay(hw),
 							 XtWindow(hw->html.view),
@@ -5881,7 +5881,7 @@ XGCValues values;
 				values.clip_x_origin=x+extra;
 				values.clip_y_origin=y+extra;
 				valuemask=GCClipMask|GCClipXOrigin|GCClipYOrigin;
-				XChangeGC(XtDisplay(hw), 
+				XChangeGC(XtDisplay(hw),
 					  hw->html.drawGC,
 					  valuemask, &values);
 
@@ -6004,7 +6004,7 @@ PlaceLine(hw, line)
 				break;
 			case E_LINEFEED:
 			        if(!hw->html.bg_image)
-				  LinefeedRefresh(hw, eptr); 
+				  LinefeedRefresh(hw, eptr);
 				break;
 			case E_IMAGE:
 				ImageRefresh(hw, eptr);

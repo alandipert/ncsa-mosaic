@@ -1,8 +1,8 @@
 /*                                   AUTHENTICATION MODULE
-                                             
+
    This is the authentication module. By modifying the function HTAA_authenticate() it can
    be made to support external authentication methods.
-   
+
  */
 
 #ifndef HTAUTH_H

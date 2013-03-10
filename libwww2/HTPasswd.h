@@ -1,5 +1,5 @@
 /*                                   PASSWORD FILE ROUTINES
-                                             
+
  */
 
 #ifndef HTPASSWD_H
@@ -22,10 +22,10 @@ User Authentication
    HTAA_checkPassword(username,password,passwdfile)opens the password file, and checks if
    the username-password pair is correct. Return value is YES, if and only if they are
    correct. Otherwise, and also if the open fails, returns NO.
-   
+
    If the given password file name is NULL or an empty string, the default password file
    name is used (macro PASSWD_FILE).
-   
+
  */
 
 /* PUBLIC                                               HTAA_checkPassword()

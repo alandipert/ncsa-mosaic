@@ -52,7 +52,7 @@
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
 
-/*		CCI redirect object 
+/*		CCI redirect object
 **		=================
 */
 
@@ -84,8 +84,8 @@ struct _HTStream {
 
 	HTAtom *dataType;
 	char fileName[L_tmpnam]; /* name of temp file... kept for unlink()ing*/
-	FILE *fp; 
-   
+	FILE *fp;
+
         int compressed;
 };
 
@@ -143,8 +143,8 @@ PRIVATE void CCI_free ARGS1(HTStream *, me)
     {
 #ifndef DISABLE_TRACE
       if (cciTrace)
-        fprintf 
-          (stderr, 
+        fprintf
+          (stderr,
            "[CCI_free] OK, we're going to decompress HText\n");
 #endif
       HTCompressedHText (me->text, me->compressed, 1);
@@ -163,7 +163,7 @@ PRIVATE void CCI_end_document ARGS1(HTStream *, me)
 	fclose(me->fp);
 	/* ship it */
 	if ( me->compressed != COMPRESSED_NOT)
-	  HTCompressedFileToFile (me->fileName, me->compressed);	
+	  HTCompressedFileToFile (me->fileName, me->compressed);
 	MoCCISendOutputToClient(HTAtom_name(me->dataType),me->fileName);
 /*
 	unlink(me->fileName);
@@ -182,13 +182,13 @@ PRIVATE void CCI_handle_interrupt ARGS1(HTStream *, me)
 **		-----------------------
 */
 PUBLIC WWW_CONST HTStreamClass CCIout =
-{		
+{
 	"CCIout",
 	CCI_free,
 	CCI_end_document,
 	CCI_put_character, 	CCI_put_string, CCI_write,
         CCI_handle_interrupt
-}; 
+};
 
 
 /*		New object
@@ -196,14 +196,14 @@ PUBLIC WWW_CONST HTStreamClass CCIout =
 */
 PUBLIC HTStream* CCIPresent ARGS5(
 	HTPresentation *,	pres,
-	HTParentAnchor *,	anchor,	
+	HTParentAnchor *,	anchor,
 	HTStream *,		sink,
         HTFormat,               format_in,
         int,                    compressed)
 {
 HTStream* me = (HTStream*)malloc(sizeof(HTStream));
 
-	me->isa = &CCIout;       
+	me->isa = &CCIout;
 
 	(void) tmpnam(me->fileName);
 	if (!(me->fp = fopen(me->fileName,"w"))) {

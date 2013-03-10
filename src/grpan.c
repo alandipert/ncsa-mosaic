@@ -83,7 +83,7 @@ static char *EscapeStuff(char *title);
      Return an HTML-format hyperlink table to be appended to
      the document text, or NULL if no annotations exist.
      If a non-NULL result is returned, the caller must free it.
-     
+
    mo_status mo_new_grpan (char *url, char *title, char *author,
                            char *text)
      Add a new annotation for document named by 'url' to the
@@ -152,13 +152,13 @@ static char *EscapeStuff(char *title)
 /****************************************************************************
  * name:    mo_fetch_grpan_links
  * purpose: Fetch the list of group annotations for this document.
- * inputs:  
+ * inputs:
  *   - char *url: The URL for which to fetch.
- * returns: 
+ * returns:
  *   An HTML block with the list of group annotations, or NULL.
- * remarks: 
- *   Right now the server constructs the list for us.  Later we will want 
- *   to construct it ourselves to be able to support local kill lists, 
+ * remarks:
+ *   Right now the server constructs the list for us.  Later we will want
+ *   to construct it ourselves to be able to support local kill lists,
  *   and the like.
  ****************************************************************************/
 char *mo_fetch_grpan_links (char *url)
@@ -175,30 +175,30 @@ char *mo_fetch_grpan_links (char *url)
     {
       /* Go get the anchor in the URL, if any. */
       char *anch = mo_url_extract_anchor (url);
-      
+
       /* If there is one and it doesn't start with "hdfref",
          then clip it off.  WHAT ABOUT PERSONAL ANNOTATIONS??? */
       if (anch && strncmp (anch, "hdfref", 6))
         url = mo_url_canonicalize (url, "");
-      
+
       /* Sanity check. */
       if (!url)
         return NULL;
 
       /* the old Bina grpan request */
-/*      
+/*
 	request = (char *)malloc(strlen(url) + 256);
 	sprintf
         (request, "grpan://%s/url=\"%s\";=", Rdata.annotation_server, url);
 	ttxt = grpan_doit("ANN_GET ", request, (char *)NULL, 0, &ttxthead);
 	free(request);
 	*/
-      
+
       /* amb */
       post_data = (char *)malloc(strlen(url) + 1024);
       sprintf(post_data, "cmd=an_get&format=html&url=%s", url);
       ttxt = mo_post_pull_er_over (get_pref_string(eANNOTATION_SERVER),
-				   "application/x-www-form-urlencoded", 
+				   "application/x-www-form-urlencoded",
 				   post_data, &ttxthead);
       free(post_data);
 
@@ -225,12 +225,12 @@ char *mo_fetch_grpan_links (char *url)
 /****************************************************************************
  * name:    mo_is_editable_grpan
  * purpose: Discover if a block of HTML is an editable group annotation.
- * inputs:  
+ * inputs:
  *   - char *text: Text block to check.
- * returns: 
+ * returns:
  *   mo_succeed if it is, mo_fail if not.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_status mo_is_editable_grpan (char *text)
 {
@@ -248,14 +248,14 @@ mo_status mo_is_editable_grpan (char *text)
 /****************************************************************************
  * name:    mo_new_grpan
  * purpose: Send a new group annotation to the server.
- * inputs:  
+ * inputs:
  *   - char    *url: The URL of the document being annotated.
  *   - char  *title: Title of the new annotation.
  *   - char *author: Author of the new annotation.
  *   - char   *text: Text of the new annotation.
- * returns: 
+ * returns:
  *   mo_succeed if the annotation was registered; mo_fail if not.
- * remarks: 
+ * remarks:
  *   Send a new group annotation to the server.  The data (text) can actually
  *   be binary, but then you need to compose what you send with something other
  *   than strcat, and you may need to call a function other than
@@ -276,15 +276,15 @@ mo_status mo_new_grpan (char *url, char *title, char *author, char *text)
       char *ts = ctime (&foo);
       char *Etitle, *Euser;
       char *esc_text;
-      
+
       ts[strlen(ts)-1] = '\0';
-      
+
       Etitle = EscapeStuff(title);
       Euser = EscapeStuff(author);
 
 /* The old Bina thing */
 /*
-  
+
   request = (char *)malloc(strlen(url) + strlen(Etitle) + strlen(Euser) +
   strlen(ts) + strlen(text) + 256);
   if (request == NULL)
@@ -300,7 +300,7 @@ mo_status mo_new_grpan (char *url, char *title, char *author, char *text)
   */
 
       /* amb */
-      post_data = (char *)malloc(strlen(url) + strlen(Etitle) + strlen(Euser) 
+      post_data = (char *)malloc(strlen(url) + strlen(Etitle) + strlen(Euser)
 				 + strlen(ts) + strlen(text) + 256);
       if (post_data == NULL)
 	return mo_fail;
@@ -308,7 +308,7 @@ mo_status mo_new_grpan (char *url, char *title, char *author, char *text)
       sprintf(post_data, "cmd=an_post&url=%s&title=%s&author=%s&text=%s",
 	      url, title, author, esc_text);
       ttxt = mo_post_pull_er_over (get_pref_string(eANNOTATION_SERVER),
-				   "application/x-www-form-urlencoded", 
+				   "application/x-www-form-urlencoded",
 				   post_data, &ttxthead);
       free(post_data);
 
@@ -329,19 +329,19 @@ mo_status mo_new_grpan (char *url, char *title, char *author, char *text)
 
 /****************************************************************************
  * name:    mo_audio_grpan
- * purpose: Send a new audio group annotation to the server.  
- * inputs:  
+ * purpose: Send a new audio group annotation to the server.
+ * inputs:
  *   - char    *url: The URL of the document being annotated.
  *   - char  *title: Title of the new annotation.
  *   - char *author: Author of the new annotation.
  *   - char   *data: Binary data of the new annotation.
- *   - int      len: 
- * returns: 
+ *   - int      len:
+ * returns:
  *   mo_succeed if everything's OK, mo_fail else.
- * remarks: 
+ * remarks:
  *   The data is sound, either .au, or .aiff format.
  ****************************************************************************/
-mo_status mo_audio_grpan (char *url, char *title, char *author, 
+mo_status mo_audio_grpan (char *url, char *title, char *author,
                           char *data, int len)
 {
   if (! get_pref_string(eANNOTATION_SERVER)) /* No annotation server */
@@ -360,7 +360,7 @@ mo_status mo_audio_grpan (char *url, char *title, char *author,
 
       Etitle = EscapeStuff(title);
       Euser = EscapeStuff(author);
-      
+
       request = (char *)malloc(strlen(url) + strlen(Etitle) + strlen(Euser) +
                                strlen(ts) + 256);
       if (request == NULL)
@@ -392,15 +392,15 @@ mo_status mo_audio_grpan (char *url, char *title, char *author,
 /****************************************************************************
  * name:    mo_modify_grpan
  * purpose: Alter the content of an existing group annotation.
- * inputs:  
- * inputs:  
+ * inputs:
+ * inputs:
  *   - char    *url: The URL of the annotation being changed.
  *   - char  *title: Title of the new (modified) annotation.
  *   - char *author: Author of the new (modified) annotation.
  *   - char   *text: Text of the new (modified) annotation.
- * returns: 
+ * returns:
  *   mo_succeed if the annotation changes were registered; mo_fail if not.
- * remarks: 
+ * remarks:
  *
  ****************************************************************************/
 mo_status mo_modify_grpan (char *url, char *title, char *author, char *text)
@@ -416,12 +416,12 @@ mo_status mo_modify_grpan (char *url, char *title, char *author, char *text)
       time_t foo = time (NULL);
       char *ts = ctime (&foo);
       char *Etitle, *Euser;
-      
+
       ts[strlen(ts)-1] = '\0';
-      
+
       Etitle = EscapeStuff(title);
       Euser = EscapeStuff(author);
-      
+
       request = (char *)malloc(strlen(url) + strlen(Etitle) + strlen(Euser) +
                                strlen(ts) + strlen(text) + 256);
       if (request == NULL)
@@ -449,12 +449,12 @@ mo_status mo_modify_grpan (char *url, char *title, char *author, char *text)
 /****************************************************************************
  * name:    mo_delete_grpan
  * purpose: Delete the annotation whose url is passed.
- * inputs:  
+ * inputs:
  *   - char *url: URL of annotation to be deleted.
- * returns: 
+ * returns:
  *   mo_succeed, if everything went OK.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_status mo_delete_grpan (char *url)
 {
@@ -466,10 +466,10 @@ mo_status mo_delete_grpan (char *url)
     {
       char *request;
       char *ttxt, *ttxthead;
-      
+
       request = (char *)malloc(strlen(url) + 256);
       sprintf
-        (request, "grpan://%s/url=\"%s\";=", 
+        (request, "grpan://%s/url=\"%s\";=",
 	 get_pref_string(eANNOTATION_SERVER), url);
       ttxt = grpan_doit("ANN_DELETE ", request, (char *)NULL, 0, &ttxthead);
       free(request);
@@ -481,7 +481,7 @@ mo_status mo_delete_grpan (char *url)
 /****************************************************************************
  * name:    mo_grok_grpan_pieces
  * purpose: Read pieces of out an annotation.
- * inputs:  
+ * inputs:
  *   - char     *url: URL of the annotation.
  *   - char       *t: Text of the annotation.
  *   - char  **title: Return title of the annotation.
@@ -489,11 +489,11 @@ mo_status mo_delete_grpan (char *url)
  *   - char   **text: Return text (body) of the annotation.
  *   - int       *id: Return ID of the annotation.
  *   - char     **fn: Unused.
- * returns: 
+ * returns:
  *   mo_succeed if the return pointers were set to the right data;
  *   mo_fail if something went wrong.
- * remarks: 
- *   
+ * remarks:
+ *
  ****************************************************************************/
 mo_status mo_grok_grpan_pieces (char *url, char *t,
                                 char **title, char **author, char **text,
@@ -516,7 +516,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
     {
       return mo_fail;
     }
-  
+
   /* Skip the magic cookie */
   tptr = txt;
   while (*tptr != '\n')
@@ -527,7 +527,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* Skip the title line */
   tptr++;
   while (*tptr != '\n')
@@ -538,7 +538,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* skip to the beginning of the title after the header tag */
   while (*tptr != '>')
     {
@@ -550,7 +550,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
     }
   tptr++;
   head = tptr;
-  
+
   /* skip to the end of the title before the close header tag */
   while (*tptr != '<')
     {
@@ -563,7 +563,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
   *tptr = '\0';
   *title = strdup(head); /* snarf out the title */
   *tptr = '<';
-  
+
   /* skip to the end of the header line. */
   while (*tptr != '\n')
     {
@@ -573,7 +573,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* skip to the beginning of the author after the address tag */
   while (*tptr != '>')
     {
@@ -585,7 +585,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
     }
   tptr++;
   head = tptr;
-  
+
   /* skip to the end of the author before the close address tag */
   while (*tptr != '<')
     {
@@ -598,7 +598,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
   *tptr = '\0';
   *author = strdup(head); /* snarf the author name */
   *tptr = '<';
-  
+
   /* skip to the end of the author line. */
   while (*tptr != '\n')
     {
@@ -608,7 +608,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* skip to the end of the date line. */
   tptr++;
   while (*tptr != '\n')
@@ -619,7 +619,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* skip to the end of the ___ line. */
   tptr++;
   while (*tptr != '\n')
@@ -630,7 +630,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       tptr++;
     }
-  
+
   /* skip to the end of the pre line. */
   tptr++;
   while (*tptr != '\n')
@@ -643,7 +643,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
     }
   tptr++;
   *text = strdup(tptr); /* snarf the remaining text */
-  
+
   /*
    * Find the annotation file name at the end of the url, and strip
    * the id number out of it.
@@ -652,7 +652,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
   if (tptr == NULL)
     {
       int hash, val;
-      
+
       if (sscanf(url, "%d-%d.html", &hash, &val) != 2)
 	{
           return mo_fail;
@@ -662,7 +662,7 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
   else
     {
       int hash, val;
-      
+
       tptr++;
       if (sscanf(tptr, "%d-%d.html", &hash, &val) != 2)
 	{
@@ -670,6 +670,6 @@ mo_status mo_grok_grpan_pieces (char *url, char *t,
 	}
       *id = val;
     }
-  
+
   return mo_succeed;
 }

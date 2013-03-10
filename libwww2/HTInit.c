@@ -68,17 +68,17 @@ PUBLIC void HTFormatInit NOARGS
      can be overridden by users. */
   if (have_hdf)
     {
-      HTSetPresentation("application/x-hdf",      "mosaic-internal-reference", 
+      HTSetPresentation("application/x-hdf",      "mosaic-internal-reference",
                         1.0, 3.0, 0.0);
-      HTSetPresentation("application/x-netcdf",   "mosaic-internal-reference", 
+      HTSetPresentation("application/x-netcdf",   "mosaic-internal-reference",
                         1.0, 3.0, 0.0);
       /* Jumping the gun, but still... */
-      HTSetPresentation("application/hdf",      "mosaic-internal-reference", 
+      HTSetPresentation("application/hdf",      "mosaic-internal-reference",
                         1.0, 3.0, 0.0);
-      HTSetPresentation("application/netcdf",   "mosaic-internal-reference", 
+      HTSetPresentation("application/netcdf",   "mosaic-internal-reference",
                         1.0, 3.0, 0.0);
     }
-  
+
   if (use_default_type_map)
     {
 #if defined(__sgi)
@@ -121,7 +121,7 @@ PUBLIC void HTFormatInit NOARGS
       HTSetPresentation("application/postscript", "ghostview %s", 1.0, 3.0, 0.0);
       HTSetPresentation("application/x-dvi", "xdvi %s", 1.0, 3.0, 0.0);
 
-      HTSetPresentation("message/rfc822", 
+      HTSetPresentation("message/rfc822",
                         "xterm -e metamail %s", 1.0, 3.0, 0.0);
 
       HTSetPresentation("application/x-latex", "mosaic-internal-present", 1.0, 3.0, 0.0);
@@ -149,19 +149,19 @@ PUBLIC void HTFormatInit NOARGS
 /*
 Copyright (c) 1991 Bell Communications Research, Inc. (Bellcore)
 
-Permission to use, copy, modify, and distribute this material 
-for any purpose and without fee is hereby granted, provided 
-that the above copyright notice and this permission notice 
-appear in all copies, and that the name of Bellcore not be 
-used in advertising or publicity pertaining to this 
-material without the specific, prior written permission 
-of an authorized representative of Bellcore.  BELLCORE 
-MAKES NO REPRESENTATIONS ABOUT THE ACCURACY OR SUITABILITY 
-OF THIS MATERIAL FOR ANY PURPOSE.  IT IS PROVIDED "AS IS", 
+Permission to use, copy, modify, and distribute this material
+for any purpose and without fee is hereby granted, provided
+that the above copyright notice and this permission notice
+appear in all copies, and that the name of Bellcore not be
+used in advertising or publicity pertaining to this
+material without the specific, prior written permission
+of an authorized representative of Bellcore.  BELLCORE
+MAKES NO REPRESENTATIONS ABOUT THE ACCURACY OR SUITABILITY
+OF THIS MATERIAL FOR ANY PURPOSE.  IT IS PROVIDED "AS IS",
 WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES.
 */
-/****************************************************** 
-    Metamail -- A tool to help diverse mail readers 
+/******************************************************
+    Metamail -- A tool to help diverse mail readers
                 cope with diverse multimedia mail formats.
 
     Author:  Nathaniel S. Borenstein, Bellcore
@@ -204,12 +204,12 @@ static char *GetCommand(char *s, char **t)
     }
     *s2 = 0;
     return(NULL);
-}	
+}
 
 static char *Cleanse(char *s) /* no leading or trailing space, all lower case */
 {
     char *tmp, *news;
-    
+
     /* strip leading white space */
     while (*s && isspace((unsigned char) *s)) ++s;
     news = s;
@@ -374,20 +374,20 @@ PUBLIC void HTFileInit NOARGS
       HTSetSuffix(".eps",	"application/postscript", "binary", 1.0);
       HTSetSuffix(".ai",	"application/postscript", "binary", 1.0);
       HTSetSuffix(".ps",	"application/postscript", "binary", 1.0);
-      
+
       HTSetSuffix(".rtf",	"application/rtf", "binary", 1.0);
 
       HTSetSuffix(".dvi","application/x-dvi", "binary", 1.0);
 
       HTSetSuffix(".hdf","application/x-hdf", "binary", 1.0);
-      
+
       HTSetSuffix(".latex", "application/x-latex", "binary", 1.0);
 
       HTSetSuffix(".cdf","application/x-netcdf", "binary", 1.0);
       HTSetSuffix(".nc","application/x-netcdf", "binary", 1.0);
 
       HTSetSuffix(".tex",  "application/x-tex", "binary", 1.0);
-      
+
       HTSetSuffix(".texinfo",       "application/x-texinfo",    "binary", 1.0);
       HTSetSuffix(".texi",          "application/x-texinfo",    "binary", 1.0);
 
@@ -419,7 +419,7 @@ PUBLIC void HTFileInit NOARGS
       HTSetSuffix(".aif",  "audio/x-aiff", "binary", 1.0);
       HTSetSuffix(".aiff", "audio/x-aiff", "binary", 1.0);
       HTSetSuffix(".wav",  "audio/x-wav", "binary", 1.0);
-      
+
       HTSetSuffix(".gif", "image/gif", "binary", 1.0);
 
       HTSetSuffix(".png", "image/png", "binary", 1.0);
@@ -431,10 +431,10 @@ PUBLIC void HTFileInit NOARGS
       HTSetSuffix(".jpe", "image/jpeg", "binary", 1.0);
       HTSetSuffix(".jpg", "image/jpeg", "binary", 1.0);
       HTSetSuffix(".jpeg","image/jpeg", "binary", 1.0);
-      
+
       HTSetSuffix(".tif", "image/tiff", "binary", 1.0);
       HTSetSuffix(".tiff","image/tiff", "binary", 1.0);
-            
+
       HTSetSuffix(".ras", "image/x-cmu-rast", "binary", 1.0);
       HTSetSuffix(".pnm", "image/x-portable-anymap", "binary", 1.0);
       HTSetSuffix(".pbm", "image/x-portable-bitmap", "binary", 1.0);
@@ -455,7 +455,7 @@ PUBLIC void HTFileInit NOARGS
       HTSetSuffix(".h",	       "text/plain", "binary", 1.0);
       HTSetSuffix(".pl",       "text/plain", "binary", 1.0);
       HTSetSuffix(".txt",      "text/plain", "binary", 1.0);
-            
+
       HTSetSuffix(".rtx", "text/richtext", "binary", 1.0); /* MIME richtext */
       HTSetSuffix(".tsv", "text/tab-separated-values", "binary", 1.0);
       HTSetSuffix(".etx", "text/x-setext", "binary", 1.0);
@@ -477,7 +477,7 @@ PUBLIC void HTFileInit NOARGS
 
   /* These should override the default extensions as necessary. */
   HTLoadExtensionsConfigFile (global_extension_map);
-  
+
   /* These should override everything else. */
   HTLoadExtensionsConfigFile (personal_extension_map);
 }
@@ -513,7 +513,7 @@ PUBLIC void HTFileInit NOARGS
 /**//* NOTREACHED */
 /*}*/
 
-static void getword(char *word, char *line, char stop, char stop2) 
+static void getword(char *word, char *line, char stop, char stop2)
 {
   int x = 0, y;
 
@@ -521,9 +521,9 @@ static void getword(char *word, char *line, char stop, char stop2)
     {
       word[x] = line[x];
     }
-  
+
   word[x] = '\0';
-  if (line[x]) 
+  if (line[x])
     ++x;
   y=0;
 
@@ -545,8 +545,8 @@ int HTLoadExtensionsConfigFile (char *fn)
     fprintf (stderr, "Loading extensions config file '%s'\n",
              fn);
 #endif
-  
-  if(!(f = fopen(fn,"r"))) 
+
+  if(!(f = fopen(fn,"r")))
     {
 #ifndef DISABLE_TRACE
       if (www2Trace)
@@ -556,7 +556,7 @@ int HTLoadExtensionsConfigFile (char *fn)
       return -1;
     }
 
-  while(!(getline((char**)&l,&len,f))) 
+  while(!(getline((char**)&l,&len,f)))
     {
       /* always get rid of leading white space for "line" -- SWP */
       for (ptr=l; *ptr && isspace(*ptr); ptr++);
@@ -566,11 +566,11 @@ int HTLoadExtensionsConfigFile (char *fn)
         continue;
       ct = (char *)malloc(sizeof(char) * (strlen(w) + 1));
       strcpy(ct,w);
-      
-      while(ptr[0]) 
+
+      while(ptr[0])
         {
           getword(w,ptr,' ','\t');
-          if(w[0] && (w[0] != ' ')) 
+          if(w[0] && (w[0] != ' '))
             {
               char *ext = (char *)malloc(sizeof(char) * (strlen(w)+1+1));
 
@@ -586,13 +586,13 @@ int HTLoadExtensionsConfigFile (char *fn)
 
               HTSetSuffix (ext, ct, "binary", 1.0);
               count++;
-              
+
               free (ext);
             }
         }
       free(ct);
     }
-  
+
   fclose(f);
 
   return count;

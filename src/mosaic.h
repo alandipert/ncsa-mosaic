@@ -132,7 +132,7 @@ typedef enum
 #endif
 
 #ifndef HOME_PAGE_DEFAULT
-/* This must be a straight string as it is included into a struct; 
+/* This must be a straight string as it is included into a struct;
    no tricks. */
 #define HOME_PAGE_DEFAULT \
   "http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/NCSAMosaicHome.html"
@@ -292,8 +292,8 @@ typedef struct mo_window
   int id;
   Widget base;
     int mode;
-    
-    
+
+
   /* Subwindows. */
   Widget source_win;
   Widget save_win;
@@ -332,13 +332,13 @@ typedef struct mo_window
   Widget session_menu;
   Widget *session_items;
   int num_session_items;
-    
-  /* Tag 'n Bag 
+
+  /* Tag 'n Bag
   Widget tag_win;
   Widget tag_list;
   */
-    
-       
+
+
 #ifdef HAVE_DTM
   Widget dtmout_win;
 #endif
@@ -365,8 +365,8 @@ typedef struct mo_window
     int toolset;
     int toolbardetached;
     int toolbarorientation;
-    
-    
+
+
     Widget meter, meter_frame;
     int meter_level,meter_width,meter_height;
     int meter_notext;
@@ -428,7 +428,7 @@ typedef struct mo_window
   Widget print_us_toggle_mail;
     Widget print_url_only;
     Widget print_doc_only;
-    
+
   Widget history_list;
 
   Widget hotlist_list;
@@ -450,7 +450,7 @@ typedef struct mo_window
   Widget mailto_fromfield;
   Widget mailto_tofield;
   Widget mailto_subfield;
-  
+
   Widget mailto_form_text;
   Widget mailto_form_fromfield;
   Widget mailto_form_tofield;
@@ -613,7 +613,7 @@ typedef enum
   mo_kerberosv5_login,
 #endif
   mo_proxy, mo_no_proxy,
-  mo_reload_document, mo_reload_document_and_images, 
+  mo_reload_document, mo_reload_document_and_images,
   mo_refresh_document, mo_clear_image_cache,
   mo_cci,
   mo_document_source, mo_document_edit, mo_document_date, mo_search,
@@ -623,7 +623,7 @@ typedef enum
   mo_close_window, mo_exit_program,
   mo_home_document, mo_ncsa_document,
   mo_mosaic_manual, mo_mosaic_demopage,
-  mo_back, mo_forward, mo_history_list, 
+  mo_back, mo_forward, mo_history_list,
   mo_clear_global_history,
   mo_hotlist_postit, mo_register_node_in_default_hotlist,
   mo_all_hotlist_to_rbm, mo_all_hotlist_from_rbm,
@@ -645,7 +645,7 @@ typedef enum
   mo_default_underlines, mo_l1_underlines, mo_l2_underlines, mo_l3_underlines,
   mo_no_underlines, mo_binary_transfer,
 /* links window */
-  mo_links_window, 
+  mo_links_window,
 /* News Menu & Stuff */
   mo_news_prev, mo_news_next, mo_news_prevt, mo_news_nextt,
   mo_news_post, mo_news_cancel, mo_news_reply, mo_news_follow,
@@ -653,9 +653,9 @@ typedef enum
   mo_news_groups, mo_news_flush, mo_news_flushgroup,
   mo_news_grp0, mo_news_grp1, mo_news_grp2,
   mo_news_art0, mo_news_art1, mo_use_flush,
-  mo_news_sub, mo_news_unsub,   mo_news_sub_anchor, mo_news_unsub_anchor, 
+  mo_news_sub, mo_news_unsub,   mo_news_sub_anchor, mo_news_unsub_anchor,
   mo_news_mread, mo_news_mread_anchor, mo_news_munread, mo_news_maunread,
-  
+
 /* Other stuff */
   mo_re_init, mo_delay_image_loads, mo_table_support, mo_expand_images_current,
   mo_image_view_internal,

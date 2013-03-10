@@ -43,7 +43,7 @@
  *
  * Revision 1.4  92/04/30  20:27:05  jplevyak
  * Changed Version to 2.3
- * 
+ *
  * Revision 1.3  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.

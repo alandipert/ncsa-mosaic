@@ -69,7 +69,7 @@
  *
  * Revision 1.19  92/05/14  19:27:48  jefft
  * modified dtm_recv_reliable
- * 
+ *
  * Revision 1.18  1992/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
  *
@@ -82,7 +82,7 @@
  * Revision 1.15  92/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
- * 
+ *
  * Revision 1.14  1992/03/02  18:29:41  jplevyak
  * Fixed bug in EAGAIN handling.
  *
@@ -103,7 +103,7 @@
  *
  * Revision 1.7  91/08/20  15:56:06  sreedhar
  * Removed unused functions - dtm_write_buffer, dtm_send, dtm_recv
- * 
+ *
  * Revision 1.6  1991/08/15  18:56:52  sreedhar
  * Changes for logical portname version
  *
@@ -159,8 +159,8 @@
 	CONTENTS
 
 
-	dtm_read_buffer() 	- attempts to fill the next dtm buffer. 
-	dtm_recv_header() 	- Function to read header and return size.  
+	dtm_read_buffer() 	- attempts to fill the next dtm buffer.
+	dtm_recv_header() 	- Function to read header and return size.
  	dtm_recv_ack() 		- receive message ackowledgement
 	tm_send_ack() 		- send message acknowledgement
 	dtm_writev_buffer()	- sends the buffers to receiving process.
@@ -200,7 +200,7 @@ static int	ready_bytes( d, length )
 	fd_set	mask;
 	struct timeval  timeout ;
 
-	
+
 	/* set the select timeout value */
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
@@ -235,7 +235,7 @@ static int	ready_bytes( d, length )
 	}
 }
 
-        
+
 
 /*
 	Reliably read from a port in the face of signals and other
@@ -288,7 +288,7 @@ int	dtm_recv_reliable( d, buffer, length )
 }
 
 /*
- * dtm_read_buffer() - attempts to fill the next dtm buffer.  The 
+ * dtm_read_buffer() - attempts to fill the next dtm buffer.  The
  *	blocklen variable must be set to DTM_NEW_DATASET after each dataset
  *	to force recv_buffer to move the next dataset.
  */
@@ -307,8 +307,8 @@ int dtm_read_buffer(d, blocklen, buffer, length)
   DBGMSG1("dtm_recv_buffer: attempting to read %d bytes.\n", length);
   DBGMSG1("dtm_recv_buffer: initial blocklen = %d\n", *blocklen);
 
-  /* if block length is DTM_NEW_DATASET this is a new dataset 
-   * get initial block count 
+  /* if block length is DTM_NEW_DATASET this is a new dataset
+   * get initial block count
    */
   if (*blocklen == DTM_NEW_DATASET)  {
     CHECK_ERR(dtm_recv_reliable(d, (char *)blocklen, 4));
@@ -320,8 +320,8 @@ int dtm_read_buffer(d, blocklen, buffer, length)
   while (TRUE)  {
 
     /* if block length is 0, because last call to fill_buffer hit
-     * the EOS or because this dataset is zero length, return 0  
-     * to indicate the end of dataset.				 
+     * the EOS or because this dataset is zero length, return 0
+     * to indicate the end of dataset.
 	 */
     if (*blocklen == 0)
       return 0;
@@ -335,7 +335,7 @@ int dtm_read_buffer(d, blocklen, buffer, length)
 
 		/* decrement block length, if 0 get next block length */
 		*blocklen -= (length - count);
-		if (*blocklen == 0)  
+		if (*blocklen == 0)
 			*blocklen = DTM_NEW_DATASET;
 
       /* if block length is 0 now, the EOS will be returned on */
@@ -362,7 +362,7 @@ int dtm_read_buffer(d, blocklen, buffer, length)
       DBGINT("blocklen = %d\n", *blocklen);
 
       /* if block length is 0 now, the correct count will be */
-      /* returned now, and EOS on the next call to fill_buffer */ 
+      /* returned now, and EOS on the next call to fill_buffer */
       if (*blocklen == 0)
         return count;
 
@@ -411,9 +411,9 @@ int   dtm_read_header( fd, buf, buflen )
 
 /*
 	dtm_recv_header()
-	Function to read header and return size.  
+	Function to read header and return size.
 
-	Notes	: If buffer is too small, dump remainder of header 
+	Notes	: If buffer is too small, dump remainder of header
 		  and return error.
 		  Actually, this is function to read length of data and
 		  then to receive that much data - the data is called header
@@ -437,7 +437,7 @@ int dtm_recv_header( d, header, length )
 	DBGMSG1("dtm_recv_header: buf length = %d.\n", length);
 
   	/* get header length */
-	
+
   	if( (readcnt = recvfrom(d, (char *)&headerlen, 4, 0, ( struct sockaddr *)&from,
 			( int *)&fromlen)) != 4) {
     		/* somehow hit EOF, return DTMEOF instead */
@@ -460,19 +460,19 @@ int dtm_recv_header( d, header, length )
 				return DTMERROR;
 			}
 		}
-  	}    
+  	}
 
   	LOCALINT(headerlen);
 	DBGMSG("dtm_recv_header: got length.\n");
 
-	/*  read the header */ 
+	/*  read the header */
 
   	readcnt = (length > headerlen) ? headerlen : length ;
   	header = (void *) (((char *) header) + readcnt);
 
   	while(readcnt) {
-		if( (tmp = recvfrom(d, ((char *)header) - readcnt, readcnt, 0, 
-		( struct sockaddr *)&from, ( int *)&fromlen)) > 0) 
+		if( (tmp = recvfrom(d, ((char *)header) - readcnt, readcnt, 0,
+		( struct sockaddr *)&from, ( int *)&fromlen)) > 0)
 			readcnt -= tmp;
 		else {
       			DTMerrno = DTMREAD;
@@ -480,24 +480,24 @@ int dtm_recv_header( d, header, length )
 		}
 	}
 
-   	/* check for header greater than buffer size provided */ 
+   	/* check for header greater than buffer size provided */
 
-  	if( length >= headerlen ) 
+  	if( length >= headerlen )
 		return headerlen;
   	else {
   		/* discard remaining header */
 
     		readcnt = headerlen - length;
 		while (readcnt) {
-			if ((tmp = recvfrom(d, dtm_discard, readcnt, 0, 
-					(struct sockaddr *)&from, (int *)&fromlen)) > 0) 
+			if ((tmp = recvfrom(d, dtm_discard, readcnt, 0,
+					(struct sockaddr *)&from, (int *)&fromlen)) > 0)
 				readcnt -= tmp;
 			else {
       				DTMerrno = DTMREAD;
       				return DTMERROR;
 			}
 		}
-    
+
 		DTMerrno = DTMHEADER;
 		return DTMERROR;
 	}
@@ -508,7 +508,7 @@ int dtm_recv_header( d, header, length )
 
 	Notes	: Berkeley implementation returns 0 from recv
 		  if socket connection breaks while waiting in
-		  recv system call.  System V returns -1 and 
+		  recv system call.  System V returns -1 and
 		  ECONNRESET in errno for same error.
 
 		  For historical reasons, DTMEOF is returned when
@@ -532,16 +532,16 @@ int	dtm_recv_ack( d, ack )
 
   	if( (tmp = recv( d, (char *)ack, 4, 0 )) != 4 ) {
 		DBGINT( "Recv_ack errno = %d\n", errno ) ;
-		if( tmp == 0 ) 
+		if( tmp == 0 )
 			/* Courtesy Berkeley */
 
 			DTMerrno = DTMEOF ;
 		else {
-			if( errno == ECONNRESET ) 
+			if( errno == ECONNRESET )
 				/* Courtesy system V */
 
 				DTMerrno = DTMEOF;
-			else 
+			else
 				DTMerrno = DTMREAD;
 		}
 		return DTMERROR;
@@ -636,7 +636,7 @@ int dtm_writev_failed( fd, msgbuf, tmp )
 	for ( i = 0; i < msgbuf->msg_iovlen; i++ ) {
 		done -= iov[i].iov_len;
 		if ( done > 0 ) continue;
-		if ( dtm_send_some( fd, iov[i].iov_base + done + iov[i].iov_len, 
+		if ( dtm_send_some( fd, iov[i].iov_base + done + iov[i].iov_len,
 				(- done )) == DTMERROR )
 			return DTMERROR;
 		done = 0;
@@ -664,17 +664,17 @@ int	dtm_writev_buffer( fd, iov, iovlen, iovsize, addr, addrlen )
 	int	todo;
 
   	DBGINT("# dtm_writev_buffer called, fd %d.\n", fd );
-	
-	msgbuf.msg_name = (caddr_t)addr ; 
+
+	msgbuf.msg_name = (caddr_t)addr ;
 	msgbuf.msg_namelen = addrlen ;
 	msgbuf.msg_iov = iov ;
 	msgbuf.msg_iovlen = iovlen ;
 	msgbuf.msg_accrights = 0 ;
 
-	if( (tmp = sendmsg( fd, &msgbuf, 0 )) != iovsize ) 
+	if( (tmp = sendmsg( fd, &msgbuf, 0 )) != iovsize )
 		return dtm_writev_failed( fd, &msgbuf, tmp );
 
 	DBGINT( "dtm_writev_buffer tmp = %d\n", tmp );
-	
+
 	return	DTM_OK ;
 }

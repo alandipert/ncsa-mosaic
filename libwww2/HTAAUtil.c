@@ -76,7 +76,7 @@ PUBLIC HTAAScheme HTAAScheme_enum ARGS1(WWW_CONST char*, name)
 	*cur = TOUPPER(*cur);
 	cur++;
     }
-    
+
     if (!strncmp(upcased, "NONE", 4))
 	return HTAA_NONE;
     else if (!strncmp(upcased, "BASIC", 5))
@@ -112,7 +112,7 @@ PUBLIC char *HTAAScheme_name ARGS1(HTAAScheme, scheme)
       case HTAA_PUBKEY:		return "Pubkey";        break;
       case HTAA_KERBEROS_V4:	return "KerberosV4";	break;
       case HTAA_KERBEROS_V5:	return "KerberosV5";	break;
-      case HTAA_MD5:            return "Digest";        break;   
+      case HTAA_MD5:            return "Digest";        break;
       case HTAA_UNKNOWN:	return "UNKNOWN";       break;
       default:			return "THIS-IS-A-BUG";
     }
@@ -227,7 +227,7 @@ PUBLIC BOOL HTAAMethod_inList ARGS2(HTAAMethod,	method,
 **	returns		YES, if filename matches the template.
 **			NO, otherwise.
 */
-PUBLIC BOOL HTAA_templateMatch ARGS2(WWW_CONST char *, template, 
+PUBLIC BOOL HTAA_templateMatch ARGS2(WWW_CONST char *, template,
 				     WWW_CONST char *, filename)
 {
     WWW_CONST char *p = template;
@@ -236,7 +236,7 @@ PUBLIC BOOL HTAA_templateMatch ARGS2(WWW_CONST char *, template,
 
     for( ; *p  &&  *q  &&  *p == *q; p++, q++)	/* Find first mismatch */
 	; /* do nothing else */
-    
+
     if (!*p && !*q)	return YES;	/* Equally long equal strings */
     else if ('*' == *p) {		/* Wildcard */
 	p++;				/* Skip wildcard character */
@@ -376,7 +376,7 @@ PUBLIC HTAssocList *HTAA_parseArgList ARGS1(char *, str)
 	    }
 	}
 	else {	/* No name, just a value */
-	    if (*cur == ',') 
+	    if (*cur == ',')
 		*(cur++) = (char)0;		/* Terminate value */
 	    /* else last value on line (already terminated by NULL) */
 	    StrAllocCopy(name, "nnn");	/* Room for item order number */
@@ -497,7 +497,7 @@ PUBLIC char *HTAA_getUnfoldedLine NOARGS
 
 
 	/* Unfolding */
-	
+
 	if (peek_for_folding) {
 	    if (*cur != ' '  &&  *cur != '\t')
 		return line;	/* Ok, no continuation line */
@@ -511,7 +511,7 @@ PUBLIC char *HTAA_getUnfoldedLine NOARGS
 	while (cur < end_pointer && *cur != '\n') /* Find the end-of-line */
 	    cur++;				  /* (or end-of-buffer).  */
 
-	
+
 	/* Terminating line */
 
 	if (cur < end_pointer) {	/* So *cur==LF, terminate line */

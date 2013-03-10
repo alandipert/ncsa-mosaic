@@ -47,7 +47,7 @@
  *
  * Revision 1.9  92/04/30  20:25:27  jplevyak
  * Changed Version to 2.3.
- * 
+ *
  * Revision 1.8  1992/03/10  22:07:10  jplevyak
  * Added changed for PC/MAC from Quincey Koziol (koziol@ncsa.uiuc.edu)
  * with modification.
@@ -57,13 +57,13 @@
  *
  * Revision 1.6  92/01/24  19:12:55  dweber
  * *** empty log message ***
- * 
+ *
  * Revision 1.5  91/11/04  12:57:55  dweber
  * Deleted (via comments) superfluous functions.  Later to be removed.
- * 
+ *
  * Revision 1.4  91/09/26  20:26:11  jplevyak
  * Use dtminit.h for access to internally global functions.
- * 
+ *
  * Revision 1.3  1991/06/11  15:21:05  sreedhar
  * disclaimer added
  *

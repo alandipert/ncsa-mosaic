@@ -350,7 +350,7 @@ int boxnum, color_indx;
 	} /* end while med_cnt */
 	C_boxes[Lesser].count = Low_cnt;
 	C_boxes[Greater].count = High_cnt;
-		
+
 }
 
 
@@ -379,7 +379,7 @@ int e_cnt;
 		while (BoxCount < e_cnt)
 		{
 			int target, color_indx;
-	
+
 			target = 0;
 			color_indx = 0;
 			color_indx = FindTarget(&target);

@@ -64,7 +64,7 @@ struct ProxyDomain {
 	struct ProxyDomain *prev;
 	char *domain;
 };
-	
+
 
 struct Proxy {
 	struct Proxy *next;
@@ -82,9 +82,9 @@ struct Proxy {
 
 void AddProxyToList(), ShowProxyList(), EditProxyInfo(), CommitProxyInfo(),
         DismissProxy(), ClearProxyText(), FillProxyText(),  WriteProxies(),
-        RemoveProxyInfo(), EditProxyDomainInfo(), DisplayErrorMessage(), 
+        RemoveProxyInfo(), EditProxyDomainInfo(), DisplayErrorMessage(),
         ShowProxyDomainList(), CommitProxyDomainInfo(),
-        CallEdit(), CallAdd(), CallEditDomain(), CallAddDomain(), 
+        CallEdit(), CallAdd(), CallEditDomain(), CallAddDomain(),
         CallRemoveProxy(), DestroyDialog(), PopProxyDialog(), DeleteProxy(),
         EditNoProxyInfo(), CenterDialog(), ProxyHelpWindow(), HelpWindow();
 

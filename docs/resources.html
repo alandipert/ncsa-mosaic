@@ -39,7 +39,7 @@ CGI annotation server.
    they're placed).  Default is true.
 
 
-<DT> <b><A NAME="catchPriorAndNext">catchPriorAndNext</A></b>: <i>Boolean</i> 
+<DT> <b><A NAME="catchPriorAndNext">catchPriorAndNext</A></b>: <i>Boolean</i>
 <DD> This resource controls whether use of the keys Prior and Next
      (Page Up and Page Down on most keyboards) are explicitly caught
      in the <A NAME=18 HREF="help-on-docview-window.html">Document
@@ -57,10 +57,10 @@ CGI annotation server.
 
 <DT> <B>confirmDeleteAnnotation</B>: <I>Boolean</I>
 <DD> If false, deleting annotations will not be confirmed via a
-     confirmation dialog box.  Default is true. 
+     confirmation dialog box.  Default is true.
 
 <DT> <b>confirmExit</b>: <i>Boolean</i>
-<DD> Whether NCSA Mosaic will pop up a dialog box to confirm 
+<DD> Whether NCSA Mosaic will pop up a dialog box to confirm
         exiting the program
      when the 'Exit Program' menu option is chosen.  Default is true.
 
@@ -74,9 +74,9 @@ CGI annotation server.
 <DD> Default height in pixels for a Document View window.  Default is 680.
 
 <DT> <b><A NAME="hotlist-file">defaultHotlistFile</A></b>: <i>string</i>
-<DD> Name of file to store the 
-     <A NAME=6 HREF="help-on-hotlist-view.html">default hotlist</A> 
-     (or list of bookmarks).  
+<DD> Name of file to store the
+     <A NAME=6 HREF="help-on-hotlist-view.html">default hotlist</A>
+     (or list of bookmarks).
      Default is ".mosaic-hotlist-default"; the value
      of the environment variable $HOME will be prepended to this string.
 
@@ -86,7 +86,7 @@ CGI annotation server.
 <DT> <B>delayImageLoads</B>: <I>Boolean</I> </a>
 <DD> Delayed image loading is for users with slow network connections.  If
      true, Mosaic substitutes a small icon for inlined-images, plus an arrow
-     icon for inlined-images which also act as hyperlinks.  
+     icon for inlined-images which also act as hyperlinks.
      <I>Clicking</I> on an icon tells Mosaic to load that inlined-image, while
      <I>clicking</I> on the arrow is equivalent to following the associated
      hyperlink.  Selecting <I>Load Images in Current</I> from Mosaic's
@@ -96,23 +96,23 @@ CGI annotation server.
      <CODE>Options</CODE> menu.  Default is false.
 
 <DT> <b>displayURLsNotTitles</b>: <i>Boolean</i>
-<DD> If true, URL's will be displayed everywhere document titles are 
+<DD> If true, URL's will be displayed everywhere document titles are
      usually displayed.  Default is false.
 
-<DT> <B>DocsDirectory</B>: <I>string</I> 
+<DT> <B>DocsDirectory</B>: <I>string</I>
 <DD> Can be used to override the location of the help documents.  Default is
-     NULL. 
+     NULL.
 
-<DT> <B>documentsMenuSpecfile</B>: <I>string</I> 
+<DT> <B>documentsMenuSpecfile</B>: <I>string</I>
 <DD> Name of file which holds an optional "Documents Menu Specfile," to allow
      sites to add their own <CODE>Documents</CODE> menu to Mosaic's menu bar.
      For more information, see <A HREF="faq-documents-menu.html"> information
-     on creating a configurable <CODE>Documents</CODE> menu.</A>  Default is 
+     on creating a configurable <CODE>Documents</CODE> menu.</A>  Default is
      "/usr/local/lib/mosaic/documents.menu"
 
 <DT> <B>editCommand</B>: <I>string</I>
 <DD> Name of the editor to load when using the <I>File-Edit Source</I> option.
-     This editor is loaded in an xterm, specified by the 
+     This editor is loaded in an xterm, specified by the
      <code>xtermCommand</code> resource.  Default is vi.
 
 <DT> <B>editCommandUseXterm</B>: <I>Boolean</I>
@@ -137,16 +137,16 @@ CGI annotation server.
         out it's own full hostname via gethostbyname(), it coredumps,
         then you should set this resource to true.  Default is false.
 
-<DT> <B>globalExtensionMap</B>: <I>string</I> 
+<DT> <B>globalExtensionMap</B>: <I>string</I>
 <DD> Can be set to the location of the system-wide <A
-     HREF="extension-map.html">extension map</A> config file of your choice.  
+     HREF="extension-map.html">extension map</A> config file of your choice.
      Default is "/usr/local/lib/mosaic/mime.types"
 
 <DT> <b>globalHistoryFile</b>: <i>string</i>
 <DD> Name of file to store the global history of all documents visited
      from session to session.  Default is ".mosaic-global-history"; the value
      of the environment variable $HOME will be prepended to this string.
-<DT> <B>globalTypeMap</B>: <I>string</I> 
+<DT> <B>globalTypeMap</B>: <I>string</I>
 <DD> Can be set to the location of the system-wide <A
      HREF="mailcap.html">mailcap</A> (type map config) file of your choice.
      Default is "/usr/local/lib/mosaic/mailcap"
@@ -158,20 +158,20 @@ CGI annotation server.
      HREF="ftp://boole.stanford.edu/pub/">boole.stanford.edu/pub/</A>.)
 
 <DT> <B>hdfMaxImageDimension</B>: <I>integer</I>
-<DD> 
+<DD>
   Maximum height and/or width of an <A
   HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
   HDF</A> inlined image in pixels.  Default is 400.
 
 <DT> <B>hdfMaxDisplayedDatasets</B>: <I>integer</I>
-<DD> 
+<DD>
   Maximum number of displayed datasets while browsing <A
   HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
   HDF</A> files. Default is 15. If more than the maximum exist in an HDF
   file, Mosaic will display the HDF file in "brief mode."
 
 <DT> <B>hdfMaxDisplayedAttributes</B>: <I>integer</I>
-<DD> 
+<DD>
   Maximum number of displayed attributes while browsing <A
   HREF="http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/hdf-browsing.html">
   HDF</A> files.  Default is 10. If more than the max exist in an HDF file,
@@ -179,11 +179,11 @@ CGI annotation server.
 
 <DT> <B>hdfPowerUser</B>: <I>Boolean</I>
 <DD> If true, most of the supporting text in an HDF file will be removed.
-     Default is false. 
+     Default is false.
 
 <DT> <b>homeDocument</b>: <i>string</i>
-<DD> Document to access on program startup.  Default is 
-     "http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/NCSAMosaicHome.html".  
+<DD> Document to access on program startup.  Default is
+     "http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/NCSAMosaicHome.html".
      See also
      <A NAME=7 HREF="specifying-home.html">information on specifying your
      home document</A>.
@@ -214,28 +214,28 @@ CGI annotation server.
 <DD> Controls the maximum number of cci clients communicating with the browser.
      Default is no limit.
 
-<DT> <B>maxWaisResponses</B>: <I>integer</I> 
+<DT> <B>maxWaisResponses</B>: <I>integer</I>
 <DD> Controls maximum number of matches Mosaic gets from a WAIS server.
-     Default is 200. 
+     Default is 200.
 
-<DT> <b><A NAME="personalAnnotationDirectory">personalAnnotationDirectory</A></b>: 
+<DT> <b><A NAME="personalAnnotationDirectory">personalAnnotationDirectory</A></b>:
         <i>string</i>
 <DD> Name of directory in which to store personal annotations (as well
      as the log file of all personal annotations currently in existence).
      Default is ".mosaic-personal-annotations"; the value
      of the environment variable $HOME will be prepended to this string.
         (If the directory so named does not exist, it will be created;
-        however, intermediate directories, if any are named, 
+        however, intermediate directories, if any are named,
         will not be created.)
 
-<DT> <B>personalExtensionMap</B>: <I>string</I> 
+<DT> <B>personalExtensionMap</B>: <I>string</I>
 <DD> Can be  set to the location of the personal <A
      HREF="extension-map.html">extension map</A> config file of
      your choice -- the value of the environment variable HOME is prepended to
      this.  Default is ".mime.types"
 
 
-<DT> <B>personalTypeMap</B>: <I>string</I> 
+<DT> <B>personalTypeMap</B>: <I>string</I>
 <DD> Can be set to the location of the personal <A
      HREF="mailcap.html">mailcap</A> file of your choice -- the value of the
      environment variable <CODE>HOME</CODE> is prepended to this.  Default is
@@ -266,17 +266,17 @@ CGI annotation server.
 
 <DT> <B>reloadPragmaNoCache</B>: <I>Boolean</I>
 <DD> If true, Mosaic will send additional header info to notify a proxy
-     not to use cache.  This only works with caching proxy servers.  
+     not to use cache.  This only works with caching proxy servers.
      Default is false.
 
-<DT> <B>reloadReloadsImages</B>: <I>Boolean</I> 
-<DD> If true, the <I>Reload</I> option will clear out cached image data for 
+<DT> <B>reloadReloadsImages</B>: <I>Boolean</I>
+<DD> If true, the <I>Reload</I> option will clear out cached image data for
      the current document before reloading the document, thus causing the
      images to be reloaded also.  This is most useful for HTML authors using
      Mosaic to view their work.  Default is false.
 
 <A NAME="sendmail">
-<DT> <B>sendmailCommand</B>: <I>string</I> </A> 
+<DT> <B>sendmailCommand</B>: <I>string</I> </A>
 <DD> Points to the <CODE>sendmail</CODE> binary.  The assumption is made that
      this program accepts command-line arguments specifying addresses to which
      messages should be mailed, and accepts other headers and message text from
@@ -287,11 +287,11 @@ CGI annotation server.
 <DD> Points to the signature file used when posting articles to newsgroups.  This
      file will be included whenever you post or followup.  Default is no signature.
 
-<DT> <B>simpleInterface</B>: <I>Boolean</I> 
+<DT> <B>simpleInterface</B>: <I>Boolean</I>
 <DD> Allows Mosaic's menu bar and bottom button configuration to be
      considerably pared down (default is false).
 
-<DT> <b><A NAME="tmpDirectory">tmpDirectory</A></b>: <i>string</i> 
+<DT> <b><A NAME="tmpDirectory">tmpDirectory</A></b>: <i>string</i>
 <DD> Name of directory in which to store temporary files generated by
         Mosaic.  This directory should have plenty of space, ideally
         at least 10 or 20 megabytes, in case you happen to pull down a
@@ -300,10 +300,10 @@ CGI annotation server.
         HREF="command-line-flags.html#tmpdir">-tmpdir</A> or setting
         the environment variable <code>TMPDIR</code>.
 
-<DT> <B>trackFullURLs</B>: <I>Boolean</I> 
+<DT> <B>trackFullURLs</B>: <I>Boolean</I>
 <DD> If set to false, enables prototypical smart display of "where you're
      going" during mouse tracking, including format divination.  Default is
-     true. 
+     true.
 
 <DT> <B>trackPointerMotion</B>: <I>Boolean</I>
 <DD> If set to false, the mouse pointer will not be tracked so that URLs
@@ -322,12 +322,12 @@ CGI annotation server.
      Gopher typing system.  When true, Mosaic will use its own mechanism
      to determine the file types of Gopher documents.  Default is true.
 
-<DT> <B>twirlIncrement</B>: <I>integer</I> 
-<DD> Indicates how many bytes (minimum) are transferred between updates 
+<DT> <B>twirlIncrement</B>: <I>integer</I>
+<DD> Indicates how many bytes (minimum) are transferred between updates
      of the twirling transfer icon for normal (FTP, Gopher, HTTP) transfers.
      Default is 4096.
 
-<DT> <b>twirlingTransferIcon</b>: <I>Boolean</I> 
+<DT> <b>twirlingTransferIcon</b>: <I>Boolean</I>
 <DD> Can be set to false to turn off the twirling NCSA logo during document
      transfers.  <I>Clicking</I> the icon will still interrupt a transfer.
      Default is true.
@@ -336,22 +336,22 @@ CGI annotation server.
 <DD> Command to use to uncompress compressed files (files with an
         extension of '.Z').  Default is "uncompress"
 
-<DT> <B>useDefaultExtensionMap</B>: <I>Boolean</I> 
+<DT> <B>useDefaultExtensionMap</B>: <I>Boolean</I>
 <DD> Can be set to false to keep Mosaic from having any default <A
      HREF="extension-map.html">file-extension-to-MIME-type mappings</A>.  <I>
      We strongly recommend that this resource be left true;</I> simply
      overridden as necessary.  Default is true.
 
-<DT> <B>useDefaultTypeMap</B>: <I>Boolean</I> 
-<DD> Can be set to false to keep Mosaic from having any default <A 
+<DT> <B>useDefaultTypeMap</B>: <I>Boolean</I>
+<DD> Can be set to false to keep Mosaic from having any default <A
      HREF="mailcap.html">MIME-type-to-external-viewer mappings</A>.  <I>We
      strongly recommend that this resource be left true</I>; simply overridden
-     as necessary. Default is true. 
+     as necessary. Default is true.
 
 <DT> <b>useGlobalHistory</b>: <i>Boolean</i>
-<DD> If true, a global history of everywhere you visit is automatically 
-     stored.  (This history is used to 
-     shade anchors different colors based on whether you've visited the 
+<DD> If true, a global history of everywhere you visit is automatically
+     stored.  (This history is used to
+     shade anchors different colors based on whether you've visited the
      corresponding documents or not, if resource trackVisitedAnchors
         is set to true)  Default is true.
 
@@ -378,7 +378,7 @@ NAME="widget-resources-note">you should specify them</A> in your
 <DT> <b>Background</b>: <i>color</i>
 <DD> Color for main background.  Default is grey.
 <DT> <b>Foreground</b>: <i>color</i>
-<DD> Color for normal text.  Default is black. 
+<DD> Color for normal text.  Default is black.
 <DT> <b>anchorColor</b>: <i>color</i>
 <DD> Color to shade anchors whose corresponding documents haven't been previously visited.  Default is blue3.
 <DT> <b>visitedAnchorColor</b>: <i>color</i>
@@ -386,8 +386,8 @@ NAME="widget-resources-note">you should specify them</A> in your
 <DT> <b>activeAnchorFG</b>: <i>color</i>
 <DD> Color to shade anchors that are in the process of being activated.  Default is red.
 <DT> <b>activeAnchorBG</b>: <i>color</i>
-<DD> Color to shade the background of anchors that are in the 
-     process of being activated.  Default is grey80 (the same 
+<DD> Color to shade the background of anchors that are in the
+     process of being activated.  Default is grey80 (the same
      color as the application's background).
 <DT> <b>anchorUnderlines</b>: <i>integer</i>
 <DD> This can be one of {0, 1, 2, 3}, and indicates the number
@@ -418,7 +418,7 @@ NAME="widget-resources-note">you should specify them</A> in your
 bitmaps.  Default is false.
 
 <DT> <B>verticalScrollOnRight</B>: <I>Boolean</I>
-<DD> If false, the Document View window will place its scroll bar on the 
+<DD> If false, the Document View window will place its scroll bar on the
      left side.  Default is true.
 
 </DL>
@@ -428,7 +428,7 @@ bitmaps.  Default is false.
 
 Font resources are also resources that belong to the HTML widget, so
 the <A NAME=8 HREF="#widget-resources-note">above note</A> applies
-here too.  Note that fonts can be changed dynamically from the 
+here too.  Note that fonts can be changed dynamically from the
 <b>Options</b> menu</A>.
 
 <DL>
@@ -437,40 +437,40 @@ here too.  Note that fonts can be changed dynamically from the
      to any of the font choices in the Options-Font menu.  For example.
      <LISTING>Mosaic*defaultFontChoice: New Century Large</LISTING>
 <DT> <b>font</b>: <i>font</i>
-<DD> Font used in normal formatted text.  
+<DD> Font used in normal formatted text.
      Default is "-adobe-times-medium-r-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>italicFont</b>: <i>font</i>
-<DD> Font used in italic formatted text.  
+<DD> Font used in italic formatted text.
      Default is "-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>boldFont</b>: <i>font</i>
-<DD> Font used in bold formatted text.  
+<DD> Font used in bold formatted text.
      Default is "-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>fixedFont</b>: <i>font</i>
-<DD> Font used in fixed (typewriter style) formatted text.  
+<DD> Font used in fixed (typewriter style) formatted text.
      Default is "-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>header1Font</b>: <i>font</i>
-<DD> Font used in level 1 headers.  
+<DD> Font used in level 1 headers.
      Default is "-adobe-times-bold-r-normal-*-24-*-*-*-*-*-iso8859-1".
 <DT> <b>header2Font</b>: <i>font</i>
-<DD> Font used in level 2 headers.  
+<DD> Font used in level 2 headers.
      Default is "-adobe-times-bold-r-normal-*-18-*-*-*-*-*-iso8859-1".
 <DT> <b>header3Font</b>: <i>font</i>
-<DD> Font used in level 3 headers.  
+<DD> Font used in level 3 headers.
      Default is "-adobe-times-bold-r-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>header4Font</b>: <i>font</i>
-<DD> Font used in level 4 headers.  
+<DD> Font used in level 4 headers.
      Default is "-adobe-times-bold-r-normal-*-14-*-*-*-*-*-iso8859-1".
 <DT> <b>header5Font</b>: <i>font</i>
-<DD> Font used in level 5 headers.  
+<DD> Font used in level 5 headers.
      Default is "-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1".
 <DT> <b>header6Font</b>: <i>font</i>
-<DD> Font used in level 6 headers.  
+<DD> Font used in level 6 headers.
      Default is "-adobe-times-bold-r-normal-*-10-*-*-*-*-*-iso8859-1".
 <DT> <b>addressFont</b>: <i>font</i>
-<DD> Font used in addresses.  
+<DD> Font used in addresses.
      Default is "-adobe-times-medium-i-normal-*-17-*-*-*-*-*-iso8859-1".
 <DT> <b>plainFont</b>: <i>font</i>
-<DD> Font used in plaintext regions or preformatted documents.  
+<DD> Font used in plaintext regions or preformatted documents.
      Default is "-adobe-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1".
 <DT> <b>listingFont</b>: <i>font</i>
 <DD> Font used in listing regions.  Default is "-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-iso8859-1".
@@ -566,7 +566,7 @@ The following resources once did something, but not anymore. <P>
 
 <DT> <b>mailCommand</b>: <i>string</i>
 <DD> Replaced in version 2.0 with <A HREF="#sendmail">sendmailCommand</A>
-     resource. 
+     resource.
 
 <DT> <b><A NAME="warpPointerForIndex">warpPointerForIndex</A></b>:
 <i>Boolean</i>
@@ -587,14 +587,14 @@ version of Mosaic to a 2.x version:</EM>
 <UL>
 <LI> The class name has been changed from <i>XMosaic</i> to <i>Mosaic</i>.
      Existing Mosaic 1.2 X resources and application defaults files should be
-     modified accordingly. 
+     modified accordingly.
 <LI> Information on <A HREF="faq-broken.html#11">the removal of version 1.2
      multimedia X resources.</A>
 </UL>
 
 
 <A HREF="mosaic-docs.html"><IMG SRC="up.xbm"> Back to top level Documentation
-Index</A> 
+Index</A>
 <P>
 
 Last Modified: 9 July 1995 <BR>
