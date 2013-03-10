@@ -17,7 +17,7 @@ RANLIB = ranlib
 
 #CC = cc
 #### On Sun's, this should be gcc (ANSI required).
-CC = clang
+CC = gcc
 
 #### Linker Flags
 ldflags =
@@ -206,7 +206,7 @@ krblibs   = $(krb4libs) $(krb5libs)
 #### . If you want to define the default Mosaic documentation directory
 ####   (should be a URL), set -DDOCS_DIRECTORY_DEFAULT=\\\"url\\\"
 #### . Other things you can define are spelled out in src/mosaic.h.
-customflags = -O3 -DHOME_PAGE_DEFAULT=\\\"about:blank\\\"
+customflags =
 
 
 
