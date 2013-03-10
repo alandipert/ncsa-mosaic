@@ -31,10 +31,8 @@ struct _HTStructured
 
 
 /*	Module-wide variables
- */
+*/
 PRIVATE int s;                                  /* Socket for FingerHost */
-PRIVATE HTStructured * target;			/* The output sink */
-PRIVATE HTStructuredClass targetClass;		/* Copy of fn addresses */
 
 extern int GetMailtoKludgeInfo();
 

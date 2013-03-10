@@ -50,7 +50,6 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 {
   char *znam;
   char *cmd;
-  int len;
 
   cmd=NULL;
 
@@ -177,8 +176,6 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 void HTCompressedHText (HText *text, int compressed, int plain)
 {
   char *fnam;
-  char *znam;
-  char *cmd;
   FILE *fp;
   int rv, size_of_data;
   

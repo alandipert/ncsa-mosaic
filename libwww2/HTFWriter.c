@@ -355,7 +355,6 @@ PRIVATE void HTFWriter_free ARGS1(HTStream *, me)
   if (binary_transfer)
     rename_binary_file (me->fnam);
 
- really_done:
   free (me->fnam);
   if (me->mime_type) {
 	free(me->mime_type);

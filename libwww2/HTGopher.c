@@ -91,7 +91,7 @@ PRIVATE BOOL acceptable_inited = NO;
 PRIVATE void init_acceptable NOARGS
 {
     unsigned int i;
-    char * good = 
+    char * good =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./-_$";
     for(i=0; i<256; i++) acceptable[i] = NO;
     for(;*good; good++) acceptable[(unsigned int)*good] = YES;
@@ -99,18 +99,6 @@ PRIVATE void init_acceptable NOARGS
 }
 
 PRIVATE WWW_CONST char hex[17] = "0123456789abcdef";
-
-/*	Decode one hex character
-*/
-
-PRIVATE char from_hex ARGS1(char, c)
-{
-    return 		  (c>='0')&&(c<='9') ? c-'0'
-			: (c>='A')&&(c<='F') ? c-'A'+10
-			: (c>='a')&&(c<='f') ? c-'a'+10
-			:		       0;
-}
-
 
 
 /*	Paste in an Anchor
@@ -138,7 +126,7 @@ PRIVATE void write_anchor ARGS3(WWW_CONST char *,text, WWW_CONST char *,addr,
         PUTS (image_text);
         PUTS ("\"> ");
       }
-    	    
+
     PUTS(text);
     PUTS("</A>");
 }
@@ -171,20 +159,19 @@ PRIVATE int parse_menu ARGS2 (
   char ch;
   char line[BIG];
   char address[BIG];
-  char *name, *selector;		/* Gopher menu fields */
+  char *name, *selector = NULL;		/* Gopher menu fields */
   char *host;
   char *port;
   char *p = line;
   extern int interrupted_in_htgetcharacter;
-  WWW_CONST char *title;
-  
+
 #define TAB 		'\t'
 #define HEX_ESCAPE 	'%'
 
   HTProgress ("Retrieving Gopher menu.");
 
   PUTS("<H1>Gopher Menu</H1>\n");
-  
+
   START(HTML_DL);
   while ((ch=HTGetCharacter ()) != (char)EOF) 
     {

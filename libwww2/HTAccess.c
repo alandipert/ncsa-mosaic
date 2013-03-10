@@ -139,7 +139,6 @@ PRIVATE int get_physical ARGS3(
 	int,		bong)
 {
     char * access=NULL;	/* Name of access method */
-    char * physical = NULL;
     char * host = NULL;
     struct Proxy *GetNoProxy();
     extern int useKeepAlive;
@@ -181,7 +180,6 @@ PRIVATE int get_physical ARGS3(
 	if (!GetNoProxy(tmp_access, tmp_host)) {
 		char *gateway_parameter, *gateway, *proxy;
 		struct Proxy *proxent = NULL, *GetProxy();
-		extern struct Proxy *proxy_list;
 		char *proxyentry = NULL;
 
 		proxy_host_fix=strdup(tmp_host);
@@ -214,9 +212,9 @@ PRIVATE int get_physical ARGS3(
 				scheme_info = HTParse(HTAnchor_physical(anchor), "", PARSE_PATH);
 				fMatchEnd = 0; /* match other scheme_info at beginning*/
 			}
-			
+
 			if (bong) { /* this one is bad - disable! */
-			  proxent = 
+			  proxent =
 				GetProxy(tmp_access, scheme_info, fMatchEnd);
 			  if (proxent != NULL) proxent->alive = bong;
 			}
@@ -282,7 +280,7 @@ PRIVATE int get_physical ARGS3(
     }
 #endif
 
-	
+
 
 
 /*	Search registered protocols to find suitable one

@@ -116,23 +116,23 @@ PUBLIC void HTSetSuffix ARGS4(
 	WWW_CONST char *,	encoding,
 	float,		value)
 {
-    
+
     HTSuffix * suff;
-    
+
     if (strcmp(suffix, "*")==0) suff = &no_suffix;
     else if (strcmp(suffix, "*.*")==0) suff = &unknown_suffix;
     else {
 	suff = (HTSuffix*) calloc(1, sizeof(HTSuffix));
+
 	if (suff == NULL) outofmem(__FILE__, "HTSetSuffix");
-	
 	if (!HTSuffixes) HTSuffixes = HTList_new();
 	HTList_addObject(HTSuffixes, suff);
-	
+
 	StrAllocCopy(suff->suffix, suffix);
     }
 
     suff->rep = HTAtom_for(representation);
-    
+
     {
     	char *enc = NULL, *p;
 	StrAllocCopy(enc, encoding);
@@ -140,7 +140,7 @@ PUBLIC void HTSetSuffix ARGS4(
 	suff->encoding = HTAtom_for(enc);
         free (enc);
     }
-    
+
     suff->quality = value;
 }
 
@@ -165,10 +165,9 @@ PRIVATE char * vms_name(WWW_CONST char * nn, WWW_CONST char * fn)
 */
     static char vmsname[INFINITY];	/* returned */
     char * filename = (char*)malloc(strlen(fn)+1);
-    char * nodename = (char*)malloc(strlen(nn)+2+1);	/* Copies to hack */
     char *second;		/* 2nd slash */
     char *last;			/* last slash */
-    
+
     char * hostname = HTHostName();
 
     if (!filename || !nodename) outofmem(__FILE__, "vms_name");
@@ -189,7 +188,7 @@ PRIVATE char * vms_name(WWW_CONST char * nn, WWW_CONST char * fn)
 
     second = strchr(filename+1, '/');		/* 2nd slash */
     last = strrchr(filename, '/');	/* last slash */
-        
+
     if (!second) {				/* Only one slash */
 	sprintf(vmsname, "%s%s", nodename, filename + 1);
     } else if(second==last) {		/* Exactly two slashes */
@@ -215,56 +214,6 @@ PRIVATE char * vms_name(WWW_CONST char * nn, WWW_CONST char * fn)
 #endif /* vms */
 
 
-
-/*	Send README file
-**
-**  If a README file exists, then it is inserted into the document here.
-*/
-
-#ifdef GOT_READ_DIR
-PRIVATE void do_readme ARGS2(HTStructured *, target, WWW_CONST char *, localname)
-{ 
-    FILE * fp;
-    char * readme_file_name = 
-	malloc(strlen(localname)+ 1 + strlen(HT_DIR_README_FILE) + 1);
-    strcpy(readme_file_name, localname);
-    strcat(readme_file_name, "/");
-    strcat(readme_file_name, HT_DIR_README_FILE);
-    
-    fp = fopen(readme_file_name,  "r");
-    
-    if (fp) {
-	HTStructuredClass targetClass;
-	
-	targetClass =  *target->isa;	/* (Can't init agregate in K&R) */
-	START(HTML_PRE);
-	for(;;){
-	    char c = fgetc(fp);
-	    if (c == (char)EOF) break;
-	    switch (c) {
-	    	case '&':
-		case '<':
-		case '>':
-			PUTC('&');
-			PUTC('#');
-			PUTC((char)(c / 10));
-			PUTC((char) (c % 10));
-			PUTC(';');
-			break;
-/*	    	case '\n':
-			PUTC('\r');    
-Bug removed thanks to joe@athena.mit.edu */			
-		default:
-			PUTC(c);
-	    }
-	}
-	END(HTML_PRE);
-	fclose(fp);
-    } 
-}
-#endif
-
-
 /*	Make the cache file name for a W3 document
 **	------------------------------------------
 **	Make up a suitable name for saving the node in
@@ -280,7 +229,7 @@ PUBLIC char * HTCacheFileName ARGS1(WWW_CONST char *,name)
     char * access = HTParse(name, "", PARSE_ACCESS);
     char * host = HTParse(name, "", PARSE_HOST);
     char * path = HTParse(name, "", PARSE_PATH+PARSE_PUNCTUATION);
-    
+
     char * result;
     result = (char *)malloc(
 	    strlen(HTCacheRoot)+strlen(access)
@@ -314,14 +263,14 @@ PUBLIC char * HTLocalName ARGS1(WWW_CONST char *,name)
   char * access = HTParse(name, "", PARSE_ACCESS);
   char * host = HTParse(name, "", PARSE_HOST);
   char * path = HTParse(name, "", PARSE_PATH+PARSE_PUNCTUATION);
-  
+
   HTUnEscape(path);	/* Interpret % signs */
-  
+
   if (0==strcmp(access, "file")) 
     {
-      free(access);	
+      free(access);
       if (!host || !*host || (0==my_strcasecmp(host, HTHostName())) ||
-          (0==my_strcasecmp(host, "localhost"))) 
+          (0==my_strcasecmp(host, "localhost")))
         {
           if (host)
             free(host);
@@ -867,7 +816,7 @@ PUBLIC void HTDirTitles ARGS2(HTStructured *, target,
       }
     free(path);
 }
-		
+
 
 
 /*	Load a document
@@ -879,7 +828,7 @@ PUBLIC void HTDirTitles ARGS2(HTStructured *, target,
 **
 ** On exit,
 **	returns		<0		Error has occured.
-**			HTLOADED	OK 
+**			HTLOADED	OK
 **
 */
 PUBLIC int HTLoadFile ARGS4 (
@@ -891,20 +840,25 @@ PUBLIC int HTLoadFile ARGS4 (
 {
     char * filename;
     HTFormat format;
-    int fd = -1;		/* Unix file descriptor number = INVALID */
-    char * nodename = 0;
     char * newname=0;	/* Simplified name of file */
     HTAtom * encoding;	/* @@ not used yet */
+#ifdef vms
+    char * nodename;
+    int fd = -1;                /* Unix file descriptor number = INVALID */
+#endif
     int compressed;
     extern char *HTgeticonname(HTFormat, char *);
-    
+
 /*	Reduce the filename to a basic form (hopefully unique!)
 */
     StrAllocCopy(newname, addr);
     filename=HTParse(newname, "", PARSE_PATH|PARSE_PUNCTUATION);
-    nodename=HTParse(newname, "", PARSE_HOST);
+#ifdef vms
+    nodename=
+#endif
+      HTParse(newname, "", PARSE_HOST);
     free(newname);
-    
+
     format = HTFileFormat(filename, &encoding, WWW_PLAINTEXT, &compressed);
 
 
@@ -915,7 +869,7 @@ PUBLIC int HTLoadFile ARGS4 (
 	char * vmsname = strchr(filename + 1, '/') ?
 	  vms_name(nodename, filename) : filename + 1;
 	fd = open(vmsname, O_RDONLY, 0);
-	
+
 /*	If the file wasn't VMS syntax, then perhaps it is ultrix
 */
 	if (fd<0) {
@@ -936,7 +890,7 @@ PUBLIC int HTLoadFile ARGS4 (
 #else
 
     free(filename);
-    
+
 /*	For unix, we try to translate the name into the name of a transparently
 **	mounted file.
 **
@@ -944,14 +898,14 @@ PUBLIC int HTLoadFile ARGS4 (
 */
 #ifndef NO_UNIX_IO
     /*  Need protection here for telnet server but not httpd server */
-	 
+
     {		/* try local file system */
 	char * localname = HTLocalName(addr);
 	struct stat dir_info;
 
         if (!localname)
           goto suicide;
-	
+
 #ifdef GOT_READ_DIR
 
 /*			  Multiformat handling
@@ -984,13 +938,12 @@ forget_multi:
 		return HTLoadError(sink, 500,
 			"Multiformat: directory scan failed.");
 	    }
-	    
 	    while (dirbuf = readdir(dp)) {
 			/* while there are directory entries to be read */
 		if (dirbuf->d_ino == 0) continue;
 				/* if the entry is not being used, skip it */
-		
-		if (!strncmp(dirbuf->d_name, base, baselen)) {	
+
+		if (!strncmp(dirbuf->d_name, base, baselen)) {
 		    HTFormat rep = HTFileFormat(dirbuf->d_name, &encoding,
                                                 WWW_PLAINTEXT, &compressed);
 		    float value = HTStackValue(rep, format_out,
@@ -1007,19 +960,18 @@ forget_multi:
 			    best = value;
 			    best_dirbuf = *dirbuf;
 		       }
-		    }	/* if best so far */ 		    
-		 } /* if match */  
-		    
+		    }	/* if best so far */
+		 } /* if match */
+
 	    } /* end while directory entries left to read */
 	    closedir(dp);
-	    
+
 	    if (best_rep) {
 		format = best_rep;
 		base[-1] = '/';		/* Restore directory name */
 		base[0] = 0;
 		StrAllocCat(localname, best_dirbuf.d_name);
 		goto open_file;
-		
 	    } else { 			/* If not found suitable file */
 		free(localname);
 		return HTLoadError(sink, 403,	/* List formats? */
@@ -1029,25 +981,25 @@ forget_multi:
 	} /* if multi suffix */
 /*
 **	Check to see if the 'localname' is in fact a directory.  If it is
-**	create a new hypertext object containing a list of files and 
+**	create a new hypertext object containing a list of files and
 **	subdirectories contained in the directory.  All of these are links
 **      to the directories or files listed.
 **      NB This assumes the existance of a type 'STRUCT_DIRENT', which will
 **      hold the directory entry, and a type 'DIR' which is used to point to
 **      the current directory being read.
 */
-	
-	
+
+
 	if (stat(localname,&dir_info) == -1) {     /* get file information */
 	                               /* if can't read file information */
 #ifndef DISABLE_TRACE
 	    if (www2Trace) fprintf(stderr, "HTFile: can't stat %s\n", localname);
 #endif
 	}  else {		/* Stat was OK */
-		
+
 
 	    if (((dir_info.st_mode) & S_IFMT) == S_IFDIR) {
-		/* if localname is a directory */	
+		/* if localname is a directory */
 
 /*
 **
@@ -1073,7 +1025,7 @@ forget_multi:
 
                 char filepath[MAXPATHLEN];
                 char buffer[4096];
-     
+
                 char *ptr;
                 char *dataptr;
 
@@ -1091,7 +1043,7 @@ forget_multi:
 #ifndef DISABLE_TRACE
 		if (www2Trace)
 		    fprintf(stderr,"%s is a directory\n",localname);
-#endif			
+#endif
 /*	Check directory access.
 **	Selective access means only those directories containing a
 **	marker file can be browsed
@@ -1104,7 +1056,7 @@ forget_multi:
 
 
 		if (HTDirAccess == HT_DIR_SELECTIVE) {
-		    char * enable_file_name = 
+		    char * enable_file_name =
 			malloc(strlen(localname)+ 1 +
 			 strlen(HT_DIR_ENABLE_FILE) + 1);
 		    strcpy(enable_file_name, localname);
@@ -1117,7 +1069,7 @@ forget_multi:
 		    }
 		}
 
- 
+
 		dfp = opendir(localname);
 		if (!dfp) {
 		    free(localname);
@@ -1136,7 +1088,7 @@ forget_multi:
 		        return HTLoadError(sink, 403, "Ran out of memory in directory read!");
                         }
                     strcpy(ptr,dp->d_name);
-                     
+
                     HTSortAdd(ptr);
                     }
 
@@ -1153,14 +1105,14 @@ forget_multi:
                 HText_appendText(HT, "<H1>Local Directory ");
                 HText_appendText(HT, localname);
                 HText_appendText(HT, "</H1>\n");
-                HText_appendText(HT,"<DL>\n"); 
+                HText_appendText(HT,"<DL>\n");
 
 /* Sort the list and then spit it out in a nice form */
 
 /* How this for a disgusting loop :) */
 
-                for(count=0,dataptr=HTSortFetch(count); 
-                    dataptr != NULL; 
+                for(count=0,dataptr=HTSortFetch(count);
+                    dataptr != NULL;
                     free(dataptr), count++, dataptr=HTSortFetch(count))
                     {
 
@@ -1180,7 +1132,7 @@ forget_multi:
 
                             ptr = strrchr(buffer, '/');
 
-                            if(ptr != NULL) *ptr='\0'; 
+                            if(ptr != NULL) *ptr='\0';
 
                             if(buffer[0] == '\0') strcpy(buffer,"/");
 

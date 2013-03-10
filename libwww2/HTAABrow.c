@@ -624,9 +624,6 @@ PRIVATE char *compose_auth_string ARGS2(HTAAScheme,	scheme,
    /* for MD5 -- DXP */
     char *      nonce;          /* Server specified integer value */
     char *      opaque;         /* more random MD5 junk... */
-    BOOL        stale;          /* flag indicating the previous request 
-                                            from the client was rejected because 
-                                            the nonce value was stale */
  
 
     FREE(result);	/* From previous call */
