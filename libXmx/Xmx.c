@@ -51,6 +51,11 @@
  * Comments and questions are welcome and can be sent to                    *
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
+
+#include <stdint.h>
+
+#include <Xm/RepType.h>
+
 #include "../config.h"
 #include "XmxP.h"
 
@@ -134,8 +139,8 @@ XmxExtractToken (int cd)
 /* This function should be called by every Xmx routine
    when registering a callback or event handler. */
 /* This is PRIVATE but accessible to Xmx2.c also. */
-int
-_XmxMakeClientData (int token)
+uintptr_t
+_XmxMakeClientData (uintptr_t token)
 {
   if (Xmx_uniqid_has_been_set)
     return ((Xmx_uniqid << 16) | token);

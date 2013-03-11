@@ -51,6 +51,8 @@
  * Comments and questions are welcome and can be sent to                    *
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
+#include <stdlib.h>
+
 #include "../config.h"
 #include "XmxP.h"
 
