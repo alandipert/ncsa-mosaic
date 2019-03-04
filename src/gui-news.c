@@ -628,13 +628,13 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
       news_form = XmxMakeForm (dialog_frame);
 
 
-      XmxSetArg(XmNalignment, XmALIGNMENT_END);
+      XmxSetArg(XmNalignment, (XtArgVal)XmALIGNMENT_END);
       f_label = XmxMakeLabel (news_form, "From:" );
 
-      XmxSetArg(XmNalignment, XmALIGNMENT_END);
+      XmxSetArg(XmNalignment, (XtArgVal)XmALIGNMENT_END);
       s_label = XmxMakeLabel (news_form, "Subject:" );
 
-      XmxSetArg(XmNalignment, XmALIGNMENT_END);
+      XmxSetArg(XmNalignment, (XtArgVal)XmALIGNMENT_END);
       g_label = XmxMakeLabel (news_form, "Groups:" );
 
       if(follow)
@@ -642,25 +642,25 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
       else
 	  yap_label = XmxMakeLabel (news_form, "Post a UseNet News Article" );
 
-      XmxSetArg (XmNcolumns, 65);
+      XmxSetArg (XmNcolumns, (XtArgVal)65);
       win->news_text_subj = XmxMakeText (news_form);
 
-      XmxSetArg (XmNcolumns, 65);
+      XmxSetArg (XmNcolumns, (XtArgVal)65);
       win->news_text_group = XmxMakeText (news_form);
 
-      XmxSetArg (XmNcolumns, 65);
+      XmxSetArg (XmNcolumns, (XtArgVal)65);
       XmxSetArg (XmNeditable, False);
       win->news_text_from = XmxMakeText (news_form);
 
-      XmxSetArg (XmNscrolledWindowMarginWidth, 10);
-      XmxSetArg (XmNscrolledWindowMarginHeight, 10);
-      XmxSetArg (XmNcursorPositionVisible, True);
-      XmxSetArg (XmNeditable, True);
-      XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
-      XmxSetArg (XmNrows, 30);
-      XmxSetArg (XmNcolumns, 80);
-      XmxSetArg (XmNwordWrap, True);
-      XmxSetArg (XmNscrollHorizontal, False);
+      XmxSetArg (XmNscrolledWindowMarginWidth, (XtArgVal)10);
+      XmxSetArg (XmNscrolledWindowMarginHeight, (XtArgVal)10);
+      XmxSetArg (XmNcursorPositionVisible, (XtArgVal)True);
+      XmxSetArg (XmNeditable, (XtArgVal)True);
+      XmxSetArg (XmNeditMode, (XtArgVal)XmMULTI_LINE_EDIT);
+      XmxSetArg (XmNrows, (XtArgVal)30);
+      XmxSetArg (XmNcolumns, (XtArgVal)80);
+      XmxSetArg (XmNwordWrap, (XtArgVal)True);
+      XmxSetArg (XmNscrollHorizontal, (XtArgVal)False);
       win->news_text = XmxMakeScrolledText (news_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (news_form);
@@ -729,7 +729,7 @@ mo_status mo_post_generic_news_win(mo_window *win, int follow)
 	 XmATTACH_WIDGET, XmATTACH_WIDGET,XmATTACH_FORM, XmATTACH_FORM,
          win->news_text_group, dialog_sep, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep,
 	 XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,

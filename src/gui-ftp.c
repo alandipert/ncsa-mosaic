@@ -267,7 +267,7 @@ mo_status mo_post_ftpmkdir_window (mo_window *win)
       form = XmxMakeForm (dialog_frame);
 
       label = XmxMakeLabel (form, "Directory to Create: ");
-      XmxSetArg (XmNwidth, 310);
+      XmxSetArg (XmNwidth, (XtArgVal)310);
       win->ftpmkdir_text = XmxMakeTextField (form);
       XmxAddCallbackToText (win->ftpmkdir_text, ftpmkdir_win_cb, 0);
 
@@ -286,7 +286,7 @@ mo_status mo_post_ftpmkdir_window (mo_window *win)
       XmxSetConstraints
         (win->ftpmkdir_text, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, label, NULL);
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,

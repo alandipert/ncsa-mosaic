@@ -128,15 +128,15 @@ mo_status mo_post_whine_win (mo_window *win)
 
       yap_label = XmxMakeLabel (whine_form, yap_msg);
 
-      XmxSetArg (XmNscrolledWindowMarginWidth, 10);
-      XmxSetArg (XmNscrolledWindowMarginHeight, 10);
-      XmxSetArg (XmNcursorPositionVisible, True);
-      XmxSetArg (XmNeditable, True);
-      XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
-      XmxSetArg (XmNrows, 15);
-      XmxSetArg (XmNcolumns, 80);
-      /* XmxSetArg (XmNwordWrap, True); */
-      /* XmxSetArg (XmNscrollHorizontal, False); */
+      XmxSetArg (XmNscrolledWindowMarginWidth, (XtArgVal)10);
+      XmxSetArg (XmNscrolledWindowMarginHeight, (XtArgVal)10);
+      XmxSetArg (XmNcursorPositionVisible, (XtArgVal)True);
+      XmxSetArg (XmNeditable, (XtArgVal)True);
+      XmxSetArg (XmNeditMode, (XtArgVal)XmMULTI_LINE_EDIT);
+      XmxSetArg (XmNrows, (XtArgVal)15);
+      XmxSetArg (XmNcolumns, (XtArgVal)80);
+      /* XmxSetArg (XmNwordWrap, (XtArgVal)True); */
+      /* XmxSetArg (XmNscrollHorizontal, (XtArgVal)False); */
       win->whine_text = XmxMakeScrolledText (whine_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (whine_form);
@@ -156,7 +156,7 @@ mo_status mo_post_whine_win (mo_window *win)
          XmATTACH_FORM, XmATTACH_FORM,
          yap_label, dialog_sep, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,

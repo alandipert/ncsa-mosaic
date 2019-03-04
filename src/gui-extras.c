@@ -224,7 +224,7 @@ mo_status mo_post_links_window(mo_window *win)
 
       XtManageChild(scroller);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep,
 	 XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,

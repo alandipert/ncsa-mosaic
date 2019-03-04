@@ -759,7 +759,7 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
   eht_form = XmxMakeForm (dialog_frame);
 
   title_label = XmxMakeLabel (eht_form, "Entry Title:" );
-  XmxSetArg (XmNwidth, 335);
+  XmxSetArg (XmNwidth, (XtArgVal)335);
   eht_info->title_text = XmxMakeTextField (eht_form);
   XmxAddCallbackToText (eht_info->title_text, edit_or_insert_hot_cb,
 			isInsert*3);
@@ -767,7 +767,7 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
   eht_info->url_lab =
     url_label = XmxMakeLabel (eht_form, "URL:" );
 
-  XmxSetArg (XmNwidth, 335);
+  XmxSetArg (XmNwidth, (XtArgVal)335);
   eht_info->url_text =
     url_val = XmxMakeTextField(eht_form);
 
@@ -828,7 +828,7 @@ static mo_status mo_create_ed_or_ins_hot_win (mo_window *win, int isInsert)
     (url_val, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_WIDGET,
      XmATTACH_FORM, title_label, NULL, url_label, NULL);
 
-  XmxSetArg (XmNtopOffset, 10);
+  XmxSetArg (XmNtopOffset, (XtArgVal)10);
   XmxSetConstraints
     (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
      XmATTACH_FORM,
@@ -1666,7 +1666,7 @@ static mo_status mo_post_mailhot_win (mo_window *win)
       mailhot_form = XmxMakeForm (dialog_frame);
 
       to_label = XmxMakeLabel (mailhot_form, "Mail To:" );
-      XmxSetArg (XmNwidth, 335);
+      XmxSetArg (XmNwidth, (XtArgVal)335);
       win->mailhot_to_text = XmxMakeTextField (mailhot_form);
 
       subj_label = XmxMakeLabel (mailhot_form, "Subject:" );
@@ -1699,7 +1699,7 @@ static mo_status mo_post_mailhot_win (mo_window *win)
          XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, win->mailhot_to_text, NULL, subj_label, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -1904,10 +1904,10 @@ static XmxCallback (hotlist_win_cb)
 	    (win->hotlist_win, "NCSA Mosaic: Load in Current hotlist" ,
 	     "Name of file to open" , load_hot_cb, 0);
 	  /* This makes a frame as a work area for the dialog box. */
-	  XmxSetArg (XmNmarginWidth, 5);
-	  XmxSetArg (XmNmarginHeight, 5);
+	  XmxSetArg (XmNmarginWidth, (XtArgVal)5);
+	  XmxSetArg (XmNmarginHeight, (XtArgVal)5);
 	  frame = XmxMakeFrame (win->load_hotlist_win, XmxShadowEtchedIn);
-	  XmxSetArg (XmNorientation, XmHORIZONTAL);
+	  XmxSetArg (XmNorientation, (XtArgVal)XmHORIZONTAL);
 	  workarea = XmxMakeRadioBox (frame);
 	  tb = XtVaCreateManagedWidget("toggle", xmToggleButtonGadgetClass,
 				       workarea,
@@ -1991,8 +1991,8 @@ mo_status mo_post_hotlist_win (mo_window *win)
 
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      XmxSetArg (XmNwidth, 475);
-      XmxSetArg (XmNheight, 342);
+      XmxSetArg (XmNwidth, (XtArgVal)475);
+      XmxSetArg (XmNheight, (XtArgVal)342);
       win->hotlist_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Hotlist View" );
       dialog_frame = XmxMakeFrame (win->hotlist_win, XmxShadowOut);
@@ -2024,9 +2024,9 @@ mo_status mo_post_hotlist_win (mo_window *win)
       XmxSetValues(buttons2_form);
 
       /* Hotlist list itself. */
-      XmxSetArg (XmNresizable, False);
-      XmxSetArg (XmNscrollBarDisplayPolicy, XmSTATIC);
-      XmxSetArg (XmNlistSizePolicy, XmCONSTANT);
+      XmxSetArg (XmNresizable, (XtArgVal)False);
+      XmxSetArg (XmNscrollBarDisplayPolicy, (XtArgVal)XmSTATIC);
+      XmxSetArg (XmNlistSizePolicy, (XtArgVal)XmCONSTANT);
       win->hotlist_list =
         XmxMakeScrolledList (hotlist_form, hotlist_list_cb, 0);
       XtAugmentTranslations (win->hotlist_list, listTable);

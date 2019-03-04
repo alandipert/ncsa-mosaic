@@ -157,7 +157,7 @@ union wait stat_loc;
 int stat_loc;
 #endif
 
-#ifdef SVR4
+#if defined SVR4 || defined _UNICOS
 	pid = waitpid((pid_t)(-1),NULL,WNOHANG);
 	signal(SIGCHLD, (void (*)())ChildTerminated); /*Solaris resets the signal on a catch*/
 #else

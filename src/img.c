@@ -92,7 +92,7 @@ static ImageInfo *gopher_unknown = NULL;
 /* for selective image loading */
 #define blank_width 8
 #define blank_height 8
-static unsigned char blank_bits[] = {
+static char blank_bits[] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, };
 static ImageInfo *blank = NULL;
 
@@ -940,8 +940,8 @@ mo_status mo_free_image_data (void *ptr)
 
 mo_status mo_register_image_resolution_function (mo_window *win)
 {
-  XmxSetArg (WbNresolveImageFunction, (long)ImageResolve);
-  XmxSetArg (WbNresolveDelayedImage, (long)DelayedImageResolve);
+  XmxSetArg (WbNresolveImageFunction, (XtArgVal)ImageResolve);
+  XmxSetArg (WbNresolveDelayedImage, (XtArgVal)DelayedImageResolve);
   XmxSetValues (win->scrolled_win);
   return mo_succeed;
 }

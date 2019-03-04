@@ -1757,8 +1757,8 @@ mo_status mo_post_upload_window (mo_window *win) {
 					    0);
 
 		/* This makes a frame as a work area for the dialog box. */
-		XmxSetArg(XmNmarginWidth,5);
-		XmxSetArg(XmNmarginHeight,5);
+		XmxSetArg(XmNmarginWidth,(XtArgVal)5);
+		XmxSetArg(XmNmarginHeight,(XtArgVal)5);
 		frame=XmxMakeFrame(win->upload_win,
 				   XmxShadowEtchedIn);
 		workarea=XmxMakeForm(frame);
