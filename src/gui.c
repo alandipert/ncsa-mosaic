@@ -3311,7 +3311,7 @@ void mo_sync_windows(mo_window *win, mo_window *parent)
                         win->body_images ? XmxSet : XmxNotSet);
 
     win->delay_image_loads = parent->delay_image_loads;
-    XmxSetArg (WbNdelayImageLoads, win->delay_image_loads ? True : False);
+    XmxSetArg (WbNdelayImageLoads, (XtArgVal)(win->delay_image_loads ? True : False));
     XmxSetValues (win->scrolled_win);
     XmxRSetSensitive (win->menubar, mo_expand_images_current,
                       win->delay_image_loads ? XmxSensitive : XmxNotSensitive);
@@ -3561,11 +3561,11 @@ static mo_window *mo_make_window (Widget parent, mo_window *parentw)
 
   sprintf(pre_title,"NCSA X Mosaic %s",MO_VERSION_STRING);
   sprintf(buf,"%s: ",pre_title);
-  XmxSetArg (XmNtitle, (long)buf);
-  XmxSetArg (XmNiconName, (long)"Mosaic");
+  XmxSetArg (XmNtitle, (XtArgVal)buf);
+  XmxSetArg (XmNiconName, (XtArgVal)"Mosaic");
   XmxSetArg (XmNallowShellResize, False);
   if (installed_colormap) {
-	XmxSetArg(XmNcolormap,installed_cmap);
+	XmxSetArg(XmNcolormap,(XtArgVal)installed_cmap);
   }
   base = XtCreatePopupShell ("shell", topLevelShellWidgetClass,
                              toplevel, Xmx_wargs, Xmx_n);
@@ -3637,10 +3637,10 @@ static mo_window *mo_open_another_window_internal (mo_window *win)
     {
       char geom[20];
       sprintf (geom, "+%d+%d", x, y);
-      XmxSetArg (XmNgeometry, (long)geom);
+      XmxSetArg (XmNgeometry, (XtArgVal)geom);
     }
-  XmxSetArg (XmNwidth, width);
-  XmxSetArg (XmNheight, height);
+  XmxSetArg (XmNwidth, (XtArgVal)width);
+  XmxSetArg (XmNheight, (XtArgVal)height);
 
   newwin = mo_make_window (toplevel, win);
   mo_set_current_cached_win (newwin);
@@ -3870,20 +3870,20 @@ static XmxCallback (fire_er_up)
   if(!userSpecifiedGeometry) {
       /* then no -geometry was specified on the command line,
 	   so we just use the default values from the resources */
-      XmxSetArg (XmNwidth, get_pref_int(eDEFAULT_WIDTH));
-      XmxSetArg (XmNheight, get_pref_int(eDEFAULT_HEIGHT));
+      XmxSetArg (XmNwidth, (XtArgVal)get_pref_int(eDEFAULT_WIDTH));
+      XmxSetArg (XmNheight, (XtArgVal)get_pref_int(eDEFAULT_HEIGHT));
   }
   else {
       /* the they DID specify a -geometry, so we use that */
-      XmxSetArg (XmNwidth, userWidth);
-      XmxSetArg (XmNheight, userHeight);
+      XmxSetArg (XmNwidth, (XtArgVal)userWidth);
+      XmxSetArg (XmNheight, (XtArgVal)userHeight);
 
-      XmxSetArg (XmNx, userX);
-      XmxSetArg (XmNx, userY);
+      XmxSetArg (XmNx, (XtArgVal)userX);
+      XmxSetArg (XmNx, (XtArgVal)userY);
   }
 
   if (get_pref_boolean(eINITIAL_WINDOW_ICONIC))
-    XmxSetArg (XmNiconic, True);
+    XmxSetArg (XmNiconic, (XtArgVal)True);
 
   win = mo_open_window
     (toplevel, startup_document ? startup_document : init_document, NULL);
@@ -4168,8 +4168,8 @@ void mo_do_gui (int argc, char **argv)
 
         /* Motif setup. */
     XmxStartup ();
-    XmxSetArg (XmNwidth,1);
-    XmxSetArg (XmNheight,1);
+    XmxSetArg (XmNwidth,(XtArgVal)1);
+    XmxSetArg (XmNheight,(XtArgVal)1);
     XmxSetArg (XmNmappedWhenManaged, False);
     /*
      * Awful expensive to open and close the display just to find

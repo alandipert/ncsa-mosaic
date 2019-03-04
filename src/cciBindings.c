@@ -371,14 +371,14 @@ char *s, *end, *tmp_end, *w_id;
 		win->pretty = 1;
 		mo_set_fancy_selections_toggle (win);
 		HTMLClearSelection (win->scrolled_win);
-		XmxSetArg (WbNfancySelections, True);
+		XmxSetArg (WbNfancySelections, (XtArgVal)True);
 		XmxSetValues (win->scrolled_win);
 		}
 	else if(!strcmp(on_off, MCCI_OFF)){
 		win->pretty = 0;
 		mo_set_fancy_selections_toggle (win);
 		HTMLClearSelection (win->scrolled_win);
-		XmxSetArg (WbNfancySelections, False);
+		XmxSetArg (WbNfancySelections, (XtArgVal)False);
 		XmxSetValues (win->scrolled_win);
 		}
 	else{
@@ -440,7 +440,7 @@ char *s, *end, *tmp_end, *w_id;
 		XmxRSetToggleState(win->menubar, mo_delay_image_loads,
 			(win->delay_image_loads?XmxSet : XmxNotSet));
 /*
-		XmxSetArg (WbNdelayImageLoads, True);
+		XmxSetArg (WbNdelayImageLoads, (XtArgVal)True);
 		XmxSetValues (win->scrolled_win);
 */
 		XmxRSetSensitive (win->menubar, mo_expand_images_current,
@@ -451,7 +451,7 @@ char *s, *end, *tmp_end, *w_id;
 		XmxRSetToggleState(win->menubar, mo_delay_image_loads,
 			(win->delay_image_loads?XmxSet : XmxNotSet));
 /*
-		XmxSetArg (WbNdelayImageLoads, False);
+		XmxSetArg (WbNdelayImageLoads, (XtArgVal)False);
 		XmxSetValues (win->scrolled_win);
 */
 		XmxRSetSensitive (win->menubar, mo_expand_images_current,

@@ -304,22 +304,22 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
       /* Main form. */
       mailto_form = XmxMakeForm (dialog_frame);
 
-      XmxSetArg (XmNscrolledWindowMarginWidth, 10);
-      XmxSetArg (XmNscrolledWindowMarginHeight, 10);
-      XmxSetArg (XmNcursorPositionVisible, True);
-      XmxSetArg (XmNeditable, True);
-      XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
-      XmxSetArg (XmNrows, 15);
-      XmxSetArg (XmNcolumns, 80);
-      /* XmxSetArg (XmNwordWrap, True); */
-      /* XmxSetArg (XmNscrollHorizontal, False); */
+      XmxSetArg (XmNscrolledWindowMarginWidth, (XtArgVal)10);
+      XmxSetArg (XmNscrolledWindowMarginHeight, (XtArgVal)10);
+      XmxSetArg (XmNcursorPositionVisible, (XtArgVal)True);
+      XmxSetArg (XmNeditable, (XtArgVal)True);
+      XmxSetArg (XmNeditMode, (XtArgVal)XmMULTI_LINE_EDIT);
+      XmxSetArg (XmNrows, (XtArgVal)15);
+      XmxSetArg (XmNcolumns, (XtArgVal)80);
+      /* XmxSetArg (XmNwordWrap, (XtArgVal)True); */
+      /* XmxSetArg (XmNscrollHorizontal, (XtArgVal)False); */
       win->mailto_text = XmxMakeScrolledText (mailto_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (mailto_form);
 
       /* create from, to, and subject widgets */
       fromlabel = XmxMakeLabel(mailto_form, "From:");
-      XmxSetArg (XmNeditable, False); /* for now, at least */
+      XmxSetArg (XmNeditable, (XtArgVal)False); /* for now, at least */
       win->mailto_fromfield = XmxMakeTextField(mailto_form);
 
       tolabel = XmxMakeLabel(mailto_form, "To:");
@@ -371,7 +371,7 @@ mo_status mo_post_mailto_win (char *to_address, char *subject)
          XmATTACH_FORM, XmATTACH_FORM,
          win->mailto_subfield, dialog_sep, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -522,30 +522,30 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
       /* Main form. */
       mailto_form_form = XmxMakeForm (dialog_frame);
 
-      XmxSetArg (XmNscrolledWindowMarginWidth, 10);
-      XmxSetArg (XmNscrolledWindowMarginHeight, 10);
-      XmxSetArg (XmNcursorPositionVisible, True);
-      XmxSetArg (XmNeditable, False);
-      XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
-      XmxSetArg (XmNrows, 15);
-      XmxSetArg (XmNcolumns, 80);
-      XmxSetArg (XmNwordWrap, True);
-      XmxSetArg (XmNscrollHorizontal, False);
+      XmxSetArg (XmNscrolledWindowMarginWidth, (XtArgVal)10);
+      XmxSetArg (XmNscrolledWindowMarginHeight, (XtArgVal)10);
+      XmxSetArg (XmNcursorPositionVisible, (XtArgVal)True);
+      XmxSetArg (XmNeditable, (XtArgVal)False);
+      XmxSetArg (XmNeditMode, (XtArgVal)XmMULTI_LINE_EDIT);
+      XmxSetArg (XmNrows, (XtArgVal)15);
+      XmxSetArg (XmNcolumns, (XtArgVal)80);
+      XmxSetArg (XmNwordWrap, (XtArgVal)True);
+      XmxSetArg (XmNscrollHorizontal, (XtArgVal)False);
       win->mailto_form_text = XmxMakeScrolledText (mailto_form_form);
 
       dialog_sep = XmxMakeHorizontalSeparator (mailto_form_form);
 
       /* create from, to, and subject widgets */
       fromlabel = XmxMakeLabel(mailto_form_form, "From:");
-      XmxSetArg (XmNeditable, False);
+      XmxSetArg (XmNeditable, (XtArgVal)False);
       win->mailto_form_fromfield = XmxMakeTextField(mailto_form_form);
 
       tolabel = XmxMakeLabel(mailto_form_form, "To:");
-      XmxSetArg (XmNeditable, False);
+      XmxSetArg (XmNeditable, (XtArgVal)False);
       win->mailto_form_tofield = XmxMakeTextField(mailto_form_form);
 
       sublabel = XmxMakeLabel(mailto_form_form, "Subject:");
-      XmxSetArg (XmNeditable, False);
+      XmxSetArg (XmNeditable, (XtArgVal)False);
       win->mailto_form_subfield = XmxMakeTextField(mailto_form_form);
 
       /* constraints for FROM */
@@ -591,7 +591,7 @@ mo_status mo_post_mailto_form_win (char *to_address, char *subject)
          XmATTACH_FORM, XmATTACH_FORM,
          win->mailto_form_subfield, dialog_sep, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,

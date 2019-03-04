@@ -64,6 +64,10 @@
 #include "../src/gui.h"
 #include "../src/gui-dialogs.h"
 
+#ifdef _UNICOS
+typedef int socklen_t;
+#endif
+
 #ifndef MAXHOSTNAMELEN
 #define MAXHOSTNAMELEN 64           /* Arbitrary limit */
 #endif

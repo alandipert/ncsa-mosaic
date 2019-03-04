@@ -68,6 +68,10 @@ typedef struct sockaddr_in SockA;  /* See netinet/in.h */
 #define unix
 #endif
 
+#ifdef _UNICOS
+#define USE_DIRENT
+#endif
+
 #ifdef _IBMR2
 #define USE_DIRENT              /* sys V style directory open */
 #endif

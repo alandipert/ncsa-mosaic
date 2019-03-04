@@ -317,7 +317,7 @@ mo_status mo_post_audio_annotate_win (mo_window *win)
     {
       /* Create it for the first time. */
       XmxSetUniqid (win->id);
-      XmxSetArg (XmNresizePolicy, XmRESIZE_GROW);
+      XmxSetArg (XmNresizePolicy, (XtArgVal)XmRESIZE_GROW);
       win->audio_annotate_win = XmxMakeFormDialog
         (win->base, "NCSA Mosaic: Audio Annotate Window" );
       dialog_frame = XmxMakeFrame (win->audio_annotate_win, XmxShadowOut);
@@ -328,7 +328,7 @@ mo_status mo_post_audio_annotate_win (mo_window *win)
          XmATTACH_FORM, XmATTACH_FORM, NULL, NULL, NULL, NULL);
 
       /* Main form. */
-      XmxSetArg (XmNfractionBase, 2);
+      XmxSetArg (XmNfractionBase, (XtArgVal)2);
       audio_annotate_form = XmxMakeForm (dialog_frame);
 
       yap_label = XmxMakeLabel
@@ -382,7 +382,7 @@ mo_status mo_post_audio_annotate_win (mo_window *win)
          XmATTACH_WIDGET, XmATTACH_FORM,
          yap_label, NULL, win->audio_stop_button, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_FORM,

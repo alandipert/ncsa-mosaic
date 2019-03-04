@@ -652,7 +652,7 @@ static mo_status mo_post_mailhist_win (mo_window *win)
       mailhist_form = XmxMakeForm (dialog_frame);
 
       to_label = XmxMakeLabel (mailhist_form, "Mail To:" );
-      XmxSetArg (XmNwidth, 335);
+      XmxSetArg (XmNwidth, (XtArgVal)335);
       win->mailhist_to_text = XmxMakeTextField (mailhist_form);
 
       subj_label = XmxMakeLabel (mailhist_form, "Subject:" );
@@ -685,7 +685,7 @@ static mo_status mo_post_mailhist_win (mo_window *win)
          XmATTACH_WIDGET,
          XmATTACH_FORM, win->mailhist_to_text, NULL, subj_label, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -770,11 +770,11 @@ mo_status mo_post_history_win (mo_window *win)
       history_label = XmxMakeLabel (history_form, "Where you've been:" );
 
       /* History list itself. */
-      XmxSetArg (XmNresizable, False);
-      XmxSetArg (XmNscrollBarDisplayPolicy, XmSTATIC);
-      XmxSetArg (XmNlistSizePolicy, XmCONSTANT);
-      XmxSetArg (XmNwidth, 380);
-      XmxSetArg (XmNheight, 184);
+      XmxSetArg (XmNresizable, (XtArgVal)False);
+      XmxSetArg (XmNscrollBarDisplayPolicy, (XtArgVal)XmSTATIC);
+      XmxSetArg (XmNlistSizePolicy, (XtArgVal)XmCONSTANT);
+      XmxSetArg (XmNwidth, (XtArgVal)380);
+      XmxSetArg (XmNheight, (XtArgVal)184);
       win->history_list = XmxMakeScrolledList
         (history_form, history_list_cb, 0);
       XtAugmentTranslations (win->history_list, listTable);
@@ -801,7 +801,7 @@ mo_status mo_post_history_win (mo_window *win)
         (XtParent (win->history_list),
          XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,
          history_label, dialog_sep, NULL, NULL);
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep,
          XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM, XmATTACH_FORM,

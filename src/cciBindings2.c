@@ -714,7 +714,7 @@ Widget buttonBox;
 		cciForm = XmxMakeForm(dialogFrame);
 
 		label = XmxMakeLabel(cciForm, "CCI Port Address: " );
-		XmxSetArg(XmNcolumns, 25);
+		XmxSetArg(XmNcolumns, (XtArgVal)25);
 			win->cci_win_text= XmxMakeText (cciForm);
 			XmxAddCallbackToText (win->cci_win_text,
 			MoCCIWindowCallBack, 0);

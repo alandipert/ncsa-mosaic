@@ -646,7 +646,7 @@ static void make_annotate_win (mo_window *win)
 
   /* Create it for the first time. */
   XmxSetUniqid (win->id);
-  XmxSetArg (XmNresizePolicy, XmRESIZE_GROW);
+  XmxSetArg (XmNresizePolicy, (XtArgVal)XmRESIZE_GROW);
   win->annotate_win = XmxMakeFormDialog
     (win->base, "NCSA Mosaic: Annotate Window" );
   dialog_frame = XmxMakeFrame (win->annotate_win, XmxShadowOut);
@@ -722,13 +722,13 @@ static void make_annotate_win (mo_window *win)
   win->delete_button = XmxMakePushButton
     (annotate_form, "Delete" , delete_button_cb, 0);
 
-  XmxSetArg (XmNscrolledWindowMarginWidth, 10);
-  XmxSetArg (XmNscrolledWindowMarginHeight, 8);
-  XmxSetArg (XmNcursorPositionVisible, True);
-  XmxSetArg (XmNeditable, True);
-  XmxSetArg (XmNeditMode, XmMULTI_LINE_EDIT);
-  XmxSetArg (XmNrows, 15);
-  XmxSetArg (XmNcolumns, 80);
+  XmxSetArg (XmNscrolledWindowMarginWidth, (XtArgVal)10);
+  XmxSetArg (XmNscrolledWindowMarginHeight, (XtArgVal)8);
+  XmxSetArg (XmNcursorPositionVisible, (XtArgVal)True);
+  XmxSetArg (XmNeditable, (XtArgVal)True);
+  XmxSetArg (XmNeditMode, (XtArgVal)XmMULTI_LINE_EDIT);
+  XmxSetArg (XmNrows, (XtArgVal)15);
+  XmxSetArg (XmNcolumns, (XtArgVal)80);
   win->annotate_text = XmxMakeScrolledText (annotate_form);
 
   dialog_sep = XmxMakeHorizontalSeparator (annotate_form);
@@ -832,7 +832,7 @@ static void make_annotate_win (mo_window *win)
      XmATTACH_FORM, XmATTACH_FORM,
      text_label, dialog_sep, NULL, NULL);
 
-  XmxSetArg (XmNtopOffset, 10);
+  XmxSetArg (XmNtopOffset, (XtArgVal)10);
   XmxSetConstraints
     (dialog_sep, XmATTACH_NONE, XmATTACH_WIDGET, XmATTACH_FORM,
      XmATTACH_FORM,

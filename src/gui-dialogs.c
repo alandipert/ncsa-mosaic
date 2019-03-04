@@ -486,8 +486,8 @@ char fileBuf[2048],*fileBoxFileName;
          save_win_cb, 0);
 
       /* This makes a frame as a work area for the dialog box. */
-      XmxSetArg (XmNmarginWidth, 5);
-      XmxSetArg (XmNmarginHeight, 5);
+      XmxSetArg (XmNmarginWidth, (XtArgVal)5);
+      XmxSetArg (XmNmarginHeight, (XtArgVal)5);
       frame = XmxMakeFrame (win->save_win, XmxShadowEtchedIn);
       workarea = XmxMakeForm (frame);
 
@@ -551,7 +551,7 @@ char fileBuf[2048],*fileBoxFileName;
       win->format_optmenu = XmxRMakeOptionMenu (workarea, "",
                                                 format_optmenu_cb,
                                                 format_opts);
-      XmxSetArg(XmNtopOffset,7);
+      XmxSetArg(XmNtopOffset,(XtArgVal)7);
       XmxSetConstraints
         (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
          XmATTACH_NONE, NULL, NULL, NULL, NULL);
@@ -560,7 +560,7 @@ char fileBuf[2048],*fileBoxFileName;
          XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, format_label, NULL);
       /*swp*/
-      XmxSetArg(XmNtopOffset, 15);
+      XmxSetArg(XmNtopOffset, (XtArgVal)15);
       XmxSetConstraints
          (win->print_header_toggle_save, XmATTACH_WIDGET, XmATTACH_NONE,
          XmATTACH_FORM, XmATTACH_NONE,
@@ -708,7 +708,7 @@ char fileBuf[2048],*fileBoxFileName;
 	XmxSetUniqid (win->id);
 	if (!win->savebinary_win) {
 		XmxSetArg(XmNdialogStyle,
-			  XmDIALOG_FULL_APPLICATION_MODAL);
+			  (XtArgVal)XmDIALOG_FULL_APPLICATION_MODAL);
 		win->savebinary_win =
 			XmxMakeFileSBDialog(win->base,
 					    "NCSA Mosaic: Save Binary File To Local Disk" ,
@@ -896,7 +896,7 @@ mo_status mo_post_open_window (mo_window *win)
       open_form = XmxMakeForm (dialog_frame);
 
       label = XmxMakeLabel (open_form, "URL To Open: " );
-      XmxSetArg (XmNwidth, 310);
+      XmxSetArg (XmNwidth, (XtArgVal)310);
       win->open_text = XmxMakeTextField (open_form);
       XmxAddCallbackToText (win->open_text, open_win_cb, 0);
 
@@ -917,7 +917,7 @@ mo_status mo_post_open_window (mo_window *win)
       XmxSetConstraints
         (win->open_text, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_WIDGET,
          XmATTACH_FORM, NULL, NULL, label, NULL);
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -1258,15 +1258,15 @@ int i;
       mail_form = XmxMakeForm (dialog_frame);
 
       to_label = XmxMakeLabel (mail_form, "Mail To: " );
-      XmxSetArg (XmNwidth, 335);
+      XmxSetArg (XmNwidth, (XtArgVal)335);
       win->mail_to_text = XmxMakeTextField (mail_form);
 
       subj_label = XmxMakeLabel (mail_form, "Subject: " );
       win->mail_subj_text = XmxMakeTextField (mail_form);
 
       {
-        XmxSetArg (XmNmarginWidth, 5);
-        XmxSetArg (XmNmarginHeight, 5);
+        XmxSetArg (XmNmarginWidth, (XtArgVal)5);
+        XmxSetArg (XmNmarginHeight, (XtArgVal)5);
         frame = XmxMakeFrame (mail_form, XmxShadowEtchedIn);
         workarea = XmxMakeForm (frame);
 
@@ -1332,7 +1332,7 @@ int i;
                                                 mail_fmtmenu_cb,
                                                 format_opts);
 
-        XmxSetArg(XmNtopOffset,7);
+        XmxSetArg(XmNtopOffset,(XtArgVal)7);
         XmxSetConstraints
           (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
            XmATTACH_NONE, NULL, NULL, NULL, NULL);
@@ -1341,7 +1341,7 @@ int i;
            XmATTACH_WIDGET,
            XmATTACH_FORM, NULL, NULL, format_label, NULL);
         /*swp*/
-        XmxSetArg(XmNtopOffset, 15);
+        XmxSetArg(XmNtopOffset, (XtArgVal)15);
         XmxSetConstraints
            (win->print_header_toggle_mail, XmATTACH_WIDGET, XmATTACH_NONE,
            XmATTACH_FORM, XmATTACH_NONE,
@@ -1407,7 +1407,7 @@ int i;
         (frame2, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          frame, NULL, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -1664,7 +1664,7 @@ int i;
       print_form = XmxMakeForm (dialog_frame);
 
       print_label = XmxMakeLabel (print_form, "Print Command: " );
-      XmxSetArg (XmNwidth, 270);
+      XmxSetArg (XmNwidth, (XtArgVal)270);
       if (get_pref_boolean(eKIOSK) && get_pref_boolean(eKIOSKPRINT)) {
 	XmxSetArg (XmNsensitive, False);
       }
@@ -1672,8 +1672,8 @@ int i;
       XmxTextSetString (win->print_text, get_pref(ePRINT_COMMAND));
 
       {
-        XmxSetArg (XmNmarginWidth, 5);
-        XmxSetArg (XmNmarginHeight, 5);
+        XmxSetArg (XmNmarginWidth, (XtArgVal)5);
+        XmxSetArg (XmNmarginHeight, (XtArgVal)5);
         frame = XmxMakeFrame (print_form, XmxShadowEtchedIn);
         workarea = XmxMakeForm (frame);
 
@@ -1745,7 +1745,7 @@ int i;
                                                 print_fmtmenu_cb,
                                                 format_opts);
 
-        XmxSetArg(XmNtopOffset, 7);
+        XmxSetArg(XmNtopOffset, (XtArgVal)7);
         XmxSetConstraints
           (format_label, XmATTACH_FORM, XmATTACH_NONE, XmATTACH_FORM,
            XmATTACH_NONE, NULL, NULL, NULL, NULL);
@@ -1754,7 +1754,7 @@ int i;
            XmATTACH_NONE,
            XmATTACH_FORM, NULL, NULL, NULL, NULL);
 	/*swp*/
-        XmxSetArg(XmNtopOffset, 15);
+        XmxSetArg(XmNtopOffset, (XtArgVal)15);
 	XmxSetConstraints
 		(win->print_header_toggle_print, XmATTACH_WIDGET, XmATTACH_NONE,
 		 XmATTACH_FORM, XmATTACH_NONE,
@@ -1793,7 +1793,7 @@ int i;
         (frame, XmATTACH_WIDGET, XmATTACH_NONE, XmATTACH_FORM, XmATTACH_FORM,
          win->print_text, NULL, NULL, NULL);
 
-      XmxSetArg (XmNtopOffset, 10);
+      XmxSetArg (XmNtopOffset, (XtArgVal)10);
       XmxSetConstraints
         (dialog_sep, XmATTACH_WIDGET, XmATTACH_WIDGET, XmATTACH_FORM,
          XmATTACH_FORM,
@@ -2072,7 +2072,7 @@ mo_status mo_post_source_search_window(mo_window *win) {
 			XmxMakeLabel(search_form,
 				     "Find string in Source View: " );
 		XmxSetArg(XmNcolumns,
-			  25);
+			  (XtArgVal)25);
 		win->src_search_win_text=
 			XmxMakeText(search_form);
 		XmxAddCallbackToText(win->src_search_win_text,
@@ -2294,19 +2294,19 @@ mo_status mo_post_source_window(mo_window *win) {
 
 		/* Info window: text widget, not editable. */
 		XmxSetArg(XmNscrolledWindowMarginWidth,
-			  10);
+			  (XtArgVal)10);
 		XmxSetArg(XmNscrolledWindowMarginHeight,
-			  10);
+			  (XtArgVal)10);
 		XmxSetArg(XmNcursorPositionVisible,
-			  True);
+			  (XtArgVal)True);
 		XmxSetArg(XmNeditable,
-			  False);
+			  (XtArgVal)False);
 		XmxSetArg(XmNeditMode,
-			  XmMULTI_LINE_EDIT);
+			  (XtArgVal)XmMULTI_LINE_EDIT);
 		XmxSetArg(XmNrows,
-			  15);
+			  (XtArgVal)15);
 		XmxSetArg(XmNcolumns,
-			  80);
+			  (XtArgVal)80);
 		win->source_text=
 			XmxMakeScrolledText(source_form);
 
@@ -2390,7 +2390,7 @@ mo_status mo_post_source_window(mo_window *win) {
 				  NULL,
 				  NULL);
 		XmxSetArg(XmNtopOffset,
-			  10);
+			  (XtArgVal)10);
 		XmxSetConstraints(dialog_sep,
 				  XmATTACH_NONE,
 				  XmATTACH_WIDGET,
@@ -2580,7 +2580,7 @@ mo_status mo_post_search_window (mo_window *win)
       search_form = XmxMakeForm (dialog_frame);
 
       label = XmxMakeLabel (search_form, "Find string in document: " );
-      XmxSetArg (XmNcolumns, 25);
+      XmxSetArg (XmNcolumns, (XtArgVal)25);
       win->search_win_text = XmxMakeText (search_form);
       XmxAddCallbackToText (win->search_win_text, search_win_cb, 0);
 

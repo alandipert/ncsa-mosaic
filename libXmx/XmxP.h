@@ -56,8 +56,11 @@
 #define __XMXP_H__
 
 /* System includes. */
-
+#ifndef _UNICOS
 #include <stdint.h>
+#else
+typedef unsigned int uintptr_t;
+#endif
 
 /* Here are some nasty ifdef's to make SGI's weird header files happy -DXP */
 

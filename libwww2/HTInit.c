@@ -491,27 +491,29 @@ PUBLIC void HTFileInit NOARGS
 
 #define MAX_STRING_LEN 256
 
-/*static int getline(char *s, int n, FILE *f) */
-/*{*/
-/*register int i=0;*/
+#ifdef _UNICOS
+static int getline(char **ps, size_t *pn, FILE *f)
+{
+    register int i=0;
+    char *s = *ps;
 
-/*while(1) */
-/*{*/
-/*s[i] = (char)fgetc(f);*/
+    while(1) 
+    {
+	s[i] = (char)fgetc(f);
 
-/*if(s[i] == CR)*/
-/*s[i] = fgetc(f);*/
+	if(s[i] == CR)
+	    s[i] = fgetc(f);
 
-/*if((s[i] == EOF) || (s[i] == LF) || (i == (n-1)))*/
-/*{*/
-/*s[i] = '\0';*/
-/*return (feof(f) ? 1 : 0);*/
-/*}*/
-/*++i;*/
-/*}*/
-
-/**//* NOTREACHED */
-/*}*/
+	if((s[i] == EOF) || (s[i] == LF) || (i == (*pn-1)))
+	{
+	    s[i] = '\0';
+	    return (feof(f) ? 1 : 0);
+	}
+	++i;
+    }
+    /* NOTREACHED */
+}
+#endif
 
 static void getword(char *word, char *line, char stop, char stop2)
 {

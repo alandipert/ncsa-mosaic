@@ -22,6 +22,7 @@ dev_::
 	@echo "  linux -- x86 running Linux 1.2.13 DYNAMIC"
 	@echo "  linux-static -- x86 running Linux 1.2.13 ALL STATIC"
 	@echo "  linux-static-motif -- x86 running Linux 1.2.13 STATIC MOTIF"
+	@echo "  unicos -- Cray PVP running UNICOS (tested with 10.0 and MOTIF)"
 	@echo "  sco -- x86 running SCO System V 3.2"
 	@echo "  sgi -- SGI Iris running IRIS 4.0.2"
 	@echo "  solaris-23 -- SPARCstation 20 running Solaris 2.3"
@@ -118,6 +119,14 @@ p_linux_static_motif: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.linux p_static_motifd DEV_ARCH=linux
 q_linux_static_motif: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.linux q_static_motifd DEV_ARCH=linux
+
+dev_unicos: rm_and_touch unicos
+unicos: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.unicos static_motifd DEV_ARCH=unicos
+p_unicos: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.unicos p_static_motifd DEV_ARCH=unicos
+q_unicos: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.unicos q_static_motifd DEV_ARCH=unicos
 
 dev_sco: rm_and_touch sco
 sco: rm_and_touch
