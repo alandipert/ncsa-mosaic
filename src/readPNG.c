@@ -78,6 +78,7 @@
 #include <setjmp.h>
 
 #define MAX(x,y)  (((x) > (y)) ? (x) : (y))
+#define PNG_BYTES_TO_CHECK 4
 
 #ifndef DISABLE_TRACE
 extern int srcTrace;
@@ -96,48 +97,39 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
 
     double screen_gamma;
 
-    png_byte *png_pixels=NULL, **row_pointers=NULL;
+    png_byte *png_pixels=NULL, **row_pointers[*height];
     int i, j, bit_depth, color_type, num_palette, interlace_type;
 
     png_color std_color_cube[216];
     png_colorp palette;
 
 
-        /* first check to see if its a valid PNG file. If not, return. */
-        /* we assume that infile is a valid filepointer */
+    /* first check to see if its a valid PNG file. If not, return. */
+    /* we assume that infile is a valid filepointer */
     {
-        int ret;
-        png_byte buf[8];
+        png_byte buf[PNG_BYTES_TO_CHECK];
 
-        ret = fread(buf, 1, 8, infile);
-
-        if(ret != 8)
+        if (fread(buf, 1, PNG_BYTES_TO_CHECK, infile) != PNG_BYTES_TO_CHECK)
             return 0;
 
-        ret = png_sig_cmp(buf, 0, 8);
-
-        if(ret)
-            return(0);
+        return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
     }
 
-        /* OK, it is a valid PNG file, so let's rewind it, and start
-           decoding it */
-    rewind(infile);
-
-        /* allocate the structures */
-    /*png_ptr = (png_struct *)malloc(sizeof(png_struct));*/
+    /* allocate the structures */
     png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if(!png_ptr)
+		fclose(infile);
         return 0;
 
     /* initialize the structures */
     info_ptr = png_create_info_struct(png_ptr);
     if(!info_ptr) {
-        /*free(png_ptr);*/
+        fclose(infile);
+        png_destroy_read_struct(png_ptr, NULL, NULL);
         return 0;
     }
 
-        /* Establish the setjmp return context for png_error to use. */
+    /* Establish the setjmp return context for png_error to use. */
     if (setjmp(png_jmpbuf(png_ptr))) {
 
 #ifndef DISABLE_TRACE
@@ -146,17 +138,15 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
         }
 #endif
 
-        /*png_read_destroy(png_ptr, info_ptr, (png_info *)0); */
-	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-
+        png_destroy_read_struct(png_ptr, info_ptr, NULL);
+        fclose(infile);
+		
         if(png_pixels != NULL)
             free((char *)png_pixels);
+
         if(row_pointers != NULL)
             free((png_byte **)row_pointers);
-
-        /*free((char *)png_ptr);*/
-        free((char *)info_ptr);
-
+        
         return 0;
     }
 
@@ -292,10 +282,10 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
             else {
 #ifndef DISABLE_TRACE
                 if (srcTrace) {
-                    fprintf(stderr,"setting gamma=%f\n",0.45);
+                    fprintf(stderr,"setting gamma=%f\n",0.45455);
                 }
 #endif
-                png_set_gamma(png_ptr, screen_gamma, 0.45);
+                png_set_gamma(png_ptr, screen_gamma, 0.45455);
             }
         }
     }
@@ -328,9 +318,8 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
                                     (*height) * sizeof(png_byte));
 
 
-    row_pointers = (png_byte **) malloc((*height) * sizeof(png_byte *));
     for (i=0; i < *height; i++)
-        row_pointers[i]=png_pixels+(rowbytes*i);
+        row_pointers[i]=png_malloc(png_ptr, rowbytes);
 
 
         /* FINALLY - read the darn thing. */
@@ -418,14 +407,8 @@ ReadPNG(FILE *infile,int *width, int *height, XColor *colrs)
 
     free((png_byte **)row_pointers);
 
-        /* clean up after the read, and free any memory allocated */
-    /*png_read_destroy(png_ptr, info_ptr, (png_info *)0);*/
-	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-
-
-        /* free the structures */
-    /*free((char *)png_ptr);*/
-    free((char *)info_ptr);
+    /* clean up after the read, and free any memory allocated */
+	png_destroy_read_struct(png_ptr, info_ptr, NULL);
 
     return pixmap;
 }
