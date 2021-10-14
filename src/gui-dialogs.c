@@ -2705,6 +2705,7 @@ mo_status mo_edit_source(mo_window *win)
 {
   char *sourceFileName;
   FILE *fp;
+  int fd;
   int length;
   char *editorName;
   char execString[1024];
@@ -2748,10 +2749,10 @@ extern void AddChildProcessHandler(int, void (*)(), void *);
 
 	/* write out source to tmp file with .html extension */
         sourceFileName = malloc(255);
-        strcpy(sourceFileName, tmpnam(NULL));
-        strcat(sourceFileName, ".html");
+        strncpy(sourceFileName, "mosaic-XXXXXX.html\0", 19);
+        fd = mkstemps(sourceFileName, 5);
 
-	if (!(fp = fopen(sourceFileName,"w")))
+	if (!(fp = fdopen(fd, "w")))
 	{
 		char *buf, *final, tmpbuf[80];
 		int final_len;
