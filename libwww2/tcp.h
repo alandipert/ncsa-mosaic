@@ -72,10 +72,6 @@ typedef struct sockaddr_in SockA;  /* See netinet/in.h */
 #define USE_DIRENT
 #endif
 
-#ifdef __FreeBSD__
-#define USE_DIRENT
-#endif
-
 #ifdef _IBMR2
 #define USE_DIRENT              /* sys V style directory open */
 #endif
