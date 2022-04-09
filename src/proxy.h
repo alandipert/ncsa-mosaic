@@ -51,7 +51,7 @@
  * Comments and questions are welcome and can be sent to                    *
  * mosaic-x@ncsa.uiuc.edu.                                                  *
  ****************************************************************************/
-#define FONTNAME "-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso8859-1"
+#define FONTNAME "-adobe-courier-medium-r-normal-*-17-*-*-*-*-*-iso10646-1"
 
 #define TRANS_HTTP 0
 #define TRANS_CCI 1

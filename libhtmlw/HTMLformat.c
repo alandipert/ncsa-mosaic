@@ -5253,7 +5253,9 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
 	int partial, descent;
 	unsigned long valuemask;
 	XGCValues values;
-
+	XmString ttd;
+	XmFontList tftd;
+	
 	XSetFont(XtDisplay(hw), hw->html.drawGC, eptr->font->fid);
 	ascent = eptr->font->max_bounds.ascent;
 	width = -1;
@@ -5376,13 +5378,33 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
 		XSetForeground(XtDisplay(hw), hw->html.drawGC, fg);
 		XSetBackground(XtDisplay(hw), hw->html.drawGC, bg);
 
-		XDrawString(XtDisplay(hw),
+		tftd=XmFontListCreate(eptr->font,XmSTRING_DEFAULT_CHARSET);
+		ttd=XmStringCreateLocalized(tdata);
+
+
+               XmStringDraw(XtDisplay(hw),
+                            XtWindow(hw->html.view),
+                            tftd,
+                            ttd,
+                            hw->html.drawGC,
+                            x,
+                            //                      y+ascent,
+                            y,
+                           XmStringWidth(tftd,ttd),
+                            XmALIGNMENT_BEGINNING,
+                            XmSTRING_DIRECTION_L_TO_R,
+                            NULL); 
+               XmStringFree(ttd);
+               XmFontListFree(tftd); 
+
+		/*		XDrawString(XtDisplay(hw),
 			    XtWindow(hw->html.view),
 			    hw->html.drawGC,
 			    x,
 			    y + ascent,
 			    (char *)tdata,
 			    tlen);
+		*/ 
 	}
 	else {
 		XSetForeground(XtDisplay(hw), hw->html.drawGC, bg);
@@ -5412,14 +5434,32 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
 					(y<0 ?
 					 (ascent+eptr->font->descent+y) :
 					 (ascent+eptr->font->descent)));
+		
+		tftd=XmFontListCreate(eptr->font,XmSTRING_DEFAULT_CHARSET);
+		ttd=XmStringCreateLocalized(tdata);
+		XmStringDraw(XtDisplay(hw),
+			     XtWindow(hw->html.view),
+			     tftd,
+			     ttd,
+			     hw->html.drawGC,
+			     x,
+			     //      y+ascent,
+			     y, 
+                             XmStringWidth(tftd,ttd),
+			     XmALIGNMENT_BEGINNING,
+			     XmSTRING_DIRECTION_L_TO_R,
+			     NULL);
+		XmStringFree(ttd);
+		XmFontListFree(tftd);
 
-		XDrawString(XtDisplay(hw),
+
+		/*		XDrawString(XtDisplay(hw),
 			    XtWindow(hw->html.view),
 			    hw->html.drawGC,
 			    x,
 			    y + ascent,
 			    (char *)tdata,
-			    tlen);
+			    tlen); */ 
 
 	}
 
