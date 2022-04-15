@@ -1,0 +1,10 @@
+!Mosaic*rendertable.fontType: FONT_IS_FONT
+!Mosaic*rendertable.fontName: AS_IS
+!Mosaic*rendertable.underlineType: NO_LINE
+! Two very readable fonts with accented characters 
+!Mosaic*Font: -bitstream-bitstream charter-medium-r-normal--0-0-0-0-p-0-iso10646-1
+! Mosaic*Font: -b&h-lucidatypewriter-medium-r-normal-sans-17-120-100-100-m-100-iso10646-1
+! Better font to display Greek or Cyrillic but small (12 points)
+!Mosaic*Font: -schumacher-clean-medium-r-normal--12-120-75-75-c-60-iso10646-1
+! 
+Mosaic*Font: -mutt-clearlyu-medium-r-normal--17-120-100-100-p-123-iso10646-1
