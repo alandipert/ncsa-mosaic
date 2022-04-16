@@ -5388,7 +5388,6 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
                             ttd,
                             hw->html.drawGC,
                             x,
-                            //                      y+ascent,
                             y,
                            XmStringWidth(tftd,ttd),
                             XmALIGNMENT_BEGINNING,
@@ -5397,14 +5396,6 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
                XmStringFree(ttd);
                XmFontListFree(tftd); 
 
-		/*		XDrawString(XtDisplay(hw),
-			    XtWindow(hw->html.view),
-			    hw->html.drawGC,
-			    x,
-			    y + ascent,
-			    (char *)tdata,
-			    tlen);
-		*/ 
 	}
 	else {
 		XSetForeground(XtDisplay(hw), hw->html.drawGC, bg);
@@ -5443,7 +5434,6 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
 			     ttd,
 			     hw->html.drawGC,
 			     x,
-			     //      y+ascent,
 			     y, 
                              XmStringWidth(tftd,ttd),
 			     XmALIGNMENT_BEGINNING,
@@ -5453,13 +5443,6 @@ PartialRefresh(hw, eptr, start_pos, end_pos, fg, bg)
 		XmFontListFree(tftd);
 
 
-		/*		XDrawString(XtDisplay(hw),
-			    XtWindow(hw->html.view),
-			    hw->html.drawGC,
-			    x,
-			    y + ascent,
-			    (char *)tdata,
-			    tlen); */ 
 
 	}
 

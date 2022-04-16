@@ -114,32 +114,40 @@ unsigned char map_table[256]={
 /* Converts an UCS code < 65536 into a UTF-8 string. Returns the string length */  
 int ucs2utf8(unsigned int ucs,char code[4])
 {
-  unsigned int x,y,z;
-  if (ucs<128) {
-    code[0]=(char)ucs;
-    code[1]='\0'; 
-    return(1);
-  } else if (ucs<2048) {
-    x=ucs/64;
-    y=ucs-64*x;
-    code[0]=(char)(192+x);
-    code[1]=(char)(128+y);
-    code[2]='\0'; 
-    return(2);
-  } else if (ucs<65536) {
-    x=ucs/4096;
-    y=(ucs-4096*x)/64;
-    z=ucs-4096*x-64*y;
-    code[0]=(char)(224+x);
-    code[1]=(char)(128+y);
-    code[2]=(char)(128+z);
-    code[3]='\0'; 
-    return(3); 
-  } else {
-    /* Not implemented yet */
-    code[0]='\0'; 
-   return(0);
-  }
+          unsigned int x,y,z;
+	  
+          if (ucs<128)
+	    {
+	      code[0]=(char)ucs;
+	      code[1]='\0'; 
+	      return(1);
+	    }
+	  else if (ucs<2048)
+	    {
+	     x=ucs/64;
+	     y=ucs-64*x;
+	     code[0]=(char)(192+x);
+	     code[1]=(char)(128+y);
+	     code[2]='\0'; 
+	     return(2);
+	    }
+	  else if (ucs<65536)
+	    {
+	     x=ucs/4096;
+	     y=(ucs-4096*x)/64;
+	     z=ucs-4096*x-64*y;
+	     code[0]=(char)(224+x);
+	     code[1]=(char)(128+y);
+	     code[2]=(char)(128+z);
+	     code[3]='\0'; 
+	     return(3); 
+	    }
+	  else
+	    {
+	     /* Not implemented yet */
+	     code[0]='\0'; 
+	     return(0);
+	    }
     
 }
 /*
@@ -342,17 +350,25 @@ int
 			tchar = *tptr;
 			*tptr = '\0';
 			ucs = atoi((esc + 1));
-			lng=ucs2utf8(ucs,val);
+			lng=ucs2utf8(ucs, val);
+#ifndef DISABLE_TRACE
+		  if (htmlwTrace) {
 			fprintf(stderr,"&#%ud character: %s\n",ucs,val);
+		  }
+#endif
 			*tptr = tchar;
 			*endp = tptr;
 		}
 		else
 		{
 			ucs=atoi((esc + 1));
-			lng=ucs2utf8(ucs,val); 
+			lng=ucs2utf8(ucs, val); 
 			*endp = (char *)(esc + strlen(esc));
+#ifndef DISABLE_TRACE
+		  if (htmlwTrace) {
 			fprintf(stderr,"&#%ud character: %s\n",ucs,val);
+		  }
+#endif
 		}
 	}
 	else
@@ -366,8 +382,12 @@ int
 			if ((escLen == ampLen) && (strncmp(esc, AmpEscapes[cnt].tag, ampLen) == 0))
 			{
 				ucs = AmpEscapes[cnt].value;
-				lng=ucs2utf8(ucs,val);
-				fprintf(stderr,"&xxx; character:%s\n",val); 
+				lng=ucs2utf8(ucs, val);
+#ifndef DISABLE_TRACE
+			if (htmlwTrace) {	
+			         fprintf(stderr,"&%s; character:%s\n",esc,val);
+			}	
+#endif
 				*endp = (char *)(esc +
 					strlen(AmpEscapes[cnt].tag));
 				break;
@@ -502,7 +522,7 @@ clean_text(txt)
 		 * Replace escape sequence with appropriate character
 		 */
 		lng = ExpandEscapes(text, &tend,
-				    ((space_terminated << 1) + unterminated),val);
+				    ((space_terminated << 1) + unterminated), val);
 		if (lng>0)
 		{
 			if (unterminated)
@@ -516,9 +536,10 @@ clean_text(txt)
 			{
 				ptr--;
 			}
-			for (jj=0;jj<=lng-1;jj++) {
-			*ptr2 = val[jj];
-			ptr2++;
+			for (jj=0; jj<=lng-1; jj++)
+			{
+			        *ptr2 = val[jj];
+			         ptr2++;
 			}
 			unterminated = 0;
 			space_terminated = 0;
@@ -542,7 +563,7 @@ clean_text(txt)
 		 * Copy forward remaining text until you find the next
 		 * escape sequence
 		 */
-		// ptr2++;
+		
 		ptr++;
 		while (*ptr != '\0')
 		{

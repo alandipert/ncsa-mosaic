@@ -1122,8 +1122,8 @@ int yy;
 		XSetForeground(XtDisplay(hw), hw->html.drawGC, eptr->fg);
 		XSetFont(XtDisplay(hw), hw->html.drawGC, field->font->fid);
 		XmString ttd=XmStringCreateLocalized(field->formattedText[yy]);
-               XmFontList tftd=XmFontListCreate(field->font,XmSTRING_DEFAULT_CHARSET); 
-               XmStringDraw(XtDisplay(hw),
+                XmFontList tftd=XmFontListCreate(field->font,XmSTRING_DEFAULT_CHARSET); 
+                XmStringDraw(XtDisplay(hw),
                             XtWindow(hw->html.view),
                             tftd,
                             ttd,
@@ -1137,12 +1137,7 @@ int yy;
                XmStringFree(ttd);
                XmFontListFree(tftd); 
 
-		/*
-		XDrawString(XtDisplay(hw), XtWindow(hw->html.view),
-			hw->html.drawGC, placeX, placeY+baseLine,
-			field->formattedText[yy],
-			strlen(field->formattedText[yy]));
-		*/ 
+
 		placeY += lineHeight;
 		}
 
