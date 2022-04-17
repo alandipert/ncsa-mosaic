@@ -499,7 +499,7 @@ static XtResource resources[] =
 	{	WbNtoolbarFont,
 		WbCToolbarFont, XtRFontStruct, sizeof (XFontStruct *),
 		XtOffset (HTMLWidget, html.toolbar_font),
-		XtRString, "-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1"
+		XtRString, "-adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso10646-1"
 	},
 
 	{	WbNfixedFont,

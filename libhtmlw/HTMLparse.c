@@ -111,7 +111,45 @@ unsigned char map_table[256]={
 #define TOLOWER(x)	(map_table[x])
 #endif /* NOT_ASCII */
 
-
+/* Converts an UCS code < 65536 into a UTF-8 string. Returns the string length */  
+int ucs2utf8(unsigned int ucs,char code[4])
+{
+          unsigned int x,y,z;
+	  
+          if (ucs<128)
+	    {
+	      code[0]=(char)ucs;
+	      code[1]='\0'; 
+	      return(1);
+	    }
+	  else if (ucs<2048)
+	    {
+	     x=ucs/64;
+	     y=ucs-64*x;
+	     code[0]=(char)(192+x);
+	     code[1]=(char)(128+y);
+	     code[2]='\0'; 
+	     return(2);
+	    }
+	  else if (ucs<65536)
+	    {
+	     x=ucs/4096;
+	     y=(ucs-4096*x)/64;
+	     z=ucs-4096*x-64*y;
+	     code[0]=(char)(224+x);
+	     code[1]=(char)(128+y);
+	     code[2]=(char)(128+z);
+	     code[3]='\0'; 
+	     return(3); 
+	    }
+	  else
+	    {
+	     /* Not implemented yet */
+	     code[0]='\0'; 
+	     return(0);
+	    }
+    
+}
 /*
  * Check if two strings are equal, ignoring case.
  * The strings must be of the same length to be equal.
@@ -271,8 +309,8 @@ clean_white_space(txt)
 
 
 /*
- * parse an amperstand escape, and return the appropriate character, or
- * '\0' on error.
+ * parse an amperstand escape, and return the length of the UTF-8 sequence encoding the character, or
+ * 0 on error. val contains the UTF-8 sequence. 
  * we should really only use caseless_equal_prefix for unterminated, and use
  * caseless_equal otherwise, but since there are so many escapes, and I
  * don't want to type everything twice, I always use caseless_equal_prefix
@@ -282,14 +320,16 @@ clean_white_space(txt)
  *	1: unterminated
  *	2: terminated with whitespace
  */
-char
-ExpandEscapes(esc, endp, termination)
+int
+  ExpandEscapes(esc, endp, termination,val)
 	char *esc;
 	char **endp;
 	int termination;
+	char val[4]; 
 {
 	int cnt;
-	char val;
+	unsigned int ucs,lng=0;
+	int jj; 
 	int unterminated;
 
 	unterminated = (termination & 0x01);
@@ -309,14 +349,26 @@ ExpandEscapes(esc, endp, termination)
 			}
 			tchar = *tptr;
 			*tptr = '\0';
-			val = (char)atoi((esc + 1));
+			ucs = atoi((esc + 1));
+			lng=ucs2utf8(ucs, val);
+#ifndef DISABLE_TRACE
+		  if (htmlwTrace) {
+			fprintf(stderr,"&#%ud character: %s\n",ucs,val);
+		  }
+#endif
 			*tptr = tchar;
 			*endp = tptr;
 		}
 		else
 		{
-			val = (char)atoi((esc + 1));
+			ucs=atoi((esc + 1));
+			lng=ucs2utf8(ucs, val); 
 			*endp = (char *)(esc + strlen(esc));
+#ifndef DISABLE_TRACE
+		  if (htmlwTrace) {
+			fprintf(stderr,"&#%ud character: %s\n",ucs,val);
+		  }
+#endif
 		}
 	}
 	else
@@ -329,7 +381,13 @@ ExpandEscapes(esc, endp, termination)
 			ampLen = strlen(AmpEscapes[cnt].tag);
 			if ((escLen == ampLen) && (strncmp(esc, AmpEscapes[cnt].tag, ampLen) == 0))
 			{
-				val = AmpEscapes[cnt].value;
+				ucs = AmpEscapes[cnt].value;
+				lng=ucs2utf8(ucs, val);
+#ifndef DISABLE_TRACE
+			if (htmlwTrace) {	
+			         fprintf(stderr,"&%s; character:%s\n",esc,val);
+			}	
+#endif
 				*endp = (char *)(esc +
 					strlen(AmpEscapes[cnt].tag));
 				break;
@@ -343,12 +401,13 @@ ExpandEscapes(esc, endp, termination)
 				fprintf(stderr, "Error bad & string\n");
 			}
 #endif
-			val = '\0';
+			val[0] = '\0';
+			lng=0; 
 			*endp = (char *)NULL;
 		}
 	}
 
-	return(val);
+	return(lng);
 }
 
 
@@ -375,7 +434,9 @@ clean_text(txt)
 	char *text;
 	char *tend;
 	char tchar;
-	char val;
+	char val[4];
+	int lng;
+	int jj; 
 
 	if (txt == NULL)
 	{
@@ -460,9 +521,9 @@ clean_text(txt)
 		/*
 		 * Replace escape sequence with appropriate character
 		 */
-		val = ExpandEscapes(text, &tend,
-			((space_terminated << 1) + unterminated));
-		if (val != '\0')
+		lng = ExpandEscapes(text, &tend,
+				    ((space_terminated << 1) + unterminated), val);
+		if (lng>0)
 		{
 			if (unterminated)
 			{
@@ -475,7 +536,11 @@ clean_text(txt)
 			{
 				ptr--;
 			}
-			*ptr2 = val;
+			for (jj=0; jj<=lng-1; jj++)
+			{
+			        *ptr2 = val[jj];
+			         ptr2++;
+			}
 			unterminated = 0;
 			space_terminated = 0;
 		}
@@ -498,7 +563,7 @@ clean_text(txt)
 		 * Copy forward remaining text until you find the next
 		 * escape sequence
 		 */
-		ptr2++;
+		
 		ptr++;
 		while (*ptr != '\0')
 		{

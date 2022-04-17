@@ -450,7 +450,7 @@ CollectSubmitInfo(fptr, name_list, value_list)
 							= wptr->name;
 #ifdef MOTIF
 						XmStringGetLtoR(str_list[j],
-						    XmSTRING_DEFAULT_CHARSET,
+						    XmFONTLIST_DEFAULT_TAG,
 						    &val);
 #else
 						val = str_list[j];
@@ -486,7 +486,7 @@ CollectSubmitInfo(fptr, name_list, value_list)
 				argcnt++;
 				XtGetValues(child, arg, argcnt);
 				val = NULL;
-				XmStringGetLtoR(label, XmSTRING_DEFAULT_CHARSET,
+				XmStringGetLtoR(label, XmFONTLIST_DEFAULT_TAG,
 					&val);
 #else
 				XtVaGetValues(wptr->w, XtNlabel, &val, NULL);
@@ -1337,7 +1337,7 @@ CBResetForm(w, client_data, call_data)
 				    for (i=0; i<vlist_cnt; i++)
 				    {
 					val_list[i] =
-						XmStringCreateSimple(vlist[i]);
+						XmStringCreateLocalized(vlist[i]);
 				    }
 #else
 				    XawListUnhighlight(child);
@@ -2237,7 +2237,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			tptr = ParseMarkTag(text, MT_INPUT, "CHECKED");
 
 			/* We want no text on our toggles */
-			label = XmStringCreateSimple("");
+			label = XmStringCreateLocalized("");
 
 			argcnt = 0;
 			XtSetArg(arg[argcnt], XmNlabelString, label); argcnt++;
@@ -2304,7 +2304,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			}
 
 			/* We want no text on our toggles */
-			label = XmStringCreateSimple("");
+			label = XmStringCreateLocalized("");
 
 			argcnt = 0;
 			XtSetArg(arg[argcnt], XmNlabelString, label); argcnt++;
@@ -2355,7 +2355,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			argcnt++;*/
 			if (value != NULL)
 			{
-				label = XmStringCreateSimple(value);
+				label = XmStringCreateLocalized(value);
 				XtSetArg(arg[argcnt], XmNlabelString, label);
 				argcnt++;
 			}
@@ -2393,7 +2393,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			argcnt++;*/
 			if (value != NULL)
 			{
-				label = XmStringCreateSimple(value);
+				label = XmStringCreateLocalized(value);
 				XtSetArg(arg[argcnt], XmNlabelString, label);
 				argcnt++;
 			}
@@ -2425,7 +2425,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 			argcnt++; */
 			if (value != NULL)
 			{
-				label = XmStringCreateSimple(value);
+				label = XmStringCreateLocalized(value);
 				XtSetArg(arg[argcnt], XmNlabelString, label);
 				argcnt++;
 			}
@@ -2645,7 +2645,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 					char bname[30];
 
 					sprintf(bname, "Button%d", (i + 1));
-					label = XmStringCreateSimple(list[i]);
+					label = XmStringCreateLocalized(list[i]);
 					argcnt = 0;
 					XtSetArg(arg[argcnt], XmNlabelString,
 						label);
@@ -2722,7 +2722,7 @@ MakeWidget(hw, text, x, y, id, fptr)
 
                                 argcnt = 0;
 
-				xmstr = XmStringCreateSimple ("");
+				xmstr = XmStringCreateLocalized ("");
                                 XtSetArg(arg[argcnt], XmNlabelString,
                                          (XtArgVal)xmstr);
                                 argcnt++;
@@ -2763,12 +2763,12 @@ MakeWidget(hw, text, x, y, id, fptr)
 				for (i=0; i<list_cnt; i++)
 				{
 					string_list[i] =
-						XmStringCreateSimple(list[i]);
+						XmStringCreateLocalized(list[i]);
 				}
 				for (i=0; i<vlist_cnt; i++)
 				{
 					val_list[i] =
-						XmStringCreateSimple(vlist[i]);
+						XmStringCreateLocalized(vlist[i]);
 				}
 
 				FreeCommaList(list, list_cnt);

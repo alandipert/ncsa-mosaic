@@ -1121,10 +1121,22 @@ int yy;
 		XSetBackground(XtDisplay(hw), hw->html.drawGC, eptr->bg);
 		XSetForeground(XtDisplay(hw), hw->html.drawGC, eptr->fg);
 		XSetFont(XtDisplay(hw), hw->html.drawGC, field->font->fid);
-		XDrawString(XtDisplay(hw), XtWindow(hw->html.view),
-			hw->html.drawGC, placeX, placeY+baseLine,
-			field->formattedText[yy],
-			strlen(field->formattedText[yy]));
+		XmString ttd=XmStringCreateLocalized(field->formattedText[yy]);
+                XmFontList tftd=XmFontListCreate(field->font,XmSTRING_DEFAULT_CHARSET); 
+                XmStringDraw(XtDisplay(hw),
+                            XtWindow(hw->html.view),
+                            tftd,
+                            ttd,
+                            hw->html.drawGC,
+                            placeX,
+                            placeY+baseLine,
+                            XmStringWidth(tftd,ttd),
+                            XmALIGNMENT_BEGINNING,
+                            XmSTRING_DIRECTION_L_TO_R,
+                            NULL);
+               XmStringFree(ttd);
+               XmFontListFree(tftd); 
+
 
 		placeY += lineHeight;
 		}

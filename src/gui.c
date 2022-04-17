@@ -1218,7 +1218,7 @@ static void pointer_motion_callback (Widget w, char *href)
   } else
     href = " ";
 
-  xmstr = XmStringCreateSimple (href);
+  xmstr = XmStringCreateLocalized  (href);
   XtVaSetValues
     (win->tracker_label,
      XmNlabelString, (XtArgVal)xmstr,
@@ -1433,7 +1433,7 @@ void mo_gui_notify_progress (char *msg)
   if (!msg)
     msg = " ";
 
-  xmstr = XmStringCreateSimple (msg);
+  xmstr = XmStringCreateLocalized (msg);
   XtVaSetValues
     (win->tracker_label,
      XmNlabelString, (XtArgVal)xmstr,
@@ -2580,11 +2580,11 @@ Widget mo_fill_toolbar(mo_window *win, Widget top, int w, int h)
 		      &tmpFont,
 		      NULL);
 	if (!tmpFont) {
-		fprintf(stderr,"Toolbar Font: Could not load! The X Resource is Mosaic*ToolbarFont\nDefault font is: -adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso8859-1\nExiting Mosaic.");
+		fprintf(stderr,"Toolbar Font: Could not load! The X Resource is Mosaic*ToolbarFont\nDefault font is: -adobe-times-bold-r-normal-*-12-*-*-*-*-*-iso10646-1\nExiting Mosaic.");
 
 		exit(1);
 	}
-	tmpFontList = XmFontListCreate(tmpFont,XmSTRING_DEFAULT_CHARSET);
+	tmpFontList = XmFontListCreate(tmpFont,XmFONTLIST_DEFAULT_TAG);
     }
 
     /* Which tools to show */
