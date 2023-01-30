@@ -65,6 +65,30 @@ p_freebsd_static_motif: rm_and_touch
 q_freebsd_static_motif: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.freebsd q_static_motifd DEV_ARCH=freebsd
 
+dev_netbsd: rm_and_touch netbsd
+netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd DEV_ARCH=netbsd
+p_netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd purifyd DEV_ARCH=netbsd
+q_netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd quantifyd DEV_ARCH=netbsd
+
+dev_netbsd_static: rm_and_touch netbsd_static
+netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd staticd DEV_ARCH=netbsd
+p_netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd p_staticd DEV_ARCH=netbsd
+q_netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd q_staticd DEV_ARCH=netbsd
+
+dev_netbsd_static_motif: rm_and_touch netbsd_static_motif
+netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd static_motifd DEV_ARCH=netbsd
+p_netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd p_static_motifd DEV_ARCH=netbsd
+q_netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd q_static_motifd DEV_ARCH=netbsd
+
 dev_linux: rm_and_touch linux
 linux: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.linux DEV_ARCH=linux

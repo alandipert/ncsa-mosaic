@@ -143,7 +143,7 @@ static_xlibs = /usr/X11R6/lib/libXpm.a /usr/X11R6/lib/libXm.a /usr/X11R6/lib/lib
 # SAM pngincludedir = $(pngdir)/include
 # SAM pnglibs = $(pnglibdir)/libpng.a $(pnglibdir)/libz.a /usr/lib/libm.a
 # SAM pngflags =  -I$(pngincludedir) -DHAVE_PNG
-pnglibs = -lpng -lz -lm
+pnglibs = -lpng16 -lz -lm
 pngflags = -DHAVE_PNG
 
 #### JPEG SUPPORT
