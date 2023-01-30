@@ -75,7 +75,7 @@ syslibs = -lc
 #### BSD/386
 # xinc = -I/usr/X11/include
 
-#xinc = -I/usr/X11R6/include
+#xinc = -I/usr/X11R7/include
 xinc = -I/usr/X11R7/include
 
 #### X library locations.
@@ -98,11 +98,11 @@ xinc = -I/usr/X11R7/include
 #### For Linux -- You must set "LD_LIBRARY_PATH" to include the path to
 ####   your X libs, or some may not be found by the loader. Check the
 ####   loader with "ldd Mosaic" after you build.
-#xlibs = -L/usr/X11R6/lib -lXext -lXpm -lXm -lXmu -lXt -lX11 -lICE -lSM
-xlibs = -L/usr/local/lib -lXext -lXpm -lXm -lXmu -lXt -lX11 -lICE -lSM
+#xlibs = -L/usr/X11R7/lib -lXext -lXpm -lXm -lXmu -lXt -lX11 -lICE -lSM
+xlibs = -L/usr/X11R7/lib -L/usr/pkg/lib -lXext -lXpm -lXm -lXmu -lXt -lX11 -lICE -lSM
 
-static_motif_xlibs = -L/usr/X11R6/lib -lXext -lXpm /usr/X11R6/lib/libXm.a -lXmu -lXt -lX11 -lICE -lSM
-static_xlibs = /usr/X11R6/lib/libXpm.a /usr/X11R6/lib/libXm.a /usr/X11R6/lib/libXmu.a /usr/X11R6/lib/libXt.a /usr/X11R6/lib/libXext.a /usr/X11R6/lib/libX11.a /usr/X11R6/lib/libSM.a /usr/X11R6/lib/libICE.a
+static_motif_xlibs = -L/usr/X11R7/lib -lXext -lXpm -lXft /usr/pkg/lib/libXm.a -lXmu -lXt -lX11 -lICE -lSM
+static_xlibs = /usr/X11R7/lib/libXpm.a /usr/pkg/lib/libXm.a /usr/X11R7/lib/libXmu.a /usr/X11R7/lib/libXt.a /usr/X11R7/lib/libXext.a /usr/X11R7/lib/libX11.a /usr/X11R7/lib/libSM.a /usr/X11R7/lib/libICE.a /usr/X11R7/lib/libxcb.a /usr/X11R7/lib/libXfont.a /usr/X11R7/lib/libXau.a /usr/X11R7/lib/libXdmcp.a /usr/X11R7/lib/libXft.a /usr/X11R7/lib/libfontconfig.a /usr/X11R7/lib/libXrender.a /usr/X11R7/lib/libfreetype.a /usr/lib/libexpat.a /usr/X11R7/lib/libX11.a
 #### For BSD/386:
 # xlibs = -L/usr/X11/lib -lXm -lXmu -lXt -lX11
 #### For Motorola SVR4:
