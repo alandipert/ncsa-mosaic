@@ -16,6 +16,9 @@ dev_::
 	@echo "  freebsd -- x86 running freebsd DYNAMIC"
 	@echo "  freebsd-static -- x86 running freebsd ALL STATIC"
 	@echo "  freebsd-static-motif -- x86 running freebsd STATIC MOTIF"
+	@echo "  netbsd -- x86 running netbsd DYNAMIC"
+	@echo "  netbsd-static -- x86 running netbsd ALL STATIC"
+	@echo "  netbsd-static-motif -- x86 running netbsd STATIC MOTIF"
 	@echo "  linux -- x86 running Linux 1.2.13 DYNAMIC"
 	@echo "  linux-static -- x86 running Linux 1.2.13 ALL STATIC"
 	@echo "  linux-static-motif -- x86 running Linux 1.2.13 STATIC MOTIF"
@@ -61,6 +64,30 @@ p_freebsd_static_motif: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.freebsd p_static_motifd DEV_ARCH=freebsd
 q_freebsd_static_motif: rm_and_touch
 	$(MAKE) -f makefiles/Makefile.freebsd q_static_motifd DEV_ARCH=freebsd
+
+dev_netbsd: rm_and_touch netbsd
+netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd DEV_ARCH=netbsd
+p_netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd purifyd DEV_ARCH=netbsd
+q_netbsd: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd quantifyd DEV_ARCH=netbsd
+
+dev_netbsd_static: rm_and_touch netbsd_static
+netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd staticd DEV_ARCH=netbsd
+p_netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd p_staticd DEV_ARCH=netbsd
+q_netbsd_static: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd q_staticd DEV_ARCH=netbsd
+
+dev_netbsd_static_motif: rm_and_touch netbsd_static_motif
+netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd static_motifd DEV_ARCH=netbsd
+p_netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd p_static_motifd DEV_ARCH=netbsd
+q_netbsd_static_motif: rm_and_touch
+	$(MAKE) -f makefiles/Makefile.netbsd q_static_motifd DEV_ARCH=netbsd
 
 dev_linux: rm_and_touch linux
 linux: rm_and_touch
