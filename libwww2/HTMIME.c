@@ -235,6 +235,15 @@ PRIVATE void HTMIME_put_character ARGS2(HTStream *, me, char, c)
                   {
                     compressed = COMPRESSED_GNUZIP;
                   }
+		/* Sometimes the MIME type of *.bz2 files is abridged to application/bzip2 or application/x-bzip These cases must be treated. But for the moment, we only consider appplication/x-bzip2 */ 
+		else if (strcmp (me->compression_encoding, "x-bzip2") ==0)
+		  {
+		    compressed = COMPRESSED_BZ2; 
+		  }
+		else if  (strcmp (me->compression_encoding, "x-xz") ==0)
+		  {
+		    compressed = COMPRESSED_XZ; 
+		  }
                 else
                   {
 #ifndef DISABLE_TRACE

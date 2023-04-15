@@ -61,6 +61,7 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 #endif
 
   /* Punt if we can't handle it. */
+  /* For the moment, the code will return if the file is compressed with bzip2 or xz  */ 
   if (compressed != COMPRESSED_BIGZ && compressed != COMPRESSED_GNUZIP)
     return;
 
