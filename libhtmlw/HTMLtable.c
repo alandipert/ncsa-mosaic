@@ -1,6 +1,7 @@
 #include "../config.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <X11/Xlib.h>
 #include "HTMLP.h"
 #include "HTML.h"

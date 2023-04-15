@@ -54,6 +54,7 @@
 #include "../config.h"
 #include <X11/Intrinsic.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define RED     0
 #define GREEN   1
