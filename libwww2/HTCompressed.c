@@ -106,7 +106,7 @@ void HTCompressedFileToFile (char *fnam, int compressed)
     }
 
   HTProgress ("Uncompressing data.");
-
+  
   {
   int status,skip_output=0;
   char retBuf[BUFSIZ];

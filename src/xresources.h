@@ -168,9 +168,9 @@ static XtResource resources[] = {
       offset (track_visited_anchors), XtRString, "True" },
 
   { "uncompressCommand", "UncompressCommand", XtRString, sizeof (char *),
-      offset (uncompress_command), XtRString, "uncompress" },
+      offset (uncompress_command), XtRString, "uncompress.real" },
   { "gunzipCommand", "GunzipCommand", XtRString,
-      sizeof (char *), offset (gunzip_command), XtRString, "gunzip -f -n" },
+      sizeof (char *), offset (gunzip_command), XtRString, "gzip -d -f -n" },
 
 #if defined(__hpux)
   { "recordCommandLocation", "RecordCommandLocation", XtRString,
