@@ -85,7 +85,7 @@ PUBLIC void HTFormatInit NOARGS
       HTSetPresentation("audio/basic", "sfplay %s", 1.0, 3.0, 0.0);
       HTSetPresentation("audio/x-aiff", "sfplay %s", 1.0, 3.0, 0.0);
 #else /* not __sgi */
-#if defined(ultrix) || defined(__alpha)
+#if defined(ultrix) || defined(__alpha) || defined(linux) 
       HTSetPresentation("audio/basic", "aplay %s", 1.0, 3.0, 0.0);
       HTSetPresentation("audio/x-aiff", "aplay %s", 1.0, 3.0, 0.0);
 #else /* not ultrix or __alpha */

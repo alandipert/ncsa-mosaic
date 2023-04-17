@@ -282,6 +282,8 @@ char *global_xterm_str;  /* required for HTAccess.c now */
 
 char *uncompress_program;
 char *gunzip_program;
+char *bunzip_program;
+char *xunzip_program;
 
 int use_default_extension_map;
 char *global_extension_map;
@@ -4473,7 +4475,8 @@ splash_goto:
 
     uncompress_program = get_pref_string(eUNCOMPRESS_COMMAND);
     gunzip_program = get_pref_string(eGUNZIP_COMMAND);
-
+    bunzip_program = get_pref_string(eBUNZIP_COMMAND);
+    xunzip_program = get_pref_string(eXUNZIP_COMMAND);
     tweak_gopher_types = get_pref_boolean(eTWEAK_GOPHER_TYPES);
     max_wais_responses = get_pref_int(eMAX_WAIS_RESPONSES);
     ftp_timeout_val = get_pref_int(eFTP_TIMEOUT_VAL);

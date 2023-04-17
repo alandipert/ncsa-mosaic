@@ -38,7 +38,7 @@ int is_uncompressed=0;
 
 extern char *mo_tmpnam (char *);
 extern void application_user_feedback (char *);
-extern char *uncompress_program, *gunzip_program;
+extern char *uncompress_program, *gunzip_program,*bunzip_program,*xunzip_program;
 
 extern void HTFileCopyToText (FILE *fp, HText *text);
 
@@ -99,12 +99,21 @@ void HTCompressedFileToFile (char *fnam, int compressed)
       cmd = (char *)malloc(strlen(uncompress_program)+strlen(znam)+8);
       sprintf (cmd, "%s %s", uncompress_program, znam);
     }
-  else
+  else if (compressed == COMPRESSED_GNUZIP) 
     {
       cmd = (char *)malloc (strlen (gunzip_program) + strlen (znam) + 8);
       sprintf (cmd, "%s %s", gunzip_program, znam);
     }
-
+  else if (compressed == COMPRESSED_BZ2)
+    {
+      cmd =(char *)malloc (strlen(bunzip_program)+strlen(znam) +8);
+      sprintf (cmd, "%s %s", bunzip_program, znam);
+    }
+  else
+    {
+      cmd =(char *)malloc (strlen(xunzip_program)+strlen(znam) +8);
+      sprintf (cmd, "%s %s", xunzip_program, znam);
+    }
   HTProgress ("Uncompressing data.");
   
   {

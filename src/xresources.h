@@ -171,7 +171,10 @@ static XtResource resources[] = {
       offset (uncompress_command), XtRString, "uncompress.real" },
   { "gunzipCommand", "GunzipCommand", XtRString,
       sizeof (char *), offset (gunzip_command), XtRString, "gzip -d -f -n" },
-
+  { "bunzipCommand", "BunzipCommand", XtRString,
+      sizeof (char *), offset (bunzip_command), XtRString, "bzip2 -d -f" },
+  { "xunzipCommand", "XunzipCommand", XtRString,
+      sizeof (char *), offset (xunzip_command), XtRString, "xz -d -f" },
 #if defined(__hpux)
   { "recordCommandLocation", "RecordCommandLocation", XtRString,
       sizeof (char *), offset (record_command_location), XtRString,
