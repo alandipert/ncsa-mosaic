@@ -1012,7 +1012,7 @@ char buf[BUFSIZ];
 
 static XmxCallback (url_field_cb)
 {
-  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
+  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data)); 
   char *url,*xurl;
   XmTextVerifyCallbackStruct *cbs = (XmTextVerifyCallbackStruct *) call_data;
 
@@ -1660,7 +1660,7 @@ void mo_presentation_mode(mo_window *win) {
 static XmxEventHandler (mo_view_keypress_handler)
 {
 /*  char url[128]; /* buffer for news io */
-  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
+  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data)); 
   int _bufsize = 3, _count;
   char _buffer[3];
   KeySym _key;
