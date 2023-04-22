@@ -61,8 +61,8 @@ void HTCompressedFileToFile (char *fnam, int compressed)
 #endif
 
   /* Punt if we can't handle it. */
-  /* For the moment, the code will return if the file is compressed with bzip2 or xz  */ 
-  if (compressed != COMPRESSED_BIGZ && compressed != COMPRESSED_GNUZIP)
+
+  if (compressed != COMPRESSED_BIGZ && compressed != COMPRESSED_GNUZIP && compressed != COMPRESSED_BZ2 && compressed !=COMPRESSED_XZ)
     return;
 
   HTProgress ("Preparing to uncompress data.");
@@ -72,9 +72,12 @@ void HTCompressedFileToFile (char *fnam, int compressed)
   /* Either compressed or gzipped. */
   if (compressed == COMPRESSED_BIGZ)
     sprintf (znam, "%s.Z", fnam);
-  else
+  else if (compressed == COMPRESSED_GNUZIP)
     sprintf (znam, "%s.gz", fnam);
-
+  else if (compressed == COMPRESSED_BZ2) 
+     sprintf (znam, "%s.bz2", fnam);
+   else 
+    sprintf (znam, "%s.xz", fnam);
 /*SWP -- New "mv" fucntion to take care of these /bin/mv things*/
   {
   char retBuf[BUFSIZ];
@@ -197,7 +200,7 @@ void HTCompressedHText (HText *text, int compressed, int plain)
 #endif
 
   /* Punt if we can't handle it. */
-  if (compressed != COMPRESSED_BIGZ && compressed != COMPRESSED_GNUZIP)
+  if (compressed != COMPRESSED_BIGZ && compressed != COMPRESSED_GNUZIP && compressed != COMPRESSED_XZ && compressed != COMPRESSED_BZ2)
     return;
 
   /* Hmmmmmmmmm, I'm not sure why we subtract 1 here, but it is
