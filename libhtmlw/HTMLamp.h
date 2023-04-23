@@ -428,13 +428,13 @@ static AmpEsc AmpEscapes[] = {
   {"NotSquareSubsetEqual",8930},
   {"NotSquareSuperset",8848},
   {"NotSquareSupersetEqual",8931},
-  {"NotSubset",8834, 8402},
+  {"NotSubset",8834, 8402}, /* 2char */
   {"NotSubsetEqual",8840},
   {"NotSucceeds",8833},
   {"NotSucceedsEqual",10928},
   {"NotSucceedsSlantEqual",8929},
   {"NotSucceedsTilde",8831},
-  {"NotSuperset",8835, 8402},
+  {"NotSuperset",8835, 8402}, /* 2char */
   {"NotSupersetEqual",8841},
   {"NotTilde",8769},
   {"NotTildeEqual",8772},
@@ -584,7 +584,7 @@ static AmpEsc AmpEscapes[] = {
   {"SupersetEqual",8839},
   {"Supset",8913},
   {"THORN",222},
-  {"THORN",222},
+  {"Thorn",222},
   {"TRADE",8482},
   {"TSHcy",1035},
   {"TScy",1062},
@@ -596,7 +596,7 @@ static AmpEsc AmpEscapes[] = {
   {"Tfr",120087},
   {"Therefore",8756},
   {"Theta",920},
-  {"ThickSpace",8287, 8202},
+  {"ThickSpace",160}, /* space of width 5/18 em -> &nbsp; */ 
   {"ThinSpace",8201},
   {"Tilde",8764},
   {"TildeEqual",8771},
@@ -697,7 +697,7 @@ static AmpEsc AmpEscapes[] = {
   {"aacute",225},
   {"abreve",259},
   {"ac",8766},
-  {"acE",8766, 819},
+  /*  {"acE",8766, 819}, INVERTED LAZY S with double underline (2 chars) */ 
   {"acd",8767},
   {"acirc",226},
   {"acirc",226},
@@ -810,8 +810,8 @@ static AmpEsc AmpEscapes[] = {
   {"blk14",9617},
   {"blk34",9619},
   {"block",9608},
-  {"bne",61, 8421},
-  {"bnequiv",8801, 8421},
+  {"bne",8800}, /* 2char replaced by single char */
+  {"bnequiv",8802}, /* 2char replaced by single char nequiv */
   {"bnot",8976},
   {"bopf",120147},
   {"bot",8869},
@@ -885,7 +885,8 @@ static AmpEsc AmpEscapes[] = {
   {"capcap",10827},
   {"capcup",10823},
   {"capdot",10816},
-  {"caps",8745, 65024},
+  {"caps",8745}, 
+  /*  was {"caps",8745, 65024},INTERSECTION with serifs (2chars) */ 
   {"caret",8257},
   {"caron",711},
   {"ccaps",10829},
@@ -961,7 +962,8 @@ static AmpEsc AmpEscapes[] = {
   {"cupcup",10826},
   {"cupdot",8845},
   {"cupor",10821},
-  {"cups",8746, 65024},
+  {"cups",8746}, 
+  /*  was {"cups",8746, 65024}, UNION with serifs (2chars) */ 
   {"curarr",8631},
   {"curarrm",10556},
   {"curlyeqprec",8926},
@@ -1118,7 +1120,7 @@ static AmpEsc AmpEscapes[] = {
   {"ffllig",64260},
   {"ffr",120099},
   {"filig",64257},
-  {"fjlig",102, 106},
+  /*  {"fjlig",102, 106}, fj ligature is 2 chars */ 
   {"flat",9837},
   {"fllig",64258},
   {"fltns",9649},
@@ -1169,7 +1171,7 @@ static AmpEsc AmpEscapes[] = {
   {"gesdot",10880},
   {"gesdoto",10882},
   {"gesdotol",10884},
-  {"gesl",8923, 65024},
+  /*  {"gesl",8923, 65024}, GREATER-THAN slanted EQUAL TO OR LESS-THAN */ 
   {"gesles",10900},
   {"gfr",120100},
   {"gg",8811},
@@ -1207,8 +1209,8 @@ static AmpEsc AmpEscapes[] = {
   {"gtreqqless",10892},
   {"gtrless",8823},
   {"gtrsim",8819},
-  {"gvertneqq",8809, 65024},
-  {"gvnE",8809, 65024},
+  {"gvertneqq",8809}, /* GREATER-THAN BUT NOT EQUAL TO - with vertical stroke */
+  {"gvnE",8809},/* GREATER-THAN BUT NOT EQUAL TO - with vertical stroke */
   {"hArr",8660},
   {"hairsp",8202},
   {"half",189},
@@ -1340,7 +1342,7 @@ static AmpEsc AmpEscapes[] = {
   {"lat",10923},
   {"latail",10521},
   {"late",10925},
-  {"lates",10925, 65024},
+  {"lates",10925}, /* LARGER THAN OR slanted EQUAL (2 char) */ 
   {"lbarr",10508},
   {"lbbrk",10098},
   {"lbrace",123},
@@ -1379,7 +1381,7 @@ static AmpEsc AmpEscapes[] = {
   {"lesdot",10879},
   {"lesdoto",10881},
   {"lesdotor",10883},
-  {"lesg",8922, 65024},
+  /*  {"lesg",8922, 65024}, LESS-THAN slanted EQUAL TO OR GREATER-THAN */
   {"lesges",10899},
   {"lessapprox",10885},
   {"lessdot",8918},
@@ -1463,8 +1465,8 @@ static AmpEsc AmpEscapes[] = {
   {"ltrif",9666},
   {"lurdshar",10570},
   {"luruhar",10598},
-  {"lvertneqq",8808, 65024},
-  {"lvnE",8808, 65024},
+  {"lvertneqq",8808}, /*LESS-THAN BUT NOT EQUAL TO - with vertical stroke */ 
+  {"lvnE",8808},/*LESS-THAN BUT NOT EQUAL TO - with vertical stroke */ 
   {"mDDot",8762},
   {"macr",175},
   {"macr",175},
@@ -1506,19 +1508,19 @@ static AmpEsc AmpEscapes[] = {
   {"multimap",8888},
   {"mumap",8888},
   {"nGg",8921},
-  {"nGt",8811, 8402},
-  {"nGtv",8811},
+  {"nGt",8811}, /* MUCH GREATER THAN with vertical line */ 
+  {"nGtv",8811}, /* MUCH GREATER THAN with slash */
   {"nLeftarrow",8653},
   {"nLeftrightarrow",8654},
-  {"nLl",8920},
-  {"nLt",8810, 8402},
-  {"nLtv",8810},
+  /* {"nLl",8920}, VERY MUCH LESS-THAN with slash */ 
+  /*  {"nLt",8810, 8402}, MUCH LESS THAN with vertical line
+      {"nLtv",8810}, MUCH LESS THAN with slash */ 
   {"nRightarrow",8655},
   {"nVDash",8879},
   {"nVdash",8878},
   {"nabla",8711},
   {"nacute",324},
-  {"nang",8736, 8402},
+  {"nang",8736}, /* ANGLE with vertical line -> ANGLE */ 
   {"nap",8777},
   {"napE",10864},
   {"napid",8779},
@@ -1600,7 +1602,7 @@ static AmpEsc AmpEscapes[] = {
   {"notnivc",8957},
   {"npar",8742},
   {"nparallel",8742},
-  {"nparsl",11005, 8421},
+  {"nparsl",11005}, /* DOUBLE SOLIDUS OPERATOR with reverse slash */ 
   {"npart",8706},
   {"npolint",10772},
   {"npr",8832},
@@ -1655,18 +1657,18 @@ static AmpEsc AmpEscapes[] = {
   {"numsp",8199},
   {"nvDash",8877},
   {"nvHarr",10500},
-  {"nvap",8781, 8402},
+  {"nvap",8802}, /* EQUIVALENT TO with vertical line -> NOT EQUIVALENT */ 
   {"nvdash",8876},
-  {"nvge",8805, 8402},
-  {"nvgt",62, 8402},
+  {"nvge",8817}, /* GREATER-THAN OR EQUAL TO with vertical line -> &nge; */ 
+  {"nvgt",8815}, /* replace with &ngt; */ 
   {"nvinfin",10718},
   {"nvlArr",10498},
-  {"nvle",8804, 8402},
-  {"nvlt",60, 8402},
-  {"nvltrie",8884, 8402},
+  {"nvle",8816}, /* replace with &nle; */ 
+  {"nvlt",8814},/* replace with &nlt; */ 
+  {"nvltrie",8940}, /*NORMAL SUBGROUP OF OR EQUAL TO with vertical line */
   {"nvrArr",10499},
-  {"nvrtrie",8885, 8402},
-  {"nvsim",8764, 8402},
+  {"nvrtrie",8941}, /* CONTAINS AS NORMAL SUBGROUP OR EQUAL TO with vertical line */
+  {"nvsim",8769}, /* TILDE OPERATOR with vertical line */
   {"nwArr",8662},
   {"nwarhk",10531},
   {"nwarr",8598},
@@ -1817,7 +1819,7 @@ static AmpEsc AmpEscapes[] = {
   {"rAtail",10524},
   {"rBarr",10511},
   {"rHar",10596},
-  {"race",8765, 817},
+  /*  {"race",8765, 817}, REVERSED TILDE with underline */ 
   {"racute",341},
   {"radic",8730},
   {"raemptyv",10675},
@@ -1987,9 +1989,9 @@ static AmpEsc AmpEscapes[] = {
   {"spadesuit",9824},
   {"spar",8741},
   {"sqcap",8851},
-  {"sqcaps",8851},
+  {"sqcaps",8851}, /* ENTITY sqcaps (SQUARE CAP with serifs) is 2 chars */ 
   {"sqcup",8852},
-  {"sqcups",8852},
+  {"sqcups",8852}, /* ENTITY sqcups (SQUARE CUP with serifs) is 2 chars */ 
   {"sqsub",8847},
   {"sqsube",8849},
   {"sqsubset",8847},
@@ -2198,9 +2200,9 @@ static AmpEsc AmpEscapes[] = {
   {"varr",8597},
   {"varrho",1009},
   {"varsigma",962},
-  {"varsubsetneq",8842},
-  {"varsubsetneqq",10955},
-  {"varsupsetneq",8843},
+  {"varsubsetneq",8842},  /* really 2 char entity  */  
+  {"varsubsetneqq",10955}, /* really 2 char entity  */  
+  {"varsupsetneq",8843}, /* really 2 char entity  */  
   {"varsupsetneqq",10956},
   {"vartheta",977},
   {"vartriangleleft",8882},
