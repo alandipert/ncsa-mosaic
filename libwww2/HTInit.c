@@ -85,7 +85,7 @@ PUBLIC void HTFormatInit NOARGS
       HTSetPresentation("audio/basic", "sfplay %s", 1.0, 3.0, 0.0);
       HTSetPresentation("audio/x-aiff", "sfplay %s", 1.0, 3.0, 0.0);
 #else /* not __sgi */
-#if defined(ultrix) || defined(__alpha)
+#if defined(ultrix) || defined(__alpha) || defined(linux) 
       HTSetPresentation("audio/basic", "aplay %s", 1.0, 3.0, 0.0);
       HTSetPresentation("audio/x-aiff", "aplay %s", 1.0, 3.0, 0.0);
 #else /* not ultrix or __alpha */
@@ -93,7 +93,7 @@ PUBLIC void HTFormatInit NOARGS
       HTSetPresentation("audio/x-aiff", "showaudio %s", 1.0, 3.0, 0.0);
 #endif /* not ultrix or __alpha */
 #endif /* not __sgi */
-
+#if !defined(linux)         
       HTSetPresentation("image/gif", "xv %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/jpeg", "xv %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/png", "xv %s", 1.0, 3.0, 0.0);
@@ -107,20 +107,42 @@ PUBLIC void HTFormatInit NOARGS
       HTSetPresentation("image/rgb", "xv %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/x-xbitmap", "xv %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/x-xpixmap", "xv %s", 1.0, 3.0, 0.0); /* ?? */
-
+#else /* Ubuntu Linux uses display instead of xv. Others: eom, eog, fbida... */ 
+      HTSetPresentation("image/gif", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/jpeg", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/png", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-png", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/tiff", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-portable-anymap", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-portable-bitmap", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-portable-graymap", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-portable-pixmap", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-rgb", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/rgb", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-xbitmap", "display %s", 1.0, 3.0, 0.0);
+      HTSetPresentation("image/x-xpixmap", "display %s", 1.0, 3.0, 0.0);
+#endif
+      
       HTSetPresentation("image/xwd", "xwud -in %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/x-xwd", "xwud -in %s", 1.0, 3.0, 0.0);
       HTSetPresentation("image/x-xwindowdump", "xwud -in %s", 1.0, 3.0, 0.0);
-
+#if !defined(linux) 
       HTSetPresentation("video/mpeg", "mpeg_play %s", 1.0, 3.0, 0.0);
+#else /* Ubuntu Linux uses mpv. Other choices vlc, xine ... */ 
+       HTSetPresentation("video/mpeg", "mpv %s", 1.0, 3.0, 0.0);
+       HTSetPresentation("video/quicktime", "mpv -f %s", 1.0, 3.0, 0.0);
+#endif
 #ifdef __sgi
       HTSetPresentation("video/quicktime", "movieplayer -f %s", 1.0, 3.0, 0.0); /* sgi */
       HTSetPresentation("video/x-sgi-movie", "movieplayer -f %s", 1.0, 3.0, 0.0); /* sgi */
 #endif
-
+#if !defined(linux) 
       HTSetPresentation("application/postscript", "ghostview %s", 1.0, 3.0, 0.0);
+#else
+      HTSetPresentation("application/postscript", "gv %s", 1.0, 3.0, 0.0);
+#endif
       HTSetPresentation("application/x-dvi", "xdvi %s", 1.0, 3.0, 0.0);
-
+      /* This works with Slackware, but not Ubuntu */ 
       HTSetPresentation("message/rfc822",
                         "xterm -e metamail %s", 1.0, 3.0, 0.0);
 

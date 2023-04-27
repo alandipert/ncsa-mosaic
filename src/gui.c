@@ -282,6 +282,8 @@ char *global_xterm_str;  /* required for HTAccess.c now */
 
 char *uncompress_program;
 char *gunzip_program;
+char *bunzip_program;
+char *xunzip_program;
 
 int use_default_extension_map;
 char *global_extension_map;
@@ -1010,7 +1012,7 @@ char buf[BUFSIZ];
 
 static XmxCallback (url_field_cb)
 {
-  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
+  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data)); 
   char *url,*xurl;
   XmTextVerifyCallbackStruct *cbs = (XmTextVerifyCallbackStruct *) call_data;
 
@@ -1658,7 +1660,7 @@ void mo_presentation_mode(mo_window *win) {
 static XmxEventHandler (mo_view_keypress_handler)
 {
 /*  char url[128]; /* buffer for news io */
-  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data));
+  mo_window *win = mo_fetch_window_by_id (XmxExtractUniqid ((int)client_data)); 
   int _bufsize = 3, _count;
   char _buffer[3];
   KeySym _key;
@@ -4473,7 +4475,8 @@ splash_goto:
 
     uncompress_program = get_pref_string(eUNCOMPRESS_COMMAND);
     gunzip_program = get_pref_string(eGUNZIP_COMMAND);
-
+    bunzip_program = get_pref_string(eBUNZIP_COMMAND);
+    xunzip_program = get_pref_string(eXUNZIP_COMMAND);
     tweak_gopher_types = get_pref_boolean(eTWEAK_GOPHER_TYPES);
     max_wais_responses = get_pref_int(eMAX_WAIS_RESPONSES);
     ftp_timeout_val = get_pref_int(eFTP_TIMEOUT_VAL);
