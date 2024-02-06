@@ -206,7 +206,7 @@ krblibs   = $(krb4libs) $(krb5libs)
 #### . If you want to define the default Mosaic documentation directory
 ####   (should be a URL), set -DDOCS_DIRECTORY_DEFAULT=\\\"url\\\"
 #### . Other things you can define are spelled out in src/mosaic.h.
-customflags =
+customflags = -fcommon
 
 
 
