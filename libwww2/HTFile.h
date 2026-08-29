@@ -139,6 +139,9 @@ HTFileFormat: Get Representation and Encoding from file name
 #define COMPRESSED_NOT    0
 #define COMPRESSED_BIGZ   1
 #define COMPRESSED_GNUZIP 2
+#define COMPRESSED_BZ2    3
+#define COMPRESSED_XZ     4
+
 
 extern HTFormat HTFileFormat PARAMS((
                 char *    filename,

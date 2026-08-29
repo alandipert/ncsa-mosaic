@@ -418,7 +418,7 @@ PUBLIC HTFormat HTFileFormat ARGS4 (
         }
       else if (lf > 3)
         {
-          if (strcmp (&(filename[lf-3]), ".gz") == 0)
+	  if (strcmp (&(filename[lf-3]), ".gz") == 0)
             {
               *compressed = COMPRESSED_GNUZIP;
               filename[lf-3] = '\0';
@@ -431,8 +431,39 @@ PUBLIC HTFormat HTFileFormat ARGS4 (
 #endif
               goto ok_ready;
             }
-        }
-    }
+          else if (strcmp (&(filename[lf-3]), ".xz") == 0)
+            {
+              *compressed = COMPRESSED_XZ;
+              filename[lf-3] = '\0';
+              lf = strlen (filename);
+#ifndef DISABLE_TRACE
+              if (www2Trace)
+                fprintf (stderr,
+                         "[HTFileFormat] Got hit on .gz; filename '%s'\n",
+                         filename);
+#endif
+              goto ok_ready;
+            }
+	  else if (lf > 4)
+	    {
+	      if (strcmp (&(filename[lf-4]), ".bz2") == 0)
+		{
+		  *compressed = COMPRESSED_BZ2;
+		  filename[lf-4] = '\0';
+		  lf = strlen (filename);
+#ifndef DISABLE_TRACE
+	      if (www2Trace)
+		fprintf (stderr,
+                         "[HTFileFormat] Got hit on .gz; filename '%s'\n",
+                         filename);
+#endif
+              goto ok_ready;
+		}
+	    }
+	}
+	  
+    } 
+
 
  ok_ready:
   if (!HTSuffixes)

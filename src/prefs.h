@@ -147,6 +147,8 @@ typedef struct
     char *print_command;
     char *uncompress_command;
     char *gunzip_command;
+    char *bunzip_command;
+    char *xunzip_command;
     Boolean use_default_extension_map;
     Boolean use_default_type_map;
     char *global_extension_map;

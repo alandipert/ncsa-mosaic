@@ -53,6 +53,7 @@
  ****************************************************************************/
 #include "../config.h"
 #include <stdio.h>
+#include <stdlib.h> 
 #include "HTML.h"
 
 #ifndef DISABLE_TRACE

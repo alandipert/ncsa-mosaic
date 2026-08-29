@@ -54,6 +54,7 @@
 #include "../config.h"
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "HTMLP.h"
 #include "NoImage.xbm"
 #include "DelayedImage.xbm"

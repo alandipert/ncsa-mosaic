@@ -410,6 +410,8 @@ static Boolean write_preferences_file(prefsStructP inPrefsStruct) {
     write_pref_string(fp, ePRINT_COMMAND, "PRINT_COMMAND");
     write_pref_string(fp, eUNCOMPRESS_COMMAND, "UNCOMPRESS_COMMAND");
     write_pref_string(fp, eGUNZIP_COMMAND, "GUNZIP_COMMAND");
+    write_pref_string(fp, eBUNZIP_COMMAND, "BUNZIP_COMMAND");
+    write_pref_string(fp, eXUNZIP_COMMAND, "XUNZIP_COMMAND");
     write_pref_boolean(fp, eUSE_DEFAULT_EXTENSION_MAP, "USE_DEFAULT_EXTENSION_MAP");
     write_pref_boolean(fp, eUSE_DEFAULT_TYPE_MAP, "USE_DEFAULT_TYPE_MAP");
     write_pref_string(fp, eGLOBAL_EXTENSION_MAP, "GLOBAL_EXTENSION_MAP");
@@ -678,6 +680,12 @@ void *get_pref(long pref_id) {
         case  eGUNZIP_COMMAND:
             return (void *)(thePrefsStructP->RdataP->gunzip_command);
             break;
+        case  eBUNZIP_COMMAND:
+            return (void *)(thePrefsStructP->RdataP->bunzip_command);
+            break;
+	case  eXUNZIP_COMMAND:
+            return (void *)(thePrefsStructP->RdataP->xunzip_command);
+            break;    
         case  eUSE_DEFAULT_EXTENSION_MAP:
             return (void *)&(thePrefsStructP->RdataP->use_default_extension_map);
             break;

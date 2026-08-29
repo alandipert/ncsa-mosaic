@@ -87,6 +87,7 @@
 *  this originaly comes from Colas Nahaboo as a part of Wool                  *
 *                                                                             *
 \*****************************************************************************/
+#include <stdlib.h>
 
 #include "xpm.h"
 

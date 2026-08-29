@@ -20,7 +20,7 @@ RANLIB = ranlib
 CC = gcc
 
 #### Linker Flags
-ldflags =
+ldflags = -z muldefs
 
 #### For a few files in the source, some compilers may need to be kicked
 #### in K&R mode.  E.g., on SGI's, -cckr does this.
